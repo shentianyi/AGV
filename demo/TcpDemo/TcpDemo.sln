@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpDemoWPF", "TcpDemoWPF\TcpDemoWPF.csproj", "{E8E4299A-337C-42BE-AFA9-565CFEFF234D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brilliantech.Framwork", "..\..\Brilliantech.Framwork\Brilliantech.Framwork.csproj", "{9B5F850A-5136-4095-8955-6C4F7747C48A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8E4299A-337C-42BE-AFA9-565CFEFF234D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8E4299A-337C-42BE-AFA9-565CFEFF234D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8E4299A-337C-42BE-AFA9-565CFEFF234D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8E4299A-337C-42BE-AFA9-565CFEFF234D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5F850A-5136-4095-8955-6C4F7747C48A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5F850A-5136-4095-8955-6C4F7747C48A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5F850A-5136-4095-8955-6C4F7747C48A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5F850A-5136-4095-8955-6C4F7747C48A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
