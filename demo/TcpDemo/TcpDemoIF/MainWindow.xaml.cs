@@ -31,10 +31,10 @@ namespace TcpDemoIF
 
         }
         private static byte[] buf = new byte[1024];
-
+ Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private void MakeConnect_Click(object sender, RoutedEventArgs e)
         {
-            Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+         //   Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             SocketTcp.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080));
             MessageBox.Show("建立连接成功");
 
@@ -43,9 +43,9 @@ namespace TcpDemoIF
 
         private void CallingCar_Click(object sender, RoutedEventArgs e)
         {
-            Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            SocketTcp.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080));
-            MessageBox.Show("建立连接成功");
+           
+           // SocketTcp.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080));
+        //    MessageBox.Show("建立连接成功");
             // string name = "0xFF 0xFF  0x 0x01 0x01 0x01 0x0A 0x02  0xFF 0xFE 0x09 0x08 0x07 0x01 0x09 0x09 0x0A 0x0B";
            
             byte[] nameBuf = Encoding.UTF8.GetBytes("hello server");
