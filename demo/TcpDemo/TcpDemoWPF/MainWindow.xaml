@@ -8,6 +8,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button x:Name="LogBtn" Content="Write Log" HorizontalAlignment="Left" Margin="35,23,0,0" VerticalAlignment="Top" Width="83" Height="35" Click="LogBtn_Click"/>
+        <Button x:Name="MakeConnection" Content="建立链接" HorizontalAlignment="Left" Margin="35,86,0,0" VerticalAlignment="Top" Width="75" Click="MakeConnection_Click"/>
 
     </Grid>
 </Window>
