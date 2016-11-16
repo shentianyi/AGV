@@ -68,13 +68,16 @@ namespace TcpDemoWPF
                     
                     string means = readMessage(serverResponse);
                     MessageBox.Show(means);
+                    LogUtil.Logger.Info(means);
 
                     //SocketTcpAccept.Send(Encoding.Unicode.GetBytes(serverResponse));
                 }
                 catch(Exception ee)
                 {
-                    MessageBox.Show(ee.Message);
                     SocketTcpAccept.Close();
+                    MessageBox.Show(ee.Message);
+                    LogUtil.Logger.Info(ee.Message);
+                    
                    
                 }
             }
@@ -85,7 +88,8 @@ namespace TcpDemoWPF
         {
 
             //string name = "FF FF 12 00 01 01 01 01 05 48 65 6C 6C 6F 0A 0B 0B 0B 01  09 08  0A 0B";
-            
+
+           // string name = "FF FF 08 00 01 02 01 01 01  09 08  0A 0B";
             byte[] MessageBytes = ScaleConvertor.HexStringToHexByte(message);
             //定义指令头
             string head = "FF FF";
@@ -95,13 +99,15 @@ namespace TcpDemoWPF
             byte[] ends = ScaleConvertor.HexStringToHexByte(end);
             //指令类型          
             string TypeMean = "";
-            string MessageId = "第" + MessageBytes[3].ToString() + MessageBytes[4].ToString() + "条";
-            int MessageCount = MessageBytes.Count();// MessageBytes[2]+5;
-            
+            string MessageId = "第 " + MessageBytes[3].ToString() + MessageBytes[4].ToString() + " 条";
+            int MessageCount = MessageBytes.Count();
             //定义CRC校验
             byte[] CRC = new byte[2] { MessageBytes[MessageCount - 4], MessageBytes[MessageCount - 3] };
             //是否通过CRC校验
             bool CRCpass = ScaleConvertor.IsCrc16Good(CRC);
+            string mean = "";
+            string CarNr = "小车编号: ";
+            string FailureReason = "";
 
             //判断指令头和指令我ie
             if (MessageBytes[0] == heads[0] && MessageBytes[1] == heads[1] && MessageBytes[MessageCount - 2] == ends[0] && MessageBytes[MessageCount - 1] == ends[1])
@@ -114,7 +120,7 @@ namespace TcpDemoWPF
 
                             TypeMean = "呼唤小车的指令，";
                             string BoxType = "";
-                            string mean = "";
+                            
                             string CallingWorkstation = "呼唤工位为" + MessageBytes[7] + ",";
                             string Ctx = "条码内容为:";
                             char CtxContext = new char();
@@ -126,7 +132,7 @@ namespace TcpDemoWPF
 
 
 
-                            switch (MessageBytes[7])
+                            switch (MessageBytes[6])
                             {
                                 case (byte)01: BoxType = "大箱，"; break;
                                 case (byte)02: BoxType = "小箱，"; break;
@@ -145,7 +151,40 @@ namespace TcpDemoWPF
 
                         }
 
-                    case (byte)02: TypeMean = "呼唤小车响应"; break;
+                    case (byte)02:
+                        {
+                            TypeMean = "呼唤小车响应";
+                            string SuccessOrFailure = "";
+                            CarNr = CarNr + MessageBytes[7] + "。";
+                            switch (MessageBytes[6])
+                            {
+                                case (byte)01:
+                                    {
+                                        SuccessOrFailure = "指令成功,";
+                                        mean = MessageId + TypeMean + SuccessOrFailure + CarNr;
+                                        
+                                    }break;
+
+
+                                case (byte)02:
+                                    {
+                                        SuccessOrFailure = "指令失败，";
+                                        switch (MessageBytes[8])
+                                        {
+                                            case (byte)01: FailureReason = "失败原因：小车未响应"; break;
+                                            case (byte)02: FailureReason = "失败原因：工位未设置"; break;
+                                            case (byte)255: FailureReason = "失败原因：未知"; break;
+                                            default: FailureReason = "失败原因：未知错误"; break;
+                                        }
+                                        mean = MessageId + TypeMean + SuccessOrFailure + CarNr + FailureReason;                                       
+                                    }break;
+                                default: SuccessOrFailure = "未知";break;
+
+                            }
+                            return mean;
+                        }
+
+
                     case (byte)03: TypeMean = "小车出发"; break;
                     case (byte)04: TypeMean = "小车出发响应"; break;
                     case (byte)05: TypeMean = "小车状态"; break;
