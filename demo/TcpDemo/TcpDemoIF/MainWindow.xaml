@@ -10,6 +10,8 @@
         <Button x:Name="MakeConnect" Content="建立链接" HorizontalAlignment="Left" Margin="63,45,0,0" VerticalAlignment="Top" Width="75" Click="MakeConnect_Click"/>
         <Button x:Name="CallingCar" Content="呼唤小车" HorizontalAlignment="Left" Margin="63,100,0,0" VerticalAlignment="Top" Width="75" Click="CallingCar_Click"/>
         <Button x:Name="CallingCarResponse" Content="呼唤小车响应" HorizontalAlignment="Left" Margin="63,144,0,0" VerticalAlignment="Top" Width="75" Click="CallingCarResponse_Click"/>
+        <Button x:Name="CarArriving" Content="小车到达" HorizontalAlignment="Left" Margin="63,196,0,0" VerticalAlignment="Top" Width="75" Click="CarArriving_Click"/>
+        <Button x:Name="CarStart" Content="小车出发" HorizontalAlignment="Left" Margin="63,239,0,0" VerticalAlignment="Top" Width="75" Click="CarStart_Click"/>
 
     </Grid>
 </Window>

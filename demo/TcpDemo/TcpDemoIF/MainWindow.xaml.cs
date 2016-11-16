@@ -52,6 +52,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
             
             SocketTcp.Send(nameBuf,nameBuf.Length,SocketFlags.None);
+            name = null;
 
         }
 
@@ -62,6 +63,27 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void CarArriving_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 07 00 01 06 01 01 09 08  0A 0B";
+
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void CarStart_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 07 00 01 03 01 01 09 08  0A 0B";
+
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
         }
     }
 }

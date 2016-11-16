@@ -60,8 +60,8 @@ namespace TcpDemoWPF
         {
                 try
                 {
-                   
-                    //serversay = null;
+
+                    
                     SocketTcpAccept.Receive(result);
                     byte[] receivewhat = result;
                     string serverResponse = System.Text.Encoding.UTF8.GetString(result).Trim(("\0".ToCharArray()));
@@ -69,6 +69,8 @@ namespace TcpDemoWPF
                     string means = readMessage(serverResponse);
                     MessageBox.Show(means);
                     LogUtil.Logger.Info(means);
+                    result = new byte[1024];
+                    serverResponse = "";
 
                     //SocketTcpAccept.Send(Encoding.Unicode.GetBytes(serverResponse));
                 }
@@ -107,6 +109,8 @@ namespace TcpDemoWPF
             bool CRCpass = ScaleConvertor.IsCrc16Good(CRC);
             string mean = "";
             string CarNr = "小车编号: ";
+            string CallingWorkstation = "呼唤工位为: ";
+            string StartWorkstation= "出发点的工位编号为： ";
             string FailureReason = "";
 
             //判断指令头和指令我ie
@@ -121,7 +125,7 @@ namespace TcpDemoWPF
                             TypeMean = "呼唤小车的指令，";
                             string BoxType = "";
                             
-                            string CallingWorkstation = "呼唤工位为" + MessageBytes[7] + ",";
+                            CallingWorkstation = CallingWorkstation + MessageBytes[7] + ",";
                             string Ctx = "条码内容为:";
                             char CtxContext = new char();
                             string StoreNr = "仓库号" + MessageBytes[MessageCount - 9] + ",";
@@ -134,8 +138,8 @@ namespace TcpDemoWPF
 
                             switch (MessageBytes[6])
                             {
-                                case (byte)01: BoxType = "大箱，"; break;
-                                case (byte)02: BoxType = "小箱，"; break;
+                                case (byte)01: BoxType = "小箱，"; break;
+                                case (byte)02: BoxType = "大箱，"; break;
                                 default: BoxType = "未知箱型"; break;
 
                             }
@@ -185,10 +189,30 @@ namespace TcpDemoWPF
                         }
 
 
-                    case (byte)03: TypeMean = "小车出发"; break;
+                    case (byte)03:
+                        {
+                            TypeMean = "小车出发";
+                            StartWorkstation = StartWorkstation + MessageBytes[6] + ",";
+                            CarNr = CarNr + MessageBytes[7] + "。";
+                            mean = MessageId + TypeMean + StartWorkstation + CarNr;
+                            return mean;
+                        }
+
                     case (byte)04: TypeMean = "小车出发响应"; break;
-                    case (byte)05: TypeMean = "小车状态"; break;
-                    case (byte)06: TypeMean = "小车到达"; break;
+                    case (byte)05:
+                        {
+                            TypeMean = "小车状态";
+                            break;
+                        }
+
+                    case (byte)06:
+                        {
+                            TypeMean = "小车到达指令,";
+                            CallingWorkstation = CallingWorkstation + MessageBytes[6] + ",";
+                            CarNr = CarNr + MessageBytes[7] + "。";
+                            mean = MessageId + TypeMean + CallingWorkstation+CarNr;
+                            return mean;
+                        }
                     case (byte)07: TypeMean = "小车到达响应"; break;
                     case (byte)08: TypeMean = "取消小车呼唤"; break;
                     case (byte)09: TypeMean = "取消小车呼唤响应"; break;
