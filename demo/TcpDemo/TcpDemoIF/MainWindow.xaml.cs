@@ -36,23 +36,25 @@ namespace TcpDemoIF
         {
          //   Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             SocketTcp.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080));
-            MessageBox.Show("建立连接成功");
+
+            SocketTcp.Receive(buf);
+            string serverResponse = System.Text.Encoding.UTF8.GetString(buf);
+            MessageBox.Show(serverResponse);
 
         }
        
 
         private void CallingCar_Click(object sender, RoutedEventArgs e)
         {
-           
-           // SocketTcp.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080));
-        //    MessageBox.Show("建立连接成功");
+
+            // SocketTcp.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080));
+            //    MessageBox.Show("建立连接成功");
             // string name = "0xFF 0xFF  0x 0x01 0x01 0x01 0x0A 0x02  0xFF 0xFE 0x09 0x08 0x07 0x01 0x09 0x09 0x0A 0x0B";
-           
-            byte[] nameBuf = Encoding.UTF8.GetBytes("hello server");
-            SocketTcp.Receive(buf);
-            string serverResponse = System.Text.Encoding.UTF8.GetString(buf);
-            MessageBox.Show(serverResponse);
-            SocketTcp.Send(nameBuf);
+            string name = "FF FF 12 00 01 01 01 01 05 48 65 6C 6C 6F 0A 0B 0B 0B 01  09 08  0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+            
+            SocketTcp.Send(nameBuf,nameBuf.Length,SocketFlags.None);
+
 
             
              
