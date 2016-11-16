@@ -53,9 +53,9 @@ namespace TcpDemoWPF
 
 
             Socket SocketTcpAccept = SocketTcp.Accept();
-            byte[] serversay = Encoding.UTF8.GetBytes("Can I hellp u");
+           // byte[] serversay = Encoding.UTF8.GetBytes("Can I hellp u");
 
-            SocketTcpAccept.Send(serversay);
+           // SocketTcpAccept.Send(serversay);
             while (true)
         {
                 try
@@ -63,12 +63,22 @@ namespace TcpDemoWPF
 
                     
                     SocketTcpAccept.Receive(result);
-                    byte[] receivewhat = result;
-                    string serverResponse = System.Text.Encoding.UTF8.GetString(result).Trim(("\0".ToCharArray()));
                     
-                    string means = readMessage(serverResponse);
+                    string serverResponse = System.Text.Encoding.UTF8.GetString(result).Trim(("\0".ToCharArray()));
+                    byte[] MessageBytes = ScaleConvertor.HexStringToHexByte(serverResponse);
+                    string means = readMessage(MessageBytes);
                     MessageBox.Show(means);
                     LogUtil.Logger.Info(means);
+                    if(MessageBytes[5]==(byte)01)
+                    {
+                        string name = "FF FF 08 00 01 02 01 01 01  09 08  0A 0B";
+
+                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                        name = null;
+                    }
+                    
                     result = new byte[1024];
                     serverResponse = "";
 
@@ -86,13 +96,13 @@ namespace TcpDemoWPF
         }
 
 
-        public static string readMessage(string message)
+        public static string readMessage(byte[] MessageBytes)
         {
 
             //string name = "FF FF 12 00 01 01 01 01 05 48 65 6C 6C 6F 0A 0B 0B 0B 01  09 08  0A 0B";
 
            // string name = "FF FF 08 00 01 02 01 01 01  09 08  0A 0B";
-            byte[] MessageBytes = ScaleConvertor.HexStringToHexByte(message);
+            
             //定义指令头
             string head = "FF FF";
             byte[] heads = ScaleConvertor.HexStringToHexByte(head);
@@ -151,6 +161,7 @@ namespace TcpDemoWPF
                             }
                             Ctx += ",";
                             mean = MessageId + TypeMean + BoxType + CallingWorkstation + Ctx + StoreNr + StoreFloor + StoreColum + StoreRow + Priority;
+                            
                             return mean;
 
                         }
@@ -243,11 +254,12 @@ namespace TcpDemoWPF
             }
             else
             {
-                Console.WriteLine("指令格式有误");
+                mean=("指令格式有误");
+                
             }
 
+            return mean;
 
-            return message;
 
         }
 
