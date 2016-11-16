@@ -105,6 +105,10 @@
       <Project>{9b5f850a-5136-4095-8955-6c4f7747c48a}</Project>
       <Name>Brilliantech.Framwork</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\ReadMessage\ReadMessage\ReadMessage.csproj">
+      <Project>{b6436a16-432e-4a88-9be1-c4e79ba07296}</Project>
+      <Name>ReadMessage</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
