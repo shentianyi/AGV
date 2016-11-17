@@ -30,16 +30,22 @@ namespace ReadMessage
                 byte[] ends = ScaleConvertor.HexStringToHexByte(end);
                 //指令类型          
                 string TypeMean = "";
-                string MessageId = "第 " + MessageBytes[3] + MessageBytes[4] + " 条";
+                string MessageId = "第 " + (MessageBytes[3] <<8| MessageBytes[4]) + " 条";
                 
                 //定义CRC校验
                 byte[] CRC = new byte[2] { MessageBytes[MessageCount - 4], MessageBytes[MessageCount - 3] };
                 //是否通过CRC校验
                 bool CRCpass = ScaleConvertor.IsCrc16Good(CRC);
-                
+                string BoxType = "箱型为：";
+                string LoadInfo = "装载信息：";
                 string CarNr = "小车编号: ";
                 string CallingWorkstation = "呼唤工位为: ";
                 string StartWorkstation = "出发点的工位编号为： ";
+                string LocationNow = "小车当前位置: ";
+                string AimedPlace = "小车目标位置: ";
+                string speed = "小车速度: ";
+                string direction = "小车方向: ";
+                string route = "小车路线: ";
                 string FailureReason = "";
 
                 //判断指令头和指令我ie
@@ -52,7 +58,7 @@ namespace ReadMessage
                             {
 
                                 TypeMean = "呼唤小车的指令，";
-                                string BoxType = "";
+                                
 
                                 CallingWorkstation = CallingWorkstation + MessageBytes[7] + ",";
                                 string Ctx = "条码内容为:";
@@ -67,9 +73,9 @@ namespace ReadMessage
 
                                 switch (MessageBytes[6])
                                 {
-                                    case (byte)01: BoxType = "小箱，"; break;
-                                    case (byte)02: BoxType = "大箱，"; break;
-                                    default: BoxType = "未知箱型"; break;
+                                    case (byte)01: BoxType += "小箱，"; break;
+                                    case (byte)02: BoxType += "大箱，"; break;
+                                    default: BoxType += "未知箱型"; break;
 
                                 }
                                 for (int i = 1; i <= MessageBytes[8]; i++)
@@ -141,6 +147,30 @@ namespace ReadMessage
                             {
                                 TypeMean = "小车状态指令";
                                 CarNr = CarNr + MessageBytes[6] + "。";
+                                switch (MessageBytes[7])
+                                {
+                                    case (byte)01: LoadInfo += "未装箱，"; break;
+                                    case (byte)02: LoadInfo += "装满箱，"; break;
+                                    case (byte)03: LoadInfo += "装空箱，"; break;
+                                    default: LoadInfo += "未知装载信息,"; break;
+
+                                }
+
+
+                                switch (MessageBytes[8])
+                                {
+                                    case (byte)01: BoxType += "小箱，"; break;
+                                    case (byte)02: BoxType += "大箱，"; break;
+                                    default: BoxType += "未知箱型,"; break;
+
+                                }
+                                LocationNow += MessageBytes[9]+" , ";
+                                AimedPlace += MessageBytes[10] + ", ";
+                                speed += MessageBytes[11] + ",";
+                                direction += (MessageBytes[12] << 8 | MessageBytes[13]) + ",";
+                                route += MessageBytes[14] + "。";
+                                mean = MessageId + TypeMean + CarNr + LoadInfo + BoxType + LocationNow + AimedPlace + speed + direction + route;
+
 
                                 return mean;
                             }
