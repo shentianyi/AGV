@@ -100,6 +100,27 @@ namespace TcpDemoWPF
                         SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                         name = null;
                     }
+                    else if (MessageBytes[5] == (byte)08)//取消小车呼唤
+                    {
+
+                        string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 09 02 02 01 09 08 0A 0B";
+
+                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                        name = null;
+                    }
+                    else if (MessageBytes[5] == (byte)10)//获取货物库位信息
+                    {
+
+                        string name = "FF FF 11 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0B 04 01 05 48 65 6C 6C 6F 01 02 03 04 09 08 0A 0B";
+
+                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                        name = null;
+                    }
+
 
 
 

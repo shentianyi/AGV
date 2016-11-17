@@ -103,12 +103,33 @@ namespace TcpDemoIF
 
         private void CarStatus_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 0D 00 01 05 01 02 01 03 41 01 13 7B 09 08 0A 0B";
+            string name = "FF FF 0D 00 01 05 01 02 01 03 41 01  01 13 7B 09 08 0A 0B";
 
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             name = null;
+        }
+
+        private void CancelCalling_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 08 00 01 08 01 02 01 09 08 0A 0B";
+
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void StorageLocation_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 0B 00 01 0A 05 48 65 6C 6C 6F 09 08 0A 0B";
+
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+
         }
     }
 }

@@ -47,6 +47,16 @@ namespace ReadMessage
                 string direction = "小车方向: ";
                 string route = "小车路线: ";
                 string FailureReason = "";
+                string LastId = "上一次呼唤的指令Id: ";
+                string SuccessOrFailure = "";
+                string Ctx = "条码内容为:";
+                char CtxContext = new char();
+                string StoreNr = "仓库号: ";
+                string StoreFloor = "仓库层: " ;
+                string StoreColum = "仓库列: ";
+                string StoreRow = "仓库排: " ;
+                string Priority = "优先级: " ;
+                string BarCodeStatus = "条码状态码： ";
 
                 //判断指令头和指令我ie
                 if (MessageBytes[0] == heads[0] && MessageBytes[1] == heads[1] && MessageBytes[MessageCount - 2] == ends[0] && MessageBytes[MessageCount - 1] == ends[1])
@@ -57,17 +67,17 @@ namespace ReadMessage
                         case (byte)01:
                             {
 
-                                TypeMean = "呼唤小车的指令，";
+                                TypeMean = "呼唤小车的指令。";
                                 
 
                                 CallingWorkstation = CallingWorkstation + MessageBytes[7] + ",";
-                                string Ctx = "条码内容为:";
-                                char CtxContext = new char();
-                                string StoreNr = "仓库号" + MessageBytes[MessageCount - 9] + ",";
-                                string StoreFloor = "仓库层" + MessageBytes[MessageCount - 8] + ",";
-                                string StoreColum = "仓库列" + MessageBytes[MessageCount - 7] + ",";
-                                string StoreRow = "仓库排" + MessageBytes[MessageCount - 6] + ",";
-                                string Priority = "优先级" + MessageBytes[MessageCount - 5];
+                                
+                                
+                                StoreNr    +=  MessageBytes[MessageCount - 9] + ",";
+                                StoreFloor +=  MessageBytes[MessageCount - 8] + ",";
+                                StoreColum +=  MessageBytes[MessageCount - 7] + ",";
+                                StoreRow   +=  MessageBytes[MessageCount - 6] + ",";
+                                Priority   +=  MessageBytes[MessageCount - 5] + "。";
 
 
 
@@ -94,7 +104,7 @@ namespace ReadMessage
                         case (byte)02:
                             {
                                 TypeMean = "呼唤小车响应";
-                                string SuccessOrFailure = "";
+                               
                                 CarNr = CarNr + MessageBytes[7] + "。";
                                 switch (MessageBytes[6])
                                 {
@@ -129,7 +139,7 @@ namespace ReadMessage
 
                         case (byte)03:
                             {
-                                TypeMean = "小车出发";
+                                TypeMean = "小车出发指令。";
                                 StartWorkstation = StartWorkstation + MessageBytes[6] + ",";
                                 CarNr = CarNr + MessageBytes[7] + "。";
                                 mean = MessageId + TypeMean + StartWorkstation + CarNr;
@@ -138,14 +148,14 @@ namespace ReadMessage
 
                         case (byte)04:
                             {
-                                TypeMean = "小车出发响应指令";
+                                TypeMean = "小车出发响应指令。";
                                 CarNr = CarNr + MessageBytes[6] + "。";
                                 mean = MessageId + TypeMean + CarNr;
                                 return mean;
                             }
                         case (byte)05:
                             {
-                                TypeMean = "小车状态指令";
+                                TypeMean = "小车状态指令。";
                                 CarNr = CarNr + MessageBytes[6] + "。";
                                 switch (MessageBytes[7])
                                 {
@@ -177,7 +187,7 @@ namespace ReadMessage
 
                         case (byte)06:
                             {
-                                TypeMean = "小车到达指令,";
+                                TypeMean = "小车到达指令。";
                                 CallingWorkstation = CallingWorkstation + MessageBytes[6] + ",";
                                 CarNr = CarNr + MessageBytes[7] + "。";
                                 mean = MessageId + TypeMean + CallingWorkstation + CarNr;
@@ -185,7 +195,7 @@ namespace ReadMessage
                             }
                         case (byte)07:
                             {
-                                TypeMean = "小车到达响应指令,";
+                                TypeMean = "小车到达响应指令。";
                                 CarNr = CarNr + MessageBytes[6] + "。";
                                 mean = MessageId + TypeMean + CarNr;
                                 return mean;
@@ -193,10 +203,102 @@ namespace ReadMessage
                             }
 
 
-                        case (byte)08: TypeMean = "取消小车呼唤"; break;
-                        case (byte)09: TypeMean = "取消小车呼唤响应"; break;
-                        case (byte)10: TypeMean = "获出库物库位信息"; break;
-                        case (byte)11: TypeMean = "获出库物库位信息响应"; break;
+                        case (byte)08:
+                            {
+                                TypeMean = "取消小车呼唤指令。";
+                                CallingWorkstation = CallingWorkstation + MessageBytes[6] + ",";
+                                CarNr = CarNr + MessageBytes[7] + "。";
+                                LastId += MessageBytes[8] + "。";
+                                mean= MessageId + TypeMean +CallingWorkstation+ CarNr+LastId;
+                                return mean;
+                                
+                            }
+                        case (byte)09:
+                            {
+                                TypeMean = "取消小车呼唤响应";
+                                CarNr = CarNr + MessageBytes[7] + "。";
+                                switch (MessageBytes[6])
+                                {
+                                    case (byte)01:
+                                        {
+                                            SuccessOrFailure = "指令成功,";
+                                            mean = MessageId + TypeMean + SuccessOrFailure + CarNr;
+
+                                        }
+                                        break;
+
+
+                                    case (byte)02:
+                                        {
+                                            SuccessOrFailure = "指令失败，";
+                                            switch (MessageBytes[8])
+                                            {
+                                                case (byte)01: FailureReason = "失败原因：小车未响应"; break;
+                                                case (byte)02: FailureReason = "失败原因：工位未设置"; break;
+                                                case (byte)255: FailureReason = "失败原因：未知"; break;
+                                                default: FailureReason = "失败原因：未知错误"; break;
+                                            }
+                                            mean = MessageId + TypeMean + SuccessOrFailure + CarNr + FailureReason;
+                                        }
+                                        break;
+                                    default: SuccessOrFailure = "未知"; break;
+
+                                }
+                                return mean;
+                            }
+                        case (byte)10:
+                            {
+                                TypeMean = "获取货物库位信息指令。"; 
+                                for (int i = 1; i <= MessageBytes[6]; i++)
+                                {
+                                    CtxContext = Convert.ToChar(MessageBytes[6 + i]);
+                                    Ctx += CtxContext;
+
+                                }
+                                Ctx += "。";
+                                mean = MessageId + TypeMean + Ctx;
+                                return mean;
+                            }
+
+                        case (byte)11:
+                            {
+                                TypeMean = "获出库物库位信息响应。 ";
+
+                                switch(MessageBytes[6])
+                                {
+                                    case (byte)01: BarCodeStatus += "条码不存在，"; break;
+                                    case (byte)02: BarCodeStatus += "条码未入库，"; break;
+                                    case (byte)03: BarCodeStatus += "条码已入库，"; break;
+                                    case (byte)04: BarCodeStatus += "条码已出库，"; break;
+                                    case (byte)05: BarCodeStatus += "条码已锁定不可入库，"; break;
+                                    case (byte)06: BarCodeStatus += "条码已锁定不可出库，"; break;
+                                    default: BarCodeStatus += "未知条码状态, "; break;
+                                }
+                                switch (MessageBytes[7])
+                                {
+                                    case (byte)01: BoxType += "小箱，"; break;
+                                    case (byte)02: BoxType += "大箱，"; break;
+                                    default: BoxType += "未知箱型"; break;
+
+                                }
+
+                                for (int i = 1; i <= MessageBytes[8]; i++)
+                                {
+                                    CtxContext = Convert.ToChar(MessageBytes[8 + i]);
+                                    Ctx += CtxContext;
+
+                                }
+                                Ctx += ",";
+
+                                StoreNr += MessageBytes[MessageCount - 8] + ",";
+                                StoreFloor += MessageBytes[MessageCount - 7] + ",";
+                                StoreColum += MessageBytes[MessageCount - 6] + ",";
+                                StoreRow += MessageBytes[MessageCount - 5] + "。";
+                                                                                              
+                                mean = MessageId + TypeMean + BarCodeStatus + BoxType +  Ctx + StoreNr + StoreFloor + StoreColum + StoreRow ;
+
+                                return mean;
+                            }
                         case (byte)12: TypeMean = "入库操作完成"; break;
                         case (byte)13: TypeMean = "入库操作完成响应"; break;
                         case (byte)14: TypeMean = "出库"; break;
