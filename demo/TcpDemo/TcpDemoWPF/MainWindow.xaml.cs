@@ -130,6 +130,36 @@ namespace TcpDemoWPF
                         SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                         name = null;
                     }
+                    else if (MessageBytes[5] == (byte)13)//出库指令0X0D
+                    {
+
+                        string name = "FF FF 07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01 09 08 0A 0B";
+
+                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                        name = null;
+                    }
+                    else if (MessageBytes[5] == (byte)14)//出库指令0X0E
+                    {
+
+                        string name = "FF FF 07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01  09 08 0A 0B";
+
+                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                        name = null;
+                    }
+                    else if (MessageBytes[5] == (byte)16)//出库完成指令0X10
+                    {
+
+                        string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 11 02 01 13 09 08 0A 0B";
+
+                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                        name = null;
+                    }
 
 
 

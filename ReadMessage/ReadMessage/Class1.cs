@@ -59,7 +59,9 @@ namespace ReadMessage
                 string BarCodeStatus = "条码状态码： ";
                 string MachineType = "设备类型编号为: ";
                 string MachineId = "设备编号为： ";
-                int BarCodeLength;
+                int    BarCodeLength;//条码长度
+                string BatchNr = "批次数量: ";
+                string WholeDragNR = "整托数量: ";
 
                 //判断指令头和指令我ie
                 if (MessageBytes[0] == heads[0] && MessageBytes[1] == heads[1] && MessageBytes[MessageCount - 2] == ends[0] && MessageBytes[MessageCount - 1] == ends[1])
@@ -127,7 +129,7 @@ namespace ReadMessage
                                             {
                                                 case (byte)01: FailureReason += "小车未响应"; break;
                                                 case (byte)02: FailureReason += "工位未设置"; break;
-                                                case (byte)255: FailureReason += "未知"; break;
+                                                case (byte)03: FailureReason += "未知"; break;
                                                 default: FailureReason += "未知错误"; break;
                                             }
                                             mean = MessageId + TypeMean + SuccessOrFailure + CarNr + FailureReason;
@@ -293,10 +295,10 @@ namespace ReadMessage
                                 }
                                 Ctx += ",";
 
-                                StoreNr += MessageBytes[MessageCount - 8] + ",";
-                                StoreFloor += MessageBytes[MessageCount - 7] + ",";
-                                StoreColum += MessageBytes[MessageCount - 6] + ",";
-                                StoreRow += MessageBytes[MessageCount - 5] + "。";
+                                StoreNr += MessageBytes[MessageCount - 8] + ", ";
+                                StoreFloor += MessageBytes[MessageCount - 7] + ", ";
+                                StoreColum += MessageBytes[MessageCount - 6] + ", ";
+                                StoreRow += MessageBytes[MessageCount - 5] + "。 ";
                                                                                               
                                 mean = MessageId + TypeMean + BarCodeStatus + BoxType +  Ctx + StoreNr + StoreFloor + StoreColum + StoreRow ;
 
@@ -311,7 +313,7 @@ namespace ReadMessage
                                 MachineId   += (MessageBytes[7] << 8 | MessageBytes[8]) + ", ";
 
 
-                                switch (MessageBytes[9]) //switch (MessageBytes[11+MessageBytes[10]])
+                                switch (MessageBytes[9]) 
                                 {
                                     case (byte)01: BoxType += "小箱，"; break;
                                     case (byte)02: BoxType += "大箱，"; break;
@@ -331,6 +333,7 @@ namespace ReadMessage
 
 
                                 switch (MessageBytes[MessageCount-6])
+                                //switch (MessageBytes[11+MessageBytes[10]])
                                 {
                                     case (byte)01:
                                         {
@@ -348,7 +351,7 @@ namespace ReadMessage
                                             {
                                                 case (byte)01: FailureReason += "目标库位已被占用"; break;
                                                 case (byte)02: FailureReason += "库位错误"; break;
-                                                case (byte)255: FailureReason += "设备故障"; break;
+                                                case (byte)03: FailureReason += "设备故障"; break;
                                                 default: FailureReason += "未知错误"; break;
                                             }
                                             mean = MessageId + TypeMean + SuccessOrFailure + MachineType + MachineId + BoxType + Ctx + FailureReason;
@@ -370,10 +373,141 @@ namespace ReadMessage
 
 
                             }
-                        case (byte)14: TypeMean = "出库"; break;
-                        case (byte)15: TypeMean = "出库响应"; break;
-                        case (byte)16: TypeMean = "出库操作完成"; break;
-                        case (byte)17: TypeMean = "出库操作完成响应"; break;
+                        case (byte)14:
+                            {
+                                TypeMean = "出库指令。 ";
+                                
+                                switch (MessageBytes[6])
+                                {
+                                    case (byte)01: BoxType += "小箱，"; break;
+                                    case (byte)02: BoxType += "大箱，"; break;
+                                    default: BoxType += "未知箱型"; break;
+
+                                }
+                                BatchNr += MessageBytes[7]+"，";
+                                WholeDragNR += MessageBytes[8] + "，";
+                                BarCodeLength = MessageBytes[9];
+
+                                
+                                for (int i = 1; i <= BarCodeLength; i++)
+                                {
+
+                                    CtxContext = Convert.ToChar(MessageBytes[9 + i]);
+                                    Ctx += CtxContext;
+
+                                }
+                                Ctx += ",";
+                                StoreNr += MessageBytes[MessageCount - 8] + ", ";
+                                StoreFloor += MessageBytes[MessageCount - 7] + ", ";
+                                StoreColum += MessageBytes[MessageCount - 6] + ", ";
+                                StoreRow += MessageBytes[MessageCount - 5] + "。 ";
+
+                                mean = MessageId + TypeMean + BoxType + BatchNr + WholeDragNR + Ctx + StoreNr + StoreFloor + StoreColum + StoreRow;
+                                return mean;
+                            }
+                        case (byte)15:
+                            {
+                                TypeMean = "出库响应指令。 "; 
+                                switch (MessageBytes[6])
+                               
+                                {
+                                    case (byte)01:
+                                        {
+                                            SuccessOrFailure = "出库成功, ";
+                                            mean = MessageId + TypeMean + SuccessOrFailure ;
+
+                                        }
+                                        break;
+
+
+                                    case (byte)02:
+                                        {
+                                            SuccessOrFailure = "出库失败，";
+                                            switch (MessageBytes[MessageCount - 5])
+                                            {
+                                                case (byte)01: FailureReason += "待定。"; break;
+                                                case (byte)02: FailureReason += "待定。"; break;
+                                                case (byte)03: FailureReason += "待定。"; break;
+                                                default: FailureReason += "待定。"; break;
+                                            }
+                                            mean = MessageId + TypeMean + SuccessOrFailure + FailureReason;
+                                        }
+                                        break;
+                                    default: SuccessOrFailure = "未知"; break;
+
+                                }
+                                return mean;
+
+                            }
+                        case (byte)16:
+                            {
+                                TypeMean = "出库操作完成指令。 ";
+                                MachineType += MessageBytes[6] + ", ";
+                                MachineId += (MessageBytes[7] << 8 | MessageBytes[8]) + ", ";
+                                BarCodeLength = MessageBytes[10];
+
+                                switch (MessageBytes[9])
+                                {
+                                    case (byte)01: BoxType += "小箱，"; break;
+                                    case (byte)02: BoxType += "大箱，"; break;
+                                    default: BoxType += "未知箱型"; break;
+
+                                }
+
+                                for (int i = 1; i <= BarCodeLength; i++)
+                                {
+
+                                    CtxContext = Convert.ToChar(MessageBytes[10 + i]);
+                                    Ctx += CtxContext;
+
+                                }
+                                Ctx += ",";
+
+
+
+                                switch (MessageBytes[MessageCount - 6])
+                                //switch (MessageBytes[11+MessageBytes[10]])
+                                {
+                                    case (byte)01:
+                                        {
+                                            SuccessOrFailure = "出库成功,";
+                                            mean = MessageId + TypeMean + SuccessOrFailure +  MachineType + MachineId + BoxType + Ctx;
+
+                                        }
+                                        break;
+
+
+                                    case (byte)02:
+                                        {
+                                            SuccessOrFailure = "出库失败，";
+                                            switch (MessageBytes[MessageCount - 5])
+                                            {
+                                                case (byte)01: FailureReason += "目标库位不存在货物"; break;
+                                                case (byte)02: FailureReason += "出库条码和在库条码内容不匹配"; break;
+                                                case (byte)03: FailureReason += "库位错误"; break;
+                                                case (byte)04: FailureReason += "设备故障"; break;
+                                                default: FailureReason += "未知错误"; break;
+                                            }
+                                            mean = MessageId + TypeMean + SuccessOrFailure + MachineType + MachineId + BoxType + Ctx + FailureReason;
+                                        }
+                                        break;
+                                    default: SuccessOrFailure = "未知"; break;
+
+                                }
+                                return mean;
+
+
+                            }
+
+                        case (byte)17:
+                            {
+                                TypeMean = "出库操作完成响应";
+                                MachineType += MessageBytes[6] + ", ";
+                                MachineId += (MessageBytes[7] << 8 | MessageBytes[8]) + "。 ";
+                                mean = MessageId + TypeMean + MachineType + MachineId;
+                                return mean;
+
+                            }
                         case (byte)18: TypeMean = "码垛（整个托盘）完成"; break;
                         case (byte)19: TypeMean = "码垛（整个托盘）完成响应"; break;
                         case (byte)20: TypeMean = "请求启动或停止设备"; break;

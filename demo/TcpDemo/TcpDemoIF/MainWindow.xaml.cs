@@ -132,10 +132,29 @@ namespace TcpDemoIF
 
         }
 
+          
+
         private void Incoming_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 11 00 01 0C 04 01 13 01 05 48 65 6C 6C 6F 02 02 09 08 0A 0B";
+            string name = "FF FF 11 00 01 0C 04 01 13 02 05 48 65 6C 6C 6F 01 01 09 08 0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void OutComing_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 13 00 01 0E 02 32 05 05 48 65 6C 6C 6F 0A 0B 0B 0B 01 09 08 0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void OutComingFinish_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 13 00 01 10 04 01 13 02 05 48 65 6C 6C 6F 01 01 09 08 0A 0B";
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
