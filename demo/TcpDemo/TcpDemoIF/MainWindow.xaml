@@ -11,9 +11,10 @@
         <Button x:Name="CallingCar" Content="呼唤小车" HorizontalAlignment="Left" Margin="63,100,0,0" VerticalAlignment="Top" Width="75" Click="CallingCar_Click"/>
         <Button x:Name="CarArriving" Content="小车到达" HorizontalAlignment="Left" Margin="63,154,0,0" VerticalAlignment="Top" Width="75" Click="CarArriving_Click"/>
         <Button x:Name="CarStart" Content="小车出发" HorizontalAlignment="Left" Margin="63,204,0,0" VerticalAlignment="Top" Width="75" Click="CarStart_Click"/>
-        <Button x:Name="CarStatus" Content="小车状态" HorizontalAlignment="Left" Margin="210,100,0,0" VerticalAlignment="Top" Width="118" Click="CarStatus_Click"/>
-        <Button x:Name="CancelCalling" Content="取消小车呼唤" HorizontalAlignment="Left" Margin="210,154,0,0" VerticalAlignment="Top" Width="118" Click="CancelCalling_Click"/>
-        <Button x:Name="StorageLocation" Content="获取货物库位信息" HorizontalAlignment="Left" Margin="210,204,0,0" VerticalAlignment="Top" Width="118" Click="StorageLocation_Click"/>
+        <Button x:Name="CarStatus" Content="小车状态" HorizontalAlignment="Left" Margin="63,255,0,0" VerticalAlignment="Top" Width="75" Click="CarStatus_Click"/>
+        <Button x:Name="CancelCalling" Content="取消小车呼唤" HorizontalAlignment="Left" Margin="181,106,0,0" VerticalAlignment="Top" Width="118" Click="CancelCalling_Click"/>
+        <Button x:Name="StorageLocation" Content="获取货物库位信息" HorizontalAlignment="Left" Margin="181,154,0,0" VerticalAlignment="Top" Width="118" Click="StorageLocation_Click"/>
+        <Button x:Name="Incoming" Content="入库完成" HorizontalAlignment="Left" Margin="181,204,0,0" VerticalAlignment="Top" Width="118" Click="Incoming_Click"/>
 
     </Grid>
 </Window>
