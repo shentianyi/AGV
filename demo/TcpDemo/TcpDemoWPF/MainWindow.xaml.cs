@@ -69,16 +69,40 @@ namespace TcpDemoWPF
                     string means = ReadMessage.Class1.readMessage(MessageBytes);
                     MessageBox.Show(means);
                     LogUtil.Logger.Info(means);
-                    if(MessageBytes[5]==(byte)01)
+                    
+                if (MessageBytes[5]==(byte)01)//呼唤小车
                     {
-                        string name = "FF FF 08 00 01 02 01 01 01  09 08  0A 0B";
+                        string name = "FF FF 08" + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 02 01 01 01  09 08  0A 0B";
 
                         byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
                         SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                         name = null;
                     }
-                    
+                    else if(MessageBytes[5] == (byte)06)//小车到达
+                    {
+                       
+                        string name = "FF FF 06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 07 01  09 08  0A 0B";
+                        //string name = "FF FF 06 00 01 07 01  09 08  0A 0B";
+
+                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                        name = null;
+                    }
+                    else if (MessageBytes[5] == (byte)03)//小车出发
+                    {
+
+                        string name = "FF FF 06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 04 01  09 08  0A 0B";
+                       
+                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                        name = null;
+                    }
+
+
+
                     result = new byte[1024];
                     serverResponse = "";
 
@@ -92,6 +116,7 @@ namespace TcpDemoWPF
                     
                    
                 }
+               
             }
         }
 

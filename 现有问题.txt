@@ -1,0 +1,8 @@
+需求： 服务器在接收到到达后给出响应，响应的消息指令Id为客户端发送的Id
+问题：
+客户端发出指令若为00 0x，在DecimalToHexString转16进制时会忽略00 导致出错。
+              若为FF FF,   DecimalToHexString会在其左侧自动补零 变成00FF 00FF 导致解析出错。
+
+临时解决方案：直接调用ToString(X2)转换成16进制。
+ 
+

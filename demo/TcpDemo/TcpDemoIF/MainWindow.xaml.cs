@@ -44,8 +44,8 @@ namespace TcpDemoIF
             {
                 while (true)
                 {
-                    try
-                    {
+                  try
+                  {
                         SocketTcp.Receive(buf);
                         string serverResponse = System.Text.Encoding.UTF8.GetString(buf).Trim(("\0".ToCharArray()));
                       

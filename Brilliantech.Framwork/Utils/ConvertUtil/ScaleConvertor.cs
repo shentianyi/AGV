@@ -23,6 +23,17 @@ namespace Brilliantech.Framwork.Utils.ConvertUtil
             return upcase ? hexString.ToUpper() : hexString;
         }
 
+        //功能同DecimalToHexString 不自动补零
+        public static string DecimalToHex(int deci, bool upcase = true, int? hexStringLength = 4)
+        {
+            string hexString = Convert.ToString(deci, 16);
+            if (hexStringLength.HasValue)
+            {
+               // hexString = hexString.PadLeft(hexStringLength.Value, '0');
+            }
+            return upcase ? hexString.ToUpper() : hexString;
+        }
+
         /// <summary>
         /// 十进制数字转换为bytes
         /// </summary>
