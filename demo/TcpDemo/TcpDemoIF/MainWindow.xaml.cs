@@ -98,7 +98,7 @@ namespace TcpDemoIF
         private void CallingCar_Click(object sender, RoutedEventArgs e)
         {
 
-
+            #region 
             //string name = "FF FF 12 00 01 01 01 01 05 48 65 6C 6C 6F 0A 0B 0B 0B 01 09 08 0A 0B";
             //byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
@@ -111,7 +111,7 @@ namespace TcpDemoIF
             //name = null;
 
             //byte[] msg =new byte[]{ 0xFF, 0xFF , 0x12 , 0x00, 0x01 , 0x01 , 0x01 , 0x01 , 0x05 , 0x48 , 0x65 , 0x6C , 0x6C , 0x6F , 0x0A , 0x0B , 0x0B , 0x0B , 0x01 , 0x09 , 0x08 , 0x0A , 0x0B};
-            
+            #endregion
             byte[] msg = new byte[] { 0x12, 0x00, 0x01, 0x01, 0x01, 0x01, 0x05, 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x0A, 0x0B, 0x0B, 0x0B, 0x01};
             sendMsg(msg);
         }
@@ -120,6 +120,7 @@ namespace TcpDemoIF
        
         private void CarArriving_Click(object sender, RoutedEventArgs e)
         {
+            #region 
             //string name = "FF FF 07 00 01 06 01 01 09 08  0A 0B";
 
             //byte[] nameBuf = Encoding.UTF8.GetBytes(name);
@@ -132,7 +133,7 @@ namespace TcpDemoIF
             //nameBuf = null;
             //SendMeans = null;
             //name = null;
-
+            #endregion
             byte[] msg = new byte[] { 0x07, 0x00, 0x01, 0x06, 0x01, 0x01 };
             sendMsg(msg);
         }
