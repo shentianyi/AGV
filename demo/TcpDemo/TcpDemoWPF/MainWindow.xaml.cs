@@ -77,7 +77,7 @@ namespace TcpDemoWPF
                         {
                             case 0x01://呼唤小车
                                 {
-                                    string name = "FF FF 08" + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 02 01 01 01  09 08  0A 0B";
+                                    string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 02 01 01 01  09 08  0A 0B";
                                     byte[] nameBuf = Encoding.UTF8.GetBytes(name);
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);

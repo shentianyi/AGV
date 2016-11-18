@@ -63,8 +63,10 @@ namespace TcpDemoIF
 
                         
                         byte[] buf = new byte[1024];
-                        int dataLength = SocketTcp.Receive(buf);
-                        byte[] MessageBytes = buf.Take(dataLength).ToArray();
+                        int  dataLength = SocketTcp.Receive(buf);
+                        string serverResponse = System.Text.Encoding.UTF8.GetString(buf).Trim(("\0".ToCharArray()));
+
+                        byte[] MessageBytes = ScaleConvertor.HexStringToHexByte(serverResponse);
                         string Receivemeans = ReadMessage.Parser.readMessage(MessageBytes);
                         this.Dispatcher.Invoke(new Action(() => { ReceiveMessageText.AppendText(Receivemeans + "\n"); }));
                     }
