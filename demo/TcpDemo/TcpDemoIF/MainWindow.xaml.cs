@@ -37,10 +37,11 @@ namespace TcpDemoIF
         Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private void MakeConnect_Click(object sender, RoutedEventArgs e)
         {
-            //   Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            SocketTcp.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080));
-            MessageBox.Show("连接服务器成功");
-
+            if (!ConnectServer())
+            {
+                return;
+            }
+            
             Thread ClientRecieveThread = new Thread(() =>
             {
                 while (runflag)
@@ -71,8 +72,22 @@ namespace TcpDemoIF
             ClientRecieveThread.Start();
 
         }
-       
 
+        private bool ConnectServer()
+        {
+            try
+            {
+                //   Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                SocketTcp.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080));
+                MessageBox.Show("连接服务器成功");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return false;
+        }
         private void CallingCar_Click(object sender, RoutedEventArgs e)
         {
 
