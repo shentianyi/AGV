@@ -45,23 +45,27 @@ namespace TcpDemoIF
             {
                 while (runflag)
                 {
-                  try
+                 try
                   {
                         SocketTcp.Receive(buf);
                         string serverResponse = System.Text.Encoding.UTF8.GetString(buf).Trim(("\0".ToCharArray()));
                       
                         byte[] MessageBytes = ScaleConvertor.HexStringToHexByte(serverResponse);
-                        string means = ReadMessage.Class1.readMessage(MessageBytes);
-                        MessageBox.Show(means);
-                        LogUtil.Logger.Info(means);                     
+                        string Receivemeans = ReadMessage.Class1.readMessage(MessageBytes);
+                        this.Dispatcher.Invoke(new Action(() => { ReceiveMessageText.AppendText(Receivemeans+"\n"); })); 
+                       // MessageBox.Show(means);
+                       // LogUtil.Logger.Info(Receivemeans);                     
                         buf = new byte[1024];
                         serverResponse = "";
+                        Receivemeans = "";
+                      
                     }
                     catch (Exception ee)
                     {
                         MessageBox.Show(ee.Message);
                         runflag = false;
                     }
+                   
                 }
             });
             ClientRecieveThread.Start();
@@ -75,8 +79,13 @@ namespace TcpDemoIF
            
             string name = "FF FF 12 00 01 01 01 01 05 48 65 6C 6C 6F 0A 0B 0B 0B 01  09 08  0A 0B";
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-            
-            SocketTcp.Send(nameBuf,nameBuf.Length,SocketFlags.None);
+
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
 
         }
@@ -89,7 +98,13 @@ namespace TcpDemoIF
 
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            this.Dispatcher.Invoke(new Action(() => { SendMessageText.AppendText(SendMeans + "\n"); }));
+            
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
         }
 
@@ -99,7 +114,12 @@ namespace TcpDemoIF
 
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
         }
 
@@ -109,7 +129,12 @@ namespace TcpDemoIF
 
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
         }
 
@@ -119,7 +144,12 @@ namespace TcpDemoIF
 
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
         }
 
@@ -129,7 +159,12 @@ namespace TcpDemoIF
 
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
 
         }
@@ -141,7 +176,12 @@ namespace TcpDemoIF
             string name = "FF FF 11 00 01 0C 04 01 13 02 05 48 65 6C 6C 6F 01 01 09 08 0A 0B";
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
         }
 
@@ -150,7 +190,12 @@ namespace TcpDemoIF
             string name = "FF FF 13 00 01 0E 02 32 05 05 48 65 6C 6C 6F 0A 0B 0B 0B 01 09 08 0A 0B";
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
         }
 
@@ -159,7 +204,12 @@ namespace TcpDemoIF
             string name = "FF FF 13 00 01 10 04 01 13 02 05 48 65 6C 6C 6F 01 01 09 08 0A 0B";
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
         }
 
@@ -168,7 +218,12 @@ namespace TcpDemoIF
             string name = "FF FF 0C 01 02 12 01 01 13 02 32 02 01 09 08 0A 0B";
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
         }
 
@@ -177,7 +232,12 @@ namespace TcpDemoIF
             string name = "FF FF 09 01 02 14 01 01 13 09 08 0A 0B";
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
         }
 
@@ -186,7 +246,12 @@ namespace TcpDemoIF
             string name = "FF FF 09 01 02 16 01 01 13 01 09 08 0A 0B";
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
         }
 
@@ -195,8 +260,23 @@ namespace TcpDemoIF
             string name = "FF FF 09 01 02 18 01 01 13 01 09 08 0A 0B";
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
+            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            nameBuf = null;
+            SendMeans = null;
             name = null;
+        }
+
+        private void ReceiveMessageText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void SendMessageText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
