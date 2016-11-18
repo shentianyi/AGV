@@ -32,6 +32,7 @@ namespace TcpDemoIF
             
 
         }
+        public static bool runflag = true;
         private static byte[] buf = new byte[1024];
         Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private void MakeConnect_Click(object sender, RoutedEventArgs e)
@@ -42,7 +43,7 @@ namespace TcpDemoIF
 
             Thread ClientRecieveThread = new Thread(() =>
             {
-                while (true)
+                while (runflag)
                 {
                   try
                   {
@@ -59,6 +60,7 @@ namespace TcpDemoIF
                     catch (Exception ee)
                     {
                         MessageBox.Show(ee.Message);
+                        runflag = false;
                     }
                 }
             });
