@@ -33,7 +33,7 @@ namespace TcpDemoIF
 
         }
         public static bool runflag = true;
-        private static byte[] buf = new byte[1024];
+        //private static byte[] buf = new byte[1024];
         Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private void MakeConnect_Click(object sender, RoutedEventArgs e)
         {
@@ -48,18 +48,25 @@ namespace TcpDemoIF
                 {
                  try
                   {
-                        SocketTcp.Receive(buf);
-                        string serverResponse = System.Text.Encoding.UTF8.GetString(buf).Trim(("\0".ToCharArray()));
-                      
-                        byte[] MessageBytes = ScaleConvertor.HexStringToHexByte(serverResponse);
-                        string Receivemeans = ReadMessage.Class1.readMessage(MessageBytes);
-                        this.Dispatcher.Invoke(new Action(() => { ReceiveMessageText.AppendText(Receivemeans+"\n"); })); 
-                       // MessageBox.Show(means);
-                       // LogUtil.Logger.Info(Receivemeans);                     
-                        buf = new byte[1024];
-                        serverResponse = "";
-                        Receivemeans = "";
-                      
+                        // SocketTcp.Receive(buf);
+                        // string serverResponse = System.Text.Encoding.UTF8.GetString(buf).Trim(("\0".ToCharArray()));
+
+                        // byte[] MessageBytes = ScaleConvertor.HexStringToHexByte(serverResponse);
+                        // string Receivemeans = ReadMessage.Parser.readMessage(MessageBytes);
+                        // this.Dispatcher.Invoke(new Action(() => { ReceiveMessageText.AppendText(Receivemeans+"\n"); })); 
+                        //// MessageBox.Show(means);
+                        //// LogUtil.Logger.Info(Receivemeans);                     
+                        // buf = new byte[1024];
+                        // serverResponse = "";
+                        // Receivemeans = "";
+
+
+
+                        byte[] buf = new byte[1024];
+                        int dataLength = SocketTcp.Receive(buf);
+                        byte[] MessageBytes = buf.Take(dataLength).ToArray();
+                        string Receivemeans = ReadMessage.Parser.readMessage(MessageBytes);
+                        this.Dispatcher.Invoke(new Action(() => { ReceiveMessageText.AppendText(Receivemeans + "\n"); }));
                     }
                     catch (Exception ee)
                     {
@@ -92,20 +99,29 @@ namespace TcpDemoIF
         {
 
            
-            string name = "FF FF 12 00 01 01 01 01 05 48 65 6C 6C 6F 0A 0B 0B 0B 01  09 08  0A 0B";
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+            //string name = "FF FF 12 00 01 01 01 01 05 48 65 6C 6C 6F 0A 0B 0B 0B 01 09 08 0A 0B";
+            //byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans+"\n");
-            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+            //byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            //string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            //SendMessageText.AppendText(SendMeans+"\n");
+            //SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            //nameBuf = null;
+            //SendMeans = null;
+            //name = null;
 
+            byte[] msg =new byte[]{ 0x12 , 0x00, 0x01 , 0x01 , 0x01 , 0x01 , 0x05 , 0x48 , 0x65 , 0x6C , 0x6C , 0x6F , 0x0A , 0x0B , 0x0B , 0x0B , 0x01 , 0x09 , 0x08};
+            sendMsg(msg);
         }
 
        
+        private void sendMsg(byte[] msg)
+        {
+            byte[] crc = ScaleConvertor.DecimalToByte(ScaleConvertor.GetCrc16(msg));
+           
+            SocketTcp.Send(msg, msg.Length, SocketFlags.None);
+            SendMessageText.AppendText(ReadMessage.Parser.readMessage(msg)+ "\n");
+        }
 
         private void CarArriving_Click(object sender, RoutedEventArgs e)
         {
@@ -114,7 +130,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             this.Dispatcher.Invoke(new Action(() => { SendMessageText.AppendText(SendMeans + "\n"); }));
             
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
@@ -130,7 +146,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;
@@ -145,7 +161,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;
@@ -160,7 +176,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;
@@ -175,7 +191,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;
@@ -192,7 +208,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;
@@ -206,7 +222,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;
@@ -220,7 +236,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;
@@ -234,7 +250,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;
@@ -248,7 +264,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;
@@ -262,7 +278,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;
@@ -276,7 +292,7 @@ namespace TcpDemoIF
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Class1.readMessage(SendMessageBytes);
+            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
             SendMessageText.AppendText(SendMeans+"\n");
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             nameBuf = null;

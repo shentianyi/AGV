@@ -8,7 +8,7 @@ using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace ReadMessage
 {
-    public class Class1
+    public class Parser
     {
 
         public static string readMessage(byte[] MessageBytes)
