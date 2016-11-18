@@ -5,10 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TcpDemoWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="550" Width="525">
     <Grid>
         <Button x:Name="LogBtn" Content="Write Log" HorizontalAlignment="Left" Margin="35,23,0,0" VerticalAlignment="Top" Width="83" Height="35" Click="LogBtn_Click"/>
         <Button x:Name="MakeConnection" Content="建立链接" HorizontalAlignment="Left" Margin="35,86,0,0" VerticalAlignment="Top" Width="75" Click="MakeConnection_Click"/>
+        <TextBlock x:Name="Receive" HorizontalAlignment="Left" Margin="35,132,0,0" TextWrapping="Wrap" Text="接受到的消息：" VerticalAlignment="Top"/>
+        <TextBlock x:Name="Send" HorizontalAlignment="Left" Margin="35,264,0,0" TextWrapping="Wrap" Text="发送的消息：" VerticalAlignment="Top"/>
+        <TextBox x:Name="SendText" HorizontalAlignment="Left" Height="89" Margin="35,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="404" RenderTransformOrigin="0.5,0.5" TextChanged="SendText_TextChanged"/>
+        <TextBox x:Name="ReceiveText" HorizontalAlignment="Left" Height="75" Margin="35,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="404" TextChanged="ReceiveText_TextChanged"/>
 
     </Grid>
 </Window>
