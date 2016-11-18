@@ -17,6 +17,10 @@
         <Button x:Name="Incoming" Content="入库完成" HorizontalAlignment="Left" Margin="181,204,0,0" VerticalAlignment="Top" Width="118" Click="Incoming_Click"/>
         <Button x:Name="OutComing" Content="出库" HorizontalAlignment="Left" Margin="181,255,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5" Click="OutComing_Click"/>
         <Button x:Name="OutComingFinish" Content="出库完成" HorizontalAlignment="Left" Margin="377,106,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.762,0.901" Click="OutComingFinish_Click"/>
+        <Button x:Name="StackWhole" Content="码垛（整个托盘）完成" HorizontalAlignment="Left" Margin="347,154,0,0" VerticalAlignment="Top" Width="130" Click="StackWhole_Click"/>
+        <Button x:Name="AskStartOrStop" Content="请求启动或停止设备" HorizontalAlignment="Left" Margin="347,204,0,0" VerticalAlignment="Top" Width="130" Click="AskStartOrStop_Click"/>
+        <Button x:Name="StartOrStop" Content="启动或停止设备" HorizontalAlignment="Left" Margin="347,255,0,0" VerticalAlignment="Top" Width="130" Click="StartOrStop_Click"/>
+        <Button x:Name="Warning" Content="警报" HorizontalAlignment="Left" Margin="377,51,0,0" VerticalAlignment="Top" Width="75" Click="Warning_Click"/>
 
     </Grid>
 </Window>

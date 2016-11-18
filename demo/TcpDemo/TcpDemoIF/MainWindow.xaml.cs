@@ -32,6 +32,7 @@ namespace TcpDemoIF
             
 
         }
+        public static bool runflag = true;
         private static byte[] buf = new byte[1024];
         Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private void MakeConnect_Click(object sender, RoutedEventArgs e)
@@ -42,7 +43,7 @@ namespace TcpDemoIF
 
             Thread ClientRecieveThread = new Thread(() =>
             {
-                while (true)
+                while (runflag)
                 {
                   try
                   {
@@ -59,6 +60,7 @@ namespace TcpDemoIF
                     catch (Exception ee)
                     {
                         MessageBox.Show(ee.Message);
+                        runflag = false;
                     }
                 }
             });
@@ -155,6 +157,42 @@ namespace TcpDemoIF
         private void OutComingFinish_Click(object sender, RoutedEventArgs e)
         {
             string name = "FF FF 13 00 01 10 04 01 13 02 05 48 65 6C 6C 6F 01 01 09 08 0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void StackWhole_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 0C 01 02 12 01 01 13 02 32 02 01 09 08 0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void AskStartOrStop_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 09 01 02 14 01 01 13 09 08 0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void StartOrStop_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 09 01 02 16 01 01 13 01 09 08 0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void Warning_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 09 01 02 18 01 01 13 01 09 08 0A 0B";
             byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);

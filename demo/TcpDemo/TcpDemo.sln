@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpDemoAGV", "TcpDemoWPF\TcpDemoAGV.csproj", "{E8E4299A-337C-42BE-AFA9-565CFEFF234D}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCon", "F:\WPF\TcpDemo\TestCon\TestCon.csproj", "{D6743E88-07B2-48F6-A6B2-13409A4C3BDD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadMessage", "..\..\ReadMessage\ReadMessage\ReadMessage.csproj", "{B6436A16-432E-4A88-9BE1-C4E79BA07296}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMsmq", "TestMsmq\TestMsmq.csproj", "{D0DCDE89-5E84-4983-BDBA-35FFCBD1CABB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B6436A16-432E-4A88-9BE1-C4E79BA07296}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6436A16-432E-4A88-9BE1-C4E79BA07296}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6436A16-432E-4A88-9BE1-C4E79BA07296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0DCDE89-5E84-4983-BDBA-35FFCBD1CABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0DCDE89-5E84-4983-BDBA-35FFCBD1CABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0DCDE89-5E84-4983-BDBA-35FFCBD1CABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0DCDE89-5E84-4983-BDBA-35FFCBD1CABB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

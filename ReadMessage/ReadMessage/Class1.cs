@@ -62,6 +62,8 @@ namespace ReadMessage
                 int    BarCodeLength;//条码长度
                 string BatchNr = "批次数量: ";
                 string WholeDragNR = "整托数量: ";
+                string StartOrStop = "";
+                string WarningReason = "警报原因: ";
 
                 //判断指令头和指令我ie
                 if (MessageBytes[0] == heads[0] && MessageBytes[1] == heads[1] && MessageBytes[MessageCount - 2] == ends[0] && MessageBytes[MessageCount - 1] == ends[1])
@@ -508,21 +510,260 @@ namespace ReadMessage
                                 return mean;
 
                             }
-                        case (byte)18: TypeMean = "码垛（整个托盘）完成"; break;
-                        case (byte)19: TypeMean = "码垛（整个托盘）完成响应"; break;
-                        case (byte)20: TypeMean = "请求启动或停止设备"; break;
-                        case (byte)21: TypeMean = "请求启动或停止设备响应"; break;
-                        case (byte)22: TypeMean = "启动或停止设备"; break;
-                        case (byte)23: TypeMean = "启动或停止设备响应"; break;
-                        case (byte)24: TypeMean = "警报"; break;
-                        case (byte)25: TypeMean = "警报响应"; break;
+                        case (byte)18:
+                            {
+                                
+                                MachineType += MessageBytes[6];
+
+                                TypeMean = "码垛（整个托盘）";
+                                MachineId += (MessageBytes[7] << 8 | MessageBytes[8]) + "。 ";
+                                switch (MessageBytes[9])
+                                {
+                                    case (byte)01: BoxType += "小箱，"; break;
+                                    case (byte)02: BoxType += "大箱，"; break;
+                                    default: BoxType += "未知箱型"; break;
+
+                                }
+                                WholeDragNR += MessageBytes[10] + "，";
+                                switch (MessageBytes[MessageCount - 6])
+                                //switch (MessageBytes[11+MessageBytes[10]])
+                                {
+                                    case (byte)01:
+                                        {
+                                            SuccessOrFailure = "成功,";
+                                            mean = MessageId + TypeMean + SuccessOrFailure + MachineId + BoxType + WholeDragNR;
+
+                                        }
+                                        break;
+
+
+                                    case (byte)02:
+                                        {
+                                            SuccessOrFailure = "失败，";
+                                            switch (MessageBytes[MessageCount - 5])
+                                            {
+                                                case (byte)01: FailureReason += "待定"; break;
+                                                case (byte)02: FailureReason += "待定"; break;
+                                                case (byte)03: FailureReason += "待定"; break;
+                                                case (byte)04: FailureReason += "待定"; break;
+                                                default: FailureReason += "未知错误"; break;
+                                            }
+                                            mean = MessageId + TypeMean + SuccessOrFailure + MachineType+ MachineId + BoxType + WholeDragNR + FailureReason;
+                                        }
+                                        break;
+                                    default: SuccessOrFailure = "未知"; break;
+
+                                }
+                                return mean;
+
+                            }
+                        case (byte)19:
+                            {
+                                TypeMean = "码垛（整个托盘）完成响应指令。 ";
+                                MachineType += MessageBytes[6];
+                                MachineId += (MessageBytes[7] << 8 | MessageBytes[8]) + "。 ";
+                                mean = MessageId + TypeMean + MachineType + MachineId;
+                                return mean;
+
+                            }
+
+                        case (byte)20:
+                            {
+                                TypeMean = "请求启动或停止设备指令。 ";
+                                MachineType += MessageBytes[6];
+                                MachineId += (MessageBytes[7] << 8 | MessageBytes[8]) + "。 ";
+                                
+                                switch(MessageBytes[9])
+                                {
+                                    case (byte)01:
+                                        {
+                                            StartOrStop += "启动设备请求， ";
+                                            break;
+
+                                        }
+                                    case (byte)02:
+                                        {
+                                            StartOrStop += "停止设备请求， ";
+                                            break;
+                                        }
+                                                                               
+                                }
+                                mean = MessageId +TypeMean+ StartOrStop + MachineType + MachineId;
+                                return mean;
+
+
+                            }
+                        case (byte)21:
+                            {
+                                TypeMean = "请求启动或停止设备响应指令。 ";
+                                MachineType += MessageBytes[6];
+                                MachineId += (MessageBytes[7] << 8 | MessageBytes[8]) + "。 ";
+
+                                switch (MessageBytes[9])
+                                {
+                                    case (byte)01:
+                                        {
+                                            StartOrStop += "启动设备请求， ";
+                                            break;
+
+                                        }
+                                    case (byte)02:
+                                        {
+                                            StartOrStop += "停止设备请求， ";
+                                            break;
+                                        }
+
+                                }
+                                mean = MessageId +TypeMean+ StartOrStop + MachineType + MachineId;
+                                return mean;
+                                
+                            }
+                        case (byte)22:
+                            {
+                                TypeMean = "启动或停止设备指令。 ";
+                                MachineType += MessageBytes[6];
+                                MachineId += (MessageBytes[7] << 8 | MessageBytes[8]) + "。 ";
+
+                                switch (MessageBytes[9])
+                                {
+                                    case (byte)01:
+                                        {
+                                            StartOrStop += "启动设备， ";
+                                            break;
+
+                                        }
+                                    case (byte)02:
+                                        {
+                                            StartOrStop += "停止设备， ";
+                                            break;
+                                        }
+
+                                }
+                                mean = MessageId + TypeMean+ StartOrStop + MachineType + MachineId;
+                                return mean;
+
+                            }
+                        case (byte)23:
+                            {
+                                TypeMean = "启动或停止设备响应指令。 ";
+                                MachineType += MessageBytes[6];
+                                MachineId += (MessageBytes[7] << 8 | MessageBytes[8]) + "。 ";
+
+                                switch (MessageBytes[9])
+                                {
+                                    case (byte)01:
+                                        {
+                                            StartOrStop += "启动设备， ";
+                                            break;
+
+                                        }
+                                    case (byte)02:
+                                        {
+                                            StartOrStop += "停止设备";
+                                            break;
+                                        }
+                                    default:StartOrStop += "未知错误";break;
+
+                                }
+                                switch (MessageBytes[MessageCount - 6])
+                                {
+                                    case (byte)01:
+                                        {
+                                            SuccessOrFailure = "成功,";
+                                            mean = MessageId + TypeMean +StartOrStop+SuccessOrFailure + MachineType + MachineId;
+                                            break;
+                                        }
+                                    case (byte)02:
+                                        {
+                                            SuccessOrFailure = "失败，";
+                                            switch (MessageBytes[MessageCount - 5])
+                                            {
+                                                case (byte)01: FailureReason += "待定"; break;
+                                                case (byte)02: FailureReason += "待定"; break;
+                                                case (byte)03: FailureReason += "待定"; break;
+                                                default: FailureReason += "未知错误"; break;
+                                            }
+                                            mean = MessageId + TypeMean + StartOrStop+ SuccessOrFailure + MachineType + MachineId + FailureReason;
+                                            break;
+                                        }
+                                    default: SuccessOrFailure = "未知"; break;
+                                }
+                               
+                                return mean;
+
+
+                            }
+                        case (byte)24:
+                            {
+                                TypeMean = "警报";
+                                MachineType += MessageBytes[6];
+                                MachineId += (MessageBytes[7] << 8 | MessageBytes[8]) + "。 ";
+
+                                switch (MessageBytes[9])
+                                {
+                                    case (byte)01: WarningReason += "运行故障"; break;
+                                    case (byte)02: WarningReason += "急停故障"; break;
+                                    case (byte)03: WarningReason += "通信故障"; break;
+                                    case (byte)04: WarningReason += "夹具故障"; break;
+                                    case (byte)05: WarningReason += "低电"; break;
+                                    case (byte)06: WarningReason += "危险区有人进入"; break;
+                                    case (byte)07: WarningReason += "货物坠落"; break;
+                                    default: WarningReason += "待定"; break;
+                                }
+                                mean = MessageId + TypeMean +  MachineType + MachineId+WarningReason;
+                                return mean;
+                            }
+
+                        case (byte)25:
+                            {
+                                TypeMean = "警报响应";
+                                MachineType += MessageBytes[6];
+                                MachineId += (MessageBytes[7] << 8 | MessageBytes[8]) + "。 ";
+                                switch (MessageBytes[9])
+                                {
+                                    case (byte)01:
+                                        {
+                                            StartOrStop += "警报启动";
+                                            break;
+
+                                        }
+                                    case (byte)02:
+                                        {
+                                            StartOrStop += "警报停止";
+                                            break;
+                                        }
+                                    default: StartOrStop += "未知错误, ";break;
+                                        
+                                }
+                                switch (MessageBytes[MessageCount-6])
+                                {
+                                    case (byte)01:
+                                        {
+                                            SuccessOrFailure = "指令成功,";
+                                            mean = MessageId + TypeMean + SuccessOrFailure + MachineType + MachineId;
+                                            break;
+                                        }
+                                    case (byte)02:
+                                        {
+                                            SuccessOrFailure = "指令失败，";
+                                            switch (MessageBytes[MessageCount-5])
+                                            {
+                                                case (byte)01: FailureReason += "待定"; break;
+                                                case (byte)02: FailureReason += "待定"; break;
+                                                case (byte)03: FailureReason += "待定"; break;
+                                                default: FailureReason += "未知错误"; break;
+                                            }
+                                            mean = MessageId + TypeMean + SuccessOrFailure + MachineType + MachineId + FailureReason;
+                                            break;
+                                        }
+                                    default: SuccessOrFailure = "未知"; break;
+                                }
+                                return mean;
+
+                            }
                         default: TypeMean = "未知类型"; break;
-
-
+                       
                     }
-
-
-
 
                 }
 
