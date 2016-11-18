@@ -35,10 +35,13 @@ namespace TcpDemoWPF
 
         private void LogBtn_Click(object sender, RoutedEventArgs e)
         {
-            LogUtil.Logger.Info("hello log world....");
-           
-               
-            
+            LogUtil.Logger.Info(ReceiveText.Text);
+            LogUtil.Logger.Info(SendText.Text);
+            MessageBox.Show("指令写入日志成功");
+
+
+
+
 
         }
 
@@ -72,7 +75,7 @@ namespace TcpDemoWPF
                 // ReceiveMessageText.AppendText(Receivemeans);  
                 //  this.Dispatcher.Invoke(new Action(() => {ReceiveMessageText.AppendText(Receivemeans+"\n"); }));
                 this.Dispatcher.Invoke(new Action(() => {  ReceiveText.AppendText(Receivemeans + "\n"); }));
-                LogUtil.Logger.Info(Receivemeans);
+               // LogUtil.Logger.Info(Receivemeans);
                     
                     switch(MessageBytes[5])
                     {
