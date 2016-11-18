@@ -44,6 +44,7 @@ namespace TcpDemoWPF
 
         }
         Thread ClientRecieveThread;
+            bool runflag = true;
         private void MakeConnection_Click(object sender, RoutedEventArgs e)
         {
             IPAddress ip = IPAddress.Parse("127.0.0.1");
@@ -53,7 +54,6 @@ namespace TcpDemoWPF
             MessageBox.Show("启动监听{0}成功", SocketTcp.LocalEndPoint.ToString());
 
 
-            bool runflag = true;
             Socket SocketTcpAccept = SocketTcp.Accept();
             // byte[] serversay = Encoding.UTF8.GetBytes("Can I hellp u");
 
@@ -279,7 +279,8 @@ namespace TcpDemoWPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(ClientRecieveThread!=null&& ClientRecieveThread.IsAlive)
+            runflag = false;
+            if (ClientRecieveThread!=null&& ClientRecieveThread.IsAlive)
             {
                 ClientRecieveThread.Abort();
             }

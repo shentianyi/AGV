@@ -35,6 +35,7 @@ namespace TcpDemoIF
         public static bool runflag = true;
         //private static byte[] buf = new byte[1024];
         Socket SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        Thread ClientRecieveThread;
         private void MakeConnect_Click(object sender, RoutedEventArgs e)
         {
             if (!ConnectServer())
@@ -42,7 +43,7 @@ namespace TcpDemoIF
                 return;
             }
             
-            Thread ClientRecieveThread = new Thread(() =>
+          ClientRecieveThread = new Thread(() =>
             {
                 while (runflag)
                 {
@@ -60,8 +61,7 @@ namespace TcpDemoIF
                         // serverResponse = "";
                         // Receivemeans = "";
 
-
-
+                        
                         byte[] buf = new byte[1024];
                         int dataLength = SocketTcp.Receive(buf);
                         byte[] MessageBytes = buf.Take(dataLength).ToArray();
@@ -98,7 +98,7 @@ namespace TcpDemoIF
         private void CallingCar_Click(object sender, RoutedEventArgs e)
         {
 
-           
+
             //string name = "FF FF 12 00 01 01 01 01 05 48 65 6C 6C 6F 0A 0B 0B 0B 01 09 08 0A 0B";
             //byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
@@ -110,33 +110,58 @@ namespace TcpDemoIF
             //SendMeans = null;
             //name = null;
 
-            byte[] msg =new byte[]{ 0x12 , 0x00, 0x01 , 0x01 , 0x01 , 0x01 , 0x05 , 0x48 , 0x65 , 0x6C , 0x6C , 0x6F , 0x0A , 0x0B , 0x0B , 0x0B , 0x01 , 0x09 , 0x08};
+            //byte[] msg =new byte[]{ 0xFF, 0xFF , 0x12 , 0x00, 0x01 , 0x01 , 0x01 , 0x01 , 0x05 , 0x48 , 0x65 , 0x6C , 0x6C , 0x6F , 0x0A , 0x0B , 0x0B , 0x0B , 0x01 , 0x09 , 0x08 , 0x0A , 0x0B};
+            
+            byte[] msg = new byte[] { 0x12, 0x00, 0x01, 0x01, 0x01, 0x01, 0x05, 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x0A, 0x0B, 0x0B, 0x0B, 0x01};
             sendMsg(msg);
         }
 
        
-        private void sendMsg(byte[] msg)
-        {
-            byte[] crc = ScaleConvertor.DecimalToByte(ScaleConvertor.GetCrc16(msg));
-           
-            SocketTcp.Send(msg, msg.Length, SocketFlags.None);
-            SendMessageText.AppendText(ReadMessage.Parser.readMessage(msg)+ "\n");
-        }
-
+       
         private void CarArriving_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 07 00 01 06 01 01 09 08  0A 0B";
+            //string name = "FF FF 07 00 01 06 01 01 09 08  0A 0B";
 
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+            //byte[] nameBuf = Encoding.UTF8.GetBytes(name);
 
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            this.Dispatcher.Invoke(new Action(() => { SendMessageText.AppendText(SendMeans + "\n"); }));
-            
-            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+            //byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+            //string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
+            //this.Dispatcher.Invoke(new Action(() => { SendMessageText.AppendText(SendMeans + "\n"); }));
+
+            //SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            //nameBuf = null;
+            //SendMeans = null;
+            //name = null;
+
+            byte[] msg = new byte[] { 0x07, 0x00, 0x01, 0x06, 0x01, 0x01 };
+            sendMsg(msg);
+        }
+
+        /// <summary>
+        /// 发送消息
+        /// </summary>
+        /// <param name="msgBody"></param>
+        private void sendMsg(byte[] msgBody)
+        {
+            /// ? 如何快速赋值呢？
+            byte[] crc = ScaleConvertor.DecimalToByte(ScaleConvertor.GetCrc16(msgBody));
+            byte[] msg = new byte[msgBody.Length + 6];
+            msg[0] = 0xFF;
+            msg[1] = 0xFF;
+            for (int i = 0; i < msgBody.Length; i++)
+            {
+                msg[2 + i] = msgBody[i];
+            }
+            msg[2 + msgBody.Length] = crc[0];
+
+            msg[3 + msgBody.Length] = crc[1];
+
+            msg[4 + msgBody.Length] = 0x0A;
+
+            msg[5 + msgBody.Length] = 0x0B;
+
+            SocketTcp.Send(msg, msg.Length, SocketFlags.None);
+            SendMessageText.AppendText(ReadMessage.Parser.readMessage(msg) + "\n");
         }
 
         private void CarStart_Click(object sender, RoutedEventArgs e)
@@ -308,6 +333,15 @@ namespace TcpDemoIF
         private void SendMessageText_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            runflag = false;
+            if (ClientRecieveThread != null && ClientRecieveThread.IsAlive)
+            {
+                ClientRecieveThread.Abort();
+            }
         }
     }
 }

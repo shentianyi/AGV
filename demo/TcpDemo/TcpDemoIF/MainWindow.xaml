@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TcpDemoIF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="525">
+        Title="MainWindow" Height="550" Width="525" Closing="Window_Closing">
     <Grid Margin="0,0,-660,0">
         <Button x:Name="MakeConnect" Content="建立链接" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="MakeConnect_Click"/>
         <Button x:Name="CallingCar" Content="呼唤小车" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Width="75" Click="CallingCar_Click"/>
