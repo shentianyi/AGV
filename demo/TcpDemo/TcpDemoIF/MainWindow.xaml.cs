@@ -162,5 +162,41 @@ namespace TcpDemoIF
             SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
             name = null;
         }
+
+        private void StackWhole_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 0C 01 02 12 01 01 13 02 32 02 01 09 08 0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void AskStartOrStop_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 09 01 02 14 01 01 13 09 08 0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void StartOrStop_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 09 01 02 16 01 01 13 01 09 08 0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
+
+        private void Warning_Click(object sender, RoutedEventArgs e)
+        {
+            string name = "FF FF 09 01 02 18 01 01 13 01 09 08 0A 0B";
+            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+            SocketTcp.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+            name = null;
+        }
     }
 }

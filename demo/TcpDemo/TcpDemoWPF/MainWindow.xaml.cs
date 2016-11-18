@@ -156,106 +156,50 @@ namespace TcpDemoWPF
                                 name = null;
                                 break;
                             }
+                        case (byte)18://码垛（整个托盘）完成指令0X12
+                            {
+                                string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 13 01 01 13 09 08 0A 0B";
+                                byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                                SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                name = null;
+                                break;
+
+                            }
+                        case (byte)20://请求启动或停止设备指令0X14
+                            {
+                                string name = "FF FF 09 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 15 01 01 13 01 09 08 0A 0B";
+                                byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                                SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                name = null;
+                                break;
+                            }
+                        case (byte)22://启动或停止设备指令0X16
+                            {
+                                string name = "FF FF 0B " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 17 01 01 13 01 02 01 09 08 0A 0B";
+                                byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                                SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                name = null;
+                                break;
+                            }
+                        case (byte)24://警报指令0X19
+                            {
+                                string name = "FF FF 0B " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 19 01 01 13 01 02 01 09 08 0A 0B";
+                                byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+
+                                SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                name = null;
+                                break;
+                            }
+
+
+
                         default: break;
 
                             }
-                    
-
-
-                    /*
-                if (MessageBytes[5]==(byte)01)//呼唤小车
-                    {
-                        string name = "FF FF 08" + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 02 01 01 01  09 08  0A 0B";
-
-                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                        name = null;
-                    }
-                    else if(MessageBytes[5] == (byte)06)//小车到达
-                    {
-                       
-                        string name = "FF FF 06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 07 01  09 08  0A 0B";
-                        //string name = "FF FF 06 00 01 07 01  09 08  0A 0B";
-
-                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                        name = null;
-                    }
-                    else if (MessageBytes[5] == (byte)03)//小车出发
-                    {
-
-                        string name = "FF FF 06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 04 01  09 08  0A 0B";
-                       
-                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                        name = null;
-                    }
-                    else if (MessageBytes[5] == (byte)08)//取消小车呼唤
-                    {
-
-                        string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 09 02 02 01 09 08 0A 0B";
-
-                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                        name = null;
-                    }
-                    else if (MessageBytes[5] == (byte)10)//获取货物库位信息
-                    {
-
-                        string name = "FF FF 11 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0B 04 01 05 48 65 6C 6C 6F 01 02 03 04 09 08 0A 0B";
-
-                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                        name = null;
-                    }
-                    else if (MessageBytes[5] == (byte)12)//入库完成指令0X0C
-                    {
-
-                        string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0D 04 01 13  09 08 0A 0B";
-
-                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                        name = null;
-                    }
-                    else if (MessageBytes[5] == (byte)13)//出库指令0X0D
-                    {
-
-                        string name = "FF FF 07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01 09 08 0A 0B";
-
-                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                        name = null;
-                    }
-                    else if (MessageBytes[5] == (byte)14)//出库指令0X0E
-                    {
-
-                        string name = "FF FF 07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01  09 08 0A 0B";
-
-                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                        name = null;
-                    }
-                    else if (MessageBytes[5] == (byte)16)//出库完成指令0X10
-                    {
-
-                        string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 11 02 01 13 09 08 0A 0B";
-
-                        byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-                        SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                        name = null;
-                    }
-                    */
-
-
+                  
 
 
                     result = new byte[1024];
