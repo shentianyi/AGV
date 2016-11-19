@@ -113,154 +113,103 @@ namespace TcpDemoWPF
                                 }
                             case (byte)06://小车到达
                                 {
-                                    string name = "FF FF 06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 07 01  09 08  0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
+                                    string name = "06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 07 01";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    SendMeans = "";
-                                    name = "";
                                     break;
                                 }
                             case (byte)03://小车出发
                                 {
-                                    string name = "FF FF 06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 04 01  09 08  0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 04 01";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
                                     break;
                                 }
                             case (byte)08://取消小车呼唤
                                 {
-                                    string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 09 02 02 01 09 08 0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 09 02 02 01";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
                                     break;
                                 }
                             case (byte)10://获取货物库位信息
                                 {
-                                    string name = "FF FF 11 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0B 04 01 05 48 65 6C 6C 6F 01 02 03 04 09 08 0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "11 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0B 04 01 05 48 65 6C 6C 6F 01 02 03 04";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
                                     break;
                                 }
                             case (byte)12://入库完成指令0X0C
                                 {
-                                    string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0D 04 01 13  09 08 0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0D 04 01 13";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
                                     break;
                                 }
                             case (byte)13://出库指令0X0D 
                                 {
 
-                                    string name = "FF FF 07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01 09 08 0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
                                     break;
                                 }
                             case (byte)14://出库指令0X0E
                                 {
 
-                                    string name = "FF FF 07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01  09 08 0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
                                     break;
                                 }
                             case (byte)16://出库完成指令0X10
                                 {
 
-                                    string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 11 02 01 13 09 08 0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 11 02 01 13";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
                                     break;
                                 }
                             case (byte)18://码垛（整个托盘）完成指令0X12
                                 {
-                                    string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 13 01 01 13 09 08 0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 13 01 01 13";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
                                     break;
 
                                 }
                             case (byte)20://请求启动或停止设备指令0X14
                                 {
-                                    string name = "FF FF 09 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 15 01 01 13 01 09 08 0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "09 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 15 01 01 13 01";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
                                     break;
                                 }
                             case (byte)22://启动或停止设备指令0X16
                                 {
-                                    string name = "FF FF 0B " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 17 01 01 13 01 02 01 09 08 0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "0B " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 17 01 01 13 01 02 01";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
                                     break;
                                 }
                             case (byte)24://警报指令0X19
                                 {
 
-                                    string name = "FF FF 0B " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 19 01 01 13 01 02 01 09 08 0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
+                                    string name = "0B " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 19 01 01 13 01 02 01";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
                                     break;
                                 }
 

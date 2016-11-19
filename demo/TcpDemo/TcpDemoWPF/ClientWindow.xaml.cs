@@ -126,62 +126,33 @@ namespace TcpDemoWPF
 
         private void CarStart_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 07 00 01 03 01 01 09 08  0A 0B";
+            //string name = "FF FF 07 00 01 03 01 01 09 08  0A 0B";
 
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+            byte[] msg = new byte[] { 0X07, 0X00, 0X01, 0X03, 0X01, 0X01 };
+            sendMsg(msg);
         }
 
         private void CarStatus_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 0D 00 01 05 01 02 01 03 41 01  01 13 7B 09 08 0A 0B";
+           // string name = "FF FF 0D 00 01 05 01 02 01 03 41 01  01 13 7B 09 08 0A 0B";
 
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+            byte[] msg = new byte[] { 0X0D, 0X00, 0X01, 0X05, 0X01, 0X02, 0X01, 0X03, 0X41, 0X01,0X01, 0X13, 0X7B };
+            sendMsg(msg);
         }
 
         private void CancelCalling_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 08 00 01 08 01 02 01 09 08 0A 0B";
+            //string name = "FF FF 08 00 01 08 01 02 01 09 08 0A 0B";
 
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+            byte[] msg = new byte[] { 0X08, 0X00, 0X01, 0X08, 0X01, 0X02, 0X01 };
+            sendMsg(msg);
         }
 
         private void StorageLocation_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 0B 00 01 0A 05 48 65 6C 6C 6F 09 08 0A 0B";
-
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+            //string name = "FF FF 0B 00 01 0A 05 48 65 6C 6C 6F 09 08 0A 0B";
+            byte[] msg = new byte[] { 0X0B, 0X00, 0X01, 0X0A, 0X05, 0X48, 0X65, 0X6C, 0X6C, 0X6F };
+            sendMsg(msg);
 
         }
 
@@ -189,100 +160,51 @@ namespace TcpDemoWPF
 
         private void Incoming_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 11 00 01 0C 04 01 13 02 05 48 65 6C 6C 6F 01 01 09 08 0A 0B";
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+           // string name = "FF FF 11 00 01 0C 04 01 13 02 05 48 65 6C 6C 6F 01 01 09 08 0A 0B";
+            byte[] msg = new byte[] { 0X11, 0X00, 0X01, 0X0C, 0X04, 0X01, 0X13, 0X02, 0X05, 0X48, 0X65, 0X6C, 0X6C, 0X6F, 0X01, 0X01 };
+            sendMsg(msg);
         }
 
         private void OutComing_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 13 00 01 0E 02 32 05 05 48 65 6C 6C 6F 0A 0B 0B 0B 01 09 08 0A 0B";
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+            //string name = "FF FF 13 00 01 0E 02 32 05 05 48 65 6C 6C 6F 0A 0B 0B 0B 01 09 08 0A 0B";
+            byte[] msg = new byte[] { 0X13, 0X00, 0X01, 0X0E, 0X02, 0X32, 0X05, 0X05, 0X48, 0X65, 0X6C, 0X6C, 0X6F, 0X0A, 0X0B, 0X0B, 0X0B, 0X01 };
+            sendMsg(msg);
         }
 
         private void OutComingFinish_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 13 00 01 10 04 01 13 02 05 48 65 6C 6C 6F 01 01 09 08 0A 0B";
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+            //string name = "FF FF 13 00 01 10 04 01 13 02 05 48 65 6C 6C 6F 01 01 09 08 0A 0B";
+            byte[] msg = new byte[] { 0X13, 0X00, 0X01, 0X10, 0X04, 0X01, 0X13, 0X02, 0X05, 0X48, 0X65, 0X6C, 0X6C, 0X6F, 0X01, 0X01 };
+            sendMsg(msg);
         }
 
         private void StackWhole_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 0C 01 02 12 01 01 13 02 32 02 01 09 08 0A 0B";
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+           // string name = "FF FF 0C 01 02 12 01 01 13 02 32 02 01 09 08 0A 0B";
+            byte[] msg = new byte[] { 0X0C, 0X01, 0X02, 0X12, 0X01, 0X01, 0X13, 0X02, 0X32, 0X02, 0X01 };
+            sendMsg(msg);
         }
 
         private void AskStartOrStop_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 09 01 02 14 01 01 13 09 08 0A 0B";
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+           // string name = "FF FF 09 01 02 14 01 01 13 09 08 0A 0B";
+            byte[] msg = new byte[] { 0X09, 0X01, 0X02, 0X14, 0X01, 0X01, 0X13 };
+            sendMsg(msg);
         }
 
         private void StartOrStop_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 09 01 02 16 01 01 13 01 09 08 0A 0B";
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+           // string name = "FF FF 09 01 02 16 01 01 13 01 09 08 0A 0B";
+            byte[] msg = new byte[] { 0X09, 0X01, 0X02, 0X16, 0X01, 0X01, 0X13, 0X01 };
+            sendMsg(msg);
         }
 
         private void Warning_Click(object sender, RoutedEventArgs e)
         {
-            string name = "FF FF 09 01 02 18 01 01 13 01 09 08 0A 0B";
-            byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-
-            byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-            string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
-            SendMessageText.AppendText(SendMeans + "\n");
-            tcpClient.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-            nameBuf = null;
-            SendMeans = null;
-            name = null;
+            //string name = "FF FF 09 01 02 18 01 01 13 01 09 08 0A 0B";
+            byte[] msg = new byte[] { 0X09, 0X01, 0X02, 0X18, 0X01, 0X01, 0X13, 0X01 };
+            sendMsg(msg);
         }
 
         private void ReceiveMessageText_TextChanged(object sender, TextChangedEventArgs e)
