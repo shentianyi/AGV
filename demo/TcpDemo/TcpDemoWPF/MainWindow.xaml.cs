@@ -28,64 +28,86 @@ namespace TcpDemoWPF
         public MainWindow()
         {
             InitializeComponent();
-        } 
-        private static int myProt = 8080;   //端口  
-        static Socket SocketTcp;
-
-        private void LogBtn_Click(object sender, RoutedEventArgs e)
-        {
-            LogUtil.Logger.Info(ReceiveText.Text);
-            LogUtil.Logger.Info(SendText.Text);
-            MessageBox.Show("指令写入日志成功");
-
-
-
-
-
         }
+        private static int myProt = 8080;   //端口  
+        Socket tcpServer;
         Thread ClientRecieveThread;
-            bool runflag = true;
+        bool runflag = true;
+
+        Dictionary<string, Socket> clients = new Dictionary<string, Socket>();
+        Dictionary<string, Thread> clientThreads = new Dictionary<string, Thread>();
+
+
         private void MakeConnection_Click(object sender, RoutedEventArgs e)
         {
             IPAddress ip = IPAddress.Parse("127.0.0.1");
-            SocketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            SocketTcp.Bind(new IPEndPoint(ip, myProt));  //绑定IP地址：端口  
-            SocketTcp.Listen(10);    //设定最多10个排队连接请求  
-            MessageBox.Show("启动监听{0}成功", SocketTcp.LocalEndPoint.ToString());
+            tcpServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            tcpServer.Bind(new IPEndPoint(ip, myProt));  //绑定IP地址：端口  
+            tcpServer.Listen(10);    //设定最多10个排队连接请求  
 
-
-            Socket SocketTcpAccept = SocketTcp.Accept();
-            // byte[] serversay = Encoding.UTF8.GetBytes("Can I hellp u");
+            MessageBox.Show(string.Format("启动监听{0}成功", tcpServer.LocalEndPoint.ToString()));
 
             // SocketTcpAccept.Send(serversay);
-            ClientRecieveThread = new Thread(() =>
+            ClientRecieveThread = new Thread(ListenConnnect);
+            ClientRecieveThread.IsBackground = true;
+            ClientRecieveThread.Start();
+        }
+
+        private void ListenConnnect()
+        {
+            while (runflag)
             {
-                while (runflag)
+                Socket client = tcpServer.Accept();
+                try
                 {
-                    try
+                    this.Dispatcher.Invoke(new Action(() => { clientLB.Items.Add(client.RemoteEndPoint.ToString()); }));
+                    string key = GetClientKey(client);
+
+                    clients.Add(key, client);
+                    Thread clientThread = new Thread(ListenClientMsg);
+                    clientThread.IsBackground = true;
+                    clientThread.Start(client);
+                    clientThreads.Add(key, clientThread);
+
+                }
+                catch (Exception ee)
+                {
+                    MessageBox.Show(ee.Message);
+                    LogUtil.Logger.Info(ee.Message);
+                    RemoveClient(client);
+                }
+
+            }
+
+        }
+
+        private void ListenClientMsg(object cliento)
+        {
+            Socket client = cliento as Socket;
+            try
+            {
+                while (true)
+                {
+                    byte[] result = new byte[1024];
+                    int dataLength = client.Receive(result);
+                    if (dataLength > 0)
                     {
-                        byte[] result = new byte[1024];
-                        int dataLength = SocketTcpAccept.Receive(result);
                         byte[] MessageBytes = result.Take(dataLength).ToArray();
                         string Receivemeans = ReadMessage.Parser.readMessage(MessageBytes);
-                        // ReceiveMessageText.AppendText(Receivemeans);  
-                        //  this.Dispatcher.Invoke(new Action(() => {ReceiveMessageText.AppendText(Receivemeans+"\n"); }));
                         this.Dispatcher.Invoke(new Action(() => { ReceiveText.AppendText(Receivemeans + "\n"); }));
-                        // LogUtil.Logger.Info(Receivemeans);
 
+                        LogUtil.Logger.Info("【数据】"+ScaleConvertor.HexBytesToString(MessageBytes));
+                        LogUtil.Logger.Info("【解析】" + Receivemeans);
+
+                        #region parse
                         switch (MessageBytes[5])
                         {
                             case 0x01://呼唤小车
                                 {
-                                    string name = "FF FF 08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 02 01 01 01  09 08  0A 0B";
-                                    byte[] nameBuf = Encoding.UTF8.GetBytes(name);
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
+                                    string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 02 01 01 01";
 
-                                    this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
-                                    SendMeans = "";
-                                    name = "";
+                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
                                     break;
                                 }
@@ -97,7 +119,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
 
                                     SendMeans = "";
                                     name = "";
@@ -110,7 +132,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
                                     break;
@@ -122,7 +144,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
                                     break;
@@ -134,7 +156,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
                                     break;
@@ -146,7 +168,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
                                     break;
@@ -159,7 +181,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
                                     break;
@@ -172,7 +194,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
                                     break;
@@ -185,7 +207,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
                                     break;
@@ -197,7 +219,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
 
@@ -211,7 +233,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
                                     break;
@@ -223,7 +245,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
                                     break;
@@ -236,7 +258,7 @@ namespace TcpDemoWPF
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     string SendMeans = ReadMessage.Parser.readMessage(SendMessageBytes);
                                     this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
-                                    SocketTcpAccept.Send(nameBuf, nameBuf.Length, SocketFlags.None);
+                                    client.Send(nameBuf, nameBuf.Length, SocketFlags.None);
                                     SendMeans = "";
                                     name = "";
                                     break;
@@ -247,43 +269,94 @@ namespace TcpDemoWPF
                             default: break;
 
                         }
-
-
+                        #endregion
                     }
-                    catch (Exception ee)
-                    {
-                        SocketTcpAccept.Close();
-                        MessageBox.Show(ee.Message);
-                        LogUtil.Logger.Info(ee.Message);
-                        runflag = false;
-
-
-                    }
-
-
                 }
-
-            });
-            ClientRecieveThread.Start();
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+                LogUtil.Logger.Info(ee.Message);
+                RemoveClient(client);
+            }
         }
 
-        private void SendText_TextChanged(object sender, TextChangedEventArgs e)
+        private void sendMsgToClient(string clientIP, byte[] msgBody)
         {
-
+            byte[] msg = AGVMessageHelper.GenMsg(msgBody);
+            clients[clientIP].Send(msg, msg.Length, SocketFlags.None);
+            string SendMeans = ReadMessage.Parser.readMessage(msg);
+            this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
         }
 
-        private void ReceiveText_TextChanged(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// 移除Client
+        /// </summary>
+        /// <param name="client"></param>
+        private void RemoveClient(Socket client)
         {
+            string key = GetClientKey(client);
+            if (this.clients.Keys.Contains(key))
+            {
+                if (this.clients[key].Connected)
+                {
+                    this.clients[key].Close();
+                }
+                this.clients.Remove(key);
+                this.Dispatcher.Invoke(new Action(() =>
+                {
+                    clientLB.Items.Remove(key);
+                }));
 
+            }
+
+            if (this.clientThreads.Keys.Contains(key))
+            {
+                if (this.clientThreads[key].IsAlive)
+                {
+                    this.clientThreads[key].Abort();
+                }
+                this.clientThreads.Remove(key);
+            }
         }
 
+        /// <summary>
+        /// 窗口关闭时停止线程等
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            runflag = false;
-            if (ClientRecieveThread!=null&& ClientRecieveThread.IsAlive)
+            /// 停止Client监听
+            foreach (var t in clientThreads)
+            {
+                if (t.Value.IsAlive)
+                {
+                    t.Value.Abort();
+                }
+            }
+
+            /// 停止线程
+            if (ClientRecieveThread != null && ClientRecieveThread.IsAlive)
             {
                 ClientRecieveThread.Abort();
             }
+
+            /// 关闭server
+            if (tcpServer != null)
+            {
+                tcpServer.Close();
+            }
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            new ClientWindow().Show();
+        }
+
+        private string GetClientKey(Socket client)
+        {
+            return client.RemoteEndPoint.ToString();
         }
     }
 }
