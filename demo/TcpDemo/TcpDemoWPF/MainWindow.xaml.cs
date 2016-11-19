@@ -46,7 +46,7 @@ namespace TcpDemoWPF
             tcpServer.Listen(10);    //设定最多10个排队连接请求  
 
             MessageBox.Show(string.Format("启动监听{0}成功", tcpServer.LocalEndPoint.ToString()));
-
+            MakeConnection.Content = "【服务器已启动】";
             // SocketTcpAccept.Send(serversay);
             ClientRecieveThread = new Thread(ListenConnnect);
             ClientRecieveThread.IsBackground = true;
@@ -281,6 +281,11 @@ namespace TcpDemoWPF
             }
         }
 
+        /// <summary>
+        /// 向客户端发送消息
+        /// </summary>
+        /// <param name="clientIP"></param>
+        /// <param name="msgBody"></param>
         private void sendMsgToClient(string clientIP, byte[] msgBody)
         {
             byte[] msg = AGVMessageHelper.GenMsg(msgBody);
