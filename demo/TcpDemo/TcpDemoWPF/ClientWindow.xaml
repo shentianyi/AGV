@@ -7,24 +7,28 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="525" Closing="Window_Closing">
     <Grid Margin="0,0,-660,0">
-        <Button x:Name="MakeConnect" Content="建立链接" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="MakeConnect_Click"/>
-        <Button x:Name="CallingCar" Content="呼唤小车" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Width="75" Click="CallingCar_Click"/>
-        <Button x:Name="CarArriving" Content="小车到达" HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top" Width="75" Click="CarArriving_Click"/>
-        <Button x:Name="CarStart" Content="小车出发" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Width="75" Click="CarStart_Click"/>
-        <Button x:Name="CarStatus" Content="小车状态" HorizontalAlignment="Left" Margin="118,57,0,0" VerticalAlignment="Top" Width="75" Click="CarStatus_Click"/>
-        <Button x:Name="CancelCalling" Content="取消小车呼唤" HorizontalAlignment="Left" Margin="118,106,0,0" VerticalAlignment="Top" Width="118" Click="CancelCalling_Click"/>
-        <Button x:Name="StorageLocation" Content="获取货物库位信息" HorizontalAlignment="Left" Margin="118,154,0,0" VerticalAlignment="Top" Width="118" Click="StorageLocation_Click"/>
-        <Button x:Name="Incoming" Content="入库完成" HorizontalAlignment="Left" Margin="238,57,0,0" VerticalAlignment="Top" Width="118" Click="Incoming_Click"/>
-        <Button x:Name="OutComing" Content="出库" HorizontalAlignment="Left" Margin="267,106,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5" Click="OutComing_Click"/>
-        <Button x:Name="OutComingFinish" Content="出库完成" HorizontalAlignment="Left" Margin="267,154,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.762,0.901" Click="OutComingFinish_Click"/>
-        <Button x:Name="StackWhole" Content="码垛（整个托盘）完成" HorizontalAlignment="Left" Margin="367,57,0,0" VerticalAlignment="Top" Width="130" Click="StackWhole_Click"/>
-        <Button x:Name="AskStartOrStop" Content="请求启动或停止设备" HorizontalAlignment="Left" Margin="367,106,0,0" VerticalAlignment="Top" Width="130" Click="AskStartOrStop_Click"/>
-        <Button x:Name="StartOrStop" Content="启动或停止设备" HorizontalAlignment="Left" Margin="367,154,0,0" VerticalAlignment="Top" Width="130" Click="StartOrStop_Click"/>
-        <Button x:Name="Warning" Content="警报" HorizontalAlignment="Left" Margin="422,10,0,0" VerticalAlignment="Top" Width="75" Click="Warning_Click"/>
-        <TextBox x:Name="ReceiveMessageText" HorizontalAlignment="Left" Height="72" Margin="10,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" TextChanged="ReceiveMessageText_TextChanged"/>
-        <TextBlock x:Name="ReceiveMessage" HorizontalAlignment="Left" Margin="10,194,0,0" TextWrapping="Wrap" Text="接收到的消息" VerticalAlignment="Top"/>
-        <TextBlock x:Name="SendMessage" HorizontalAlignment="Left" Margin="10,297,0,0" TextWrapping="Wrap" Text="发送的消息" VerticalAlignment="Top"/>
-        <TextBox x:Name="SendMessageText" HorizontalAlignment="Left" Height="70" Margin="10,313,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" TextChanged="SendMessageText_TextChanged"/>
+        <Button x:Name="MakeConnect" Content="连接服务器" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="75" Click="MakeConnect_Click" Height="28"/>
+        <Button x:Name="CallingCar" Content="呼唤小车" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="75" Click="CallingCar_Click"/>
+        <Button x:Name="CarArriving" Content="小车到达" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="75" Click="CarArriving_Click"/>
+        <Button x:Name="CarStart" Content="小车出发" HorizontalAlignment="Left" Margin="10,193,0,0" VerticalAlignment="Top" Width="75" Click="CarStart_Click"/>
+        <Button x:Name="CarStatus" Content="小车状态" HorizontalAlignment="Left" Margin="118,96,0,0" VerticalAlignment="Top" Width="75" Click="CarStatus_Click"/>
+        <Button x:Name="CancelCalling" Content="取消小车呼唤" HorizontalAlignment="Left" Margin="118,145,0,0" VerticalAlignment="Top" Width="118" Click="CancelCalling_Click"/>
+        <Button x:Name="StorageLocation" Content="获取货物库位信息" HorizontalAlignment="Left" Margin="118,193,0,0" VerticalAlignment="Top" Width="118" Click="StorageLocation_Click"/>
+        <Button x:Name="Incoming" Content="入库完成" HorizontalAlignment="Left" Margin="238,96,0,0" VerticalAlignment="Top" Width="118" Click="Incoming_Click"/>
+        <Button x:Name="OutComing" Content="出库" HorizontalAlignment="Left" Margin="267,145,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5" Click="OutComing_Click"/>
+        <Button x:Name="OutComingFinish" Content="出库完成" HorizontalAlignment="Left" Margin="267,193,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.762,0.901" Click="OutComingFinish_Click"/>
+        <Button x:Name="StackWhole" Content="码垛（整个托盘）完成" HorizontalAlignment="Left" Margin="367,96,0,0" VerticalAlignment="Top" Width="130" Click="StackWhole_Click"/>
+        <Button x:Name="AskStartOrStop" Content="请求启动或停止设备" HorizontalAlignment="Left" Margin="367,145,0,0" VerticalAlignment="Top" Width="130" Click="AskStartOrStop_Click"/>
+        <Button x:Name="StartOrStop" Content="启动或停止设备" HorizontalAlignment="Left" Margin="367,193,0,0" VerticalAlignment="Top" Width="130" Click="StartOrStop_Click"/>
+        <Button x:Name="Warning" Content="警报" HorizontalAlignment="Left" Margin="422,50,0,0" VerticalAlignment="Top" Width="75" Click="Warning_Click"/>
+        <TextBox x:Name="ReceiveMessageText" HorizontalAlignment="Left" Height="94" Margin="10,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" TextChanged="ReceiveMessageText_TextChanged"/>
+        <TextBlock x:Name="ReceiveMessage" HorizontalAlignment="Left" Margin="10,232,0,0" TextWrapping="Wrap" Text="接收到的消息" VerticalAlignment="Top"/>
+        <TextBlock x:Name="SendMessage" HorizontalAlignment="Left" Margin="10,362,0,0" TextWrapping="Wrap" Text="发送的消息" VerticalAlignment="Top"/>
+        <TextBox x:Name="SendMessageText" HorizontalAlignment="Left" Height="118" Margin="10,383,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" TextChanged="SendMessageText_TextChanged"/>
+        <Label x:Name="label" Content="服务器IP:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="serverIPTB" HorizontalAlignment="Left" Height="26" Margin="72,10,0,0" TextWrapping="Wrap" Text="192.168.1.125" VerticalAlignment="Top" Width="164"/>
+        <Label x:Name="label1" Content="端口:" HorizontalAlignment="Left" Margin="250,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="serverPortTB" HorizontalAlignment="Left" Height="23" Margin="301,12,0,0" TextWrapping="Wrap" Text="8085" VerticalAlignment="Top" Width="178"/>
 
     </Grid>
 </Window>

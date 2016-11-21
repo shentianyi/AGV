@@ -29,7 +29,7 @@ namespace TcpDemoWPF
         {
             InitializeComponent();
         }
-        private static int myProt = 8080;   //端口  
+    //    private static int myProt = 8080;   //端口  
         Socket tcpServer;
         Thread ClientRecieveThread;
         bool runflag = true;
@@ -40,9 +40,9 @@ namespace TcpDemoWPF
 
         private void MakeConnection_Click(object sender, RoutedEventArgs e)
         {
-            IPAddress ip = IPAddress.Parse("127.0.0.1");
+            IPAddress ip = IPAddress.Parse(serverIPTB.Text);
             tcpServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            tcpServer.Bind(new IPEndPoint(ip, myProt));  //绑定IP地址：端口  
+            tcpServer.Bind(new IPEndPoint(ip, int.Parse(serverPortTB.Text)));  //绑定IP地址：端口  
             tcpServer.Listen(10);    //设定最多10个排队连接请求  
 
             MessageBox.Show(string.Format("启动监听{0}成功", tcpServer.LocalEndPoint.ToString()));
@@ -107,7 +107,7 @@ namespace TcpDemoWPF
                                     string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 02 01 01 01";
 
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                  //  sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
                                     break;
                                 }
@@ -135,9 +135,10 @@ namespace TcpDemoWPF
 
                                     break;
                                 }
-                            case (byte)10://获取货物库位信息
+                            case 0x0A://获取货物库位信息
                                 {
-                                    string name = "11 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0B 04 01 05 48 65 6C 6C 6F 01 02 03 04";
+                                    string name = "11 " + MessageBytes[3].ToString("X2") + " " 
+                                        + MessageBytes[4].ToString("X2") + " 0B 04 01 01 02 03 04 05 48 65 6C 6C 6F";
                                     byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
                                     sendMsgToClient(GetClientKey(client), SendMessageBytes);
 

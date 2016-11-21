@@ -7,14 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="553" Width="757" Closing="Window_Closing">
     <Grid>
-        <Button x:Name="MakeConnection" Content="Open Tcp Server" HorizontalAlignment="Left" Margin="20,24,0,0" VerticalAlignment="Top" Width="123" Click="MakeConnection_Click" Height="50"/>
+        <Button x:Name="MakeConnection" Content="Open Tcp Server" HorizontalAlignment="Left" Margin="446,24,0,0" VerticalAlignment="Top" Width="123" Click="MakeConnection_Click" Height="50"/>
         <TextBlock x:Name="Receive" HorizontalAlignment="Left" Margin="213,101,0,0" TextWrapping="Wrap" Text="接受到的消息：" VerticalAlignment="Top"/>
         <TextBlock x:Name="Send" HorizontalAlignment="Left" Margin="213,232,0,0" TextWrapping="Wrap" Text="发送的消息：" VerticalAlignment="Top"/>
         <TextBox x:Name="SendText" HorizontalAlignment="Left" Height="206" Margin="213,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="509" RenderTransformOrigin="0.5,0.5" />
         <TextBox x:Name="ReceiveText" HorizontalAlignment="Left" Height="85" Margin="213,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="526"  />
-        <Button x:Name="button" Content="Client Window" HorizontalAlignment="Left" Margin="176,24,0,0" VerticalAlignment="Top" Width="131" Height="50" Click="button_Click"/>
+        <Button x:Name="button" Content="Client Window" HorizontalAlignment="Left" Margin="591,24,0,0" VerticalAlignment="Top" Width="131" Height="50" Click="button_Click"/>
         <Label x:Name="label" Content="客户端列表：" HorizontalAlignment="Left" Margin="20,96,0,0" VerticalAlignment="Top" Height="29" Width="123"/>
         <ListBox x:Name="clientLB" HorizontalAlignment="Left" Height="351" Margin="20,130,0,0" VerticalAlignment="Top" Width="140"/>
+        <Label x:Name="label1" Content="IP:" HorizontalAlignment="Left" Margin="29,24,0,0" VerticalAlignment="Top" Height="31" Width="42"/>
+        <TextBox x:Name="serverIPTB" HorizontalAlignment="Left" Height="29" Margin="71,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Text="192.168.1.125"/>
+        <Label x:Name="label2" Content="端口:" HorizontalAlignment="Left" Margin="231,26,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="serverPortTB" HorizontalAlignment="Left" Height="31" Margin="281,25,0,0" TextWrapping="Wrap" Text="8085" VerticalAlignment="Top" Width="128"/>
 
     </Grid>
 </Window>

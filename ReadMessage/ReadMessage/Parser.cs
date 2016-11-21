@@ -62,6 +62,7 @@ namespace ReadMessage
                 int    BarCodeLength;//条码长度
                 string BatchNr = "批次数量: ";
                 string WholeDragNR = "整托数量: ";
+                string WholeDragNo = "整托第几个：";
                 string StartOrStop = "";
                 string WarningReason = "警报原因: ";
 
@@ -267,11 +268,22 @@ namespace ReadMessage
                                 return mean;
                             }
 
-                        case (byte)11:
+                        case 0x0B:
                             {
                                 TypeMean = "获出库物库位信息响应指令。 ";
 
                                 switch(MessageBytes[6])
+                                {
+                                    case (byte)01: BarCodeStatus += "条码不存在，"; break;
+                                    case (byte)02: BarCodeStatus += "条码未入库，"; break;
+                                    case (byte)03: BarCodeStatus += "条码已入库，"; break;
+                                    case (byte)04: BarCodeStatus += "条码已出库，"; break;
+                                    case (byte)05: BarCodeStatus += "条码已锁定不可入库，"; break;
+                                    case (byte)06: BarCodeStatus += "条码已锁定不可出库，"; break;
+                                    default: BarCodeStatus += "未知条码状态, "; break;
+                                }
+
+                                switch (MessageBytes[6])
                                 {
                                     case (byte)01: BarCodeStatus += "条码不存在，"; break;
                                     case (byte)02: BarCodeStatus += "条码未入库，"; break;
@@ -289,20 +301,22 @@ namespace ReadMessage
 
                                 }
 
-                                for (int i = 1; i <= MessageBytes[8]; i++)
+                                StoreNr += MessageBytes[8] + ", ";
+                                StoreFloor += MessageBytes[9] + ", ";
+                                StoreColum += MessageBytes[10] + ", ";
+                                StoreRow += MessageBytes[11] + ", ";
+
+                                for (int i = 1; i <= MessageBytes[12]; i++)
                                 {
-                                    CtxContext = Convert.ToChar(MessageBytes[8 + i]);
+                                    CtxContext = Convert.ToChar(MessageBytes[12 + i]);
                                     Ctx += CtxContext;
 
                                 }
-                                Ctx += ",";
+                                Ctx += "。";
 
-                                StoreNr += MessageBytes[MessageCount - 8] + ", ";
-                                StoreFloor += MessageBytes[MessageCount - 7] + ", ";
-                                StoreColum += MessageBytes[MessageCount - 6] + ", ";
-                                StoreRow += MessageBytes[MessageCount - 5] + "。 ";
-                                                                                              
-                                mean = MessageId + TypeMean + BarCodeStatus + BoxType +  Ctx + StoreNr + StoreFloor + StoreColum + StoreRow ;
+
+
+                                mean = MessageId + TypeMean + BarCodeStatus + BoxType + StoreNr + StoreFloor + StoreColum + StoreRow + Ctx;
 
                                 return mean;
                             }
@@ -375,7 +389,7 @@ namespace ReadMessage
 
 
                             }
-                        case (byte)14:
+                        case 0x0E: //14
                             {
                                 TypeMean = "出库指令。 ";
                                 
@@ -388,23 +402,25 @@ namespace ReadMessage
                                 }
                                 BatchNr += MessageBytes[7]+"，";
                                 WholeDragNR += MessageBytes[8] + "，";
-                                BarCodeLength = MessageBytes[9];
+                                WholeDragNo += MessageBytes[9] + ", ";
+                                BarCodeLength = MessageBytes[14];
 
-                                
+                                StoreNr += MessageBytes[10] + ", ";
+                                StoreFloor += MessageBytes[11] + ", ";
+                                StoreColum += MessageBytes[12] + ", ";
+                                StoreRow += MessageBytes[13] + ", ";
+
+
                                 for (int i = 1; i <= BarCodeLength; i++)
                                 {
 
-                                    CtxContext = Convert.ToChar(MessageBytes[9 + i]);
+                                    CtxContext = Convert.ToChar(MessageBytes[14 + i]);
                                     Ctx += CtxContext;
 
                                 }
-                                Ctx += ",";
-                                StoreNr += MessageBytes[MessageCount - 8] + ", ";
-                                StoreFloor += MessageBytes[MessageCount - 7] + ", ";
-                                StoreColum += MessageBytes[MessageCount - 6] + ", ";
-                                StoreRow += MessageBytes[MessageCount - 5] + "。 ";
-
-                                mean = MessageId + TypeMean + BoxType + BatchNr + WholeDragNR + Ctx + StoreNr + StoreFloor + StoreColum + StoreRow;
+                                Ctx += "。";
+                             
+                                mean = MessageId + TypeMean + BoxType + BatchNr + WholeDragNR +WholeDragNo+ StoreNr + StoreFloor + StoreColum + StoreRow + Ctx;
                                 return mean;
                             }
                         case (byte)15:
@@ -780,6 +796,7 @@ namespace ReadMessage
                 mean = ("指令格式有误");
             }
 
+            LogUtil.Logger.Info("【消息解析】"+mean);
             return mean;
 
         }
