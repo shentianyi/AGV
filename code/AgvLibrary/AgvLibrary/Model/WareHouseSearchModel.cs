@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace AgvLibrary.Model
 {
-    public class PartSearchModel
+    public class WareHouseSearchModel
     {
-        public string PartNr { get; set; }
+        public int AgvId { get; set; }
+        public string WHNr { get; set; }
     }
 }

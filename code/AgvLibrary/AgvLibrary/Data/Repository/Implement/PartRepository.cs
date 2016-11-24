@@ -21,13 +21,18 @@ namespace AgvLibrary.Data.Repository.Implement
 
         public IQueryable<Data.Part> Search(PartSearchModel partSearchModel)
         {
-            IQueryable<Data.Part> Parts = this.context.Part;
+            IQueryable<Part> Part = this.context.Part;
 
             if (!string.IsNullOrEmpty(partSearchModel.PartNr))
             {
-                Parts = Parts.Where(c => c.PartNr.Equals(partSearchModel.PartNr));
+                Part = Part.Where(c => c.PartNr.Equals(partSearchModel.PartNr));
             }
-            return Parts;
+            return Part;
+        }
+
+        public Part SearchByNr(string PartNr)
+        {
+            return this.context.GetTable<Part>().FirstOrDefault(c => c.PartNr.Equals(PartNr));
         }
     }
 }

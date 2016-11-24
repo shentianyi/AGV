@@ -1,13 +1,14 @@
-﻿using System;
+﻿using AgvLibrary.Data;
+using AgvLibrary.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AgvLibrary.Model;
 
-namespace AgvLibrary.Data.Repository.Interface
+namespace AgvLibrary.Services.Interface
 {
-    public interface IUniqueItemRepository
+    public interface IUniqueItemServices
     {
         IQueryable<UniqueItem> Search(UniqueItemSearchModel uniqueItemSearchModel);
 
@@ -15,7 +16,7 @@ namespace AgvLibrary.Data.Repository.Interface
 
         UniqueItem SearchByUniqueId(int UniqueItem);
 
- 
+
         bool Create(UniqueItem item);
 
         bool Delete(UniqueItem item);

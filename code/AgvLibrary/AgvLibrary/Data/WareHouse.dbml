@@ -1,27 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="WareHouseTest" Class="AgvWareHouseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="WareHouseTest" Class="AgvWareHouseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.Deal" Member="Deal">
     <Type Name="Deal">
       <Column Name="DealNr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Dlivery" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Operator" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Data" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="FK_ItemOnDeal_Deal" Member="ItemOnDeal" ThisKey="DealNr" OtherKey="DealNr" Type="ItemOnDeal" DeleteRule="NO ACTION" />
+      <Association Name="Deal_ItemOnDeal" Member="ItemOnDeal" ThisKey="DealNr" OtherKey="DealNr" Type="ItemOnDeal" />
     </Type>
   </Table>
   <Table Name="dbo.ItemOnDeal" Member="ItemOnDeal">
     <Type Name="ItemOnDeal">
       <Column Name="ItemNr" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="DealNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="FK_ItemOnDeal_Deal" Member="Deal" ThisKey="DealNr" OtherKey="DealNr" Type="Deal" IsForeignKey="true" />
-      <Association Name="FK_ItemOnDeal_Item" Member="UniqueItem" ThisKey="ItemNr" OtherKey="ItemUnique" Type="UniqueItem" IsForeignKey="true" />
+      <Association Name="Deal_ItemOnDeal" Member="Deal" ThisKey="DealNr" OtherKey="DealNr" Type="Deal" IsForeignKey="true" />
+      <Association Name="UniqueItem_ItemOnDeal" Member="UniqueItem" ThisKey="ItemNr" OtherKey="ItemUnique" Type="UniqueItem" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Part" Member="Part">
     <Type Name="Part">
       <Column Name="PartNr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="FK_Item_Part" Member="UniqueItem" ThisKey="PartNr" OtherKey="PartNr" Type="UniqueItem" DeleteRule="NO ACTION" />
-      <Association Name="FK_Storage_Part" Member="Storage" ThisKey="PartNr" OtherKey="PartNr" Type="Storage" DeleteRule="NO ACTION" />
+      <Association Name="Part_Storage" Member="Storage" ThisKey="PartNr" OtherKey="PartNr" Type="Storage" />
+      <Association Name="Part_UniqueItem" Member="UniqueItem" ThisKey="PartNr" OtherKey="PartNr" Type="UniqueItem" />
     </Type>
   </Table>
   <Table Name="dbo.Posation" Member="Posation">
@@ -31,8 +30,8 @@
       <Column Name="Floor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Coloumn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="FK_Posation_WareHouse" Member="WareHouse" ThisKey="WHNr" OtherKey="WHNr" Type="WareHouse" IsForeignKey="true" />
-      <Association Name="FK_Storage_Posation" Member="Storage" ThisKey="PosationNr" OtherKey="PosationNr" Type="Storage" Cardinality="One" DeleteRule="NO ACTION" />
+      <Association Name="Posation_Storage" Member="Storage" ThisKey="PosationNr" OtherKey="PosationNr" Type="Storage" Cardinality="One" />
+      <Association Name="WareHouse_Posation" Member="WareHouse" ThisKey="WHNr" OtherKey="WHNr" Type="WareHouse" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Record" Member="Record">
@@ -51,9 +50,9 @@
       <Column Name="ItemNr" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PartNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="FIFO" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="FK_Storage_Item" Member="UniqueItem" ThisKey="ItemNr" OtherKey="ItemUnique" Type="UniqueItem" IsForeignKey="true" />
-      <Association Name="FK_Storage_Part" Member="Part" ThisKey="PartNr" OtherKey="PartNr" Type="Part" IsForeignKey="true" />
-      <Association Name="FK_Storage_Posation" Member="Posation" ThisKey="PosationNr" OtherKey="PosationNr" Type="Posation" IsForeignKey="true" />
+      <Association Name="UniqueItem_Storage" Member="UniqueItem" ThisKey="ItemNr" OtherKey="ItemUnique" Type="UniqueItem" IsForeignKey="true" />
+      <Association Name="Part_Storage" Member="Part" ThisKey="PartNr" OtherKey="PartNr" Type="Part" IsForeignKey="true" />
+      <Association Name="Posation_Storage" Member="Posation" ThisKey="PosationNr" OtherKey="PosationNr" Type="Posation" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.UniqueItem" Member="UniqueItem">
@@ -62,16 +61,16 @@
       <Column Name="PartNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="CreateTime" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Status" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="FK_Item_Part" Member="Part" ThisKey="PartNr" OtherKey="PartNr" Type="Part" IsForeignKey="true" />
-      <Association Name="FK_ItemOnDeal_Item" Member="ItemOnDeal" ThisKey="ItemUnique" OtherKey="ItemNr" Type="ItemOnDeal" Cardinality="One" DeleteRule="NO ACTION" />
-      <Association Name="FK_Storage_Item" Member="Storage" ThisKey="ItemUnique" OtherKey="ItemNr" Type="Storage" DeleteRule="NO ACTION" />
+      <Association Name="UniqueItem_ItemOnDeal" Member="ItemOnDeal" ThisKey="ItemUnique" OtherKey="ItemNr" Type="ItemOnDeal" Cardinality="One" />
+      <Association Name="UniqueItem_Storage" Member="Storage" ThisKey="ItemUnique" OtherKey="ItemNr" Type="Storage" />
+      <Association Name="Part_UniqueItem" Member="Part" ThisKey="PartNr" OtherKey="PartNr" Type="Part" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.WareHouse" Member="WareHouse">
     <Type Name="WareHouse">
       <Column Name="AgvId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="WHNr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="FK_Posation_WareHouse" Member="Posation" ThisKey="WHNr" OtherKey="WHNr" Type="Posation" DeleteRule="NO ACTION" />
+      <Association Name="WareHouse_Posation" Member="Posation" ThisKey="WHNr" OtherKey="WHNr" Type="Posation" />
     </Type>
   </Table>
 </Database>

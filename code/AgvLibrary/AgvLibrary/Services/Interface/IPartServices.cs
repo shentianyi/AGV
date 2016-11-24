@@ -13,5 +13,9 @@ namespace AgvLibrary.Services.Interface
         List<Part> All();
 
         IQueryable<Part> Search(PartSearchModel partSearchModel);
+
+        Part SearchByNr(string PartNr);
+
+
     }
 }

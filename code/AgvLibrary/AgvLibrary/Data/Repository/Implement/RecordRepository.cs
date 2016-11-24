@@ -8,10 +8,14 @@ using System.Threading.Tasks;
 
 namespace AgvLibrary.Data.Repository.Implement
 {
-    public class RecordRepository : IRecordRepository
+    public class RecordRepository :RepositoryBase<Record>, IRecordRepository
     {
         private AgvWareHouseDataContext context;
-        public BasicMessage msg = new BasicMessage();
+
+        public RecordRepository(IDataContextFactory dataContextFactory) : base(dataContextFactory)
+        {
+            this.context = dataContextFactory.Context as AgvWareHouseDataContext;
+        }
 
         public bool delete(Record rd)
         {

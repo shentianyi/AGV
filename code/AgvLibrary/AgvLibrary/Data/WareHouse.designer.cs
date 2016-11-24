@@ -27,9 +27,10 @@ namespace AgvLibrary.Data
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
-		
-    #region 可扩展性方法定义
-    partial void OnCreated();
+      
+
+        #region 可扩展性方法定义
+        partial void OnCreated();
     partial void InsertDeal(Deal instance);
     partial void UpdateDeal(Deal instance);
     partial void DeleteDeal(Deal instance);

@@ -7,10 +7,12 @@ using AgvLibrary.Model;
 
 namespace AgvLibrary.Data.Repository.Interface
 {
-    public interface IPartRepository
+    public interface IWareHouseRepository
     {
-        IQueryable<Part> Search(PartSearchModel partSearchModel);
+        IQueryable<WareHouse> Search(WareHouseSearchModel wareHouseSearchModel);
 
-        Part SearchByNr(string PartNr);
+        WareHouse SearchById(int AgvId);
+
+
     }
 }
