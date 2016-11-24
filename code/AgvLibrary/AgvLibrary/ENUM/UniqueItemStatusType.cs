@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace AgvWareHouseLibrary.ENUM
+namespace AgvLibrary.ENUM
 {
-    public enum ItemStatusType
+    public enum UniqueItemStatusType
     {
 
 

@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AgvWareHouseLibrary.Data
+namespace AgvLibrary.Data
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;

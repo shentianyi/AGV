@@ -1,13 +1,13 @@
-﻿using System;
+﻿using AgvLibrary.Data.Repository.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AgvWareHouseLibrary.Data.Interface;
 
-namespace AgvWareHouseLibrary.Data.Implement
+namespace AgvLibrary.Data.Repository.Implement
 {
-    public class UniqueItemRepository:IUniqueItem
+    public class UniqueItemRepository : IUniqueItem
     {
         private AgvWareHouseDataContext context;
 
@@ -25,8 +25,8 @@ namespace AgvWareHouseLibrary.Data.Implement
             }
         }
 
-       
 
-       
+
+
     }
 }

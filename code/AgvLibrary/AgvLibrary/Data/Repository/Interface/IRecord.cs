@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AgvWareHouseLibrary.Data;
-using AgvWareHouseLibrary.Model;
+using AgvLibrary.Model;
 
-namespace AgvWareHouseLibrary.Data.Interface
+namespace AgvLibrary.Data.Repository.Interface
 {
-   public interface IRecord
+    public interface IRecord
     {
         bool Create(Record rd);
 

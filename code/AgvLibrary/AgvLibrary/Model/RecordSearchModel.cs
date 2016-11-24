@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AgvWareHouseLibrary.Model
+namespace AgvLibrary.Model
 {
-   public class RecordSearchModel
+    public class RecordSearchModel
     {
-        public int MovementId { get;  }
+        public int MovementId { get; }
         public string SourcePosation { get; set; }
 
         public string AimedPosation { get; set; }

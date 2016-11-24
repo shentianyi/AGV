@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AgvWareHouseLibrary.Data.Interface;
+using AgvLibrary.Data.Repository.Interface;
 
-namespace AgvWareHouseLibrary.Data.Implement
+namespace AgvLibrary.Data
 {
-    public class DataContextRepository:IDataContext
+
+   
+    public class DataContextFactory : IDataContextFactory
     {
         private string connStr;
-        public DataContextRepository(string connStr)
+        public DataContextFactory(string connStr)
         {
             this.connStr = connStr;
         }
         private AgvWareHouseDataContext context;
-       
+
 
         public System.Data.Linq.DataContext Context
         {
@@ -33,6 +35,5 @@ namespace AgvWareHouseLibrary.Data.Implement
         {
             context.SubmitChanges();
         }
-  
-}
+    }
 }

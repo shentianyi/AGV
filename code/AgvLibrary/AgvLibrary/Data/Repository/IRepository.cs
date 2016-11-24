@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AgvWareHouseLibrary.Data.Interface
+namespace AgvLibrary.Data.Repository
 {
-   public interface IUniqueItem
+    public interface IRepository<T> where T : class
     {
-        bool Create(UniqueItem item);
+
     }
 }

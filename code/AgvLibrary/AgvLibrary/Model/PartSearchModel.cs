@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AgvWareHouseLibrary.Model
+namespace AgvLibrary.Model
 {
     public class PartSearchModel
     {

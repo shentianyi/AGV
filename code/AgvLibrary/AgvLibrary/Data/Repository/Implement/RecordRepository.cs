@@ -1,19 +1,19 @@
-﻿using System;
+﻿using AgvLibrary.Data.Repository.Interface;
+using AgvLibrary.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AgvWareHouseLibrary.Data.Interface;
-using AgvWareHouseLibrary.Model;
 
-namespace AgvWareHouseLibrary.Data.Implement
+namespace AgvLibrary.Data.Repository.Implement
 {
-  public  class RecordRepository:IRecord
+    public class RecordRepository : IRecord
     {
         private AgvWareHouseDataContext context;
         public BasicMessage msg = new BasicMessage();
 
-       public bool delete(Record rd)
+        public bool delete(Record rd)
         {
             try
             {
@@ -27,16 +27,16 @@ namespace AgvWareHouseLibrary.Data.Implement
             }
         }
 
-         public IQueryable<Record> Search(RecordSearchModel recordSearchModel)
+        public IQueryable<Record> Search(RecordSearchModel recordSearchModel)
         {
-            
+
             IQueryable<Data.Record> Records = this.context.Record;
-           if(!string.IsNullOrEmpty(recordSearchModel.MovementId.ToString()))
+            if (!string.IsNullOrEmpty(recordSearchModel.MovementId.ToString()))
             {
                 Records = Records.Where(r => r.MovementId.Equals(recordSearchModel.MovementId));
             }
-           
-           
+
+
             if (!string.IsNullOrEmpty(recordSearchModel.SourcePosation))
             {
                 Records = Records.Where(r => r.SourcePosation.Equals(recordSearchModel.SourcePosation));
@@ -83,6 +83,6 @@ namespace AgvWareHouseLibrary.Data.Implement
         }
 
 
-        
+
     }
 }
