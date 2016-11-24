@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AgvLibrary.Data.Repository.Implement
 {
-    public class RecordRepository : IRecord
+    public class RecordRepository : IRecordRepository
     {
         private AgvWareHouseDataContext context;
         public BasicMessage msg = new BasicMessage();

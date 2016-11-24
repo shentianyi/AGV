@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace AgvLibrary.Data.Repository.Implement
 {
-    public class UniqueItemRepository : IUniqueItem
+    public class UniqueItemRepository : IUniqueItemRepository
     {
         private AgvWareHouseDataContext context;
 
-        bool IUniqueItem.Create(UniqueItem item)
+        bool IUniqueItemRepository.Create(UniqueItem item)
         {
             try
             {

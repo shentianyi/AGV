@@ -14,7 +14,7 @@ namespace AgvLibrary.Services.Implement
     public class PartServices :ServiceBase,IPartServices
     {
 
-        private IPart part;
+        private IPartRepository part;
 
         public PartServices(string dbString) : base(dbString) {
             part = new PartRepository(this.Context);
@@ -23,14 +23,13 @@ namespace AgvLibrary.Services.Implement
 
         public List<Part> All()
         {
-           
 
             return this.Context.Context.GetTable<Part>().ToList();
         }
 
         public IQueryable<Data.Part> Search(PartSearchModel partSearchModel)
         {
-            return null;
+            return part.Search(partSearchModel);
 
         }
     }

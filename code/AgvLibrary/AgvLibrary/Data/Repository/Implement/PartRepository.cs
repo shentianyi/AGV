@@ -9,7 +9,7 @@ using AgvLibrary.Model;
 
 namespace AgvLibrary.Data.Repository.Implement
 {
-    public class PartRepository : RepositoryBase<Part>, IPart
+    public class PartRepository : RepositoryBase<Part>, IPartRepository
     {
         private AgvWareHouseDataContext context;
              

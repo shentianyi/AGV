@@ -47,9 +47,9 @@
     <Compile Include="Data\Repository\Implement\RecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\UniqueItemRepository.cs" />
     <Compile Include="Data\IDataContextFactory.cs" />
-    <Compile Include="Data\Repository\Interface\IPart.cs" />
-    <Compile Include="Data\Repository\Interface\IRecord.cs" />
-    <Compile Include="Data\Repository\Interface\IUniqueItem.cs" />
+    <Compile Include="Data\Repository\Interface\IPartRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IUniqueItemRepository.cs" />
     <Compile Include="Data\Repository\IRepository.cs" />
     <Compile Include="Data\Repository\RepositoryBase.cs" />
     <Compile Include="Data\WareHouse.designer.cs">

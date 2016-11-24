@@ -7,7 +7,7 @@ using AgvLibrary.Model;
 
 namespace AgvLibrary.Data.Repository.Interface
 {
-    public interface IRecord
+    public interface IRecordRepository
     {
         bool Create(Record rd);
 
