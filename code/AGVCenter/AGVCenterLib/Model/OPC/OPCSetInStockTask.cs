@@ -2,27 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AGVCenterLib.Enum;
 using OPCAutomation;
 
 namespace AGVCenterLib.Model.OPC
 {
-
-    public enum AgvPassFlag
-    {
-        Forbidden = 0,
-        Pass = 1,
-        Err = 2
-    }
-
-    public enum InStockTaskState
-    {
-        Init = 0,
-        WaitingStcok = 1,
-        InStocking = 2,
-        InStocked = 3,
-        Canceled = 4
-    }
-
     public class OPCSetInStockTask : OPCDataBase
     {
         static OPCSetInStockTask()
