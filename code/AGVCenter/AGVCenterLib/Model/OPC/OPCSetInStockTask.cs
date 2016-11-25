@@ -11,16 +11,15 @@ namespace AGVCenterLib.Model.OPC
     {
         static OPCSetInStockTask()
         {
-            
+
         }
         public OPCSetInStockTask()
             : base()
         {
             State = InStockTaskState.Init;
-            RestPositionFlag =0x00;
-            OPCItemCount = 8;
+            RestPositionFlag = 0x00;
         }
-       
+
         /// <summary>
         /// 库位，层，2
         /// </summary>
@@ -50,7 +49,7 @@ namespace AGVCenterLib.Model.OPC
         /// 重置库位标记，7
         /// </summary>
         public byte RestPositionFlag { get; set; }
-        
+
         /// <summary>
         /// 条码，8
         /// </summary>
@@ -89,6 +88,13 @@ namespace AGVCenterLib.Model.OPC
             SyncItemServerHandles[6] = (int)this.ItemServerHandles.GetValue(7);
             SyncItemServerHandles[7] = (int)this.ItemServerHandles.GetValue(8);
 
+            SyncItemValues[1] = this.BoxType;
+            SyncItemValues[2] = this.PositionFloor;
+            SyncItemValues[3] = this.PositionColumn;
+            SyncItemValues[4] = this.PositionRow;
+            SyncItemValues[5] = this.AgvPassFlag;
+            SyncItemValues[6] = this.RestPositionFlag;
+            SyncItemValues[7] = this.Barcode;
             group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
             if (SyncItemServerErrors != null && ((int)SyncItemServerErrors.GetValue(1) == 0))
             {
@@ -110,7 +116,7 @@ namespace AGVCenterLib.Model.OPC
         /// <param name="ItemValues"></param>
         public override void SetValue(int NumItems, Array ClientHandles, Array ItemValues)
         {
-            for (int i = 1; i <=NumItems; i++)
+            for (int i = NumItems; i >= 1; i--)
             {
                 switch ((int)ClientHandles.GetValue(i))
                 {
@@ -148,7 +154,7 @@ namespace AGVCenterLib.Model.OPC
         {
             return string.Format("条码：{0},库位：{1}-{2}-{3},箱型：{4},AGV放行标记:{5},Rest标记{6},状态：{7},DbId:{8}",
                 this.Barcode,
-                this.PositionFloor,this.PositionColumn,this.PositionRow,
+                this.PositionFloor, this.PositionColumn, this.PositionRow,
                 this.BoxType,
                 this.AgvPassFlag,
                 this.RestPositionFlag,

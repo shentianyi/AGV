@@ -374,7 +374,7 @@ namespace AGVCenterWPF
 
                 UniqueItemService uniqItemService = new UniqueItemService(OPCConfig.DbString);
                 UniqueItemView item = uniqItemService.FindDetail(barcode);
-                if (item == null)
+                if (item != null)
                 {
                     // 是否可以入库
                     if (uniqItemService.CanUniqInStock(barcode))
@@ -427,6 +427,17 @@ namespace AGVCenterWPF
                         inStockTask.State = InStockTaskState.WaitingStcok;
                         this.EnqueueInStockTaskQueue(inStockTask);
                     }
+                    else
+                    {
+                        OPCGetInStockPositionData.SyncSetWriteableFlag(OPCGetInStockPositionOPCGroup);
+                    }
+                }
+                else
+                {
+                    inStockTask.AgvPassFlag = (byte)AgvPassFlag.Forbidden;
+                    inStockTask.SyncWrite(OPCSetInStockTaskOPCGroup);
+                    inStockTask.SyncSetReadableFlag(OPCSetInStockTaskOPCGroup);
+                    OPCGetInStockPositionData.SyncSetWriteableFlag(OPCGetInStockPositionOPCGroup);
                 }
                 return false;
             }
@@ -622,10 +633,14 @@ namespace AGVCenterWPF
         /// </summary>
         private void RefreshList()
         {
-            foreach(var t in InStockTaskQueue)
+            this.Dispatcher.Invoke(new Action(() =>
             {
-                InStockTaskLB.Items.Add(t.Value.ToDisplay());
-            }
+                InStockTaskLB.Items.Clear();
+                foreach (var t in InStockTaskQueue.Values)
+                {
+                    InStockTaskLB.Items.Add(t.ToDisplay());
+                }
+            }));
 
 
         }

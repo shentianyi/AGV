@@ -15,7 +15,6 @@ namespace AGVCenterLib.Model.OPC
         public OPCGetInStockPosition()
             : base()
         {
-            OPCItemCount = 2;
         }
 
         public string scanGetInposiBarcodeWas;
@@ -77,7 +76,7 @@ namespace AGVCenterLib.Model.OPC
         /// <param name="ItemValues"></param>
         public override void SetValue(int NumItems, Array ClientHandles, Array ItemValues)
         {
-            for (int i = 1; i <= NumItems; i++)
+            for (int i = NumItems; i >= 1; i--)
             {
                 switch ((int)ClientHandles.GetValue(i))
                 {

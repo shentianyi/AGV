@@ -34,6 +34,7 @@ namespace AGVCenterLib.Service
                 CreatedAt = DateTime.Now
             };
             this.Context.StockTask.InsertOnSubmit(st);
+            this.Context.SubmitChanges();
             task.DbId = st.id;
             return true;
         }

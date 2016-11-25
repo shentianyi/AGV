@@ -25,7 +25,8 @@ namespace AGVCenterLib.Model.OPC
 
         public OPCDataBase()
         {
-            OPCItemIDs = new string[OPCItemCount + 1];
+            OPCItemCount = OPCAddressMap.GroupNameAddress[this.GetType().Name].Count;
+               OPCItemIDs = new string[OPCItemCount + 1];
             ClientHandles = new int[OPCItemCount + 1];
         }
 

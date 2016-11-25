@@ -72,7 +72,7 @@
   </Table>
   <Table Name="dbo.StockTask" Member="StockTask">
     <Type Name="StockTask">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="BoxType" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PositionFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PositionColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
