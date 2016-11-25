@@ -15,7 +15,7 @@ namespace AGVCenterLib.Model.OPC
         #endregion
 
         #region 变量
-        public static int OPCItemCount = 2;
+        public  int OPCItemCount = 2;
 
         public string[] OPCItemIDs;
         public int[] ClientHandles;

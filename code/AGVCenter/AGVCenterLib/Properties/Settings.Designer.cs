@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AGVCenterWPF.Properties {
+namespace AGVCenterLib.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,11 +25,12 @@ namespace AGVCenterWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Charlot-PC\\MSSQLSERVER20082;Initial Catalog=AgvWarehoueDb;Persist Sec" +
             "urity Info=True;User ID=sa;Password=123456@")]
-        public string dbString {
+        public string AgvWarehoueDbConnectionString {
             get {
-                return ((string)(this["dbString"]));
+                return ((string)(this["AgvWarehoueDbConnectionString"]));
             }
         }
     }

@@ -5,24 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AGVCenterWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="502" Width="993" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="MainWindow" Height="600" Width="993" Loaded="Window_Loaded" Closing="Window_Closing">
     <Grid>
-        <Label x:Name="label" Content="OPC服务列表:" HorizontalAlignment="Left" Margin="26,49,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="OPCListServerBtn" Content="寻找可用OPC服务" HorizontalAlignment="Left" Margin="25,17,0,0" VerticalAlignment="Top" Width="129" Height="27" Click="ListOPCServerBtn_Click"/>
-        <ListBox x:Name="OPCServersLB" HorizontalAlignment="Left" Height="54" Margin="25,75,0,0" VerticalAlignment="Top" Width="190" SelectionChanged="OPCServersLB_SelectionChanged"/>
-        <Button x:Name="ConnectOPCServerBtn" Content="连接服务" HorizontalAlignment="Left" Margin="26,185,0,0" VerticalAlignment="Top" Width="75" Click="ConnectOPCServerBtn_Click"/>
-        <Label x:Name="label1" Content="OPC服务：" HorizontalAlignment="Left" Margin="26,132,0,0" VerticalAlignment="Top"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="560" VerticalAlignment="Top" Width="975">
+            <TabItem Header="OPC 服务配置">
+                <Grid Background="#FFE5E5E5" Height="526" VerticalAlignment="Bottom">
+                    <Label x:Name="label" Content="OPC服务列表:" HorizontalAlignment="Left" Margin="26,49,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="OPCListServerBtn" Content="寻找可用OPC服务" HorizontalAlignment="Left" Margin="25,17,0,0" VerticalAlignment="Top" Width="129" Height="27" Click="ListOPCServerBtn_Click"/>
+                    <ListBox x:Name="OPCServersLB" HorizontalAlignment="Left" Height="54" Margin="25,75,0,0" VerticalAlignment="Top" Width="190" SelectionChanged="OPCServersLB_SelectionChanged"/>
+                    <Button x:Name="ConnectOPCServerBtn" Content="连接服务" HorizontalAlignment="Left" Margin="291,151,0,0" VerticalAlignment="Top" Width="75" Click="ConnectOPCServerBtn_Click"/>
+                    <Label x:Name="label1" Content="OPC服务：" HorizontalAlignment="Left" Margin="249,72,0,0" VerticalAlignment="Top"/>
 
-        <TextBox x:Name="OPCServerTB" HorizontalAlignment="Left" Height="23" Margin="116,131,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="138"/>
-        <Label x:Name="label2" Content="OPCServerTB:" HorizontalAlignment="Left" Margin="26,155,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="OPCNodeNameTB" HorizontalAlignment="Left"
-                 Height="23" Margin="117,158,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="135"/>
-        <Button x:Name="DisConnectOPCServerBtn" Content="端开服务" HorizontalAlignment="Left" Margin="117,185,0,0" VerticalAlignment="Top" Width="75" Click="DisConnectOPCServerBtn_Click"/>
-        <Button x:Name="WirteGetPisitionBarBtn" Content="写入入库条码信息" HorizontalAlignment="Left" Margin="591,16,0,0" VerticalAlignment="Top" Width="117" Height="27" Click="WirteGetPisitionBarBtn_Click"/>
-        <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left" Height="26" Margin="370,18,0,0"
-                 TextWrapping="Wrap" Text="Bar" VerticalAlignment="Top" Width="205"/>
-        <Label x:Name="label3" Content="扫描的条码" HorizontalAlignment="Left" Margin="276,17,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="ReadScanedBarCodeBtn" Content="读取并置可写" HorizontalAlignment="Left" Margin="745,16,0,0" VerticalAlignment="Top" Width="125" Height="28" Click="ReadScanedBarCodeBtn_Click"/>
-
+                    <TextBox x:Name="OPCServerTB" HorizontalAlignment="Left" Height="23" Margin="340,75,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="138"/>
+                    <Label x:Name="label2" Content="节点名称:(IP)" HorizontalAlignment="Left" Margin="249,103,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="OPCNodeNameTB" HorizontalAlignment="Left"
+                		Height="23" Margin="340,106,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="135"/>
+                    <Button x:Name="DisConnectOPCServerBtn" Content="端开服务" HorizontalAlignment="Left" Margin="400,151,0,0" VerticalAlignment="Top" Width="75" Click="DisConnectOPCServerBtn_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="扫描条码入库任务">
+                <Grid Background="#FFE5E5E5">
+                    <Button x:Name="WirteGetPisitionBarBtn" Content="生成入库任务" HorizontalAlignment="Left" Margin="294,10,0,0" VerticalAlignment="Top" Width="92" Height="27" Click="WirteGetPisitionBarBtn_Click"/>
+                    <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left" Height="26" Margin="84,11,0,0"
+                		TextWrapping="Wrap" Text="Bar" VerticalAlignment="Top" Width="205"/>
+                    <Label x:Name="label3" Content="扫描的条码" HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="ReadInStockTaskBtn" Content="读取任务》" HorizontalAlignment="Left" Margin="374,75,0,0" VerticalAlignment="Top" Width="68" Height="60" Click="ReadInStockTaskBtn_Click" />
+                    <Label x:Name="label4" Content="已扫描入库任务列表：" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Height="27" Width="138" FontWeight="Bold"/>
+                    <ListBox x:Name="InStockTaskLB" HorizontalAlignment="Left" Height="443" Margin="10,75,0,0" VerticalAlignment="Top" Width="359"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="TabItem" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="61">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Brilliantech.Framwork.Utils.ConvertUtil;
 
 namespace TestCon
 {
@@ -12,9 +13,16 @@ namespace TestCon
         {
             int i = 1327671;
 
-            new Program().C();
-            Console.WriteLine(new Program().B);   
-           
+            //new Program().C();
+            //Console.WriteLine(new Program().B);
+            byte b = 0x12;
+
+            Console.WriteLine(  ScaleConvertor.DecimalToByte(12));
+
+            Console.WriteLine(b==Convert.ToByte("18",10));
+
+            Console.WriteLine((byte)148);
+            Console.Read();
         }
 
         public void C()

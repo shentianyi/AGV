@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AGVCenterWPF.Properties;
 
 namespace AGVCenterWPF
 {
    public class OPCConfig
     {
+        /// <summary>
+        /// 数据库连接
+        /// </summary>
+        public static string DbString = Settings.Default.dbString;
         /// <summary>
         /// OPC 服务器列表
         /// </summary>

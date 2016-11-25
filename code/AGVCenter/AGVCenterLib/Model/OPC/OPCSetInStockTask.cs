@@ -11,12 +11,14 @@ namespace AGVCenterLib.Model.OPC
     {
         static OPCSetInStockTask()
         {
-            OPCItemCount = 2;
+            
         }
         public OPCSetInStockTask()
             : base()
         {
             State = InStockTaskState.Init;
+            RestPositionFlag =0x00;
+            OPCItemCount = 8;
         }
        
         /// <summary>
@@ -52,7 +54,7 @@ namespace AGVCenterLib.Model.OPC
         /// <summary>
         /// 条码，8
         /// </summary>
-        public string InposiBarcode { get; set; }
+        public string Barcode { get; set; }
 
         /// <summary>
         /// 状态，不写入OPC
@@ -134,7 +136,7 @@ namespace AGVCenterLib.Model.OPC
                         this.RestPositionFlag = (byte)ItemValues.GetValue(i);
                         break;
                     case 8:
-                        this.InposiBarcode = (string)ItemValues.GetValue(i);
+                        this.Barcode = (string)ItemValues.GetValue(i);
                         break;
                     default:
                         break;
@@ -142,5 +144,16 @@ namespace AGVCenterLib.Model.OPC
             }
         }
 
+        public string ToDisplay()
+        {
+            return string.Format("条码：{0},库位：{1}-{2}-{3},箱型：{4},AGV放行标记:{5},Rest标记{6},状态：{7},DbId:{8}",
+                this.Barcode,
+                this.PositionFloor,this.PositionColumn,this.PositionRow,
+                this.BoxType,
+                this.AgvPassFlag,
+                this.RestPositionFlag,
+                this.State,
+                this.DbId);
+        }
     }
 }

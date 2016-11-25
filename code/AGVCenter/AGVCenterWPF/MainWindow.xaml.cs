@@ -12,7 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AGVCenterLib.Data;
+using AGVCenterLib.Enum;
 using AGVCenterLib.Model.OPC;
+using AGVCenterLib.Service;
 using Brilliantech.Framwork.Utils.LogUtil;
 using OPCAutomation;
 
@@ -107,12 +110,14 @@ namespace AGVCenterWPF
             // 是否存在任务？ 并OPC可写
             if (OPCSetInStockTaskData.CanWrite && this.HasWatingInStockTask())
             {
-                OPCSetInStockTask task = this.DeququeInStockTaskQueue();
+                OPCSetInStockTask task = this.DequeueInStockTaskQueue();
 
-                LogUtil.Logger.InfoFormat("【派发任务】条码为{0}, 库位为{1}-{2}-{3}", task.InposiBarcode, task.PositionFloor, task.PositionColumn, task.PositionRow);
+                LogUtil.Logger.InfoFormat("【派发任务】条码为{0}, 库位为{1}-{2}-{3}", task.Barcode, task.PositionFloor, task.PositionColumn, task.PositionRow);
                 if (task.SyncWrite(OPCSetInStockTaskOPCGroup))
                 {
                     task.State = InStockTaskState.InStocking;
+                    // 置为可读，有新的任务
+                    task.SyncSetReadableFlag(OPCSetInStockTaskOPCGroup);
                 }
             }
 
@@ -337,10 +342,9 @@ namespace AGVCenterWPF
         {
             if (b.CanRead)
             {
-                // 读取条码，获取库位写入OPC
+                // 读取条码，获取库位写入任务队列
                 LogUtil.Logger.InfoFormat("【根据-入库条码-获取库位】{0}", OPCGetInStockPositionData.ScanGetInposiBarcode);
-
-                throw new NotImplementedException();
+                this.WriteOPCSetInStockTaskData(OPCGetInStockPositionData.ScanGetInposiBarcode);
             }
         }
 
@@ -362,14 +366,70 @@ namespace AGVCenterWPF
         {
             lock (WriteInStockTaskLocker)
             {
-                OPCSetInStockTask inStockTask = new OPCSetInStockTask();
-                if (InStockTaskQueue.Keys.Contains(barcode))
-                {
+                OPCSetInStockTask inStockTask = new OPCSetInStockTask() { Barcode = barcode };
+                inStockTask.OPCItemIDs = OPCSetInStockTaskData.OPCItemIDs;
+                inStockTask.ClientHandles = OPCSetInStockTaskData.ClientHandles;
+                inStockTask.ItemServerHandles = OPCSetInStockTaskData.ItemServerHandles;
+                inStockTask.AddItemServerErrors = OPCSetInStockTaskData.AddItemServerErrors;
 
+                UniqueItemService uniqItemService = new UniqueItemService(OPCConfig.DbString);
+                UniqueItemView item = uniqItemService.FindDetail(barcode);
+                if (item == null)
+                {
+                    // 是否可以入库
+                    if (uniqItemService.CanUniqInStock(barcode))
+                    {
+                        // 是否是重复扫描
+                        if (InStockTaskQueue.Keys.Contains(barcode))
+                        {
+                            return true;
+                        }
+                        inStockTask.AgvPassFlag = (byte)AgvPassFlag.Pass;
+
+                        // 查询可用库位！
+                        PositionService ps = new PositionService(OPCConfig.DbString);
+                        Position position = ps.FindInStockPosition();
+                        if (position == null)
+                        {
+                            inStockTask.AgvPassFlag = (byte)AgvPassFlag.Err;
+                            inStockTask.State = InStockTaskState.ErrorNoPositoin;
+                        }
+                        else
+                        {
+                            inStockTask.PositionFloor = (byte)position.Floor;
+                            inStockTask.PositionColumn = (byte)position.Column;
+                            inStockTask.PositionRow = (byte)position.Row;
+                            inStockTask.BoxType = (byte)item.BoxType;
+                            inStockTask.RestPositionFlag = 0x00;
+                            inStockTask.State = InStockTaskState.WaitingStcok;
+                        }
+                    }
+                    else
+                    {
+                        // 不可入库
+                        inStockTask.AgvPassFlag = (byte)AgvPassFlag.Err;
+                        inStockTask.State = InStockTaskState.ErrorUniqCannotInStock;
+                    }
+                }
+                else
+                {
+                    inStockTask.AgvPassFlag = (byte)AgvPassFlag.Err;
+                    inStockTask.State = InStockTaskState.ErrorUniqNotExsits;
+                }
+
+                // 先插入数据库Task再加入队列，最后置可读
+                StockTaskService ts = new StockTaskService(OPCConfig.DbString);
+                if (ts.CreateInStockTask(inStockTask))
+                {
+                    if (inStockTask.AgvPassFlag == (byte)AgvPassFlag.Pass)
+                    {
+                        // 加入队列
+                        inStockTask.State = InStockTaskState.WaitingStcok;
+                        this.EnqueueInStockTaskQueue(inStockTask);
+                    }
                 }
                 return false;
             }
-            
         }
 
         #region 入库任务队列
@@ -381,7 +441,8 @@ namespace AGVCenterWPF
         {
             lock (InStockTaskQueueLocker)
             {
-                if (this.InStockTaskQueue != null && this.InStockTaskQueue.Count(s => s.Value.State == InStockTaskState.WaitingStcok) > 0)
+                if (this.InStockTaskQueue != null 
+                    && this.InStockTaskQueue.Count(s => s.Value.State == InStockTaskState.WaitingStcok) > 0)
                 {
                     return true;
                 }
@@ -393,7 +454,7 @@ namespace AGVCenterWPF
         /// 出栈入库任务
         /// </summary>
         /// <returns></returns>
-        private OPCSetInStockTask DeququeInStockTaskQueue()
+        private OPCSetInStockTask DequeueInStockTaskQueue()
         {
             lock (InStockTaskQueueLocker)
             {
@@ -402,13 +463,8 @@ namespace AGVCenterWPF
                     var task = InStockTaskQueue.FirstOrDefault(s => s.Value.State == InStockTaskState.WaitingStcok).Value;
                     if (task != null)
                     {
-                        // 设置OPC 在生成的时候使用
-                        //task.OPCItemIDs = OPCSetInStockTaskData.OPCItemIDs;
-                        //task.ClientHandles = OPCSetInStockTaskData.ClientHandles;
-                        //task.ItemServerHandles = OPCSetInStockTaskData.ItemServerHandles;
-                        //task.AddItemServerErrors = OPCSetInStockTaskData.AddItemServerErrors;
-                        
                         task.State = InStockTaskState.InStocking;
+                        RefreshList();
                         return task;
                     }
                 }
@@ -421,12 +477,17 @@ namespace AGVCenterWPF
         /// 入栈入库任务
         /// </summary>
         /// <returns></returns>
-        private void EnququeInStockTaskQueue(OPCSetInStockTask task)
+        private void EnqueueInStockTaskQueue(OPCSetInStockTask task)
         {
             lock (InStockTaskQueueLocker)
             {
                 task.State = InStockTaskState.WaitingStcok;
-                InStockTaskQueue.Add(task.InposiBarcode, task);
+                InStockTaskQueue.Add(task.Barcode, task);
+               
+                ///将扫描OPC设置为可写
+                ///task.SyncSetWriteableFlag(OPCSetInStockTaskOPCGroup);
+                OPCGetInStockPositionData.SyncSetWriteableFlag(OPCGetInStockPositionOPCGroup);
+                RefreshList();
             }
         }
         #endregion
@@ -537,6 +598,36 @@ namespace AGVCenterWPF
             {
                 MessageBox.Show("不存在任务，OPC暂不可以读取数据");
             }
+
+        }
+        /// <summary>
+        /// 读取任务
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReadInStockTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (OPCSetInStockTaskData.CanRead)
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("不存在任务，OPC暂不可以读取入库数据");
+            }
+        }
+
+        /// <summary>
+        /// 更新显示列表
+        /// </summary>
+        private void RefreshList()
+        {
+            foreach(var t in InStockTaskQueue)
+            {
+                InStockTaskLB.Items.Add(t.Value.ToDisplay());
+            }
+
+
         }
 
         /// <summary>
@@ -548,5 +639,7 @@ namespace AGVCenterWPF
         {
             ShutDownComponents();
         }
+
+       
     }
 }

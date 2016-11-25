@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.5" name="AgvWarehouse">
+  <DataContextMoniker Name="/AgvWarehouseDataContext" />
+  <nestedChildShapes>
+    <classShape Id="1e04be56-e8a1-4792-b30e-52e4497d0a15" absoluteBounds="0.75, 6.25, 2, 2.1446048990885407">
+      <DataClassMoniker Name="/AgvWarehouseDataContext/Movement" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cb8cdacf-00c4-41f4-964f-dd0b5c1d6bee" absoluteBounds="0.765, 6.71, 1.9700000000000002, 1.5846048990885415" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0803b449-bf4f-429e-8b68-390e64612bf7" absoluteBounds="0.75, 1.625, 2, 1.1895064290364588">
+      <DataClassMoniker Name="/AgvWarehouseDataContext/Warehouse" />
+      <nestedChildShapes>
+        <elementListCompartment Id="950b6a02-3619-4d04-8be7-c8fc22508878" absoluteBounds="0.765, 2.085, 1.9700000000000002, 0.62950642903645826" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="dc086964-22d3-4829-85e4-c7cae98ad4f8" absoluteBounds="0.75, 4.125, 2, 1.1895064290364585">
+      <DataClassMoniker Name="/AgvWarehouseDataContext/Part" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1c8e5dbc-492a-4dea-8521-0c02ab7ff2d8" absoluteBounds="0.765, 4.585, 1.9700000000000002, 0.62950642903645826" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ea46b8f7-0dfb-4174-a516-8f3e1a35ae69" absoluteBounds="3.5, 0.75, 2, 1.9535852050781251">
+      <DataClassMoniker Name="/AgvWarehouseDataContext/Position" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1ff7fd67-33a8-4c56-a95c-44d0a32175c5" absoluteBounds="3.515, 1.21, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5e9f14b4-f190-451c-a71d-1b659cc608bb" absoluteBounds="6.25, 3.75, 2, 1.9535852050781255">
+      <DataClassMoniker Name="/AgvWarehouseDataContext/Storage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7de62a59-c416-456e-bc30-b338bea0b735" absoluteBounds="6.265, 4.21, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4513c2bf-8074-45cf-9f36-00ad74adbedd" absoluteBounds="3.5, 4, 2, 1.5715458170572916">
+      <DataClassMoniker Name="/AgvWarehouseDataContext/UniqueItem" />
+      <nestedChildShapes>
+        <elementListCompartment Id="90431b5b-e646-4a11-b9fa-850ea860acc0" absoluteBounds="3.515, 4.46, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 2.16429260253906); (3.5 : 2.16429260253906)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AgvWarehouseDataContext/Warehouse/Warehouse_Position" />
+      <nodes>
+        <classShapeMoniker Id="0803b449-bf4f-429e-8b68-390e64612bf7" />
+        <classShapeMoniker Id="ea46b8f7-0dfb-4174-a516-8f3e1a35ae69" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 5.31450642903646); (1.75 : 5.66881551106771); (6.25 : 5.66881551106771)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AgvWarehouseDataContext/Part/Part_Storage" />
+      <nodes>
+        <classShapeMoniker Id="dc086964-22d3-4829-85e4-c7cae98ad4f8" />
+        <classShapeMoniker Id="5e9f14b4-f190-451c-a71d-1b659cc608bb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 1.72679260253906); (7.25 : 1.72679260253906); (7.25 : 3.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AgvWarehouseDataContext/Position/Position_Storage" />
+      <nodes>
+        <classShapeMoniker Id="ea46b8f7-0dfb-4174-a516-8f3e1a35ae69" />
+        <classShapeMoniker Id="5e9f14b4-f190-451c-a71d-1b659cc608bb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 4.78577290852865); (6.25 : 4.78577290852865)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AgvWarehouseDataContext/UniqueItem/UniqueItem_Storage" />
+      <nodes>
+        <classShapeMoniker Id="4513c2bf-8074-45cf-9f36-00ad74adbedd" />
+        <classShapeMoniker Id="5e9f14b4-f190-451c-a71d-1b659cc608bb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.71975321451823); (3.5 : 4.71975321451823)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AgvWarehouseDataContext/Part/Part_UniqueItem" />
+      <nodes>
+        <classShapeMoniker Id="dc086964-22d3-4829-85e4-c7cae98ad4f8" />
+        <classShapeMoniker Id="4513c2bf-8074-45cf-9f36-00ad74adbedd" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="f23629d8-54db-4e2a-890d-2496a1369203" absoluteBounds="3.625, 6.25, 2, 1.7625655110677081">
+      <DataClassMoniker Name="/AgvWarehouseDataContext/UniqueItemView" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8e762412-1d68-4620-bb5a-d78f5d6379c5" absoluteBounds="3.64, 6.71, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4bafb079-eded-4aef-91f8-d5e4d1663be5" absoluteBounds="6.375, 6.375, 2, 2.9086836751302081">
+      <DataClassMoniker Name="/AgvWarehouseDataContext/StockTask" />
+      <nestedChildShapes>
+        <elementListCompartment Id="27bfd574-71d5-4f3e-95a0-1a947b088f66" absoluteBounds="6.39, 6.835, 1.9700000000000002, 2.348683675130208" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -10,12 +10,12 @@ namespace AGVCenterLib.Model.OPC
     {
         static OPCGetInStockPosition()
         {
-            OPCItemCount = 2;
+            
         }
         public OPCGetInStockPosition()
             : base()
         {
-
+            OPCItemCount = 2;
         }
 
         public string scanGetInposiBarcodeWas;
