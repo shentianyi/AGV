@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AGVCenterWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="502" Width="993" Loaded="Window_Loaded">
+        Title="MainWindow" Height="502" Width="993" Loaded="Window_Loaded" Closing="Window_Closing">
     <Grid>
         <Label x:Name="label" Content="OPC服务列表:" HorizontalAlignment="Left" Margin="26,49,0,0" VerticalAlignment="Top"/>
         <Button x:Name="OPCListServerBtn" Content="寻找可用OPC服务" HorizontalAlignment="Left" Margin="25,17,0,0" VerticalAlignment="Top" Width="129" Height="27" Click="ListOPCServerBtn_Click"/>

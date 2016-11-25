@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enum\AgvPassFlag.cs" />
+    <Compile Include="Enum\InStockTaskState.cs" />
     <Compile Include="Enum\OPC\CanonicalDataType.cs" />
-    <Compile Include="Model\OPC\Base.cs" />
+    <Compile Include="Model\OPC\OPCDataBase.cs" />
     <Compile Include="Model\OPC\OPCSetInStockTask.cs" />
     <Compile Include="Model\OPC\OPCGetInStockPosition.cs" />
     <Compile Include="OPCAddressMap.cs" />

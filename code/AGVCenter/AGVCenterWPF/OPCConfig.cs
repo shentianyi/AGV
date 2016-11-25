@@ -26,6 +26,14 @@ namespace AGVCenterWPF
         public static string OPCGetInStockPositionOPCGroupName = "OPCGetInStockPositionOPCGroup";
         public static int OPCGetInStockPositionOPCGroupRate = 10;
         public static int OPCGetInStockPositionOPCGroupDeadBand = 0;
+
+        /// <summary>
+        /// OPCSetInStockTaskOPCGroup
+        /// </summary>
+        public static string OPCSetInStockTaskOPCGroupName = "OPCSetInStockTaskOPCGroup";
+        public static int OPCSetInStockTaskOPCGroupRate = 10;
+        public static int OPCSetInStockTaskOPCGroupDeadBand = 0;
+
         #endregion
     }
 }
