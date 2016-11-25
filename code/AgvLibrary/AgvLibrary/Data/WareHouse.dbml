@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="WareHouseTest" Class="AgvWareHouseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Deal" Member="Deal">
+    <Type Name="Deal">
+      <Column Name="DealNr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Dlivery" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Operator" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Data" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Deal_ItemOnDeal" Member="ItemOnDeal" ThisKey="DealNr" OtherKey="DealNr" Type="ItemOnDeal" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ItemOnDeal" Member="ItemOnDeal">
+    <Type Name="ItemOnDeal">
+      <Column Name="ItemNr" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DealNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Deal_ItemOnDeal" Member="Deal" ThisKey="DealNr" OtherKey="DealNr" Type="Deal" IsForeignKey="true" />
+      <Association Name="UniqueItem_ItemOnDeal" Member="UniqueItem" ThisKey="ItemNr" OtherKey="ItemUnique" Type="UniqueItem" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Part" Member="Part">
+    <Type Name="Part">
+      <Column Name="PartNr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Part_Storage" Member="Storage" ThisKey="PartNr" OtherKey="PartNr" Type="Storage" />
+      <Association Name="Part_UniqueItem" Member="UniqueItem" ThisKey="PartNr" OtherKey="PartNr" Type="UniqueItem" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Posation" Member="Posation">
+    <Type Name="Posation">
+      <Column Name="PosationNr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WHNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Floor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Coloumn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Posation_Storage" Member="Storage" ThisKey="PosationNr" OtherKey="PosationNr" Type="Storage" Cardinality="One" />
+      <Association Name="WareHouse_Posation" Member="WareHouse" ThisKey="WHNr" OtherKey="WHNr" Type="WareHouse" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Record" Member="Record">
+    <Type Name="Record">
+      <Column Name="MovementId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SourcePosation" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AimedPosation" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Operation" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Operator" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Time" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Storage" Member="Storage">
+    <Type Name="Storage">
+      <Column Name="PosationNr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ItemNr" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PartNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FIFO" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="UniqueItem_Storage" Member="UniqueItem" ThisKey="ItemNr" OtherKey="ItemUnique" Type="UniqueItem" IsForeignKey="true" />
+      <Association Name="Part_Storage" Member="Part" ThisKey="PartNr" OtherKey="PartNr" Type="Part" IsForeignKey="true" />
+      <Association Name="Posation_Storage" Member="Posation" ThisKey="PosationNr" OtherKey="PosationNr" Type="Posation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UniqueItem" Member="UniqueItem">
+    <Type Name="UniqueItem">
+      <Column Name="ItemUnique" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PartNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateTime" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="UniqueItem_ItemOnDeal" Member="ItemOnDeal" ThisKey="ItemUnique" OtherKey="ItemNr" Type="ItemOnDeal" Cardinality="One" />
+      <Association Name="UniqueItem_Storage" Member="Storage" ThisKey="ItemUnique" OtherKey="ItemNr" Type="Storage" />
+      <Association Name="Part_UniqueItem" Member="Part" ThisKey="PartNr" OtherKey="PartNr" Type="Part" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WareHouse" Member="WareHouse">
+    <Type Name="WareHouse">
+      <Column Name="AgvId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WHNr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="WareHouse_Posation" Member="Posation" ThisKey="WHNr" OtherKey="WHNr" Type="Posation" />
+    </Type>
+  </Table>
+</Database>
