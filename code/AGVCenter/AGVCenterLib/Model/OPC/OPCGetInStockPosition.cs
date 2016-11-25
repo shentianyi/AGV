@@ -6,7 +6,7 @@ using OPCAutomation;
 
 namespace AGVCenterLib.Model.OPC
 {
-    public class OPCGetInStockPosition : Base
+    public class OPCGetInStockPosition : OPCDataBase
     {
         static OPCGetInStockPosition()
         {
@@ -27,7 +27,7 @@ namespace AGVCenterLib.Model.OPC
             }
         }
         /// <summary>
-        /// 条码
+        /// 条码 2
         /// </summary>
         private string scanGetInposiBarcode;
         public string ScanGetInposiBarcode { get { return scanGetInposiBarcode; } set {

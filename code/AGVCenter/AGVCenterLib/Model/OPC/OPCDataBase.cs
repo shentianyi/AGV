@@ -7,7 +7,7 @@ using OPCAutomation;
 namespace AGVCenterLib.Model.OPC
 {
 
-    public class Base
+    public class OPCDataBase
     {
         #region 读写标记常量
         public static byte READ_ABLE_FLAG = 0x01;
@@ -23,7 +23,7 @@ namespace AGVCenterLib.Model.OPC
         public Array AddItemServerErrors;
         #endregion
 
-        public Base()
+        public OPCDataBase()
         {
             OPCItemIDs = new string[OPCItemCount + 1];
             ClientHandles = new int[OPCItemCount + 1];
@@ -35,7 +35,7 @@ namespace AGVCenterLib.Model.OPC
         /// </summary>
         /// <param name="sensor"></param>
         /// <param name="toFlag"></param>
-        public delegate void RwFlagChangedEventHandler(Base b, byte toFlag);
+        public delegate void RwFlagChangedEventHandler(OPCDataBase b, byte toFlag);
 
         /// <summary>
         /// 读写标记改变事件
@@ -43,7 +43,7 @@ namespace AGVCenterLib.Model.OPC
         public event RwFlagChangedEventHandler RwFlagChangedEvent;
 
 
-        public RwFlagChangedEventHandler RwFlagChanged;
+     //   public RwFlagChangedEventHandler RwFlagChanged;
         #endregion
 
 
@@ -52,7 +52,7 @@ namespace AGVCenterLib.Model.OPC
         private byte? opcRwFlagWas;
 
         /// <summary>
-        /// 读写标记
+        /// 读写标记 1
         /// </summary>
         public byte? OPCRwFlag
         {
@@ -64,9 +64,9 @@ namespace AGVCenterLib.Model.OPC
             {
                 this.opcRwFlagWas = opcRwFlag;
                 opcRwFlag = value;
-                if (this.opcRwFlagWas!=this.opcRwFlag && this.RwFlagChanged != null)
+                if (this.opcRwFlagWas!=this.opcRwFlag && this.RwFlagChangedEvent != null)
                 {
-                    this.RwFlagChanged(this, value.Value);
+                    this.RwFlagChangedEvent(this, value.Value);
                 }
             }
         }
