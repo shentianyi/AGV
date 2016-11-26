@@ -41,19 +41,61 @@ namespace AGVCenterLib
                 }
             },
             #endregion
-            #region 写入入库任务
+            #region 小车入库扫描放行
             {
-                "OPCSetInStockTask",
+                "OPCAgvInStockPass",
+                new Dictionary<string, string>()
+                {
+                    { "stock_pass_agv_rw_flag",INOUT_AddrPrefix+"B258.stock_pass_agv_rw_flag"},
+                    { "stock_pass_agv_flag",INOUT_AddrPrefix+"B259.stock_pass_agv_flag"},
+                }
+            },
+            #endregion
+            #region 入库机械手任务信息
+            {
+                "OPCRobotInStockTask",
+                 new Dictionary<string, string>()
+                {
+                    { "inrobot_pick_rw_flag",INOUT_AddrPrefix+"B260.inrobot_pick_rw_flag"},
+                    { "inrobot_pick_box_type",INOUT_AddrPrefix+"B261.inrobot_pick_box_type"},
+                }
+            },
+            #endregion
+            #region 巷道机1库存任务
+            {
+                "OPCXDJ1StockTask",
                 new Dictionary<string,string>()
                 {
-                    { "in_stock_rw_flag",INOUT_AddrPrefix+"B258.in_stock_rw_flag"},
-                    { "in_stock_position_floor",INOUT_AddrPrefix+"B259.in_stock_position1"},
-                    { "in_stock_position_column",INOUT_AddrPrefix+"B260.in_stock_position2"},
-                    { "in_stock_position_row",INOUT_AddrPrefix+"B261.in_stock_position3"},
-                    { "in_stock_box_type",INOUT_AddrPrefix+"B262.in_stock_box_type"},
-                    { "in_stock_agv_pass_flag",INOUT_AddrPrefix+"B263.in_stock_agv_pass_flag"},
-                    { "in_stock_reset_position_flag",INOUT_AddrPrefix+"B264.in_stock_reset_position_flag"},
-                    { "in_stock_barcode",INOUT_AddrPrefix+"B266.254.String.in_stock_barcode"}
+                    { "stock_xdj1_rw_flag",INOUT_AddrPrefix+"B262.stock_xdj1_rw_flag"},
+                    { "stock_xdj1_action_type",INOUT_AddrPrefix+"B263.stock_xdj1_action_type"},
+                    { "stock_xdj1_position1",INOUT_AddrPrefix+"B264.stock_xdj1_position1"},
+                    { "stock_xdj1_position2",INOUT_AddrPrefix+"B265.stock_xdj1_position2"},
+                    { "stock_xdj1_position3",INOUT_AddrPrefix+"B266.stock_xdj1_position3"},
+                    { "stock_xdj1_box_type",INOUT_AddrPrefix+"B267.stock_xdj1_box_type"},
+                    { "stock_xdj1_reset_position_flag",INOUT_AddrPrefix+"B268.stock_xdj1_reset_position_flag"},
+                    { "stock_xdj1_tray_reverse_no",INOUT_AddrPrefix+"B270.Int.stock_xdj1_tray_reverse_no"},
+                    { "stock_xdj1_tray_num",INOUT_AddrPrefix+"B272.Int.stock_xdj1_tray_num"},
+                    { "stock_xdj1_delivery_num",INOUT_AddrPrefix+"B274.Int.stock_xdj1_delivery_num"},
+                    { "stock_xdj1_barcode",INOUT_AddrPrefix+"B276.254.String.stock_xdj1_barcode"}
+                }
+            },
+           #endregion
+           #region 巷道机2库存任务
+            {
+                "OPCXDJ2StockTask",
+                new Dictionary<string,string>()
+                {
+                   { "stock_xdj2_rw_flag",INOUT_AddrPrefix+"B532.stock_xdj2_rw_flag"},
+                    { "stock_xdj2_action_type",INOUT_AddrPrefix+"B533.stock_xdj2_action_type"},
+                    { "stock_xdj2_position1",INOUT_AddrPrefix+"B534.stock_xdj2_position1"},
+                    { "stock_xdj2_position2",INOUT_AddrPrefix+"B535.stock_xdj2_position2"},
+                    { "stock_xdj2_position3",INOUT_AddrPrefix+"B536.stock_xdj2_position3"},
+                    { "stock_xdj2_box_type",INOUT_AddrPrefix+"B537.stock_xdj2_box_type"},
+                    { "stock_xdj2_reset_position_flag",INOUT_AddrPrefix+"B538.stock_xdj2_reset_position_flag"},
+                    { "stock_xdj2_tray_reverse_no",INOUT_AddrPrefix+"B540.Int.stock_xdj2_tray_reverse_no"},
+                    { "stock_xdj2_tray_num",INOUT_AddrPrefix+"B542.Int.stock_xdj2_tray_num"},
+                    { "stock_xdj2_delivery_num",INOUT_AddrPrefix+"B544.Int.stock_xdj2_devlivery_num"},
+                    { "stock_xdj2_barcode",INOUT_AddrPrefix+"B546.254.stock_xdj2_barcode"}
                 }
             }
            #endregion

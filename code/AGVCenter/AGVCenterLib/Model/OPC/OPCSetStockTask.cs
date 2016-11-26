@@ -7,16 +7,12 @@ using OPCAutomation;
 
 namespace AGVCenterLib.Model.OPC
 {
-    public class OPCSetInStockTask : OPCDataBase
+    public class OPCSetStockTask : OPCDataBase
     {
-        static OPCSetInStockTask()
-        {
-
-        }
-        public OPCSetInStockTask()
+        public OPCSetStockTask()
             : base()
         {
-            State = InStockTaskState.Init;
+            State = StockTaskState.Init;
             RestPositionFlag = 0x00;
         }
 
@@ -58,7 +54,7 @@ namespace AGVCenterLib.Model.OPC
         /// <summary>
         /// 状态，不写入OPC
         /// </summary>
-        public InStockTaskState State { get; set; }
+        public StockTaskState State { get; set; }
 
         /// <summary>
         /// DB id

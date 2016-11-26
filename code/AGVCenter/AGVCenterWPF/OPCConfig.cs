@@ -26,11 +26,20 @@ namespace AGVCenterWPF
 
         #region OPC组
         /// <summary>
-        /// OPCGetInStockPositionOPCGroup
+        /// OPCCheckInStockBarcodeOPCGroup , 扫码入库
         /// </summary>
-        public static string OPCGetInStockPositionOPCGroupName = "OPCGetInStockPositionOPCGroup";
-        public static int OPCGetInStockPositionOPCGroupRate = 10;
-        public static int OPCGetInStockPositionOPCGroupDeadBand = 0;
+        public static string OPCCheckInStockBarcodeOPCGroupName = "OPCCheckInStockBarcodeOPCGroup";
+        public static int OPCCheckInStockBarcodeOPCGroupRate = 10;
+        public static int OPCCheckInStockBarcodeOPCGroupDeadBand = 0;
+
+        /// <summary>
+        /// OPCAgvInStockPassOPCGroup ，AGV 放行
+        /// </summary>
+        public static string OPCAgvInStockPassOPCGroupName = "OPCAgvInStockPassOPCGroup";
+        public static int OPCAgvInStockPassOPCGroupRate = 10;
+        public static int OPCAgvInStockPassOPCGroupDeadBand = 0;
+        public static int SetOPCAgvInStockPassTimerInterval = 100;
+
 
         /// <summary>
         /// OPCSetInStockTaskOPCGroup

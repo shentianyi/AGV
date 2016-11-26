@@ -29,23 +29,26 @@ namespace TcpDemoWPF
         {
             InitializeComponent();
         }
-    //    private static int myProt = 8080;   //端口  
-        Socket tcpServer;
+        //    private static int myProt = 8080;   //端口  
+        //Socket tcpServer;
+        TcpListener tcpServer;
         Thread ClientRecieveThread;
         bool runflag = true;
 
-        Dictionary<string, Socket> clients = new Dictionary<string, Socket>();
+        Dictionary<string, TcpClient> clients = new Dictionary<string, TcpClient>();
         Dictionary<string, Thread> clientThreads = new Dictionary<string, Thread>();
 
 
         private void MakeConnection_Click(object sender, RoutedEventArgs e)
         {
-            IPAddress ip = IPAddress.Parse(serverIPTB.Text);
-            tcpServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            tcpServer.Bind(new IPEndPoint(ip, int.Parse(serverPortTB.Text)));  //绑定IP地址：端口  
-            tcpServer.Listen(10);    //设定最多10个排队连接请求  
+            //IPAddress ip = IPAddress.Parse(serverIPTB.Text);
+            //tcpServer = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //tcpServer.Bind(new IPEndPoint(ip, int.Parse(serverPortTB.Text)));  //绑定IP地址：端口  
+            //tcpServer.Listen(10);    //设定最多10个排队连接请求  
+            tcpServer = new TcpListener(IPAddress.Parse(serverIPTB.Text), 8085);
+            tcpServer.Start(10);
 
-            MessageBox.Show(string.Format("启动监听{0}成功", tcpServer.LocalEndPoint.ToString()));
+            MessageBox.Show(string.Format("启动监听{0}成功", tcpServer.LocalEndpoint.ToString()));
             MakeConnection.Content = "【服务器已启动】";
             // SocketTcpAccept.Send(serversay);
             ClientRecieveThread = new Thread(ListenConnnect);
@@ -57,14 +60,17 @@ namespace TcpDemoWPF
         {
             while (runflag)
             {
-                Socket client = tcpServer.Accept();
+                    Thread clientThread = new Thread(ListenClientMsg);
+                //  Socket client = new Socket(SocketType.Stream,ProtocolType.Tcp) ;
+                TcpClient client=null;
                 try
                 {
-                    this.Dispatcher.Invoke(new Action(() => { clientLB.Items.Add(client.RemoteEndPoint.ToString()); }));
+                      client = tcpServer.AcceptTcpClient();
+                   
+                    this.Dispatcher.Invoke(new Action(() => { clientLB.Items.Add(client.Client.RemoteEndPoint.ToString()); }));
                     string key = GetClientKey(client);
 
                     clients.Add(key, client);
-                    Thread clientThread = new Thread(ListenClientMsg);
                     clientThread.IsBackground = true;
                     clientThread.Start(client);
                     clientThreads.Add(key, clientThread);
@@ -72,9 +78,13 @@ namespace TcpDemoWPF
                 }
                 catch (Exception ee)
                 {
+                    clientThread.Abort();
                     MessageBox.Show(ee.Message);
                     LogUtil.Logger.Info(ee.Message);
-                    RemoveClient(client);
+                    if (client != null)
+                    {
+                        RemoveClient(client);
+                    }
                 }
 
             }
@@ -83,143 +93,162 @@ namespace TcpDemoWPF
 
         private void ListenClientMsg(object cliento)
         {
-            Socket client = cliento as Socket;
+            TcpClient client = cliento as TcpClient;
             try
             {
+
                 while (true)
                 {
-                    byte[] result = new byte[1024];
-                    int dataLength = client.Receive(result);
-                    if (dataLength > 0)
+                    NetworkStream stream = client.GetStream();
+                    stream.ReadTimeout = 2000;
+                    bool connected = true;
+                    try {
+                          connected = client.Client.Poll(1, SelectMode.SelectRead)
+                            && client.Available == 0; }catch(Exception ex)
                     {
-                        byte[] MessageBytes = result.Take(dataLength).ToArray();
-                        string Receivemeans = ReadMessage.Parser.readMessage(MessageBytes);
-                        this.Dispatcher.Invoke(new Action(() => { ReceiveText.AppendText(Receivemeans + "\n"); }));
+                        connected = false; 
+                    }
+                    if (client.Connected && connected)
+                    {
+                        byte[] result = new byte[1024];
+                        // int dataLength = 10;
 
-                        LogUtil.Logger.Info("【数据】"+ScaleConvertor.HexBytesToString(MessageBytes));
-                        LogUtil.Logger.Info("【解析】" + Receivemeans);
-
-                        #region parse
-                        switch (MessageBytes[5])
+                        int dataLength = stream.Read(result, 0, result.Length);
+                        if (dataLength > 0)
                         {
-                            case 0x01://呼唤小车
-                                {
-                                    string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 02 01 01 01";
+                            byte[] MessageBytes = result.Take(dataLength).ToArray();
+                            string Receivemeans = ReadMessage.Parser.readMessage(MessageBytes);
+                            this.Dispatcher.Invoke(new Action(() => { ReceiveText.AppendText(Receivemeans + "\n"); }));
 
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                  //  sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                            LogUtil.Logger.Info("【数据】" + ScaleConvertor.HexBytesToString(MessageBytes));
+                            LogUtil.Logger.Info("【解析】" + Receivemeans);
 
-                                    break;
-                                }
-                            case (byte)06://小车到达
-                                {
-                                    string name = "06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 07 01";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                            #region parse
+                            switch (MessageBytes[5])
+                            {
+                                case 0x01://呼唤小车
+                                    {
+                                        string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 02 01 01 01";
 
-                                    break;
-                                }
-                            case (byte)03://小车出发
-                                {
-                                    string name = "06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 04 01";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        //  sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    break;
-                                }
-                            case (byte)08://取消小车呼唤
-                                {
-                                    string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 09 02 02 01";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        break;
+                                    }
+                                case (byte)06://小车到达
+                                    {
+                                        string name = "06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 07 01";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    break;
-                                }
-                            case 0x0A://获取货物库位信息
-                                {
-                                    string name = "11 " + MessageBytes[3].ToString("X2") + " " 
-                                        + MessageBytes[4].ToString("X2") + " 0B 04 01 01 02 03 04 05 48 65 6C 6C 6F";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        break;
+                                    }
+                                case (byte)03://小车出发
+                                    {
+                                        string name = "06 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 04 01";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    break;
-                                }
-                            case (byte)12://入库完成指令0X0C
-                                {
-                                    string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0D 04 01 13";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        break;
+                                    }
+                                case (byte)08://取消小车呼唤
+                                    {
+                                        string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 09 02 02 01";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    break;
-                                }
-                            case (byte)13://出库指令0X0D 
-                                {
+                                        break;
+                                    }
+                                case 0x0A://获取货物库位信息
+                                    {
+                                        string name = "11 " + MessageBytes[3].ToString("X2") + " "
+                                            + MessageBytes[4].ToString("X2") + " 0B 04 01 01 02 03 04 05 48 65 6C 6C 6F";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    string name = "07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        break;
+                                    }
+                                case (byte)12://入库完成指令0X0C
+                                    {
+                                        string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0D 04 01 13";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    break;
-                                }
-                            case (byte)14://出库指令0X0E
-                                {
+                                        break;
+                                    }
+                                case (byte)13://出库指令0X0D 
+                                    {
 
-                                    string name = "07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        string name = "07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    break;
-                                }
-                            case (byte)16://出库完成指令0X10
-                                {
+                                        break;
+                                    }
+                                case (byte)14://出库指令0X0E
+                                    {
 
-                                    string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 11 02 01 13";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        string name = "07 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 0F 02 01";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    break;
-                                }
-                            case (byte)18://码垛（整个托盘）完成指令0X12
-                                {
-                                    string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 13 01 01 13";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        break;
+                                    }
+                                case (byte)16://出库完成指令0X10
+                                    {
 
-                                    break;
+                                        string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 11 02 01 13";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                }
-                            case (byte)20://请求启动或停止设备指令0X14
-                                {
-                                    string name = "09 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 15 01 01 13 01";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        break;
+                                    }
+                                case (byte)18://码垛（整个托盘）完成指令0X12
+                                    {
+                                        string name = "08 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 13 01 01 13";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    break;
-                                }
-                            case (byte)22://启动或停止设备指令0X16
-                                {
-                                    string name = "0B " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 17 01 01 13 01 02 01";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        break;
 
-                                    break;
-                                }
-                            case (byte)24://警报指令0X19
-                                {
+                                    }
+                                case (byte)20://请求启动或停止设备指令0X14
+                                    {
+                                        string name = "09 " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 15 01 01 13 01";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    string name = "0B " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 19 01 01 13 01 02 01";
-                                    byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
-                                    sendMsgToClient(GetClientKey(client), SendMessageBytes);
+                                        break;
+                                    }
+                                case (byte)22://启动或停止设备指令0X16
+                                    {
+                                        string name = "0B " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 17 01 01 13 01 02 01";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
 
-                                    break;
-                                }
+                                        break;
+                                    }
+                                case (byte)24://警报指令0X19
+                                    {
+
+                                        string name = "0B " + MessageBytes[3].ToString("X2") + " " + MessageBytes[4].ToString("X2") + " 19 01 01 13 01 02 01";
+                                        byte[] SendMessageBytes = ScaleConvertor.HexStringToHexByte(name);
+                                        sendMsgToClient(GetClientKey(client), SendMessageBytes);
+
+                                        break;
+                                    }
 
 
 
-                            default: break;
+                                default: break;
 
+                            }
+                            #endregion
                         }
-                        #endregion
+                    }
+                    else
+                    {
+                        RemoveClient(client);
                     }
                 }
             }
@@ -238,17 +267,17 @@ namespace TcpDemoWPF
         /// <param name="msgBody"></param>
         private void sendMsgToClient(string clientIP, byte[] msgBody)
         {
-            byte[] msg = AGVMessageHelper.GenMsg(msgBody);
-            clients[clientIP].Send(msg, msg.Length, SocketFlags.None);
-            string SendMeans = ReadMessage.Parser.readMessage(msg);
-            this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
+            //byte[] msg = AGVMessageHelper.GenMsg(msgBody);
+            //clients[clientIP].Send(msg, msg.Length, SocketFlags.None);
+            //string SendMeans = ReadMessage.Parser.readMessage(msg);
+            //this.Dispatcher.Invoke(new Action(() => { SendText.AppendText(SendMeans + "\n"); }));
         }
 
         /// <summary>
         /// 移除Client
         /// </summary>
         /// <param name="client"></param>
-        private void RemoveClient(Socket client)
+        private void RemoveClient(TcpClient client)
         {
             string key = GetClientKey(client);
             if (this.clients.Keys.Contains(key))
@@ -300,7 +329,7 @@ namespace TcpDemoWPF
             /// 关闭server
             if (tcpServer != null)
             {
-                tcpServer.Close();
+                tcpServer.Stop();
             }
         }
 
@@ -309,9 +338,9 @@ namespace TcpDemoWPF
             new ClientWindow().Show();
         }
 
-        private string GetClientKey(Socket client)
+        private string GetClientKey(TcpClient client)
         {
-            return client.RemoteEndPoint.ToString();
+            return client.Client.RemoteEndPoint.ToString();
         }
     }
 }

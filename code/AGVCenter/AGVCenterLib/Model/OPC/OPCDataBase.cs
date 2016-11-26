@@ -10,8 +10,9 @@ namespace AGVCenterLib.Model.OPC
     public class OPCDataBase
     {
         #region 读写标记常量
+        public static byte NONE_ABLE_FLAG = 0x00;
         public static byte READ_ABLE_FLAG = 0x01;
-        public static byte WRITE_ABLE_FLAG = 0x00;
+        public static byte WRITE_ABLE_FLAG = 0x02;
         #endregion
 
         #region 变量
@@ -176,7 +177,7 @@ namespace AGVCenterLib.Model.OPC
         /// 设置可读
         /// </summary>
         /// <param name="group"></param>
-        public bool SyncSetRWFlag(OPCGroup group,byte flag)
+        protected bool SyncSetRWFlag(OPCGroup group,byte flag)
         {
             /// 写入flag
             int[] SyncItemServerHandles = new int[2];

@@ -7,21 +7,52 @@ namespace AGVCenterLib.Enum
 {
     public enum StockTaskType
     {
-        In=0,
-        Out=1
+        /// <summary>
+        /// 无动作
+        /// </summary>
+        NONE =0,
+        /// <summary>
+        /// OUT
+        /// </summary>
+        OUT=1,
+        /// <summary>
+        /// IN
+        /// </summary>
+        IN=2,
+        /// <summary>
+        /// CHECK
+        /// </summary>
+        CHECK=3
     }
 
-    public enum InStockTaskState
+    public enum StockTaskState
     {
-        Init = 0,
-        WaitingStcok = 1,
-        InStocking = 2,
-        InStocked = 3,
-        Canceled = 4,
+        /// <summary>
+        /// 初始
+        /// </summary>
+       Init = 0,
+        /// <summary>
+        /// AGV 入库中
+        /// </summary>
+        AgvInStcoking = 1,
+        /// <summary>
+        /// 机械手入库中
+        /// </summary>
+        RobootInStocking = 2,
+        /// <summary>
+        /// 巷道机入库中
+        /// </summary>
+        RoadMachineInStocking = 3,
+        /// <summary>
+        /// 入库成功
+        /// </summary>
+        InStocked = 4,
+        InCanceled = 5,
         
         // Error
-        ErrorNoPositoin = 5,
-        ErrorUniqNotExsits = 6,
-        ErrorUniqCannotInStock=7
+        ErrorNoPositoin = 20,
+        ErrorUniqNotExsits = 21,
+        ErrorUniqCannotInStock=22,
+        ErrorCreateDbTask=23
     }
 }

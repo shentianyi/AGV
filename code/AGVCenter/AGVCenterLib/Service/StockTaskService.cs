@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using AGVCenterLib.Data;
 using AGVCenterLib.Enum;
+using AGVCenterLib.Model;
 using AGVCenterLib.Model.OPC;
 
 namespace AGVCenterLib.Service
@@ -18,7 +19,7 @@ namespace AGVCenterLib.Service
         /// 创建入库任务
         /// </summary>
         /// <returns></returns>
-        public bool CreateInStockTask(OPCSetInStockTask task)
+        public bool CreateInStockTask(StockTaskItem task)
         {
             StockTask st = new StockTask()
             {
@@ -30,7 +31,7 @@ namespace AGVCenterLib.Service
                 RestPositionFlag = task.RestPositionFlag,
                 BarCode = task.Barcode,
                 State = (int)task.State,
-                Type = (int)StockTaskType.In,
+                Type = (int)StockTaskType.IN,
                 CreatedAt = DateTime.Now
             };
             this.Context.StockTask.InsertOnSubmit(st);

@@ -7,8 +7,9 @@ namespace AGVCenterLib.Enum
 {
     public enum AgvPassFlag
     {
-        Forbidden = 0,
+        NONE=0,
         Pass = 1,
-        Err = 2
+        ReScan = 2,
+        Alarm = 3
     }
 }

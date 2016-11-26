@@ -16,7 +16,7 @@
         <Label x:Name="label" Content="客户端列表：" HorizontalAlignment="Left" Margin="20,96,0,0" VerticalAlignment="Top" Height="29" Width="123"/>
         <ListBox x:Name="clientLB" HorizontalAlignment="Left" Height="351" Margin="20,130,0,0" VerticalAlignment="Top" Width="140"/>
         <Label x:Name="label1" Content="IP:" HorizontalAlignment="Left" Margin="29,24,0,0" VerticalAlignment="Top" Height="31" Width="42"/>
-        <TextBox x:Name="serverIPTB" HorizontalAlignment="Left" Height="29" Margin="71,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Text="192.168.1.125"/>
+        <TextBox x:Name="serverIPTB" HorizontalAlignment="Left" Height="29" Margin="71,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Text="192.168.1.123"/>
         <Label x:Name="label2" Content="端口:" HorizontalAlignment="Left" Margin="231,26,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="serverPortTB" HorizontalAlignment="Left" Height="31" Margin="281,25,0,0" TextWrapping="Wrap" Text="8085" VerticalAlignment="Top" Width="128"/>
 
