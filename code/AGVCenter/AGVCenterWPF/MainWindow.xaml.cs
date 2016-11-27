@@ -44,7 +44,9 @@ namespace AGVCenterWPF
         private static object TaskCetnerQueueLocker=new object();
        
         //小车放行队列
-        Queue AgvInStockPassQueue; 
+        Queue AgvInStockPassQueue;
+        //机械手抓取队列
+        Queue InRobootPickQueue;
         /// <summary>
         /// 入库任务队列，以条码为键
         /// </summary>
@@ -53,7 +55,7 @@ namespace AGVCenterWPF
         private static object StockTaskQueueLocker = new object();
 
         #endregion
-        #region 入库信息数据
+        #region 入库信息数据 OPC
 
         // 入库条码扫描
         OPCCheckInStockBarcode OPCCheckInStockBarcodeData;
@@ -61,12 +63,19 @@ namespace AGVCenterWPF
         // 小车入库放行
         OPCAgvInStockPass OPCAgvInStockPassData;
         OPCGroup OPCAgvInStockPassOPCGroup;
+        // 入库机械手抓取
+        OPCInRobootPick OPCInRobootPickData;
+        OPCGroup OPCInRobootPickOPCGroup;
 
-        
-        
-        // 库存任务
-        OPCSetStockTask OPCSetStockTaskData;
-        OPCGroup OPCSetInStockTaskOPCGroup;
+
+
+        // 库存任务, 巷道机1&2
+        // 1
+        OPCSetStockTask OPCSetStockTaskRoadMachine1Data;
+        OPCGroup OPCSetStockTaskRoadMachine1OPCGroup;
+        // 2
+        OPCSetStockTask OPCSetStockTaskRoadMachine2Data;
+        OPCGroup OPCSetStockTaskRoadMachine2OPCGroup;
 
         #endregion
 
@@ -75,6 +84,13 @@ namespace AGVCenterWPF
         /// 写入OPC小车放行定时器，将队列AgvInStockPassQueue的任务写入OPC
         /// </summary>
         Timer SetOPCAgvPassTimer;
+
+
+        /// <summary>
+        /// 写入OPC入库机械手信息，将对列InRobootPickQueue的任务写入OPC
+        /// </summary>
+        Timer SetOPCInRobootPickTimer;
+
         /// <summary>
         /// 写入OPC入库任务定时器，将队列InStockTaskQueue的任务按序写入OPC
         /// </summary>
@@ -112,11 +128,17 @@ namespace AGVCenterWPF
             OPCAgvInStockPassData = new OPCAgvInStockPass();
             OPCAgvInStockPassData.RwFlagChangedEvent += new OPCAgvInStockPass.RwFlagChangedEventHandler( OPCAgvInStockPassData_RwFlagChangedEvent);
 
-            //库存操作任务
-            OPCSetStockTaskData = new OPCSetStockTask();
-            OPCSetStockTaskData.RwFlagChangedEvent += new OPCSetStockTask.RwFlagChangedEventHandler(OPCSetInStockTaskData_RwFlagChangedEvent);
+            // 入库机械手抓取
+            OPCInRobootPickData = new OPCInRobootPick();
+            OPCInRobootPickData.RwFlagChangedEvent +=new OPCInRobootPick.RwFlagChangedEventHandler(  OPCInRobootPickData_RwFlagChangedEvent);
 
+            //库存操作任务  巷道机1
+            OPCSetStockTaskRoadMachine1Data = new OPCSetStockTask("SetStockTaskRoadMachine1");
+            OPCSetStockTaskRoadMachine1Data.RwFlagChangedEvent += new OPCSetStockTask.RwFlagChangedEventHandler(OPCSetStockTaskRoadMachine1Data_RwFlagChangedEvent);
 
+            //库存操作任务 巷道机2
+            OPCSetStockTaskRoadMachine2Data = new OPCSetStockTask("SetStockTaskRoadMachine1");
+            OPCSetStockTaskRoadMachine2Data.RwFlagChangedEvent += new OPCSetStockTask.RwFlagChangedEventHandler( OPCSetStockTaskRoadMachine2Data_RwFlagChangedEvent);
             #endregion
 
             #region 初始化定时器
@@ -125,6 +147,15 @@ namespace AGVCenterWPF
             SetOPCAgvPassTimer.Interval = OPCConfig.SetOPCAgvInStockPassTimerInterval;
             SetOPCAgvPassTimer.Enabled = true;
             SetOPCAgvPassTimer.Elapsed += SetOPCAgvPassTimer_Elapsed;
+
+            // 入库机械手Timer
+            SetOPCInRobootPickTimer = new Timer();
+            SetOPCInRobootPickTimer.Interval = OPCConfig.SetOPCInRobootPickTimerInterval;
+            SetOPCInRobootPickTimer.Enabled = true;
+            SetOPCInRobootPickTimer.Elapsed += SetOPCInRobootPickTimer_Elapsed;
+
+
+
             // 入库任务定时器
             SetOPCInStockTaskTimer = new Timer();
             SetOPCInStockTaskTimer.Interval = 100;
@@ -137,27 +168,52 @@ namespace AGVCenterWPF
             #endregion
         }
 
+
+
         /// <summary>
-        /// 读取AGV入库放行队列中的任务，写入OPC值并可读
+        /// 读取AGV放行队列中的任务，写入OPC值并可读
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SetOPCAgvPassTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             SetOPCAgvPassTimer.Stop();
-            if(AgvInStockPassQueue.Count >0 && OPCAgvInStockPassData.CanWrite)
+            if (AgvInStockPassQueue.Count > 0 && OPCAgvInStockPassData.CanWrite)
             {
                 StockTaskItem taskItem = AgvInStockPassQueue.Peek() as StockTaskItem;
                 OPCAgvInStockPassData.AgvPassFlag = taskItem.AgvPassFlag;
-               if(OPCAgvInStockPassData.SyncWrite(OPCAgvInStockPassOPCGroup) 
-                    &&
-                    OPCAgvInStockPassData.SyncSetReadableFlag(OPCAgvInStockPassOPCGroup))
-                {
+                taskItem.State = StockTaskState.AgvInStcoking;
+                if (OPCAgvInStockPassData.SyncWrite(OPCAgvInStockPassOPCGroup))
+                {   
                     AgvInStockPassQueue.Dequeue();
+                    RefreshList();
                 }
             }
             SetOPCAgvPassTimer.Start();
         }
+
+        /// <summary>
+        /// 读取入库机械手数据队列中的任务，写入OPC值并可读
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetOPCInRobootPickTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            SetOPCInRobootPickTimer.Stop();
+            if (InRobootPickQueue.Count > 0 && OPCInRobootPickData.CanWrite)
+            {
+                StockTaskItem taskItem = AgvInStockPassQueue.Peek() as StockTaskItem;
+                taskItem.State = StockTaskState.RobootInStocking;
+                OPCInRobootPickData.BoxType = taskItem.BoxType ;
+                if (OPCInRobootPickData.SyncWrite(OPCInRobootPickOPCGroup))
+                {
+                    InRobootPickQueue.Dequeue();
+                    RefreshList();
+                }
+            }
+            SetOPCInRobootPickTimer.Start();
+        }
+
 
         /// <summary>
         /// 验证可读和读取入库条码信息
@@ -169,16 +225,16 @@ namespace AGVCenterWPF
             SetOPCInStockTaskTimer.Stop();
 
             // 是否存在任务？ 并OPC可写
-            if (OPCSetStockTaskData.CanWrite && this.HasWatingInStockTask())
+            if (OPCSetStockTaskRoadMachine1Data.CanWrite && this.HasWatingInStockTask())
             {
                 OPCSetStockTask task = this.DequeueInStockTaskQueue();
 
                 LogUtil.Logger.InfoFormat("【派发任务】条码为{0}, 库位为{1}-{2}-{3}", task.Barcode, task.PositionFloor, task.PositionColumn, task.PositionRow);
-                if (task.SyncWrite(OPCSetInStockTaskOPCGroup))
+                if (task.SyncWrite(OPCSetStockTaskRoadMachine1OPCGroup))
                 {
                     task.State = StockTaskState.RoadMachineInStocking;
                     // 置为可读，有新的任务
-                    task.SyncSetReadableFlag(OPCSetInStockTaskOPCGroup);
+                    task.SyncSetReadableFlag(OPCSetStockTaskRoadMachine1OPCGroup);
                 }
             }
 
@@ -310,16 +366,42 @@ namespace AGVCenterWPF
                 OPCAgvInStockPassOPCGroup.DataChange += OPCAgvInStockPassOPCGroup_DataChange; ;
                 #endregion
 
-                #region 初始化入库任务组
-                // 初始化入库任务组
-                OPCSetInStockTaskOPCGroup = ConnectedOPCServer.OPCGroups.Add(OPCConfig.OPCSetInStockTaskOPCGroupName);
-                OPCSetInStockTaskOPCGroup.UpdateRate = OPCConfig.OPCSetInStockTaskOPCGroupRate;
-                OPCSetInStockTaskOPCGroup.DeadBand = OPCConfig.OPCSetInStockTaskOPCGroupDeadBand;
-                OPCSetInStockTaskOPCGroup.IsSubscribed = true;
-                OPCSetInStockTaskOPCGroup.IsActive = true;
+                #region 入库机械手抓取信息组
+                OPCInRobootPickOPCGroup = ConnectedOPCServer.OPCGroups.Add(OPCConfig.OPCInRobootPickOPCGroupName);
+                OPCInRobootPickOPCGroup.UpdateRate = OPCConfig.OPCInRobootPickOPCGroupRate;
+                OPCInRobootPickOPCGroup.DeadBand = OPCConfig.OPCInRobootPickOPCGroupDeadBand;
+                OPCInRobootPickOPCGroup.IsSubscribed = true;
+                OPCInRobootPickOPCGroup.IsActive = true;
+
                 // 添加item
-                OPCSetStockTaskData.AddItemToGroup(OPCSetInStockTaskOPCGroup);
-                OPCSetInStockTaskOPCGroup.DataChange += OPCSetInStockTaskOPCGroup_DataChange;
+                OPCInRobootPickData.AddItemToGroup(OPCInRobootPickOPCGroup);
+                OPCInRobootPickOPCGroup.DataChange += OPCInRobootPickOPCGroup_DataChange;
+
+                #endregion
+
+                #region 初始化巷道机入库任务组
+                // 初始化 巷道机1 入库任务组
+                OPCSetStockTaskRoadMachine1OPCGroup = ConnectedOPCServer.OPCGroups.Add(OPCConfig.OPCSetInStockTaskRM1OPCGroupName);
+                OPCSetStockTaskRoadMachine1OPCGroup.UpdateRate = OPCConfig.OPCSetInStockTaskRM1OPCGroupRate;
+                OPCSetStockTaskRoadMachine1OPCGroup.DeadBand = OPCConfig.OPCSetInStockTaskRM1OPCGroupDeadBand;
+                OPCSetStockTaskRoadMachine1OPCGroup.IsSubscribed = true;
+                OPCSetStockTaskRoadMachine1OPCGroup.IsActive = true;
+                // 添加item
+                OPCSetStockTaskRoadMachine1Data.AddItemToGroup(OPCSetStockTaskRoadMachine1OPCGroup);
+                OPCSetStockTaskRoadMachine1OPCGroup.DataChange += OPCSetStockTaskRoadMachine1OPCGroup_DataChange;
+
+                // 初始化 巷道机2 入库任务组
+                OPCSetStockTaskRoadMachine2OPCGroup = ConnectedOPCServer.OPCGroups.Add(OPCConfig.OPCSetInStockTaskRM2OPCGroupName);
+                OPCSetStockTaskRoadMachine2OPCGroup.UpdateRate = OPCConfig.OPCSetInStockTaskRM2OPCGroupRate;
+                OPCSetStockTaskRoadMachine2OPCGroup.DeadBand = OPCConfig.OPCSetInStockTaskRM2OPCGroupDeadBand;
+                OPCSetStockTaskRoadMachine2OPCGroup.IsSubscribed = true;
+                OPCSetStockTaskRoadMachine2OPCGroup.IsActive = true;
+                // 添加item
+                OPCSetStockTaskRoadMachine2Data.AddItemToGroup(OPCSetStockTaskRoadMachine2OPCGroup);
+                OPCSetStockTaskRoadMachine2OPCGroup.DataChange += OPCSetStockTaskRoadMachine2OPCGroup_DataChange; ;
+
+
+
                 #endregion
                 return true;
 
@@ -331,6 +413,8 @@ namespace AGVCenterWPF
             }
             return false;
         }
+
+
 
         // 第一次会获取到opcserver的数据，即使没有触发，相当于初始化
         // 扫描入库的信息获取
@@ -347,7 +431,7 @@ namespace AGVCenterWPF
                 // 从1开始
                 for (var i = 1; i <= NumItems; i++)
                 {
-                    LogUtil.Logger.InfoFormat("【OPCCheckInStockBarcode】【数据改变】{0}", ItemValues.GetValue(i));
+                    LogUtil.Logger.InfoFormat("【数据改变】【入库条码扫描】{0}", ItemValues.GetValue(i));
                 }
                 OPCCheckInStockBarcodeData.SetValue(NumItems,ClientHandles, ItemValues);
             }
@@ -374,7 +458,7 @@ namespace AGVCenterWPF
                 // 从1开始
                 for (var i = 1; i <= NumItems; i++)
                 {
-                    LogUtil.Logger.InfoFormat("【OPCAgvInStockPass】【数据改变】{0}", ItemValues.GetValue(i));
+                    LogUtil.Logger.InfoFormat("【数据改变】【AGV放行】{0}", ItemValues.GetValue(i));
                 }
                 OPCAgvInStockPassData.SetValue(NumItems, ClientHandles, ItemValues);
             }
@@ -385,10 +469,8 @@ namespace AGVCenterWPF
             }
         }
 
-
-
         /// <summary>
-        /// 设置入库任务的数据改变事件处理
+        /// 入库机械手抓手信息
         /// </summary>
         /// <param name="TransactionID"></param>
         /// <param name="NumItems"></param>
@@ -396,16 +478,16 @@ namespace AGVCenterWPF
         /// <param name="ItemValues"></param>
         /// <param name="Qualities"></param>
         /// <param name="TimeStamps"></param>
-        private void OPCSetInStockTaskOPCGroup_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        private void OPCInRobootPickOPCGroup_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
             try
             {
                 // 从1开始
                 for (var i = 1; i <= NumItems; i++)
                 {
-                    LogUtil.Logger.InfoFormat("【数据改变】{0}", ItemValues.GetValue(i));
+                    LogUtil.Logger.InfoFormat("【数据改变】【机械手】{0}", ItemValues.GetValue(i));
                 }
-                OPCSetStockTaskData.SetValue(NumItems, ClientHandles, ItemValues);
+                OPCInRobootPickData.SetValue(NumItems, ClientHandles, ItemValues);
             }
             catch (Exception ex)
             {
@@ -413,6 +495,62 @@ namespace AGVCenterWPF
                 MessageBox.Show(ex.Message);
             }
         }
+
+        /// <summary>
+        /// 设置 巷道机1 入库任务的数据改变事件处理
+        /// </summary>
+        /// <param name="TransactionID"></param>
+        /// <param name="NumItems"></param>
+        /// <param name="ClientHandles"></param>
+        /// <param name="ItemValues"></param>
+        /// <param name="Qualities"></param>
+        /// <param name="TimeStamps"></param>
+        private void OPCSetStockTaskRoadMachine1OPCGroup_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        {
+            try
+            {
+                // 从1开始
+                for (var i = 1; i <= NumItems; i++)
+                {
+                    LogUtil.Logger.InfoFormat("【数据改变】【巷道机1】{0}", ItemValues.GetValue(i));
+                }
+                OPCSetStockTaskRoadMachine1Data.SetValue(NumItems, ClientHandles, ItemValues);
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
+            }
+        }
+        /// <summary>
+        /// 设置 巷道机2 入库任务的数据改变事件处理
+        /// </summary>
+        /// <param name="TransactionID"></param>
+        /// <param name="NumItems"></param>
+        /// <param name="ClientHandles"></param>
+        /// <param name="ItemValues"></param>
+        /// <param name="Qualities"></param>
+        /// <param name="TimeStamps"></param>
+        private void OPCSetStockTaskRoadMachine2OPCGroup_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        {
+            try
+            {
+                // 从1开始
+                for (var i = 1; i <= NumItems; i++)
+                {
+                    LogUtil.Logger.InfoFormat("【数据改变】【巷道机2】{0}", ItemValues.GetValue(i));
+                }
+                OPCSetStockTaskRoadMachine2Data.SetValue(NumItems, ClientHandles, ItemValues);
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
 
         /// <summary>
         /// 读取入库条码信息读写标记改变处理
@@ -442,7 +580,7 @@ namespace AGVCenterWPF
         }
 
         /// <summary>
-        /// agv入库放行标记标记改变处理
+        /// agv入库放行读写标记改变处理
         /// </summary>
         /// <param name="b"></param>
         /// <param name="toFlag"></param>
@@ -451,23 +589,51 @@ namespace AGVCenterWPF
             if (b.CanWrite)
             {
                 /// 将放行信息队列中的信息写入OPC
+                /// 使用定时器去写
                /// throw new NotImplementedException();
             }
         }
+
         /// <summary>
-        /// 入库任务读写标记改变处理
+        /// 入库机械手抓取信息读写标记改变处理
         /// </summary>
         /// <param name="b"></param>
         /// <param name="toFlag"></param>
-        private void OPCSetInStockTaskData_RwFlagChangedEvent(OPCDataBase b, byte toFlag)
+        private void OPCInRobootPickData_RwFlagChangedEvent(OPCDataBase b, byte toFlag)
         {
-            LogUtil.Logger.InfoFormat("【OPC入库任务读写标记改变】{0}",OPCSetStockTaskData.OPCRwFlag);
+            if (b.CanWrite)
+            {
+                /// 将入库机械手抓取信息写入OPC
+                /// 使用定时器去写
+            }
+        }
+
+
+        /// <summary>
+        /// 入库任务 巷道机1
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="toFlag"></param>
+        private void OPCSetStockTaskRoadMachine1Data_RwFlagChangedEvent(OPCDataBase b, byte toFlag)
+        {
+            LogUtil.Logger.InfoFormat("【OPC 巷道机 1 入库任务读写标记改变】{0}",OPCSetStockTaskRoadMachine1Data.OPCRwFlag);
             //if (b.CanWrite)
             //{
             // 这边就不写了，使用定时器写入库任务！
             //}
-
         }
+
+        /// <summary>
+        /// 入库任务 巷道机2
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="toFlag"></param>
+        private void OPCSetStockTaskRoadMachine2Data_RwFlagChangedEvent(OPCDataBase b, byte toFlag)
+        {
+            LogUtil.Logger.InfoFormat("【OPC  巷道机 1 入库任务读写标记改变】{0}", OPCSetStockTaskRoadMachine1Data.OPCRwFlag);
+        }
+
+
 
         /// <summary>
         /// 将任务写入总任务队列，并派发到AGV放行队列
@@ -507,7 +673,7 @@ namespace AGVCenterWPF
                             taskItem.AgvPassFlag = (byte)AgvPassFlag.Pass;
                             // 先放小车，不计算库位!
                             taskItem.BoxType = (byte)item.BoxType;
-                            taskItem.State = StockTaskState.AgvInStcoking;
+                            //taskItem.State = StockTaskState.AgvInStcoking;
                         }
                     }
                     else
@@ -563,6 +729,7 @@ namespace AGVCenterWPF
                 if (passTaskItem!=null)
                 {
                     AgvInStockPassQueue.Enqueue(passTaskItem);
+                    InRobootPickQueue.Enqueue(passTaskItem);
                 }
                 // 刷新界面列表
                 RefreshList();
@@ -637,6 +804,7 @@ namespace AGVCenterWPF
         private void InitQueueAndLoadTaskFromDb()
         {
             AgvInStockPassQueue = new Queue();
+            InRobootPickQueue = new Queue();
             TaskCenterQueue = new Dictionary<string, StockTaskItem>();
             InStockTaskQueue = new Dictionary<string, OPCSetStockTask>();
         }
@@ -753,7 +921,7 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void ReadInStockTaskBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (OPCSetStockTaskData.CanRead)
+            if (OPCSetStockTaskRoadMachine1Data.CanRead)
             {
 
             }

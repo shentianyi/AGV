@@ -12,11 +12,23 @@ namespace AGVCenterLib.Model
         {
             this.State = StockTaskState.Init;
         }
+
         /// <summary>
         /// 任务类型
         /// </summary>
         public StockTaskType StockTaskType { get; set; }
         
+        /// <summary>
+        /// 巷道机序号，从1开始，目前使用1号或2号巷道机，
+        /// 和库存中的库位AreaIndex对应，相当于1或2的分区
+        /// </summary>
+        public int RoadMachineIndex { get; set; }
+
+        /// <summary>
+        /// 库位编号
+        /// </summary>
+        public string PositionNr { get; set; }
+
         /// <summary>
         /// 库位，层，2
         /// </summary>
@@ -47,8 +59,24 @@ namespace AGVCenterLib.Model
         /// </summary>
         public byte RestPositionFlag { get; set; }
 
+
         /// <summary>
-        /// 条码，8
+        /// 托的剩余第几箱，从n...1
+        /// </summary>
+        public int TrayReverseNo { get; set; }
+
+        /// <summary>
+        /// 运单中托的个数
+        /// </summary>
+        public int TrayNum { get; set; }
+
+        /// <summary>
+        /// 运单项的个数
+        /// </summary>
+        public int DeliveryItemNum { get; set; }
+
+        /// <summary>
+        /// 条码
         /// </summary>
         public string Barcode { get; set; }
 
@@ -61,9 +89,8 @@ namespace AGVCenterLib.Model
         /// DB id
         /// </summary>
         public int DbId { get; set; }
-
-
-
+         
+        
         public string ToDisplay()
         {
             return string.Format("【任务类型：{0}】条码：{1},库位：{2}-{3}-{4},箱型：{5},AGV放行标记:{6},Rest标记{7},状态：{8},DbId:{9}",

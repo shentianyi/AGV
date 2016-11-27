@@ -16,38 +16,62 @@ namespace AGVCenterLib.Model.OPC
             RestPositionFlag = 0x00;
         }
 
+        public OPCSetStockTask(string OPCAddressKey):base(OPCAddressKey)
+        {
+            State = StockTaskState.Init;
+            RestPositionFlag = 0x00;
+        }
+
         /// <summary>
-        /// 库位，层，2
+        /// 任务类型,2
+        /// </summary>
+        public byte StockTaskType { get; set; }
+
+        /// <summary>
+        /// 库位，层，3
         /// </summary>
         public byte PositionFloor { get; set; }
 
         /// <summary>
-        /// 库位，列，3
+        /// 库位，列，4
         /// </summary>
         public byte PositionColumn { get; set; }
 
         /// <summary>
-        /// 库位，排，4
+        /// 库位，排，5
         /// </summary>
         public byte PositionRow { get; set; }
 
         /// <summary>
-        /// 箱型，5
+        /// 箱型，6
         /// </summary>
         public byte BoxType { get; set; }
 
-        /// <summary>
-        /// AGV 放行标记，6
-        /// </summary>
-        public byte AgvPassFlag { get; set; }
 
         /// <summary>
         /// 重置库位标记，7
         /// </summary>
         public byte RestPositionFlag { get; set; }
 
+
         /// <summary>
-        /// 条码，8
+        /// 托的剩余第几箱，8，从n...1
+        /// </summary>
+        public int TrayReverseNo { get; set; }
+
+        /// <summary>
+        /// 运单中托的个数，9
+        /// </summary>
+        public int TrayNum { get; set; }
+
+        /// <summary>
+        /// 运单项的个数，10
+        /// </summary>
+        public int DeliveryItemNum { get; set; }
+
+
+        /// <summary>
+        /// 条码，11
         /// </summary>
         public string Barcode { get; set; }
 
@@ -55,11 +79,7 @@ namespace AGVCenterLib.Model.OPC
         /// 状态，不写入OPC
         /// </summary>
         public StockTaskState State { get; set; }
-
-        /// <summary>
-        /// DB id
-        /// </summary>
-        public int DbId { get; set; }
+        
 
 
 
@@ -71,8 +91,8 @@ namespace AGVCenterLib.Model.OPC
         public override bool SyncWrite(OPCGroup group)
         {
             /// 写入条码信息
-            int[] SyncItemServerHandles = new int[8];
-            object[] SyncItemValues = new object[8];
+            int[] SyncItemServerHandles = new int[11];
+            object[] SyncItemValues = new object[11];
             Array SyncItemServerErrors;
 
             // 库位，层 index 是2
@@ -83,14 +103,21 @@ namespace AGVCenterLib.Model.OPC
             SyncItemServerHandles[5] = (int)this.ItemServerHandles.GetValue(6);
             SyncItemServerHandles[6] = (int)this.ItemServerHandles.GetValue(7);
             SyncItemServerHandles[7] = (int)this.ItemServerHandles.GetValue(8);
+            SyncItemServerHandles[8] = (int)this.ItemServerHandles.GetValue(9);
+            SyncItemServerHandles[9] = (int)this.ItemServerHandles.GetValue(10);
+            SyncItemServerHandles[10] = (int)this.ItemServerHandles.GetValue(11);
 
-            SyncItemValues[1] = this.BoxType;
+            SyncItemValues[1] = this.StockTaskType;
             SyncItemValues[2] = this.PositionFloor;
             SyncItemValues[3] = this.PositionColumn;
             SyncItemValues[4] = this.PositionRow;
-            SyncItemValues[5] = this.AgvPassFlag;
+            SyncItemValues[5] = this.BoxType;
             SyncItemValues[6] = this.RestPositionFlag;
-            SyncItemValues[7] = this.Barcode;
+            SyncItemValues[7] = this.TrayReverseNo;
+            SyncItemValues[8] = this.TrayNum;
+            SyncItemValues[9] = this.DeliveryItemNum;
+            SyncItemValues[10] = this.Barcode;
+
             group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
             if (SyncItemServerErrors != null && ((int)SyncItemServerErrors.GetValue(1) == 0))
             {
@@ -120,24 +147,33 @@ namespace AGVCenterLib.Model.OPC
                         this.OPCRwFlag = (byte)ItemValues.GetValue(i);
                         break;
                     case 2:
-                        this.PositionFloor = (byte)ItemValues.GetValue(i);
+                        this.StockTaskType = (byte)ItemValues.GetValue(i);
                         break;
                     case 3:
-                        this.PositionColumn = (byte)ItemValues.GetValue(i);
+                        this.PositionFloor = (byte)ItemValues.GetValue(i);
                         break;
                     case 4:
-                        this.PositionRow = (byte)ItemValues.GetValue(i);
+                        this.PositionColumn = (byte)ItemValues.GetValue(i);
                         break;
                     case 5:
-                        this.BoxType = (byte)ItemValues.GetValue(i);
+                        this.PositionRow = (byte)ItemValues.GetValue(i);
                         break;
                     case 6:
-                        this.AgvPassFlag = (byte)ItemValues.GetValue(i);
+                        this.BoxType = (byte)ItemValues.GetValue(i);
                         break;
                     case 7:
                         this.RestPositionFlag = (byte)ItemValues.GetValue(i);
                         break;
                     case 8:
+                        this.TrayReverseNo = (int)ItemValues.GetValue(i);
+                        break;
+                    case 9:
+                        this.TrayNum = (int)ItemValues.GetValue(i);
+                        break;
+                    case 10:
+                        this.DeliveryItemNum = (int)ItemValues.GetValue(i);
+                        break;
+                    case 11:
                         this.Barcode = (string)ItemValues.GetValue(i);
                         break;
                     default:
@@ -146,16 +182,6 @@ namespace AGVCenterLib.Model.OPC
             }
         }
 
-        public string ToDisplay()
-        {
-            return string.Format("条码：{0},库位：{1}-{2}-{3},箱型：{4},AGV放行标记:{5},Rest标记{6},状态：{7},DbId:{8}",
-                this.Barcode,
-                this.PositionFloor, this.PositionColumn, this.PositionRow,
-                this.BoxType,
-                this.AgvPassFlag,
-                this.RestPositionFlag,
-                this.State,
-                this.DbId);
-        }
+
     }
 }

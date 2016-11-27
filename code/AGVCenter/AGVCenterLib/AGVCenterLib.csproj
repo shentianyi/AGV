@@ -53,6 +53,7 @@
     <Compile Include="Enum\BoxType.cs" />
     <Compile Include="Enum\InStockTaskState.cs" />
     <Compile Include="Enum\OPC\CanonicalDataType.cs" />
+    <Compile Include="Model\OPC\OPCInRobootPick.cs" />
     <Compile Include="Model\OPC\OPCAgvInStockPass.cs" />
     <Compile Include="Model\OPC\OPCCheckInStockBarcode.cs" />
     <Compile Include="Model\OPC\OPCDataBase.cs" />

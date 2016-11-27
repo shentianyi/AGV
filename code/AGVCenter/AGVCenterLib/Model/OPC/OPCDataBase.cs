@@ -17,20 +17,33 @@ namespace AGVCenterLib.Model.OPC
 
         #region 变量
         public  int OPCItemCount = 2;
-
+        public string OPCAddressKey;
         public string[] OPCItemIDs;
         public int[] ClientHandles;
         public Array ItemServerHandles;
         public Array AddItemServerErrors;
         #endregion
 
+
+
         public OPCDataBase()
         {
-            OPCItemCount = OPCAddressMap.GroupNameAddress[this.GetType().Name].Count;
-               OPCItemIDs = new string[OPCItemCount + 1];
-            ClientHandles = new int[OPCItemCount + 1];
+            OPCAddressKey = this.GetType().Name;
+            this.Init();
         }
 
+        public OPCDataBase(string OPCAddressKey)
+        {
+            this.OPCAddressKey = OPCAddressKey;
+            this.Init();
+        }
+
+        private void Init()
+        {
+            OPCItemCount = OPCAddressMap.GroupNameAddress[OPCAddressKey].Count;
+            OPCItemIDs = new string[OPCItemCount + 1];
+            ClientHandles = new int[OPCItemCount + 1];
+        }
         #region 读写标记事件
         /// <summary>
         /// 读写标记改变事件委托

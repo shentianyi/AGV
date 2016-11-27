@@ -53,7 +53,7 @@ namespace AGVCenterLib
             #endregion
             #region 入库机械手任务信息
             {
-                "OPCRobotInStockTask",
+                "OPCInRobootPick",
                  new Dictionary<string, string>()
                 {
                     { "inrobot_pick_rw_flag",INOUT_AddrPrefix+"B260.inrobot_pick_rw_flag"},
@@ -63,7 +63,7 @@ namespace AGVCenterLib
             #endregion
             #region 巷道机1库存任务
             {
-                "OPCXDJ1StockTask",
+                "SetStockTaskRoadMachine1",
                 new Dictionary<string,string>()
                 {
                     { "stock_xdj1_rw_flag",INOUT_AddrPrefix+"B262.stock_xdj1_rw_flag"},
@@ -82,7 +82,7 @@ namespace AGVCenterLib
            #endregion
            #region 巷道机2库存任务
             {
-                "OPCXDJ2StockTask",
+                "SetStockTaskRoadMachine2",
                 new Dictionary<string,string>()
                 {
                    { "stock_xdj2_rw_flag",INOUT_AddrPrefix+"B532.stock_xdj2_rw_flag"},

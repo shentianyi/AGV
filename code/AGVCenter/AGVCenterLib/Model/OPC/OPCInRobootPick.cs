@@ -5,34 +5,21 @@ using System.Text;
 using OPCAutomation;
 
 namespace AGVCenterLib.Model.OPC
-{ 
-
+{
     /// <summary>
-    /// 扫码入库检验
+    /// 
     /// </summary>
-    public class OPCCheckInStockBarcode : OPCDataBase
+    public class OPCInRobootPick : OPCDataBase
     {
-        public OPCCheckInStockBarcode()
+        public OPCInRobootPick()
             : base()
         {
         }
-
-        public string scanedBarcodeWas;
-        public string ScanedBarcodeWas {
-            get { return scanedBarcodeWas; }
-            set
-            {
-                scanedBarcodeWas = value;
-            }
-        }
+        
         /// <summary>
-        /// 条码 2
+        /// 箱型，2
         /// </summary>
-        private string scanedBarcode;
-        public string ScanedBarcode { get { return scanedBarcode; } set {
-                scanedBarcodeWas = scanedBarcode;
-                scanedBarcode = value;
-            } }
+        public byte BoxType { get; set; }
 
 
         #region 写入值
@@ -49,7 +36,7 @@ namespace AGVCenterLib.Model.OPC
 
             // 条码 index 是2
             SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(2);
-            SyncItemValues[1] = this.ScanedBarcode;
+            SyncItemValues[1] = this.BoxType;
             group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
             if (SyncItemServerErrors != null && ((int)SyncItemServerErrors.GetValue(1) == 0))
             {
@@ -57,10 +44,6 @@ namespace AGVCenterLib.Model.OPC
                 {
                     return true;
                 }
-            }
-            else
-            {
-                this.ScanedBarcode = this.ScanedBarcodeWas;
             }
             return false;
         }
@@ -83,13 +66,12 @@ namespace AGVCenterLib.Model.OPC
                         this.OPCRwFlag = (byte)ItemValues.GetValue(i);
                         break;
                     case 2:
-                        this.ScanedBarcode = (string)ItemValues.GetValue(i);
+                        this.BoxType = (byte)ItemValues.GetValue(i);
                         break;
                     default:
                         break;
                 }
             }
         }
-
     }
 }

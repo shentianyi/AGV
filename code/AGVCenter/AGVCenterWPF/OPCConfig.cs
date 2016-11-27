@@ -40,14 +40,28 @@ namespace AGVCenterWPF
         public static int OPCAgvInStockPassOPCGroupDeadBand = 0;
         public static int SetOPCAgvInStockPassTimerInterval = 100;
 
+        /// <summary>
+        /// OPCInRobootPickOPCGroup ，入库机械手抓取
+        /// </summary>
+        public static string OPCInRobootPickOPCGroupName = "OPCInRobootPickOPCGroup";
+        public static int OPCInRobootPickOPCGroupRate = 10;
+        public static int OPCInRobootPickOPCGroupDeadBand = 0;
+        public static int SetOPCInRobootPickTimerInterval = 100;
+
 
         /// <summary>
-        /// OPCSetInStockTaskOPCGroup
+        /// OPCSetInStockTaskRM1OPCGroup， 巷道机1
         /// </summary>
-        public static string OPCSetInStockTaskOPCGroupName = "OPCSetInStockTaskOPCGroup";
-        public static int OPCSetInStockTaskOPCGroupRate = 10;
-        public static int OPCSetInStockTaskOPCGroupDeadBand = 0;
+        public static string OPCSetInStockTaskRM1OPCGroupName = "OPCSetInStockTaskRM1OPCGroup";
+        public static int OPCSetInStockTaskRM1OPCGroupRate = 10;
+        public static int OPCSetInStockTaskRM1OPCGroupDeadBand = 0;
 
+        /// <summary>
+        /// OPCSetInStockTaskRM2OPCGroup， 巷道机2
+        /// </summary>
+        public static string OPCSetInStockTaskRM2OPCGroupName = "OPCSetInStockTaskRM2OPCGroup";
+        public static int OPCSetInStockTaskRM2OPCGroupRate = 10;
+        public static int OPCSetInStockTaskRM2OPCGroupDeadBand = 0;
         #endregion
     }
 }
