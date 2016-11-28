@@ -11,6 +11,7 @@ namespace AGVCenterLib.Model
         public StockTaskItem()
         {
             this.State = StockTaskState.Init;
+            this.IsInProcessing = false;
         }
         #region 状态改变事件
         /// <summary>
@@ -110,6 +111,12 @@ namespace AGVCenterLib.Model
                     this.TaskStateChangeEvent(this, value);
                 }
             }
+        }
+
+        public bool IsInProcessing
+        {
+            get;
+            set;
         }
 
         /// <summary>

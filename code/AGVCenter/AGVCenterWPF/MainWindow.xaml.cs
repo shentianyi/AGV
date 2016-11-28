@@ -186,8 +186,12 @@ namespace AGVCenterWPF
                 OPCAgvInStockPassData.AgvPassFlag = taskItem.AgvPassFlag;
                 taskItem.State = StockTaskState.AgvInStcoking;
                 if (OPCAgvInStockPassData.SyncWrite(OPCAgvInStockPassOPCGroup))
-                {   
-                    AgvInStockPassQueue.Dequeue();
+                {
+                    // 进入机械手抓取
+                    if (taskItem.AgvPassFlag == (byte)AgvPassFlag.Pass)
+                    {
+                        InRobootPickQueue.Enqueue(AgvInStockPassQueue.Dequeue());
+                    }
                     RefreshList();
                 }
             }
@@ -201,10 +205,10 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void SetOPCInRobootPickTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            SetOPCInRobootPickTimer.Stop();
+             SetOPCInRobootPickTimer.Stop();
             if (InRobootPickQueue.Count > 0 && OPCInRobootPickData.CanWrite)
             {
-                StockTaskItem taskItem = AgvInStockPassQueue.Peek() as StockTaskItem;
+                StockTaskItem taskItem = InRobootPickQueue.Peek() as StockTaskItem;
                 taskItem.State = StockTaskState.RobootInStocking;
                 OPCInRobootPickData.BoxType = taskItem.BoxType ;
                 if (OPCInRobootPickData.SyncWrite(OPCInRobootPickOPCGroup))
@@ -802,16 +806,27 @@ namespace AGVCenterWPF
         {
             lock (TaskCenterQueueLocker)
             {
+
                 // 加入总队列
-                TaskCenterQueue.Add(taskItem.Barcode, taskItem);
+                if (TaskCenterQueue.Keys.Contains(taskItem.Barcode)) {
+                    TaskCenterQueue[taskItem.Barcode] = taskItem;
+                } else {
+                    TaskCenterQueue.Add(taskItem.Barcode, taskItem);
+                
+                }
+                
                 // 立刻加入到放行队列
                 StockTaskItem passTaskItem = TaskCenterQueue
-                    .Where(s => s.Value.State == StockTaskState.Init)
+                    .Where(s => s.Value.IsInProcessing==false)
                     .Select(s=>s.Value).FirstOrDefault();
-                if (passTaskItem!=null)
+                if (passTaskItem != null)
                 {
+                    passTaskItem.IsInProcessing = true;
+
+                    passTaskItem.State = StockTaskState.AgvInStcoking;
+                    // 进入agv放行
                     AgvInStockPassQueue.Enqueue(passTaskItem);
-                    InRobootPickQueue.Enqueue(passTaskItem);
+                    
                 }
                 // 刷新界面列表
                 RefreshList();
@@ -968,17 +983,19 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void WirteGetPisitionBarBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (OPCCheckInStockBarcodeData.CanWrite)
+            //if (OPCCheckInStockBarcodeData.CanWrite)
+            if(true)
             {
                 OPCCheckInStockBarcodeData.ScanedBarcode = ScanedBarCodeTB.Text;
                 if (OPCCheckInStockBarcodeData.SyncWrite(OPCCheckInstockBarcodeOPCGroup))
                 {
-                    MessageBox.Show("条码读取成功");
+                    LogUtil.Logger.Info("【条码读取成功】");
+                   // MessageBox.Show("条码读取成功");
                 }
             }
             else
             {
-                MessageBox.Show("存在旧任务，OPC暂不可以写入数据");
+                MessageBox.Show("OPC暂不可以写入数据");
             }
         }
 
@@ -1028,9 +1045,12 @@ namespace AGVCenterWPF
             this.Dispatcher.Invoke(new Action(() =>
             {
                 InStockTaskLB.Items.Clear();
-                foreach (var t in TaskCenterQueue.Values)
+                if (TaskCenterQueue != null)
                 {
-                    InStockTaskLB.Items.Add(t.ToDisplay());
+                    foreach (var t in TaskCenterQueue.Values)
+                    {
+                        InStockTaskLB.Items.Add(t.ToDisplay());
+                    }
                 }
             }));
         }
@@ -1043,6 +1063,52 @@ namespace AGVCenterWPF
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ShutDownComponents();
+        }
+
+        /// <summary>
+        /// 设置OPC条码可以写
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetAgvBarcodeCheckWritableBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OPCCheckInStockBarcodeData.SyncSetWriteableFlag(OPCCheckInstockBarcodeOPCGroup);
+        }
+
+        private void SetAgvBarcodeCheckReadableBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OPCCheckInStockBarcodeData.SyncSetReadableFlag(OPCCheckInstockBarcodeOPCGroup);
+        }
+
+        private void SetInRobootWritableBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OPCInRobootPickData.SyncSetWriteableFlag(OPCInRobootPickOPCGroup);
+        }
+
+
+        private void SetInRobootReadableBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OPCInRobootPickData.SyncSetReadableFlag(OPCInRobootPickOPCGroup);
+        }
+        /// <summary>
+        /// 【测试所用】 清空任务
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearTasksForTestBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(AgvInStockPassQueue!=null){
+                AgvInStockPassQueue.Clear();
+            }
+            if (InRobootPickQueue != null)
+            {
+                InRobootPickQueue.Clear();
+            }
+            if (TaskCenterQueue != null)
+            {
+                TaskCenterQueue.Clear();
+            }
+            RefreshList();
         }
 
        

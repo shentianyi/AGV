@@ -7,50 +7,35 @@ using OPCAutomation;
 namespace AGVCenterLib.Model.OPC
 {
 
-    public class OPCDataBase
+    public class Base
     {
         #region 读写标记常量
-        public static byte NONE_ABLE_FLAG = 0x00;
         public static byte READ_ABLE_FLAG = 0x01;
-        public static byte WRITE_ABLE_FLAG = 0x02;
+        public static byte WRITE_ABLE_FLAG = 0x00;
         #endregion
 
         #region 变量
-        public  int OPCItemCount = 2;
-        public string OPCAddressKey;
+        public static int OPCItemCount = 2;
+
         public string[] OPCItemIDs;
         public int[] ClientHandles;
         public Array ItemServerHandles;
         public Array AddItemServerErrors;
         #endregion
 
-
-
-        public OPCDataBase()
+        public Base()
         {
-            OPCAddressKey = this.GetType().Name;
-            this.Init();
-        }
-
-        public OPCDataBase(string OPCAddressKey)
-        {
-            this.OPCAddressKey = OPCAddressKey;
-            this.Init();
-        }
-
-        private void Init()
-        {
-            OPCItemCount = OPCAddressMap.GroupNameAddress[OPCAddressKey].Count;
             OPCItemIDs = new string[OPCItemCount + 1];
             ClientHandles = new int[OPCItemCount + 1];
         }
+
         #region 读写标记事件
         /// <summary>
         /// 读写标记改变事件委托
         /// </summary>
         /// <param name="sensor"></param>
         /// <param name="toFlag"></param>
-        public delegate void RwFlagChangedEventHandler(OPCDataBase b, byte toFlag);
+        public delegate void RwFlagChangedEventHandler(Base b, byte toFlag);
 
         /// <summary>
         /// 读写标记改变事件
@@ -58,7 +43,7 @@ namespace AGVCenterLib.Model.OPC
         public event RwFlagChangedEventHandler RwFlagChangedEvent;
 
 
-     //   public RwFlagChangedEventHandler RwFlagChanged;
+        public RwFlagChangedEventHandler RwFlagChanged;
         #endregion
 
 
@@ -67,7 +52,7 @@ namespace AGVCenterLib.Model.OPC
         private byte? opcRwFlagWas;
 
         /// <summary>
-        /// 读写标记 1
+        /// 读写标记
         /// </summary>
         public byte? OPCRwFlag
         {
@@ -79,9 +64,9 @@ namespace AGVCenterLib.Model.OPC
             {
                 this.opcRwFlagWas = opcRwFlag;
                 opcRwFlag = value;
-                if (this.opcRwFlagWas!=this.opcRwFlag && this.RwFlagChangedEvent != null)
+                if (this.opcRwFlagWas != this.opcRwFlag && this.RwFlagChangedEvent != null)
                 {
-                    this.RwFlagChangedEvent(this, value.Value);
+                    this.RwFlagChanged(this, value.Value);
                 }
             }
         }
@@ -118,7 +103,7 @@ namespace AGVCenterLib.Model.OPC
         {
             int i = 1;
             // 从1开始
-            foreach (var kv in OPCAddressMap.GroupNameAddress[this.OPCAddressKey])
+            foreach (var kv in OPCAddressMap.GroupNameAddress[this.GetType().Name])
             {
                 this.OPCItemIDs[i] = kv.Value;
                 this.ClientHandles[i] = i;
@@ -190,7 +175,7 @@ namespace AGVCenterLib.Model.OPC
         /// 设置可读
         /// </summary>
         /// <param name="group"></param>
-        protected bool SyncSetRWFlag(OPCGroup group,byte flag)
+        public bool SyncSetRWFlag(OPCGroup group,byte flag)
         {
             /// 写入flag
             int[] SyncItemServerHandles = new int[2];

@@ -31,13 +31,18 @@
             </TabItem>
             <TabItem Header="扫描条码入库任务">
                 <Grid Background="#FFE5E5E5">
-                    <Button x:Name="WirteGetPisitionBarBtn" Content="生成入库任务" HorizontalAlignment="Left" Margin="294,10,0,0" VerticalAlignment="Top" Width="92" Height="27" Click="WirteGetPisitionBarBtn_Click"/>
+                    <Button x:Name="WirteGetPisitionBarBtn" Content="扫码入库任务" HorizontalAlignment="Left" Margin="294,10,0,0" VerticalAlignment="Top" Width="92" Height="27" Click="WirteGetPisitionBarBtn_Click"/>
                     <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left" Height="26" Margin="84,11,0,0"
                 		TextWrapping="Wrap" Text="Bar" VerticalAlignment="Top" Width="205"/>
                     <Label x:Name="label3" Content="扫描的条码" HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="ReadInStockTaskBtn" Content="读取任务》" HorizontalAlignment="Left" Margin="443,75,0,0" VerticalAlignment="Top" Width="68" Height="60" Click="ReadInStockTaskBtn_Click" />
+                    <Button x:Name="ReadInStockTaskBtn" Content="读取任务》" HorizontalAlignment="Left" Margin="853,75,0,0" VerticalAlignment="Top" Width="68" Height="60" Click="ReadInStockTaskBtn_Click" />
                     <Label x:Name="label4" Content="已扫描入库任务列表：" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Height="27" Width="138" FontWeight="Bold"/>
-                    <ListBox x:Name="InStockTaskLB" HorizontalAlignment="Left" Height="443" Margin="10,75,0,0" VerticalAlignment="Top" Width="428"/>
+                    <ListBox x:Name="InStockTaskLB" HorizontalAlignment="Left" Height="443" Margin="10,75,0,0" VerticalAlignment="Top" Width="837"/>
+                    <Button Content="设置条码可写" Height="27" HorizontalAlignment="Right" Margin="0,10,470,0" Name="SetAgvBarcodeCheckWritableBtn" VerticalAlignment="Top" Width="81" Click="SetAgvBarcodeCheckWritableBtn_Click" />
+                    <Button Content="设置条码可读" Height="27" HorizontalAlignment="Right" Margin="0,11,374,0" Name="SetAgvBarcodeCheckReadableBtn" VerticalAlignment="Top" Width="81" Click="SetAgvBarcodeCheckReadableBtn_Click" />
+                    <Button Content="设置机械手可写" Height="27" HorizontalAlignment="Right" Margin="0,10,251,0" Name="SetInRobootWritableBtn" VerticalAlignment="Top" Width="97" Click="SetInRobootWritableBtn_Click" />
+                    <Button Content="【清空任务】" Height="33" HorizontalAlignment="Left" Margin="883,5,0,0" Name="ClearTasksForTestBtn" VerticalAlignment="Top" Width="76" Click="ClearTasksForTestBtn_Click" />
+                    <Button Content="设置机械手可读" Height="27" HorizontalAlignment="Right" Margin="0,11,144,0" Name="SetInRobootReadableBtn" VerticalAlignment="Top" Width="97" Click="SetInRobootReadableBtn_Click" />
                 </Grid>
             </TabItem>
             <TabItem Header="TabItem" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="61">

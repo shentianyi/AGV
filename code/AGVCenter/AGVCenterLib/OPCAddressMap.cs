@@ -33,7 +33,7 @@ namespace AGVCenterLib
         {
             #region 获取条码
             {
-                "OPCGetInStockPosition",
+                "OPCCheckInStockBarcode",
                 new Dictionary<string, string>()
                 {
                     { "scan_get_inposi_rw_flag",INOUT_AddrPrefix+"B0.scan_get_inposi_rw_flag"},
@@ -80,7 +80,7 @@ namespace AGVCenterLib
                 }
             },
            #endregion
-           #region 巷道机2库存任务
+            #region 巷道机2库存任务
             {
                 "SetStockTaskRoadMachine2",
                 new Dictionary<string,string>()
@@ -97,8 +97,49 @@ namespace AGVCenterLib
                     { "stock_xdj2_delivery_num",INOUT_AddrPrefix+"B544.Int.stock_xdj2_devlivery_num"},
                     { "stock_xdj2_barcode",INOUT_AddrPrefix+"B546.254.stock_xdj2_barcode"}
                 }
+            },
+           #endregion
+
+             #region 巷道机2库存任务
+            {
+                "OPCRoadMachine1TaskFeed",
+                new Dictionary<string,string>()
+                {
+                   { "stock_xdj2_rw_flag",INOUT_AddrPrefix+"B532.stock_xdj2_rw_flag"},
+                    { "stock_xdj2_action_type",INOUT_AddrPrefix+"B533.stock_xdj2_action_type"},
+                    { "stock_xdj2_position1",INOUT_AddrPrefix+"B534.stock_xdj2_position1"},
+                    { "stock_xdj2_position2",INOUT_AddrPrefix+"B535.stock_xdj2_position2"},
+                    { "stock_xdj2_position3",INOUT_AddrPrefix+"B536.stock_xdj2_position3"},
+                    { "stock_xdj2_box_type",INOUT_AddrPrefix+"B537.stock_xdj2_box_type"},
+                    { "stock_xdj2_reset_position_flag",INOUT_AddrPrefix+"B538.stock_xdj2_reset_position_flag"},
+                    { "stock_xdj2_tray_reverse_no",INOUT_AddrPrefix+"B540.Int.stock_xdj2_tray_reverse_no"},
+                    { "stock_xdj2_tray_num",INOUT_AddrPrefix+"B542.Int.stock_xdj2_tray_num"},
+                    { "stock_xdj2_delivery_num",INOUT_AddrPrefix+"B544.Int.stock_xdj2_devlivery_num"},
+                    { "stock_xdj2_barcode",INOUT_AddrPrefix+"B546.254.stock_xdj2_barcode"}
+                }
+            },
+           #endregion
+
+             #region 巷道机2库存任务
+            {
+                "OPCRoadMachine2TaskFeed",
+                new Dictionary<string,string>()
+                {
+                   { "stock_xdj2_rw_flag",INOUT_AddrPrefix+"B532.stock_xdj2_rw_flag"},
+                    { "stock_xdj2_action_type",INOUT_AddrPrefix+"B533.stock_xdj2_action_type"},
+                    { "stock_xdj2_position1",INOUT_AddrPrefix+"B534.stock_xdj2_position1"},
+                    { "stock_xdj2_position2",INOUT_AddrPrefix+"B535.stock_xdj2_position2"},
+                    { "stock_xdj2_position3",INOUT_AddrPrefix+"B536.stock_xdj2_position3"},
+                    { "stock_xdj2_box_type",INOUT_AddrPrefix+"B537.stock_xdj2_box_type"},
+                    { "stock_xdj2_reset_position_flag",INOUT_AddrPrefix+"B538.stock_xdj2_reset_position_flag"},
+                    { "stock_xdj2_tray_reverse_no",INOUT_AddrPrefix+"B540.Int.stock_xdj2_tray_reverse_no"},
+                    { "stock_xdj2_tray_num",INOUT_AddrPrefix+"B542.Int.stock_xdj2_tray_num"},
+                    { "stock_xdj2_delivery_num",INOUT_AddrPrefix+"B544.Int.stock_xdj2_devlivery_num"},
+                    { "stock_xdj2_barcode",INOUT_AddrPrefix+"B546.254.stock_xdj2_barcode"}
+                }
             }
            #endregion
+
         };
 
     }

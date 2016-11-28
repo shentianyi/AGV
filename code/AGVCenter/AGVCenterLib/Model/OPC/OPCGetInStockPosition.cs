@@ -5,33 +5,33 @@ using System.Text;
 using OPCAutomation;
 
 namespace AGVCenterLib.Model.OPC
-{ 
-
-    /// <summary>
-    /// 扫码入库检验
-    /// </summary>
-    public class OPCCheckInStockBarcode : OPCDataBase
+{
+    public class OPCGetInStockPosition : OPCDataBase
     {
-        public OPCCheckInStockBarcode()
+        static OPCGetInStockPosition()
+        {
+            
+        }
+        public OPCGetInStockPosition()
             : base()
         {
         }
 
-        public string scanedBarcodeWas;
-        public string ScanedBarcodeWas {
-            get { return scanedBarcodeWas; }
+        public string scanGetInposiBarcodeWas;
+        public string ScanGetInposiBarcodeWas {
+            get { return scanGetInposiBarcodeWas; }
             set
             {
-                scanedBarcodeWas = value;
+                scanGetInposiBarcodeWas = value;
             }
         }
         /// <summary>
         /// 条码 2
         /// </summary>
-        private string scanedBarcode;
-        public string ScanedBarcode { get { return scanedBarcode; } set {
-                scanedBarcodeWas = scanedBarcode;
-                scanedBarcode = value;
+        private string scanGetInposiBarcode;
+        public string ScanGetInposiBarcode { get { return scanGetInposiBarcode; } set {
+                scanGetInposiBarcodeWas = scanGetInposiBarcode;
+                scanGetInposiBarcode = value;
             } }
 
 
@@ -49,7 +49,8 @@ namespace AGVCenterLib.Model.OPC
 
             // 条码 index 是2
             SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(2);
-            SyncItemValues[1] = this.ScanedBarcode;
+            // OPCItem AnOpcItem = group.OPCItems.GetOPCItem((int)this.ItemServerHandles.GetValue(2));
+            SyncItemValues[1] = this.ScanGetInposiBarcode;
             group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
             if (SyncItemServerErrors != null && ((int)SyncItemServerErrors.GetValue(1) == 0))
             {
@@ -60,7 +61,7 @@ namespace AGVCenterLib.Model.OPC
             }
             else
             {
-                this.ScanedBarcode = this.ScanedBarcodeWas;
+                this.ScanGetInposiBarcode = this.ScanGetInposiBarcodeWas;
             }
             return false;
         }
@@ -83,7 +84,7 @@ namespace AGVCenterLib.Model.OPC
                         this.OPCRwFlag = (byte)ItemValues.GetValue(i);
                         break;
                     case 2:
-                        this.ScanedBarcode = ((string)ItemValues.GetValue(i)).Trim('\n').Trim('\r');
+                        this.ScanGetInposiBarcode = (string)ItemValues.GetValue(i);
                         break;
                     default:
                         break;
