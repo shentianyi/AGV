@@ -61,6 +61,7 @@
   <Table Name="dbo.StockTask" Member="StockTask">
     <Type Name="StockTask">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="BoxType" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PositionFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PositionColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -81,7 +82,7 @@
       <Column Name="[Column]" Member="Column" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AreaIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Position_Storage" Member="Storage" ThisKey="PositionNr" OtherKey="PositionNr" Type="Storage" />
       <Association Name="Warehouse_Position" Member="Warehouse" ThisKey="WHNr" OtherKey="WHNr" Type="Warehouse" IsForeignKey="true" />
     </Type>

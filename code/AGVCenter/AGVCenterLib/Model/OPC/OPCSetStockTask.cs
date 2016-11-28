@@ -12,16 +12,16 @@ namespace AGVCenterLib.Model.OPC
         public OPCSetStockTask()
             : base()
         {
-            State = StockTaskState.Init;
+          
             RestPositionFlag = 0x00;
         }
 
         public OPCSetStockTask(string OPCAddressKey):base(OPCAddressKey)
         {
-            State = StockTaskState.Init;
+            
             RestPositionFlag = 0x00;
         }
-
+       
         /// <summary>
         /// 任务类型,2
         /// </summary>
@@ -74,15 +74,7 @@ namespace AGVCenterLib.Model.OPC
         /// 条码，11
         /// </summary>
         public string Barcode { get; set; }
-
-        /// <summary>
-        /// 状态，不写入OPC
-        /// </summary>
-        public StockTaskState State { get; set; }
         
-
-
-
         #region 写入值
         /// <summary>
         /// 写入值

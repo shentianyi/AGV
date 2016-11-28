@@ -1225,6 +1225,8 @@ namespace AGVCenterLib.Data
 		
 		private int _id;
 		
+		private System.Nullable<int> _RoadMachineIndex;
+		
 		private System.Nullable<int> _BoxType;
 		
 		private System.Nullable<int> _PositionFloor;
@@ -1251,6 +1253,8 @@ namespace AGVCenterLib.Data
     partial void OnCreated();
     partial void OnidChanging(int value);
     partial void OnidChanged();
+    partial void OnRoadMachineIndexChanging(System.Nullable<int> value);
+    partial void OnRoadMachineIndexChanged();
     partial void OnBoxTypeChanging(System.Nullable<int> value);
     partial void OnBoxTypeChanged();
     partial void OnPositionFloorChanging(System.Nullable<int> value);
@@ -1294,6 +1298,26 @@ namespace AGVCenterLib.Data
 					this._id = value;
 					this.SendPropertyChanged("id");
 					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoadMachineIndex", DbType="Int")]
+		public System.Nullable<int> RoadMachineIndex
+		{
+			get
+			{
+				return this._RoadMachineIndex;
+			}
+			set
+			{
+				if ((this._RoadMachineIndex != value))
+				{
+					this.OnRoadMachineIndexChanging(value);
+					this.SendPropertyChanging();
+					this._RoadMachineIndex = value;
+					this.SendPropertyChanged("RoadMachineIndex");
+					this.OnRoadMachineIndexChanged();
 				}
 			}
 		}
@@ -1537,7 +1561,7 @@ namespace AGVCenterLib.Data
 		
 		private System.Nullable<int> _State;
 		
-		private System.Nullable<int> _AreaIndex;
+		private System.Nullable<int> _RoadMachineIndex;
 		
 		private EntitySet<Storage> _Storage;
 		
@@ -1559,8 +1583,8 @@ namespace AGVCenterLib.Data
     partial void OnRowChanged();
     partial void OnStateChanging(System.Nullable<int> value);
     partial void OnStateChanged();
-    partial void OnAreaIndexChanging(System.Nullable<int> value);
-    partial void OnAreaIndexChanged();
+    partial void OnRoadMachineIndexChanging(System.Nullable<int> value);
+    partial void OnRoadMachineIndexChanged();
     #endregion
 		
 		public Position()
@@ -1694,22 +1718,22 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AreaIndex", DbType="Int")]
-		public System.Nullable<int> AreaIndex
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoadMachineIndex", DbType="Int")]
+		public System.Nullable<int> RoadMachineIndex
 		{
 			get
 			{
-				return this._AreaIndex;
+				return this._RoadMachineIndex;
 			}
 			set
 			{
-				if ((this._AreaIndex != value))
+				if ((this._RoadMachineIndex != value))
 				{
-					this.OnAreaIndexChanging(value);
+					this.OnRoadMachineIndexChanging(value);
 					this.SendPropertyChanging();
-					this._AreaIndex = value;
-					this.SendPropertyChanged("AreaIndex");
-					this.OnAreaIndexChanged();
+					this._RoadMachineIndex = value;
+					this.SendPropertyChanged("RoadMachineIndex");
+					this.OnRoadMachineIndexChanged();
 				}
 			}
 		}

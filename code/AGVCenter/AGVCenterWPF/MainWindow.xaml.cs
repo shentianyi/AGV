@@ -41,7 +41,7 @@ namespace AGVCenterWPF
         // 总任务队列
         Dictionary<string, StockTaskItem> TaskCenterQueue;
         private static object WriteTaskCenterQueueLocker = new object();
-        private static object TaskCetnerQueueLocker=new object();
+        private static object TaskCenterQueueLocker=new object();
        
         //小车放行队列
         Queue AgvInStockPassQueue;
@@ -66,9 +66,7 @@ namespace AGVCenterWPF
         // 入库机械手抓取
         OPCInRobootPick OPCInRobootPickData;
         OPCGroup OPCInRobootPickOPCGroup;
-
-
-
+        
         // 库存任务, 巷道机1&2
         // 1
         OPCSetStockTask OPCSetStockTaskRoadMachine1Data;
@@ -84,17 +82,16 @@ namespace AGVCenterWPF
         /// 写入OPC小车放行定时器，将队列AgvInStockPassQueue的任务写入OPC
         /// </summary>
         Timer SetOPCAgvPassTimer;
-
-
+        
         /// <summary>
         /// 写入OPC入库机械手信息，将对列InRobootPickQueue的任务写入OPC
         /// </summary>
         Timer SetOPCInRobootPickTimer;
 
         /// <summary>
-        /// 写入OPC入库任务定时器，将队列InStockTaskQueue的任务按序写入OPC
+        /// 写入OPC库存任务定时器
         /// </summary>
-        Timer SetOPCInStockTaskTimer;
+        Timer SetOPCStockTaskTimer;
         #endregion
 
         /// <summary>
@@ -156,15 +153,20 @@ namespace AGVCenterWPF
 
 
 
-            // 入库任务定时器
-            SetOPCInStockTaskTimer = new Timer();
-            SetOPCInStockTaskTimer.Interval = 100;
-            SetOPCInStockTaskTimer.Enabled = true;
-            SetOPCInStockTaskTimer.Elapsed += SetOPCInStockTaskTimer_Elapsed;
+            // 库存任务定时器，查看巷道机是否可以工作
+            SetOPCStockTaskTimer = new Timer();
+            SetOPCStockTaskTimer.Interval = 100;
+            SetOPCStockTaskTimer.Enabled = true;
+            SetOPCStockTaskTimer.Elapsed += SetOPCStockTaskTimer_Elapsed;
 
             /// 启动定时器
+          
+            LogUtil.Logger.Info("【启动SetOPCAgvPassTimer定时器】");
             SetOPCAgvPassTimer.Start();
-            SetOPCInStockTaskTimer.Start();
+            LogUtil.Logger.Info("【启动SetOPCInRobootPickTimer定时器】");
+            SetOPCInRobootPickTimer.Start();
+            LogUtil.Logger.Info("【启动SetOPCStockTaskTimer定时器】");
+            SetOPCStockTaskTimer.Start();
             #endregion
         }
 
@@ -220,25 +222,102 @@ namespace AGVCenterWPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SetOPCInStockTaskTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void SetOPCStockTaskTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            SetOPCInStockTaskTimer.Stop();
-
-            // 是否存在任务？ 并OPC可写
-            if (OPCSetStockTaskRoadMachine1Data.CanWrite && this.HasWatingInStockTask())
+            SetOPCStockTaskTimer.Stop();
+            #region 巷道机1是否空闲
+            /// 巷道机1是否空闲
+            if (OPCSetStockTaskRoadMachine1Data.CanWrite)
             {
-                OPCSetStockTask task = this.DequeueInStockTaskQueue();
-
-                LogUtil.Logger.InfoFormat("【派发任务】条码为{0}, 库位为{1}-{2}-{3}", task.Barcode, task.PositionFloor, task.PositionColumn, task.PositionRow);
-                if (task.SyncWrite(OPCSetStockTaskRoadMachine1OPCGroup))
+                StockTaskItem taskItem = this.DequeueTaskCenterQueueForStcok(1);
+                if (taskItem != null)
                 {
-                    task.State = StockTaskState.RoadMachineInStocking;
-                    // 置为可读，有新的任务
-                    task.SyncSetReadableFlag(OPCSetStockTaskRoadMachine1OPCGroup);
+                    if (taskItem.StockTaskType == StockTaskType.IN)
+                    {
+                        OPCSetStockTaskRoadMachine1Data.StockTaskType = (byte)StockTaskType.IN;
+
+                        OPCSetStockTaskRoadMachine1Data.PositionFloor = (byte)taskItem.PositionFloor;
+                        OPCSetStockTaskRoadMachine1Data.PositionColumn = (byte)taskItem.PositionColumn;
+                        OPCSetStockTaskRoadMachine1Data.PositionRow = (byte)taskItem.PositionRow;
+
+                        OPCSetStockTaskRoadMachine1Data.RestPositionFlag = taskItem.RestPositionFlag;
+
+
+                        //taskItem.State = StockTaskState.RoadMachineInStocking;
+                    }
+                    else if (taskItem.StockTaskType == StockTaskType.OUT)
+                    {
+                        OPCSetStockTaskRoadMachine1Data.StockTaskType = (byte)StockTaskType.OUT;
+
+                        OPCSetStockTaskRoadMachine1Data.TrayReverseNo = taskItem.TrayReverseNo;
+                        OPCSetStockTaskRoadMachine1Data.TrayNum = taskItem.TrayNum;
+                        OPCSetStockTaskRoadMachine1Data.DeliveryItemNum = taskItem.DeliveryItemNum;
+
+                        // taskItem.State = StockTaskState.RoadMachineOutStocking;
+                    }
+
+                    OPCSetStockTaskRoadMachine1Data.Barcode = taskItem.Barcode;
+                    if (OPCSetStockTaskRoadMachine1Data.SyncWrite(OPCSetStockTaskRoadMachine1OPCGroup))
+                    {
+                        if (taskItem.StockTaskType == StockTaskType.IN)
+                        {
+                            taskItem.State = StockTaskState.RoadMachineInStocking;
+                        }
+                        else if (taskItem.StockTaskType == StockTaskType.OUT)
+                        {
+                            taskItem.State = StockTaskState.RoadMachineOutStocking;
+                        }
+                    }
                 }
             }
+            #endregion
 
-            SetOPCInStockTaskTimer.Start();
+
+            #region 巷道机2是否空闲
+            /// 巷道机2是否空闲
+            if (OPCSetStockTaskRoadMachine2Data.CanWrite)
+            {
+                StockTaskItem taskItem = this.DequeueTaskCenterQueueForStcok(2);
+                if (taskItem != null)
+                {
+                    if (taskItem.StockTaskType == StockTaskType.IN)
+                    {
+                        OPCSetStockTaskRoadMachine2Data.StockTaskType = (byte)StockTaskType.IN;
+
+                        OPCSetStockTaskRoadMachine2Data.PositionFloor = (byte)taskItem.PositionFloor;
+                        OPCSetStockTaskRoadMachine2Data.PositionColumn = (byte)taskItem.PositionColumn;
+                        OPCSetStockTaskRoadMachine2Data.PositionRow = (byte)taskItem.PositionRow;
+
+                        OPCSetStockTaskRoadMachine2Data.RestPositionFlag = taskItem.RestPositionFlag;
+
+                    }
+                    else if (taskItem.StockTaskType == StockTaskType.OUT)
+                    {
+                        OPCSetStockTaskRoadMachine2Data.StockTaskType = (byte)StockTaskType.OUT;
+
+                        OPCSetStockTaskRoadMachine2Data.TrayReverseNo = taskItem.TrayReverseNo;
+                        OPCSetStockTaskRoadMachine2Data.TrayNum = taskItem.TrayNum;
+                        OPCSetStockTaskRoadMachine2Data.DeliveryItemNum = taskItem.DeliveryItemNum;
+
+                    }
+
+                    OPCSetStockTaskRoadMachine2Data.Barcode = taskItem.Barcode;
+                    if (OPCSetStockTaskRoadMachine2Data.SyncWrite(OPCSetStockTaskRoadMachine2OPCGroup))
+                    {
+                        if (taskItem.StockTaskType == StockTaskType.IN)
+                        {
+                            taskItem.State = StockTaskState.RoadMachineInStocking;
+                        }
+                        else if (taskItem.StockTaskType == StockTaskType.OUT)
+                        {
+                            taskItem.State = StockTaskState.RoadMachineOutStocking;
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            SetOPCStockTaskTimer.Start();
         }
 
         /// <summary>
@@ -399,9 +478,7 @@ namespace AGVCenterWPF
                 // 添加item
                 OPCSetStockTaskRoadMachine2Data.AddItemToGroup(OPCSetStockTaskRoadMachine2OPCGroup);
                 OPCSetStockTaskRoadMachine2OPCGroup.DataChange += OPCSetStockTaskRoadMachine2OPCGroup_DataChange; ;
-
-
-
+                
                 #endregion
                 return true;
 
@@ -644,7 +721,12 @@ namespace AGVCenterWPF
         {
             lock (WriteTaskCenterQueueLocker)
             {
-                StockTaskItem taskItem = new StockTaskItem() { Barcode = barcode,StockTaskType= StockTaskType.IN };
+                StockTaskItem taskItem = new StockTaskItem()
+                {
+                    Barcode = barcode,
+                    StockTaskType = StockTaskType.IN
+                };
+                taskItem.TaskStateChangeEvent +=  new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
                 UniqueItemService uniqItemService = new UniqueItemService(OPCConfig.DbString);
                 UniqueItemView item = uniqItemService.FindDetail(barcode);
                 if (item != null)
@@ -653,7 +735,7 @@ namespace AGVCenterWPF
                     if (uniqItemService.CanUniqInStock(barcode))
                     {
                         // 是否是重复扫描
-                        if (InStockTaskQueue.Keys.Contains(barcode))
+                        if (TaskCenterQueue.Keys.Contains(barcode))
                         {
                             // 重复扫描的不再生成任务
                             return true;
@@ -662,18 +744,17 @@ namespace AGVCenterWPF
 
                         // 查询可用库位！
                         PositionService ps = new PositionService(OPCConfig.DbString);
-                        Position position = ps.FindInStockPosition();
-                        if (position == null)
-                        {
-                            taskItem.AgvPassFlag = (byte)AgvPassFlag.Alarm;
-                            taskItem.State = StockTaskState.ErrorNoPositoin;
-                        }
-                        else
+                        bool hasAvaliablePosition = ps.HasAvaliablePosition();
+                        if (hasAvaliablePosition)
                         {
                             taskItem.AgvPassFlag = (byte)AgvPassFlag.Pass;
                             // 先放小车，不计算库位!
                             taskItem.BoxType = (byte)item.BoxType;
-                            //taskItem.State = StockTaskState.AgvInStcoking;
+                        }
+                        else
+                        {
+                            taskItem.AgvPassFlag = (byte)AgvPassFlag.Alarm;
+                            taskItem.State = StockTaskState.ErrorNoPositoin;
                         }
                     }
                     else
@@ -711,6 +792,7 @@ namespace AGVCenterWPF
             }
         }
 
+    
         #region 总队列任务
         /// <summary>
         /// 进入总任务队列
@@ -718,13 +800,13 @@ namespace AGVCenterWPF
         /// <param name="taskItem"></param>
         private void EnqueueTaskCenterQueue(StockTaskItem taskItem)
         {
-            lock (TaskCetnerQueueLocker)
+            lock (TaskCenterQueueLocker)
             {
                 // 加入总队列
                 TaskCenterQueue.Add(taskItem.Barcode, taskItem);
                 // 立刻加入到放行队列
                 StockTaskItem passTaskItem = TaskCenterQueue
-                    .Where(s => s.Value.State == StockTaskState.AgvInStcoking)
+                    .Where(s => s.Value.State == StockTaskState.Init)
                     .Select(s=>s.Value).FirstOrDefault();
                 if (passTaskItem!=null)
                 {
@@ -735,78 +817,80 @@ namespace AGVCenterWPF
                 RefreshList();
             }
         }
-        #endregion
-        
-
-        #region 入库任务队列
-        /// <summary>
-        /// 是否存在需要入库的任务
-        /// </summary>
-        /// <returns></returns>
-        private bool HasWatingInStockTask()
-        {
-            lock (StockTaskQueueLocker)
-            {
-                if (this.InStockTaskQueue != null 
-                    && this.InStockTaskQueue.Count(s => s.Value.State == StockTaskState.AgvInStcoking) > 0)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
 
         /// <summary>
-        /// 出栈入库任务
+        /// 获得最优先的库存操作任务 #TO-BETTER#
         /// </summary>
+        /// <param name="roadMachineIndex">巷道机序号</param>
         /// <returns></returns>
-        private OPCSetStockTask DequeueInStockTaskQueue()
-        {
-            lock (StockTaskQueueLocker)
+        private StockTaskItem DequeueTaskCenterQueueForStcok(int roadMachineIndex) {
+            lock (TaskCenterQueueLocker)
             {
-                if (this.HasWatingInStockTask())
+
+                StockTaskItem item = null;
+                for (var i = 0; i < this.TaskCenterQueue.Values.Count; i++)
                 {
-                    var task = InStockTaskQueue.FirstOrDefault(s => s.Value.State == StockTaskState.AgvInStcoking).Value;
-                    if (task != null)
+                    StockTaskItem _item = this.TaskCenterQueue.Values.ElementAt(i);
+                    if (_item.StockTaskType == StockTaskType.OUT)
                     {
-                        task.State = StockTaskState.RoadMachineInStocking;
-                        RefreshList();
-                        return task;
+                        // 先找出库的任务
+                        if(_item.RoadMachineIndex==roadMachineIndex && _item.State == StockTaskState.RoadMachineWaitOutStock)
+                        {
+                            item = _item;
+                            break;
+                        }
+                    }
+                    else if (_item.StockTaskType == StockTaskType.IN)
+                    {
+                        if (_item.State == StockTaskState.AgvInStcoking || _item.State == StockTaskState.RobootInStocking)
+                        {
+                            // 计算库位
+                            PositionService ps = new PositionService(OPCConfig.DbString);
+                            Position position = ps.FindInStockPosition(roadMachineIndex);
+
+                            _item.PositionNr = position.PositionNr;
+                            _item.PositionFloor = position.Floor;
+                            _item.PositionColumn = position.Column;
+                            _item.PositionRow = position.Row;
+                            _item.RoadMachineIndex = roadMachineIndex;
+                            _item.State = StockTaskState.RoadMachineInStocking;
+
+                            item = _item;
+                            break;
+                        }
                     }
                 }
-                return null;
-            }
-        }
 
-
-        /// <summary>
-        /// 入栈入库任务
-        /// </summary>
-        /// <returns></returns>
-        private void EnqueueInStockTaskQueue(OPCSetStockTask task)
-        {
-            lock (StockTaskQueueLocker)
-            {
-                task.State = StockTaskState.AgvInStcoking;
-                InStockTaskQueue.Add(task.Barcode, task);
-               
-                ///将扫描OPC设置为可写
-                ///task.SyncSetWriteableFlag(OPCSetInStockTaskOPCGroup);
-                OPCCheckInStockBarcodeData.SyncSetWriteableFlag(OPCCheckInstockBarcodeOPCGroup);
-                RefreshList();
+                return item;
             }
         }
         #endregion
 
         /// <summary>
-        /// 将数据库中的任务加载到Task中
+        /// 任务状态改变,#TO-BETTER#
+        /// </summary>
+        /// <param name="taskItem"></param>
+        /// <param name="toState"></param>
+        private void TaskItem_TaskStateChangeEvent(StockTaskItem taskItem, StockTaskState toState)
+        {
+            // 更新数据库中的task的状态
+            if (taskItem.DbId > 0)
+            {
+                StockTaskService sts = new StockTaskService(OPCConfig.DbString);
+                sts.UpdateTaskState(taskItem);
+            }
+        }
+
+
+
+        /// <summary>
+        /// 将数据库中的任务加载到Task中,#TO-DO#
         /// </summary>
         private void InitQueueAndLoadTaskFromDb()
         {
             AgvInStockPassQueue = new Queue();
             InRobootPickQueue = new Queue();
             TaskCenterQueue = new Dictionary<string, StockTaskItem>();
-            InStockTaskQueue = new Dictionary<string, OPCSetStockTask>();
         }
 
         #region 组件操作
@@ -864,10 +948,15 @@ namespace AGVCenterWPF
                 SetOPCAgvPassTimer.Enabled = false;
                 SetOPCAgvPassTimer.Stop();
             }
-           if(SetOPCInStockTaskTimer != null)
+            if (SetOPCInRobootPickTimer != null)
             {
-                SetOPCInStockTaskTimer.Enabled = false;
-                SetOPCInStockTaskTimer.Stop();
+                SetOPCInRobootPickTimer.Enabled = false;
+                SetOPCInRobootPickTimer.Stop();
+            }
+           if(SetOPCStockTaskTimer != null)
+            {
+                SetOPCStockTaskTimer.Enabled = false;
+                SetOPCStockTaskTimer.Stop();
             }
         }
         #endregion

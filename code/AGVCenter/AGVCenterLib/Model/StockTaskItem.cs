@@ -12,6 +12,19 @@ namespace AGVCenterLib.Model
         {
             this.State = StockTaskState.Init;
         }
+        #region 状态改变事件
+        /// <summary>
+        /// 状态改变事件委托
+        /// </summary>
+        /// <param name="sensor"></param>
+        /// <param name="toFlag"></param>
+        public delegate void TaskStateChangeEventHandler(StockTaskItem taskItem, StockTaskState toState);
+        /// <summary>
+        /// 状态改变事件
+        /// </summary>
+        public event TaskStateChangeEventHandler TaskStateChangeEvent;
+         
+        #endregion
 
         /// <summary>
         /// 任务类型
@@ -32,17 +45,17 @@ namespace AGVCenterLib.Model
         /// <summary>
         /// 库位，层，2
         /// </summary>
-        public byte PositionFloor { get; set; }
+        public int PositionFloor { get; set; }
 
         /// <summary>
         /// 库位，列，3
         /// </summary>
-        public byte PositionColumn { get; set; }
+        public int PositionColumn { get; set; }
 
         /// <summary>
         /// 库位，排，4
         /// </summary>
-        public byte PositionRow { get; set; }
+        public int PositionRow { get; set; }
 
         /// <summary>
         /// 箱型，5
@@ -83,7 +96,21 @@ namespace AGVCenterLib.Model
         /// <summary>
         /// 状态，不写入OPC
         /// </summary>
-        public StockTaskState State { get; set; }
+        private StockTaskState stateWas;
+        private StockTaskState state;
+        public StockTaskState State
+        {
+            get { return state; }
+            set
+            {
+                stateWas = state;
+                state = value;
+                if (stateWas != state)
+                {
+                    this.TaskStateChangeEvent(this, value);
+                }
+            }
+        }
 
         /// <summary>
         /// DB id

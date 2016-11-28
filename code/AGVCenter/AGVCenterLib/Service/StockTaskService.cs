@@ -39,5 +39,27 @@ namespace AGVCenterLib.Service
             task.DbId = st.id;
             return true;
         }
+
+        /// <summary>
+        /// 更新任务状态
+        /// </summary>
+        /// <param name="taskItem"></param>
+        /// <returns></returns>
+        public bool UpdateTaskState(StockTaskItem taskItem)
+        {
+            StockTask t = this.Context.StockTask.FirstOrDefault(s => s.id == taskItem.DbId);
+            if (t != null)
+            {
+                t.State = (int)taskItem.State;
+
+                t.RoadMachineIndex = taskItem.RoadMachineIndex;
+                t.PositionFloor = taskItem.PositionFloor;
+                t.PositionColumn = taskItem.PositionColumn;
+                t.PositionRow = taskItem.PositionRow;
+
+                this.Context.SubmitChanges();
+            }
+            return true;
+        }
     }
 }

@@ -13,6 +13,17 @@ namespace AGVCenterLib.Service
         {
 
         }
+
+        /// <summary>
+        /// 是否有可用库位
+        /// </summary>
+        /// <param name="dispatchedPositions">已分配的库位</param>
+        /// <returns></returns>
+        public bool HasAvaliablePosition(List<string> dispatchedPositions=null)
+        {
+            return true;
+        }
+
         /// <summary>
         /// 查询可用的位置，可以传递前一个库位做动态平衡
         /// </summary>
@@ -20,7 +31,7 @@ namespace AGVCenterLib.Service
         /// <param name="prevColumn"></param>
         /// <param name="prevRow"></param>
         /// <returns></returns>
-        public Position FindInStockPosition(int? prevFloor = null, int? prevColumn = null, int? prevRow = null)
+        public Position FindInStockPosition(int? roadMachineIndex)
         {
             return new Position()
             {
