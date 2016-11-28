@@ -27,11 +27,11 @@ namespace AGVCenterLib.Enum
 
     public enum StockTaskState
     {
-        NONE=-1,
+        NONE = -1,
         /// <summary>
         /// 初始
         /// </summary>
-       Init = 0,
+        Init = 0,
         /// <summary>
         /// AGV 入库中
         /// </summary>
@@ -49,14 +49,17 @@ namespace AGVCenterLib.Enum
         /// </summary>
         InStocked = 4,
         InCanceled = 5,
-        RoadMachineWaitOutStock=6,
-        RoadMachineOutStocking=7,
-        OutStocked=8,
-        
+        RoadMachineWaitOutStock = 6,
+        RoadMachineOutStocking = 7,
+        OutStocked = 8,
+
         // Error
         ErrorNoPositoin = 20,
         ErrorUniqNotExsits = 21,
-        ErrorUniqCannotInStock=22,
-        ErrorCreateDbTask=23
+        ErrorUniqCannotInStock = 22,
+        ErrorCreateDbTask = 23,
+        ErrorBarcodeReScan=24
     }
+
+
 }

@@ -110,7 +110,7 @@ namespace AGVCenterLib.Model.OPC
             SyncItemValues[9] = this.DeliveryItemNum;
             SyncItemValues[10] = this.Barcode;
 
-            group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
+            group.SyncWrite(10, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
             if (SyncItemServerErrors != null && ((int)SyncItemServerErrors.GetValue(1) == 0))
             {
                 if (this.SyncSetReadableFlag(group))
@@ -166,7 +166,7 @@ namespace AGVCenterLib.Model.OPC
                         this.DeliveryItemNum = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 11:
-                        this.Barcode = ((string)ItemValues.GetValue(i)).Trim('\n').Trim('\r');
+                        this.Barcode = ParseBarcode(ItemValues.GetValue(i));
                         break;
                     default:
                         break;

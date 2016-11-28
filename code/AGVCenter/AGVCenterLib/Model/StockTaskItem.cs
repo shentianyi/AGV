@@ -98,6 +98,11 @@ namespace AGVCenterLib.Model
         /// 状态，不写入OPC
         /// </summary>
         private StockTaskState stateWas;
+        public StockTaskState StateWas
+        {
+            get { return stateWas; }
+            private set { stateWas = value; }
+        }
         private StockTaskState state;
         public StockTaskState State
         {

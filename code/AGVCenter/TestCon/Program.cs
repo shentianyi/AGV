@@ -22,6 +22,15 @@ namespace TestCon
             Console.WriteLine(b==Convert.ToByte("18",10));
 
             Console.WriteLine((byte)148);
+
+            Console.WriteLine("XTest".Contains("XT"));
+
+            string A = "aaaaa";
+            string B = A;
+            Console.WriteLine(B == A);
+            A = "bbbb";
+
+            Console.WriteLine(B == A);
             Console.Read();
         }
 

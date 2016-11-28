@@ -50,18 +50,35 @@ namespace AGVCenterWPF
 
 
         /// <summary>
-        /// OPCSetInStockTaskRM1OPCGroup， 巷道机1
+        /// OPCSetStockTaskRM1OPCGroup，库存操作任务 巷道机1
         /// </summary>
-        public static string OPCSetInStockTaskRM1OPCGroupName = "OPCSetInStockTaskRM1OPCGroup";
-        public static int OPCSetInStockTaskRM1OPCGroupRate = 10;
-        public static int OPCSetInStockTaskRM1OPCGroupDeadBand = 0;
+        public static string OPCSetStockTaskRM1OPCGroupName = "OPCSetStockTaskRM1OPCGroup";
+        public static int OPCSetStockTaskRM1OPCGroupRate = 10;
+        public static int OPCSetStockTaskRM1OPCGroupDeadBand = 0;
 
         /// <summary>
-        /// OPCSetInStockTaskRM2OPCGroup， 巷道机2
+        /// OPCSetStockTaskRM2OPCGroup，库存操作任务 巷道机2
         /// </summary>
-        public static string OPCSetInStockTaskRM2OPCGroupName = "OPCSetInStockTaskRM2OPCGroup";
-        public static int OPCSetInStockTaskRM2OPCGroupRate = 10;
-        public static int OPCSetInStockTaskRM2OPCGroupDeadBand = 0;
+        public static string OPCSetStockTaskRM2OPCGroupName = "OPCSetStockTaskRM2OPCGroup";
+        public static int OPCSetStockTaskRM2OPCGroupRate = 10;
+        public static int OPCSetStockTaskRM2OPCGroupDeadBand = 0;
+
+        /// <summary>
+        /// OPCTaskFeedRM1OPCGroup，库存操作反馈 巷道机1
+        /// </summary>
+        public static string OPCTaskFeedRM1OPCGroupName = "OPCTaskFeedRM1OPCGroup";
+        public static int OPCTaskFeedRM1OPCGroupRate = 10;
+        public static int OPCTaskFeedRM1OPCGroupDeadBand = 0;
+
+        /// <summary>
+        /// OPCTaskFeedRM2OPCGroup，库存操作反馈 巷道机2
+        /// </summary>
+        public static string OPCTaskFeedRM2OPCGroupName = "OPCTaskFeedRM2OPCGroup";
+        public static int OPCTaskFeedRM2OPCGroupRate = 10;
+        public static int OPCTaskFeedRM2OPCGroupDeadBand = 0;
         #endregion
+
+
+
     }
 }

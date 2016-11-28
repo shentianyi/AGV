@@ -37,6 +37,7 @@ namespace AGVCenterLib.Model.OPC
             // 条码 index 是2
             SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(2);
             SyncItemValues[1] = this.BoxType;
+
             group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
             if (SyncItemServerErrors != null && ((int)SyncItemServerErrors.GetValue(1) == 0))
             {

@@ -63,9 +63,9 @@ namespace AGVCenterLib.Model.OPC
 
 
         #region 读写标记
-        private byte? opcRwFlag;
         private byte? opcRwFlagWas;
-
+        public byte? OPCRwFlagWas { get; set; }
+        private byte? opcRwFlag;
         /// <summary>
         /// 读写标记 1
         /// </summary>
@@ -153,7 +153,7 @@ namespace AGVCenterLib.Model.OPC
         /// <param name="group"></param>
         public bool SyncSetReadableFlag(OPCGroup group)
         {
-         return   SyncSetRWFlag(group, READ_ABLE_FLAG);
+            return SyncSetRWFlag(group, READ_ABLE_FLAG);
         }
         #endregion
 
@@ -208,5 +208,11 @@ namespace AGVCenterLib.Model.OPC
             return false;
         }
         #endregion
+
+
+        public string ParseBarcode(object o)
+        {
+            return o.ToString().Trim('\n').Trim('\r');
+        }
     }
 }
