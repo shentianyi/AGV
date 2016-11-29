@@ -16,7 +16,7 @@ namespace AGVCenterLib.Model.OPC
         #endregion
 
         #region 变量
-        public  int OPCItemCount = 2;
+        public int OPCItemCount = 2;
         public string OPCAddressKey;
         public string[] OPCItemIDs;
         public int[] ClientHandles;
@@ -58,7 +58,7 @@ namespace AGVCenterLib.Model.OPC
         public event RwFlagChangedEventHandler RwFlagChangedEvent;
 
 
-     //   public RwFlagChangedEventHandler RwFlagChanged;
+        //   public RwFlagChangedEventHandler RwFlagChanged;
         #endregion
 
 
@@ -79,7 +79,7 @@ namespace AGVCenterLib.Model.OPC
             {
                 this.opcRwFlagWas = opcRwFlag;
                 opcRwFlag = value;
-                if (this.opcRwFlagWas!=this.opcRwFlag && this.RwFlagChangedEvent != null)
+                if (this.opcRwFlagWas != this.opcRwFlag && this.RwFlagChangedEvent != null)
                 {
                     this.RwFlagChangedEvent(this, value.Value);
                 }
@@ -165,7 +165,7 @@ namespace AGVCenterLib.Model.OPC
         /// <param name="group"></param>
         public bool SyncSetWriteableFlag(OPCGroup group)
         {
-          return  SyncSetRWFlag(group, WRITE_ABLE_FLAG);
+            return SyncSetRWFlag(group, WRITE_ABLE_FLAG);
         }
         #endregion
 
@@ -190,7 +190,7 @@ namespace AGVCenterLib.Model.OPC
         /// 设置可读
         /// </summary>
         /// <param name="group"></param>
-        protected bool SyncSetRWFlag(OPCGroup group,byte flag)
+        protected bool SyncSetRWFlag(OPCGroup group, byte flag)
         {
             /// 写入flag
             int[] SyncItemServerHandles = new int[2];
@@ -212,7 +212,13 @@ namespace AGVCenterLib.Model.OPC
 
         public string ParseBarcode(object o)
         {
-            return o.ToString().Trim('\n').Trim('\r');
+
+            return o == null ? string.Empty : o.ToString().Trim('\n').Trim('\r');
+        }
+
+        public virtual string GetSimpleOpcKey(int index)
+        {
+            return this.OPCItemIDs[index].Replace(OPCAddressMap.INOUT_AddrPrefix, "");
         }
     }
 }

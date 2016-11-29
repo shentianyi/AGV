@@ -113,7 +113,10 @@ namespace AGVCenterLib.Model
                 state = value;
                 if (stateWas != state)
                 {
-                    this.TaskStateChangeEvent(this, value);
+                    if (this.TaskStateChangeEvent != null)
+                    {
+                        this.TaskStateChangeEvent(this, value);
+                    }
                 }
             }
         }
@@ -132,7 +135,7 @@ namespace AGVCenterLib.Model
         
         public string ToDisplay()
         {
-            return string.Format("【任务类型：{0}】条码：{1},库位：{2}-{3}-{4},箱型：{5},AGV放行标记:{6},Rest标记{7},状态：{8},DbId:{9}",
+            return string.Format("【任务类型：{0}】\r\n条码：{1},库位：{2}-{3}-{4},箱型：{5},AGV放行标记:{6},Rest标记{7},状态：{8},DbId:{9}\r\n【巷道机】{10}",
                 this.StockTaskType,
                 this.Barcode,
                 this.PositionFloor, this.PositionColumn, this.PositionRow,
@@ -140,7 +143,8 @@ namespace AGVCenterLib.Model
                 this.AgvPassFlag,
                 this.RestPositionFlag,
                 this.State,
-                this.DbId);
+                this.DbId,
+                this.RoadMachineIndex);
         }
     }
 }

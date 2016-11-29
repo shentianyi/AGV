@@ -16,10 +16,11 @@ namespace AGVCenterLib.Model.OPC
             RestPositionFlag = 0x00;
         }
 
-        public OPCSetStockTask(string OPCAddressKey):base(OPCAddressKey)
+        public OPCSetStockTask(string OPCAddressKey,int RoadMachineIndex):base(OPCAddressKey)
         {
             
             RestPositionFlag = 0x00;
+            this.RoadMachineIndex = RoadMachineIndex;
         }
        
         /// <summary>
@@ -74,6 +75,11 @@ namespace AGVCenterLib.Model.OPC
         /// 条码，11
         /// </summary>
         public string Barcode { get; set; }
+
+        /// <summary>
+        /// 巷道机编号，不写入OPC
+        /// </summary>
+        public int RoadMachineIndex { get; set; }
         
         #region 写入值
         /// <summary>

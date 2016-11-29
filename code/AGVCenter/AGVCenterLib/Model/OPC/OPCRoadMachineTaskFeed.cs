@@ -231,7 +231,7 @@ namespace AGVCenterLib.Model.OPC
                         this.CurrentState = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 11:
-                        this.Error= (byte)ItemValues.GetValue(i);
+                        this.Error= int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 12:
                         this.CurrentBarcode = ParseBarcode(ItemValues.GetValue(i));

@@ -7,7 +7,7 @@ namespace AGVCenterLib
 {
     public class OPCAddressMap
     {
-        private static string INOUT_AddrPrefix = "S7:[S7 connection_1]DB308,";
+        public static string INOUT_AddrPrefix = "S7:[S7 connection_1]DB308,";
 
         /// <summary>
         /// OPC 变量名与地址的对应
