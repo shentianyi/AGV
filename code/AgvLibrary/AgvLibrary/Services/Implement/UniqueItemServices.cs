@@ -3,45 +3,57 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AgvLibrary.Data;
 using AgvLibrary.Model;
+using AgvLibrary.Data;
+using AgvLibrary.Data.Repository.Interface;
 using AgvLibrary.Services.Interface;
 using AgvLibrary.Data.Repository.Implement;
-using AgvLibrary.Data.Repository.Interface;
+
 
 namespace AgvLibrary.Services.Implement
 {
-    public class UniqueItemServices :ServiceBase, IUniqueItemServices
+    public class UniqueItemServices : ServiceBase, IUniqueItemServices
     {
         private IUniqueItemRepository UIRep;
+
+      
         public UniqueItemServices(string dbString) : base(dbString) {
             UIRep = new UniqueItemRepository(this.Context);
         }
 
-        
-        public bool Create(UniqueItem item)
+        public bool Create(UniqueItem Uniqitem)
         {
-            return UIRep.Create(item);
+            return UIRep.Create(Uniqitem);
         }
 
-        public bool Delete(UniqueItem item)
+        public bool Delete(UniqueItem Uniqitem)
         {
-            return UIRep.Delete(item);
+            return UIRep.Delete(Uniqitem);
         }
 
-        public IQueryable<UniqueItem> Search(UniqueItemSearchModel uniqueItemSearchModel)
+        public UniqueItem SearchByCreatedAt(DateTime CreatedAt)
         {
-            return UIRep.Search(uniqueItemSearchModel);
+            return UIRep.SearchByCreatedAt(CreatedAt);
         }
 
-        public UniqueItem SearchByUniqueId(int UniqueItem)
+        public UniqueItem SearchByPartNr(string PartNr)
         {
-            return UIRep.SearchByUniqueId(UniqueItem);
+            return UIRep.SearchByPartNr(PartNr);
         }
 
-        public bool Update(UniqueItem item)
+        public UniqueItem SearchByStatus(int State)
         {
-            return UIRep.Update(item);
+            return UIRep.SearchByStatus(State);
+        }
+
+        public UniqueItem SearchByUniqNr(string UniqNr)
+        {
+            return UIRep.SearchByUniqNr(UniqNr);
+        }
+
+        public bool Update(UniqueItem Uniqitem)
+        {
+            return UIRep.Update(Uniqitem);
         }
     }
 }

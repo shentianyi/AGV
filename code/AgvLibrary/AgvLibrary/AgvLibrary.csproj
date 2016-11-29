@@ -41,73 +41,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Repository\BasicMessage.cs" />
-    <Compile Include="Data\DataContextFactory.cs" />
-    <Compile Include="Data\Repository\Implement\DealRepository.cs" />
-    <Compile Include="Data\Repository\Implement\ItemOnDealRepository.cs" />
-    <Compile Include="Data\Repository\Implement\PartRepository.cs" />
-    <Compile Include="Data\Repository\Implement\PosationRepository.cs" />
-    <Compile Include="Data\Repository\Implement\RecordRepository.cs" />
-    <Compile Include="Data\Repository\Implement\StorageRepository.cs" />
-    <Compile Include="Data\Repository\Implement\UniqueItemRepository.cs" />
-    <Compile Include="Data\IDataContextFactory.cs" />
-    <Compile Include="Data\Repository\Implement\WareHouseRepository.cs" />
-    <Compile Include="Data\Repository\Interface\IDealRepository.cs" />
-    <Compile Include="Data\Repository\Interface\IItemOnDealRepository.cs" />
-    <Compile Include="Data\Repository\Interface\IPartRepository.cs" />
-    <Compile Include="Data\Repository\Interface\IPosationRepository.cs" />
-    <Compile Include="Data\Repository\Interface\IRecordRepository.cs" />
-    <Compile Include="Data\Repository\Interface\IStorageRepository.cs" />
-    <Compile Include="Data\Repository\Interface\IUniqueItemRepository.cs" />
-    <Compile Include="Data\Repository\Interface\IWareHouseRepository.cs" />
-    <Compile Include="Data\Repository\IRepository.cs" />
-    <Compile Include="Data\Repository\RepositoryBase.cs" />
-    <Compile Include="Data\WareHouse.designer.cs">
+    <Compile Include="Data\AgvWareHouse.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WareHouse.dbml</DependentUpon>
+      <DependentUpon>AgvWareHouse.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Data\Repository\BasicMessage.cs" />
+    <Compile Include="Data\DataContextFactory.cs" />
+    <Compile Include="Data\Repository\Implement\PartRepository.cs" />
+    <Compile Include="Data\IDataContextFactory.cs" />
+    <Compile Include="Data\Repository\Implement\UniqueItemRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IPartRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IUniqueItemRepository.cs" />
+    <Compile Include="Data\Repository\IRepository.cs" />
+    <Compile Include="Data\Repository\RepositoryBase.cs" />
     <Compile Include="ENUM\BoxType.cs" />
     <Compile Include="ENUM\UniqueItemStatusType.cs" />
-    <Compile Include="Model\DealSearchModel.cs" />
-    <Compile Include="Model\ItemOnDealSearchModel.cs" />
     <Compile Include="Model\PartSearchModel.cs" />
-    <Compile Include="Model\PosationSearchModel.cs" />
-    <Compile Include="Model\RecordSearchModel.cs" />
-    <Compile Include="Model\StorageSearchModel.cs" />
-    <Compile Include="Model\UniqueItemSearchModel.cs" />
-    <Compile Include="Model\WareHouseSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Implement\DealServices.cs" />
-    <Compile Include="Services\Implement\PosationServices.cs" />
-    <Compile Include="Services\Implement\RecordServices.cs" />
-    <Compile Include="Services\Implement\StorageServices.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Services\Implement\UniqueItemServices.cs" />
-    <Compile Include="Services\Implement\WareHouseServices.cs" />
-    <Compile Include="Services\Interface\IDealServices.cs" />
     <Compile Include="Services\Interface\IPartServices.cs" />
     <Compile Include="Services\Implement\PartServices.cs" />
-    <Compile Include="Services\Interface\IPosationServices.cs" />
-    <Compile Include="Services\Interface\IRecordServices.cs" />
-    <Compile Include="Services\Interface\IStorageServices.cs" />
     <Compile Include="Services\Interface\IUniqueItemServices.cs" />
-    <Compile Include="Services\Interface\IWareHouseServices.cs" />
     <Compile Include="Services\ServiceBase.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="Data\WareHouse.dbml">
+    <None Include="app.config" />
+    <None Include="Data\AgvWareHouse.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>WareHouse.designer.cs</LastGenOutput>
+      <LastGenOutput>AgvWareHouse.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\WareHouse.dbml.layout">
-      <DependentUpon>WareHouse.dbml</DependentUpon>
+    <None Include="Data\AgvWareHouse.dbml.layout">
+      <DependentUpon>AgvWareHouse.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

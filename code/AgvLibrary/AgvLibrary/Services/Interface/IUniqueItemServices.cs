@@ -1,26 +1,23 @@
-﻿using AgvLibrary.Data;
-using AgvLibrary.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AgvLibrary.Data;
+using AgvLibrary.Model;
+
 
 namespace AgvLibrary.Services.Interface
 {
     public interface IUniqueItemServices
     {
-        IQueryable<UniqueItem> Search(UniqueItemSearchModel uniqueItemSearchModel);
+        UniqueItem SearchByUniqNr(string UniqNr);
+        UniqueItem SearchByPartNr(string PartNr);
+        UniqueItem SearchByStatus(int State);
+        UniqueItem SearchByCreatedAt(DateTime CreatedAt);
 
-
-
-        UniqueItem SearchByUniqueId(int UniqueItem);
-
-
-        bool Create(UniqueItem item);
-
-        bool Delete(UniqueItem item);
-
-        bool Update(UniqueItem item);
+        bool Create(UniqueItem Uniqitem);
+        bool Delete(UniqueItem Uniqitem);
+        bool Update(UniqueItem Uniqitem);
     }
 }

@@ -1,14 +1,13 @@
-﻿using AgvLibrary.Data.Repository.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AgvLibrary.Model;
+using AgvLibrary.Data.Repository.Interface;
 
 namespace AgvLibrary.Data.Repository.Implement
 {
-    public class UniqueItemRepository :RepositoryBase<UniqueItem>, IUniqueItemRepository
+   public class UniqueItemRepository : RepositoryBase<UniqueItem>, IUniqueItemRepository
     {
         private AgvWareHouseDataContext context;
 
@@ -17,11 +16,11 @@ namespace AgvLibrary.Data.Repository.Implement
             this.context = dataContextFactory.Context as AgvWareHouseDataContext;
         }
 
-        public bool Delete(UniqueItem item)
+        public bool Create(UniqueItem Uniqitem)
         {
             try
             {
-                this.context.GetTable<UniqueItem>().DeleteOnSubmit(item);
+                this.context.GetTable<UniqueItem>().InsertOnSubmit(Uniqitem);
                 this.context.SubmitChanges();
                 return true;
             }
@@ -31,44 +30,52 @@ namespace AgvLibrary.Data.Repository.Implement
             }
         }
 
-        public IQueryable<UniqueItem> Search(UniqueItemSearchModel uniqueItemSearchModel)
+        public bool Delete(UniqueItem Uniqitem)
         {
-            IQueryable<UniqueItem> UniqueItems = this.context.UniqueItem;
-            if(!string.IsNullOrEmpty(uniqueItemSearchModel.PartNr))
+            try
             {
-                UniqueItems = UniqueItems.Where(c => c.PartNr.Equals(uniqueItemSearchModel.PartNr));
+                this.context.GetTable<UniqueItem>().DeleteOnSubmit(Uniqitem);
+                this.context.SubmitChanges();
+                return true;
             }
-            if(!string.IsNullOrEmpty(uniqueItemSearchModel.Status))
+            catch (Exception)
             {
-                UniqueItems = UniqueItems.Where(c => c.Status.Equals(uniqueItemSearchModel.Status));
+                return false;
             }
-            if(!string.IsNullOrEmpty(uniqueItemSearchModel.CreatTime))
-            {
-                UniqueItems = UniqueItems.Where(c => c.CreateTime.Equals(uniqueItemSearchModel.CreatTime));
-            }
-            
-            return UniqueItems;
         }
 
-     
-
-        public UniqueItem SearchByUniqueId(int ItemUnique)
+        public UniqueItem SearchByCreatedAt(DateTime CreatedAt)
         {
-            return this.context.GetTable<UniqueItem>().FirstOrDefault(c => c.ItemUnique.Equals(ItemUnique));
+            return this.context.GetTable<UniqueItem>().FirstOrDefault(c => c.CreatedAt.Equals(CreatedAt));
+        }
+
+        public UniqueItem SearchByPartNr(string PartNr)
+        {
+            return this.context.GetTable<UniqueItem>().FirstOrDefault(c => c.PartNr.Equals(PartNr));
+        }
+
+        public UniqueItem SearchByStatus(int State)
+        {
+            return this.context.GetTable<UniqueItem>().FirstOrDefault(c => c.State.Equals(State));
+        }
+
+        public UniqueItem SearchByUniqNr(string UniqNr)
+        {
+            return this.context.GetTable<UniqueItem>().FirstOrDefault(c => c.UniqNr.Equals(UniqNr));
         }
 
         public bool Update(UniqueItem item)
         {
             try
             {
-                UniqueItem ui = this.context.GetTable<UniqueItem>().FirstOrDefault(c => c.ItemUnique.Equals(item.ItemUnique));
+                UniqueItem ui = this.context.GetTable<UniqueItem>().FirstOrDefault(c => c.UniqNr.Equals(item.UniqNr));
 
                 if (ui != null)
                 {
-                    ui.ItemUnique = item.ItemUnique;
+                    ui.UniqNr = item.UniqNr;
                     ui.PartNr = item.PartNr;
-                    ui.CreateTime = item.CreateTime;
-                    ui.Status = item.Status;
+                    ui.CreatedAt = item.CreatedAt;
+                    ui.State = item.State;
 
                     this.context.SubmitChanges();
                     return true;
@@ -83,23 +90,5 @@ namespace AgvLibrary.Data.Repository.Implement
                 return false;
             }
         }
-
-        bool IUniqueItemRepository.Create(UniqueItem item)
-        {
-            try
-            {
-                this.context.GetTable<UniqueItem>().InsertOnSubmit(item);
-                this.context.SubmitChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-
-
-
     }
 }

@@ -9,9 +9,9 @@
     <Grid>
         <Label x:Name="PartNrLabel" Content="零件编码:" HorizontalAlignment="Left" Margin="32,40,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.245,0.453"/>
         <TextBox x:Name="PartNrtextBox" HorizontalAlignment="Left" Height="23" Margin="154,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="PartNrtextBox_TextChanged"/>
-        <Label x:Name="UniqueItemLabel" Content="零件唯一码:" HorizontalAlignment="Left" Margin="32,102,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="UniqueItemtextBox" HorizontalAlignment="Left" Height="23" Margin="154,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="UniqueItemtextBox_TextChanged"/>
+        <Label x:Name="UniqueNrLabel" Content="零件唯一码:" HorizontalAlignment="Left" Margin="32,102,0,0" VerticalAlignment="Top"/>
         <Button x:Name="Offbutton" Content="下线" HorizontalAlignment="Left" Margin="199,219,0,0" VerticalAlignment="Top" Width="75" Click="Offbutton_Click"/>
+        <TextBox x:Name="UniqueNrtextBox" HorizontalAlignment="Left" Height="23" Margin="154,102,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="UniqueNrtextBox_TextChanged_1"/>
 
     </Grid>
 </Window>

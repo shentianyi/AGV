@@ -27,6 +27,8 @@ namespace AGVWPF
 
         private void OfflineBtn_Click(object sender, RoutedEventArgs e)
         {
+            OfflineWin OffWin = new OfflineWin();
+            OffWin.Show();
 
         }
     }

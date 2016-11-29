@@ -16,8 +16,11 @@ namespace TestCon
         static void Main(string[] args)
         {
             PartSearchModel p = new PartSearchModel();
-            IPartServices q = new PartServices("Data Source = 42.121.111.38; Initial Catalog = BlueCarGps; Persist Security Info = True; User ID = bluecargps; Password = bluecargps; Connect Timeout = 150;");
-            string a =q.SearchByNr("PN001").ToString();
+            IPartServices q = new PartServices("Data Source = (local); Initial Catalog = AgvWarehouseDB; Integrated Security = True");
+            // IPartServices q = new PartServices("Data Source = 42.121.111.38; Initial Catalog = BlueCarGps; Persist Security Info = True; User ID = bluecargps; Password = bluecargps; Connect Timeout = 150;");
+            Part a =q.SearchByNr("PN001");
+            Console.WriteLine(a.BoxType);
+            Console.ReadLine();
         }
     }
 }

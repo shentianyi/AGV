@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AGVWPF.Properties {
+namespace AgvLibrary.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -23,16 +23,13 @@ namespace AGVWPF.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source = ZHANGLIN-PC; Initial Catalog = AgvWarehouseDB; Integrated Security " +
-            "= True")]
-        public string db {
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(local);Initial Catalog=AgvWarehouseDB;Integrated Security=True")]
+        public string AgvWarehouseDBConnectionString {
             get {
-                return ((string)(this["db"]));
-            }
-            set {
-                this["db"] = value;
+                return ((string)(this["AgvWarehouseDBConnectionString"]));
             }
         }
     }

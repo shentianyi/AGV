@@ -9,6 +9,7 @@ namespace AgvLibrary.Data.Repository.Interface
 {
     public interface IPartRepository
     {
+        
         IQueryable<Part> Search(PartSearchModel partSearchModel);
 
         Part SearchByNr(string PartNr);

@@ -28,62 +28,71 @@ namespace AGVWPF
             InitializeComponent();
         }
 
+
+        private void Offbutton_Click(object sender, RoutedEventArgs e)
+        {
+            IPartServices IPS = new PartServices(Properties.Settings.Default.db);
+            IUniqueItemServices IUIS = new UniqueItemServices(Properties.Settings.Default.db);
+
+            string input_PartNr = PartNrtextBox.Text;
+            string input_UniqueNr =UniqueNrtextBox.Text;
+            if (string.IsNullOrEmpty(input_PartNr))
+            {
+                MessageBox.Show("零件编号不能为空");
+            }
+            if(string.IsNullOrEmpty(input_UniqueNr))
+            {
+                MessageBox.Show("零件唯一吗不能为空");
+            }
+
+            Part pak = IPS.SearchByNr(input_PartNr);
+
+            if (string.IsNullOrEmpty(pak.PartNr))
+            {
+                MessageBox.Show("该零件不存在");
+            }
+
+            UniqueItem UIK = IUIS.SearchByUniqNr(input_UniqueNr);
+            
+            if(UIK!=null)
+            {
+                MessageBox.Show("该唯一码已被占用");
+            }
+
+            UniqueItem InsertUI = new UniqueItem
+            {
+                PartNr = input_PartNr,
+                UniqNr = input_UniqueNr,
+                CreatedAt = DateTime.Now,
+                State = 0
+
+            };
+            bool IsInsertOk = IUIS.Create(InsertUI);
+            if (IsInsertOk)
+            {
+                string mean = "下线成功";
+                MessageBox.Show(mean);
+            }
+            else
+            {
+                string mean = "下线失败";
+                MessageBox.Show(mean);
+            }
+        }
+    
+
+
+
         private void PartNrtextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void Offbutton_Click(object sender, RoutedEventArgs e)
+       
+
+        private void UniqueNrtextBox_TextChanged_1(object sender, TextChangedEventArgs e)
         {
 
         }
-
-        private void UniqueItemtextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-            PartSearchModel p = new PartSearchModel();
-
-
-            ///装好SqlServer后链接 并更改db的值
-            IPartServices q = new PartServices(Properties.Settings.Default.db);
-            IUniqueItemServices UIS = new UniqueItemServices(Properties.Settings.Default.db);
-
-            string input_PartNr = PartNrtextBox.Text;
-            int input_UniqueItemId = int.Parse(UniqueItemtextBox.Text);
-            if (!string.IsNullOrEmpty(input_PartNr) && !string.IsNullOrEmpty(input_UniqueItemId.ToString()))
-            {
-                ///查看Part内容
-                Part pak = q.SearchByNr(PartNrtextBox.Text);
-                if (!string.IsNullOrEmpty(pak.PartNr))
-                {
-                    UniqueItem UI = UIS.SearchByUniqueId(input_UniqueItemId);
-                    if (string.IsNullOrEmpty(UI.ItemUnique.ToString()))
-                    {
-
-                        UniqueItem InsertUI = new UniqueItem
-                        {
-                            PartNr = input_PartNr,
-                            ItemUnique = input_UniqueItemId,
-                            CreateTime = DateTime.Now.ToString(),
-                            Status="已下线"
-                            
-                        };
-                       bool IsInsertOk=UIS.Create(InsertUI);
-                        if(IsInsertOk)
-                        {
-                            MessageBox.Show("下线成功");
-                        }
-                        else
-                        {
-                            string mean = "下线失败";
-                            MessageBox.Show(mean);
-                        }
-                    }
-                }
-
-
-            }
-        }
-
     }
 }
