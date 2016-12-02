@@ -74,7 +74,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Services\Implement\Incoming.cs" />
+    <Compile Include="Services\Implement\IncomingServices.cs" />
     <Compile Include="Services\Implement\UniqueItemServices.cs" />
     <Compile Include="Services\Interface\IIncomingServices.cs" />
     <Compile Include="Services\Interface\IPartServices.cs" />
