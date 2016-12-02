@@ -13,5 +13,7 @@ namespace AgvLibrary.Data.Repository.Interface
         IQueryable<Part> Search(PartSearchModel partSearchModel);
 
         Part SearchByNr(string PartNr);
+
+        bool PartNrExist(string PartNr);
     }
 }

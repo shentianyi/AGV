@@ -48,11 +48,21 @@
     </Compile>
     <Compile Include="Data\Repository\BasicMessage.cs" />
     <Compile Include="Data\DataContextFactory.cs" />
+    <Compile Include="Data\Repository\Implement\Incoming.cs" />
+    <Compile Include="Data\Repository\Implement\MovementRepository.cs" />
     <Compile Include="Data\Repository\Implement\PartRepository.cs" />
     <Compile Include="Data\IDataContextFactory.cs" />
+    <Compile Include="Data\Repository\Implement\PositionRepository.cs" />
+    <Compile Include="Data\Repository\Implement\StorageRepository.cs" />
     <Compile Include="Data\Repository\Implement\UniqueItemRepository.cs" />
+    <Compile Include="Data\Repository\Implement\WarehouseRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IIncoming.cs" />
+    <Compile Include="Data\Repository\Interface\IMovementRepository.cs" />
     <Compile Include="Data\Repository\Interface\IPartRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IPosationRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IStorageRepository.cs" />
     <Compile Include="Data\Repository\Interface\IUniqueItemRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IWarehouseRepository.cs" />
     <Compile Include="Data\Repository\IRepository.cs" />
     <Compile Include="Data\Repository\RepositoryBase.cs" />
     <Compile Include="ENUM\BoxType.cs" />
@@ -64,7 +74,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\Implement\Incoming.cs" />
     <Compile Include="Services\Implement\UniqueItemServices.cs" />
+    <Compile Include="Services\Interface\IIncomingServices.cs" />
     <Compile Include="Services\Interface\IPartServices.cs" />
     <Compile Include="Services\Implement\PartServices.cs" />
     <Compile Include="Services\Interface\IUniqueItemServices.cs" />

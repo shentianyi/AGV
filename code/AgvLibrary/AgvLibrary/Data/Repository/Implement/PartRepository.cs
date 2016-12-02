@@ -19,6 +19,11 @@ namespace AgvLibrary.Data.Repository.Implement
             this.context = dataContextFactory.Context as AgvWareHouseDataContext;
         }
 
+        public bool PartNrExist(string PartNr)
+        {
+            return SearchByNr(PartNr) != null;
+        }
+
         public IQueryable<Data.Part> Search(PartSearchModel partSearchModel)
         {
             IQueryable<Part> Part = this.context.Part;

@@ -13,6 +13,11 @@ namespace AgvLibrary.Data.Repository.Interface
         UniqueItem SearchByStatus(int State);
         UniqueItem SearchByCreatedAt(DateTime CreatedAt);
 
+        bool UnqiNrExist(string UniqNr);
+        bool PartNrExist(string PartNr);
+        bool StateExist(int State);
+        bool CreatedAtExist(DateTime CreatedAt);
+
         bool Create(UniqueItem Uniqitem);
         bool Delete(UniqueItem Uniqitem);
         bool Update(UniqueItem Uniqitem);

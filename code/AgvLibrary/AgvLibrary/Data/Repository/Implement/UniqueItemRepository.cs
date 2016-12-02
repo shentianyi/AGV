@@ -30,6 +30,11 @@ namespace AgvLibrary.Data.Repository.Implement
             }
         }
 
+        public bool CreatedAtExist(DateTime CreatedAt)
+        {
+            return SearchByCreatedAt(CreatedAt)!=null;
+        }
+
         public bool Delete(UniqueItem Uniqitem)
         {
             try
@@ -42,6 +47,11 @@ namespace AgvLibrary.Data.Repository.Implement
             {
                 return false;
             }
+        }
+
+        public bool PartNrExist(string PartNr)
+        {
+            return SearchByPartNr(PartNr) != null;
         }
 
         public UniqueItem SearchByCreatedAt(DateTime CreatedAt)
@@ -62,6 +72,16 @@ namespace AgvLibrary.Data.Repository.Implement
         public UniqueItem SearchByUniqNr(string UniqNr)
         {
             return this.context.GetTable<UniqueItem>().FirstOrDefault(c => c.UniqNr.Equals(UniqNr));
+        }
+
+        public bool StateExist(int State)
+        {
+            return SearchByStatus(State) != null;
+        }
+
+        public bool UnqiNrExist(string UniqNr)
+        {
+            return SearchByUniqNr(UniqNr) != null;
         }
 
         public bool Update(UniqueItem item)
