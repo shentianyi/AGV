@@ -20,7 +20,7 @@ namespace AGVCenterLib.Service
             }
             set { dbString = value; }
         }
-        private AgvWarehouseDataContext context;
+        private DataContext context;
 
         public ServiceBase(string dbString)
         {
@@ -28,7 +28,7 @@ namespace AGVCenterLib.Service
         }
 
 
-        public AgvWarehouseDataContext Context
+        public DataContext Context
         {
             get
             {
@@ -38,7 +38,7 @@ namespace AGVCenterLib.Service
                     {
                         if (null == context)
                         {
-                            context = new AgvWarehouseDataContext(this.DbString);
+                            context = new DataContext(this.DbString);
                         }
                     }
                 }

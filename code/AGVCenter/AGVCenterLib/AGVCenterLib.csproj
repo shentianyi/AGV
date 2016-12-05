@@ -51,9 +51,13 @@
       <HintPath>..\..\..\ThridPart\Interop.OPCAutomation.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\ThridPart\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,11 +70,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AgvWarehouse.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\IDataContextFactory.cs" />
+    <Compile Include="Data\Repository\Implement\PartRepository.cs" />
+    <Compile Include="Data\Repository\Implement\PositionRepository.cs" />
+    <Compile Include="Data\Repository\Implement\StockMovementRepository.cs" />
+    <Compile Include="Data\Repository\Implement\StorageRepository.cs" />
+    <Compile Include="Data\Repository\Implement\UniqueItemRepository.cs" />
+    <Compile Include="Data\Repository\Implement\WarehouseRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IPartRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IPositionRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IStockMovementRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IStorageRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IUniqueItemRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IWarehouseRepository.cs" />
+    <Compile Include="Data\Repository\IRepository.cs" />
+    <Compile Include="Data\Repository\RepositoryBase.cs" />
     <Compile Include="Enum\AgvPassFlag.cs" />
     <Compile Include="Enum\BoxType.cs" />
     <Compile Include="Enum\OPC\CanonicalDataType.cs" />
     <Compile Include="Enum\StockTaskActionFlag.cs" />
     <Compile Include="Enum\StockTaskState.cs" />
+    <Compile Include="Enum\UniqueItemState.cs" />
+    <Compile Include="Model\Message\ResultMessage.cs" />
     <Compile Include="Model\OPC\OPCInRobootPick.cs" />
     <Compile Include="Model\OPC\OPCAgvInStockPass.cs" />
     <Compile Include="Model\OPC\OPCCheckInStockBarcode.cs" />
@@ -131,6 +153,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Brilliantech.Framwork\Brilliantech.Framwork.csproj">
+      <Project>{9b5f850a-5136-4095-8955-6c4f7747c48a}</Project>
+      <Name>Brilliantech.Framwork</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

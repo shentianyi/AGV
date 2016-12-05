@@ -13,6 +13,7 @@ namespace AGVCenterLib.Service
         {
 
         }
+        
 
         /// <summary>
         /// 是否有可用库位

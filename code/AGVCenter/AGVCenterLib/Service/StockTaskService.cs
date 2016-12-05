@@ -21,22 +21,22 @@ namespace AGVCenterLib.Service
         /// <returns></returns>
         public bool CreateInStockTask(StockTaskItem task)
         {
-            StockTask st = new StockTask()
-            {
-                BoxType = task.BoxType,
-                PositionFloor = task.PositionFloor,
-                PositionColumn = task.PositionColumn,
-                PositionRow = task.PositionRow,
-                AgvPassFlag = task.AgvPassFlag,
-                RestPositionFlag = task.RestPositionFlag,
-                BarCode = task.Barcode,
-                State = (int)task.State,
-                Type = (int)StockTaskType.IN,
-                CreatedAt = DateTime.Now
-            };
-            this.Context.StockTask.InsertOnSubmit(st);
-            this.Context.SubmitChanges();
-            task.DbId = st.id;
+            //StockTask st = new StockTask()
+            //{
+            //    BoxType = task.BoxType,
+            //    PositionFloor = task.PositionFloor,
+            //    PositionColumn = task.PositionColumn,
+            //    PositionRow = task.PositionRow,
+            //    AgvPassFlag = task.AgvPassFlag,
+            //    RestPositionFlag = task.RestPositionFlag,
+            //    BarCode = task.Barcode,
+            //    State = (int)task.State,
+            //    Type = (int)StockTaskType.IN,
+            //    CreatedAt = DateTime.Now
+            //};
+            //this.Context.StockTask.InsertOnSubmit(st);
+            //this.Context.SubmitChanges();
+            //task.DbId = st.id;
             return true;
         }
 
@@ -47,18 +47,18 @@ namespace AGVCenterLib.Service
         /// <returns></returns>
         public bool UpdateTaskState(StockTaskItem taskItem)
         {
-            StockTask t = this.Context.StockTask.FirstOrDefault(s => s.id == taskItem.DbId);
-            if (t != null)
-            {
-                t.State = (int)taskItem.State;
+            //StockTask t = this.Context.StockTask.FirstOrDefault(s => s.id == taskItem.DbId);
+            //if (t != null)
+            //{
+            //    t.State = (int)taskItem.State;
 
-                t.RoadMachineIndex = taskItem.RoadMachineIndex;
-                t.PositionFloor = taskItem.PositionFloor;
-                t.PositionColumn = taskItem.PositionColumn;
-                t.PositionRow = taskItem.PositionRow;
+            //    t.RoadMachineIndex = taskItem.RoadMachineIndex;
+            //    t.PositionFloor = taskItem.PositionFloor;
+            //    t.PositionColumn = taskItem.PositionColumn;
+            //    t.PositionRow = taskItem.PositionRow;
 
-                this.Context.SubmitChanges();
-            }
+            //    this.Context.SubmitChanges();
+            //}
             return true;
         }
     }

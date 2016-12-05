@@ -914,7 +914,7 @@ namespace AGVCenterWPF
 
                 #region 入库
                 UniqueItemService uniqItemService = new UniqueItemService(OPCConfig.DbString);
-                UniqueItemView item = uniqItemService.FindDetail(barcode);
+                UniqueItem item = uniqItemService.FindByCheckCode(barcode);
                 if (item != null)
                 {
                     // 是否可以入库
@@ -937,7 +937,7 @@ namespace AGVCenterWPF
                         {
                             taskItem.AgvPassFlag = (byte)AgvPassFlag.Pass;
                             // 先放小车，不计算库位!
-                            taskItem.BoxType = (byte)item.BoxType;
+                            taskItem.BoxType = (byte)item.BoxTypeId;
                         }
                         else
                         {
@@ -1070,7 +1070,7 @@ namespace AGVCenterWPF
                             PositionService ps = new PositionService(OPCConfig.DbString);
                             Position position = ps.FindInStockPosition(roadMachineIndex);
 
-                            _item.PositionNr = position.PositionNr;
+                            _item.PositionNr = position.Nr;
                             _item.PositionFloor = position.Floor;
                             _item.PositionColumn = position.Column;
                             _item.PositionRow = position.Row;

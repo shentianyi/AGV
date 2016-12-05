@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/AgvServiceLib.DataModel" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" />
+  <xs:element name="CreateUniqItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AgvServiceLib.DataModel" minOccurs="0" name="item" nillable="true" type="q1:UniqueItemModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateUniqItemResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CreateUniqItemResult" nillable="true" type="q2:ResultMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

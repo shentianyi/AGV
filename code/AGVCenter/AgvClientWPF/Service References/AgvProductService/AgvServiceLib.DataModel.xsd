@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AgvServiceLib.DataModel" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AgvServiceLib.DataModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="UniqueItemModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BoxTypeId" type="xs:int" />
+      <xs:element minOccurs="0" name="CheckCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreatedAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="KNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KNrWithYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KskNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PartNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UniqueItemModel" nillable="true" type="tns:UniqueItemModel" />
+</xs:schema>

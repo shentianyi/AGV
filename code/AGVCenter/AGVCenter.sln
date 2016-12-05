@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGVCenterWPF", "AGVCenterWPF\AGVCenterWPF.csproj", "{1CA7279E-B19E-4A38-9F1D-71F42303DABE}"
 EndProject
@@ -10,6 +10,20 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGVCenterLib", "AGVCenterLib\AGVCenterLib.csproj", "{7C1B913A-0C42-4535-8032-24A86C7F24D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCon", "TestCon\TestCon.csproj", "{F7FBCE22-221B-4654-B102-9A43FBFF1A64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgvServiceLib", "AgvServiceLib\AgvServiceLib.csproj", "{9FF5627E-FA52-4A7F-B033-02514DD9A11E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WcfHost", "WcfHost", "{1B6EE808-658F-4893-B60A-5A71BBE0357D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgvServiceHostCon", "AgvServiceHostCon\AgvServiceHostCon.csproj", "{8D149F77-D296-485E-95A8-FB602EA5D98C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9FF5627E-FA52-4A7F-B033-02514DD9A11E} = {9FF5627E-FA52-4A7F-B033-02514DD9A11E}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgvClientWPF", "AgvClientWPF\AgvClientWPF.csproj", "{5AE49BAB-5D05-4C65-A78F-079C1635364B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9FF5627E-FA52-4A7F-B033-02514DD9A11E} = {9FF5627E-FA52-4A7F-B033-02514DD9A11E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +47,23 @@ Global
 		{F7FBCE22-221B-4654-B102-9A43FBFF1A64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7FBCE22-221B-4654-B102-9A43FBFF1A64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7FBCE22-221B-4654-B102-9A43FBFF1A64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FF5627E-FA52-4A7F-B033-02514DD9A11E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FF5627E-FA52-4A7F-B033-02514DD9A11E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FF5627E-FA52-4A7F-B033-02514DD9A11E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FF5627E-FA52-4A7F-B033-02514DD9A11E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D149F77-D296-485E-95A8-FB602EA5D98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D149F77-D296-485E-95A8-FB602EA5D98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D149F77-D296-485E-95A8-FB602EA5D98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D149F77-D296-485E-95A8-FB602EA5D98C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AE49BAB-5D05-4C65-A78F-079C1635364B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AE49BAB-5D05-4C65-A78F-079C1635364B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AE49BAB-5D05-4C65-A78F-079C1635364B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AE49BAB-5D05-4C65-A78F-079C1635364B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8D149F77-D296-485E-95A8-FB602EA5D98C} = {1B6EE808-658F-4893-B60A-5A71BBE0357D}
 	EndGlobalSection
 EndGlobal
