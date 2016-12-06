@@ -9,7 +9,7 @@ namespace AgvLibrary.Model.Message
     public class BasicMessage
     {
         private bool result;
-        private List<string> msgContent;
+        
         private string msgText;
 
 
@@ -24,32 +24,18 @@ namespace AgvLibrary.Model.Message
             set { result = value; }
         }
 
-        public List<string> MsgContent
-        {
-            get
-            {
-                if (msgContent == null)
-                    msgContent = new List<string>();
-
-                return msgContent;
-            }
-            set
-            {
-                if (value != null)
-                    msgContent = value;
-            }
-
-        }
+        
 
         public string MsgText
         {
             get
             {
-                foreach (string msg in this.MsgContent)
-                {
-                    msgText += msg + "；";
-                }
-                return msgText.TrimEnd('；');
+                return msgText;
+            }
+            set
+            {
+                if (value != null)
+                    MsgText = value;
             }
         }
     }

@@ -7,6 +7,7 @@ using AgvLibrary.Data;
 using AgvLibrary.Data.Repository.Interface;
 using AgvLibrary.Services.Interface;
 using AgvLibrary.Data.Repository.Implement;
+using AgvLibrary.Model.Message;
 
 namespace AgvLibrary.Services.Implement
 {
@@ -16,6 +17,7 @@ namespace AgvLibrary.Services.Implement
         private IPosationRepository PoRep;
         private IStorageRepository SaRep;
         private IMovementRepository MoRep;
+        private BasicMessage Message = new BasicMessage();
 
 
 
@@ -27,23 +29,28 @@ namespace AgvLibrary.Services.Implement
             MoRep = new MovementRepository(this.Context);
         }
 
-        public bool OutComingByUniqNr(string UniqNr)
+        public BasicMessage OutComingByUniqNr(string UniqNr)
         {
            
             if(string.IsNullOrEmpty(UniqNr))
             {
-                return false;
+                Message.MsgText = "唯一码不能为空";
+                Message.Result = false;
+                return Message;
             }
             if(UniqRep.UnqiNrExist(UniqNr)==false)
             {
-                return false;
+                Message.MsgText = "唯一码在UniqItem表中不存在";
+                Message.Result = false;
+                return Message;
             }
             UniqueItem UI = UniqRep.SearchByUniqNr(UniqNr);
             Storage Sg = SaRep.SearchByUniqueNr(UniqNr);
             if (string.IsNullOrEmpty(Sg.PositionNr))
             {
-
-                return false;
+                Message.MsgText = "PositionNr在Storage表中不存在";
+                Message.Result = false;
+                return Message;
             }
             bool DeRe = SaRep.Delete(Sg);
             if(DeRe)
@@ -51,17 +58,23 @@ namespace AgvLibrary.Services.Implement
                 bool OutMoRe = CreateOutcomingMovement(Sg.PositionNr, UI.CreatedAt);
                 if (OutMoRe)
                 {
-                    return true;
+                    Message.MsgText = "出库成功，并且写入Movement表";
+                    Message.Result = true;
+                    return Message;
                 }
                 else
                 {
-                    return false;
+                    Message.MsgText = "出库成功，但无法写入Movement表";
+                    Message.Result = false;
+                    return Message;
                 }
 
             }
             else
             {
-                return false;
+                Message.MsgText = "出库失败";
+                Message.Result = false;
+                return Message;
             }
            
           

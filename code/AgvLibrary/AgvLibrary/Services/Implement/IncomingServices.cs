@@ -27,12 +27,14 @@ namespace AgvLibrary.Services.Implement
             MoRep = new MovementRepository(this.Context);
         }
 
-        public bool IncomingByNr(string UniqNr, string PositionNr)
+        public BasicMessage IncomingByNr(string UniqNr, string PositionNr)
         {
            
             if(UniqRep.UnqiNrExist(UniqNr)==false)
             {
-                return false;
+                Message.MsgText = "唯一吗不在UniqItem表中";
+                Message.Result = false;
+                return Message;
             }
             UniqueItem UI = UniqRep.SearchByUniqNr(PositionNr);
 
@@ -42,11 +44,14 @@ namespace AgvLibrary.Services.Implement
 
             if (PoRep.PositionNrExist(PositionNr)==false)
             {
-                return false;
+                Message.MsgText = "PositionNr不在Position表中";
+                Message.Result = false;
+                return Message;
             }
             if(SaRep.PositionNrExist(PositionNr))
             {
-                return false;
+                Message.MsgText = "PositionNr已占用库位";
+                Message.Result = false;
             }
             Storage sg = new Storage
             {
@@ -64,31 +69,35 @@ namespace AgvLibrary.Services.Implement
                 if (SaCre)
                 {
                     bool InMoCre = CreateIncomingMovement(PositionNr, UI.CreatedAt);
+                    
 
-                    if (SaCre && InMoCre)
+                    if (InMoCre)
                     {
-                        return true;
+                        Message.MsgText = "入库成功并写入日志";
+                        Message.Result = true;
+                        return Message;
 
-                    }
-                    else if (SaCre && !InMoCre)
-                    {
-                        Message.con = "入库成功，但未写入日志";
-                        return false;
                     }
                     else
                     {
-                        return false;
+                        Message.MsgText = "入库成功，但未写入日志";
+                        Message.Result = false;
+                        return Message;
                     }
                 }
                 else
                 {
-                    return false;
+                    Message.MsgText = "入库未成功";
+                    Message.Result = false;
+                    return Message;
                 }
                 
             }
-            catch
+            catch(Exception ex)
             {
-                return false;
+                Message.MsgText = ex.Message;
+                Message.Result = false;
+                return Message;
             }
 
             
@@ -96,12 +105,14 @@ namespace AgvLibrary.Services.Implement
             
         }
 
-        public bool IncomingByPosation(string UniqNr, string WHNr, int Floor, int Row,int Column)
+        public BasicMessage IncomingByPosation(string UniqNr, string WHNr, int Floor, int Row,int Column)
         {
           Position  Po= PoRep.SearchByPosition(WHNr, Floor, Row, Column);
             if (string.IsNullOrEmpty(Po.PositionNr))
             {
-                return false;
+                Message.MsgText = "PositionNr在Position表中不存在";
+                Message.Result = false;
+                return Message;
             }
             else
             {
@@ -122,6 +133,8 @@ namespace AgvLibrary.Services.Implement
             };
 
             bool CeRe = MoRep.Create(Mo);
+            
+            
             return CeRe;
             
             
