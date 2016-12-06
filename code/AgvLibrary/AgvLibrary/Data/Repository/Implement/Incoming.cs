@@ -40,13 +40,13 @@ namespace AgvLibrary.Data.Repository.Implement
         /// <param name="PositionNr"></param>
         /// <returns></returns>
 
-        public Position FindByPositionNr(string PositionNr)
+        public Position SearchByPositionNr(string PositionNr)
         {
             return this.context.GetTable<Position>().FirstOrDefault(c => c.PositionNr.Equals(PositionNr));
         }
         public bool PositionNrExist(string PositionNr)
         {
-            return FindByPositionNr(PositionNr) != null;
+            return SearchByPositionNr(PositionNr) != null;
         }
 
 
@@ -88,7 +88,7 @@ namespace AgvLibrary.Data.Repository.Implement
         /// <param name="Column"></param>
         /// <param name="Row"></param>
         /// <returns></returns>
-        public Position FindByPosition(string WHNr, int Floor, int Column, int Row)
+        public Position SearchByPosition(string WHNr, int Floor, int Column, int Row)
         {
             return this.context.GetTable<Position>().FirstOrDefault(c => c.WHNr.Equals(WHNr) && c.Floor.Equals(Floor) && c.Column.Equals(Column) && c.Row.Equals(Row));
         }
@@ -98,7 +98,7 @@ namespace AgvLibrary.Data.Repository.Implement
 
         public bool PositionExist(string WHNr, int Floor, int Column, int Row)
         {
-            return FindByPosition(WHNr, Floor, Column, Row) != null;
+            return SearchByPosition(WHNr, Floor, Column, Row) != null;
         }
 
 

@@ -20,6 +20,34 @@ namespace AgvLibrary.Data.Repository.Implement
             return SearchByAimedPosition(AimedPosition) != null;
         }
 
+        public bool Create(Movement Mo)
+        {
+            try
+            {
+                this.context.GetTable<Movement>().InsertOnSubmit(Mo);
+                this.context.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool Delete(Movement Mo)
+        {
+            try
+            {
+                this.context.GetTable<Movement>().DeleteOnSubmit(Mo);
+                this.context.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public bool OperationTypeExist(int OperationType)
         {
             return SearchByOperationType(OperationType) != null;
@@ -54,5 +82,8 @@ namespace AgvLibrary.Data.Repository.Implement
         {
             return SearchBySourcePosition(SourcePosition) != null;
         }
+
+       
+        
     }
 }

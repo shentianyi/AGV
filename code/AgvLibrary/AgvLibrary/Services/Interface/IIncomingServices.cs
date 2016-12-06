@@ -12,5 +12,7 @@ namespace AgvLibrary.Services.Interface
     {
         bool IncomingByNr(string UniqNr, string PositionNr);
         bool IncomingByPosation(string UniqNr, string WHNr, int Floor, int Column, int Row);
+
+        bool CreateIncomingMovement(string PositionNr,DateTime CreatedAt);
     }
 }

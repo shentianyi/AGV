@@ -67,6 +67,7 @@
     <Compile Include="Data\Repository\RepositoryBase.cs" />
     <Compile Include="ENUM\BoxType.cs" />
     <Compile Include="ENUM\UniqueItemStatusType.cs" />
+    <Compile Include="Model\Message\BasicMessage.cs" />
     <Compile Include="Model\PartSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -75,8 +76,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Services\Implement\IncomingServices.cs" />
+    <Compile Include="Services\Implement\MovementServices.cs" />
+    <Compile Include="Services\Implement\OutcomingServices.cs" />
     <Compile Include="Services\Implement\UniqueItemServices.cs" />
     <Compile Include="Services\Interface\IIncomingServices.cs" />
+    <Compile Include="Services\Interface\IMovementServices.cs" />
+    <Compile Include="Services\Interface\IOutcomingServices.cs" />
     <Compile Include="Services\Interface\IPartServices.cs" />
     <Compile Include="Services\Implement\PartServices.cs" />
     <Compile Include="Services\Interface\IUniqueItemServices.cs" />

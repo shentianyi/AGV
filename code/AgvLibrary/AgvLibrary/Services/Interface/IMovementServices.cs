@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AgvLibrary.Data;
 
-namespace AgvLibrary.Data.Repository.Interface
+namespace AgvLibrary.Services.Interface
 {
-   public interface IMovementRepository
+   public interface IMovementServices
     {
         /// <summary>
         /// 根据SourcePosition查询
@@ -71,9 +72,5 @@ namespace AgvLibrary.Data.Repository.Interface
         bool Create(Movement Mo);
 
         bool Delete(Movement Mo);
-
-      
-
-
     }
 }

@@ -16,34 +16,34 @@ namespace AgvLibrary.Data.Repository.Implement
             this.context = dataContextFactory.Context as AgvWareHouseDataContext;
         }
 
-        public Position FindByPositionNr(string PositionNr)
+        public Position SearchByPositionNr(string PositionNr)
         {
             return this.context.GetTable<Position>().FirstOrDefault(c => c.PositionNr.Equals(PositionNr));
         }
 
-        public Position FindByPosition(string WHNr, int Floor, int Column, int Row)
+        public Position SearchByPosition(string WHNr, int Floor, int Column, int Row)
         {
             return this.context.GetTable<Position>().FirstOrDefault(c => c.WHNr.Equals(WHNr) && c.Floor.Equals(Floor) && c.Column.Equals(Column) && c.Row.Equals(Row));
         }
 
-        public Position FindByState(int State)
+        public Position SearchByState(int State)
         {
             return this.context.GetTable<Position>().FirstOrDefault(c => c.State.Equals(State));
         }
 
         public bool PositionNrExist(string PositionNr)
         {
-            return FindByPositionNr(PositionNr) != null;
+            return SearchByPositionNr(PositionNr) != null;
         }
 
         public bool PositionExist(string WHNr, int Floor, int Column, int Row)
         {
-            return FindByPosition(WHNr, Floor, Column, Row) != null;
+            return SearchByPosition(WHNr, Floor, Column, Row) != null;
         }
 
         public bool StateExist(int State)
         {
-            return FindByState(State)!=null;
+            return SearchByState(State)!=null;
         }
     }
 }
