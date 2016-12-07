@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgvClientWPF.Product;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AgvClientWPF.Delivery;
 
 namespace AgvClientWPF
 {
@@ -28,6 +30,12 @@ namespace AgvClientWPF
         private void productOffLineBtn_Click(object sender, RoutedEventArgs e)
         {
             new ProductFinishWindow().Show();
+        }
+
+        private void createDevlieryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new CreateDeliveryWindow().Show();
+            this.Close();
         }
     }
 }

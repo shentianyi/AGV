@@ -13,10 +13,14 @@ namespace AgvServiceHostCon
         static void Main(string[] args)
         {
             ServiceHost productSercice = null;
+            ServiceHost deliveryService = null;
             try
             {
                 productSercice = new ServiceHost(typeof(ProductService));
+                deliveryService = new ServiceHost(typeof(DeliveryService));
                 productSercice.Open();
+                deliveryService.Open();
+
                 Console.WriteLine("生产服务已启动");
                
             }

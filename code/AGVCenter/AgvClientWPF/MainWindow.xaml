@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="productOffLineBtn" Content="生产下线" HorizontalAlignment="Left" Margin="35,39,0,0" VerticalAlignment="Top" Width="74" Height="42" Click="productOffLineBtn_Click"/>
+        <Button x:Name="productOffLineBtn" Content="生产下线" 
+                HorizontalAlignment="Left" Margin="35,39,0,0" VerticalAlignment="Top" Width="74" Height="42" Click="productOffLineBtn_Click"/>
+        <Button x:Name="createDevlieryBtn" Content="创建订单" HorizontalAlignment="Left" Margin="141,39,0,0" VerticalAlignment="Top" Width="78" Height="42" Click="createDevlieryBtn_Click"/>
 
     </Grid>
 </Window>
