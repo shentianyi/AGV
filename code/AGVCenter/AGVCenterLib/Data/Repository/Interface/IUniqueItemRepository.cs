@@ -11,10 +11,10 @@ namespace AGVCenterLib.Data.Repository.Interface
     {
         UniqueItem FindByCheckCode(string checkCode);
         UniqueItem FindByNr(string nr);
-        void Create(UniqueItem item);
+        void Create(UniqueItem entity);
 
-        void Delete(UniqueItem item);
+        void Delete(UniqueItem entity);
 
-        void Update(UniqueItem item);
+        void Update(UniqueItem entity);
     }
 }

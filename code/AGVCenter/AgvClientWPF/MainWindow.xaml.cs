@@ -35,7 +35,6 @@ namespace AgvClientWPF
         private void createDevlieryBtn_Click(object sender, RoutedEventArgs e)
         {
             new CreateDeliveryWindow().Show();
-            this.Close();
         }
     }
 }

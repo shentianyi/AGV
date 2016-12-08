@@ -21,11 +21,13 @@ namespace AGVCenterLib.Model.Message
     public class ResultMessage
     {
         private MessageType messageType;
+        private bool success;
         private string content;
 
         public ResultMessage()
         {
-            this.messageType = MessageType.OK;
+            this.messageType = MessageType.Warn;
+            this.success = false;
         }
 
         [DataMember]
@@ -33,6 +35,13 @@ namespace AGVCenterLib.Model.Message
         {
             get { return messageType; }
             set { messageType = value; }
+        }
+
+        [DataMember]
+        public bool Success
+        {
+            get { return success; }
+            set { success = value; }
         }
 
         [DataMember]

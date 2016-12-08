@@ -22,24 +22,25 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             return this.context.UniqueItem.FirstOrDefault(s => s.Nr == nr);
         }
+
         public UniqueItem FindByCheckCode(string checkCode)
         {
             return this.context.UniqueItem.FirstOrDefault(s => s.CheckCode == checkCode);
         }
 
-        public void Create(UniqueItem item)
+        public void Create(UniqueItem entity)
         {
-            this.context.UniqueItem.InsertOnSubmit(item);
+            this.context.UniqueItem.InsertOnSubmit(entity);
         }
 
-        public void Delete(UniqueItem item)
+        public void Delete(UniqueItem entity)
         {
             throw new NotImplementedException();
         }
 
      
 
-        public void Update(UniqueItem item)
+        public void Update(UniqueItem entity)
         {
             throw new NotImplementedException();
         }

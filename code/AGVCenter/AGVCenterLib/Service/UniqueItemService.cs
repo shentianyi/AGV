@@ -39,7 +39,7 @@ namespace AGVCenterLib.Service
                     item.State = (int)UniqueItemState.Created;
                     item.CreatedAt = DateTime.Now;
                     rep.Create(item);
-                    this.Context.Context.SubmitChanges();
+                    this.Context.SaveAll();
                     messge.Content = "创建成功";
                 }
             }
@@ -62,6 +62,11 @@ namespace AGVCenterLib.Service
         }
 
 
+        public UniqueItem FindByNr(string nr)
+        {
+            IUniqueItemRepository rep = new UniqueItemRepository(this.Context);
+            return rep.FindByNr(nr);
+        }
 
         public UniqueItem FindByCheckCode(string checkCode)
         {

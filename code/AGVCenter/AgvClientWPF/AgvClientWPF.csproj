@@ -62,6 +62,7 @@
     <Compile Include="Delivery\CreateDeliveryWindow.xaml.cs">
       <DependentUpon>CreateDeliveryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\UniqueHelper.cs" />
     <Compile Include="Service References\AgvDeliveryService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -120,6 +121,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\AgvDeliveryService\AGVCenterLib.Model.Message.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvDeliveryService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\AgvDeliveryService\service.wsdl" />
     <None Include="Service References\AgvDeliveryService\service.xsd">
       <SubType>Designer</SubType>
@@ -129,6 +136,9 @@
     </None>
     <None Include="Service References\AgvProductService\AGVCenterLib.Model.Message.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvProductService\AgvClientWPF.AgvProductService.UniqueItemModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\AgvProductService\AgvServiceLib.DataModel.xsd">
       <SubType>Designer</SubType>

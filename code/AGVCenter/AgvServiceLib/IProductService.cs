@@ -21,6 +21,9 @@ namespace AgvServiceLib
         /// <returns></returns>
         [OperationContract]
         ResultMessage CreateUniqItem(UniqueItemModel item);
+
+        [OperationContract]
+        UniqueItemModel FindUniqItemByNr(string nr);
     }
 
     

@@ -9,6 +9,6 @@ namespace AgvServiceLib.Helper
 {
     public class SqlHelper
     {
-        public static string conStr = new ConfigUtil("DB", "Config/db.ini").Get("ConnectString");
+        public static string connectStr = new ConfigUtil("DB", "Config/db.ini").Get("ConnectString");
     }
 }

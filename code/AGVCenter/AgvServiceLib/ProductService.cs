@@ -17,13 +17,12 @@ namespace AgvServiceLib
     {
         public ResultMessage CreateUniqItem(UniqueItemModel item)
         {
-            LogUtil.Logger.Info(SqlHelper.conStr);
-            UniqueItemService service = new UniqueItemService(SqlHelper.conStr);
+            UniqueItemService service = new UniqueItemService(SqlHelper.connectStr);
             ResultMessage message = new ResultMessage();
             UniqueItem uitem = new UniqueItem()
             {
                 Nr = item.Nr,
-                QR=item.QR,
+                QR = item.QR,
                 KNr = item.KNr,
                 KNrWithYear = item.KNrWithYear,
                 CheckCode = item.CheckCode,
@@ -33,6 +32,13 @@ namespace AgvServiceLib
             message = service.Create(uitem);
 
             return message;
+        }
+
+        public UniqueItemModel FindUniqItemByNr(string nr)
+        {
+            UniqueItemService service = new UniqueItemService(SqlHelper.connectStr);
+            UniqueItem item = service.FindByNr(nr);
+            return UniqueItemModel.Convert(item);
         }
     }
 }

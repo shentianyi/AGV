@@ -1,4 +1,5 @@
-﻿using AGVCenterLib.Enum;
+﻿using AGVCenterLib.Data;
+using AGVCenterLib.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,13 +33,32 @@ namespace AgvServiceLib.DataModel
         public string QR { get; set; }
 
         [DataMember]
-        public int State { get; set; }
+        public int? State { get; set; }
 
         [DataMember]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [DataMember]
-        public int BoxTypeId { get; set; }
+        public int? BoxTypeId { get; set; }
 
+
+
+        public static UniqueItemModel Convert(UniqueItem item)
+        {
+            return item == null ? null :
+              new UniqueItemModel()
+              {
+                  Nr = item.Nr,
+                  PartNr = item.PartNr,
+                  KNr = item.KNr,
+                  KNrWithYear = item.KNrWithYear,
+                  CheckCode = item.CheckCode,
+                  KskNr = item.KskNr,
+                  QR = item.QR,
+                  State = item.State,
+                  CreatedAt = item.CreatedAt,
+                  BoxTypeId = item.BoxTypeId
+              };
+        }
     }
 }

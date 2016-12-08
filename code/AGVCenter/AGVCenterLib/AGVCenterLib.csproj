@@ -65,6 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\AgvWarehouse.cs">
+      <DependentUpon>AgvWarehouse.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Data\AgvWarehouse.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -72,22 +75,27 @@
     </Compile>
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\IDataContextFactory.cs" />
+    <Compile Include="Data\Repository\Implement\DeliveryItemRepository.cs" />
+    <Compile Include="Data\Repository\Implement\DeliveryRepository.cs" />
     <Compile Include="Data\Repository\Implement\PartRepository.cs" />
     <Compile Include="Data\Repository\Implement\PositionRepository.cs" />
     <Compile Include="Data\Repository\Implement\StockMovementRepository.cs" />
     <Compile Include="Data\Repository\Implement\StorageRepository.cs" />
     <Compile Include="Data\Repository\Implement\UniqueItemRepository.cs" />
     <Compile Include="Data\Repository\Implement\WarehouseRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IDeliveryItemRepository.cs" />
     <Compile Include="Data\Repository\Interface\IPartRepository.cs" />
     <Compile Include="Data\Repository\Interface\IPositionRepository.cs" />
     <Compile Include="Data\Repository\Interface\IStockMovementRepository.cs" />
     <Compile Include="Data\Repository\Interface\IStorageRepository.cs" />
     <Compile Include="Data\Repository\Interface\IUniqueItemRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IDeliveryRepository.cs" />
     <Compile Include="Data\Repository\Interface\IWarehouseRepository.cs" />
     <Compile Include="Data\Repository\IRepository.cs" />
     <Compile Include="Data\Repository\RepositoryBase.cs" />
     <Compile Include="Enum\AgvPassFlag.cs" />
     <Compile Include="Enum\BoxType.cs" />
+    <Compile Include="Enum\DeliveryState.cs" />
     <Compile Include="Enum\OPC\CanonicalDataType.cs" />
     <Compile Include="Enum\StockTaskActionFlag.cs" />
     <Compile Include="Enum\StockTaskState.cs" />
@@ -107,6 +115,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\DeliveryItemService.cs" />
+    <Compile Include="Service\DeliveryService.cs" />
     <Compile Include="Service\PositionService.cs" />
     <Compile Include="Service\ServiceBase.cs" />
     <Compile Include="Service\StockTaskService.cs" />

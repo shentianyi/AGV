@@ -43,7 +43,8 @@
             <TextBox  Name="KskNrTB" Width="200"/>
         </StackPanel>
         <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="确 认" Width="100" Name="ConfirmBtn" Click="ConfirmBtn_Click"/>
+            <Button Content="确 认" Width="145" Name="ConfirmBtn" Click="ConfirmBtn_Click">
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

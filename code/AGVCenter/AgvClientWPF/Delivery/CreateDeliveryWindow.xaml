@@ -5,11 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Delivery"
         mc:Ignorable="d"
-        Title="CreateDelivery" Height="304.26" Width="403.448">
+        Title="CreateDelivery" Height="504.26" Width="603.448">
     <Grid>
         <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="deliveryNrTB" HorizontalAlignment="Left" Height="26" Margin="78,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" KeyUp="deliveryNrTB_KeyUp"/>
-        <Button x:Name="createDeliveryBtn" Content="确 认" HorizontalAlignment="Left" Margin="164,237,0,0" VerticalAlignment="Top" Width="75" Click="createDeliveryBtn_Click"/>
+        <Button x:Name="createDeliveryBtn" Content="确 认" HorizontalAlignment="Left" Margin="127,415,0,0" VerticalAlignment="Top" Width="75" Click="createDeliveryBtn_Click"/>
+        <Button x:Name="generateDeliveryNrBtn" Content="系统生成号" HorizontalAlignment="Left" Margin="288,10,0,0" VerticalAlignment="Top" Width="70" Height="26" Click="generateDeliveryNrBtn_Click"/>
+        <Label x:Name="label1" Content="运单项：" HorizontalAlignment="Left" Margin="20,41,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="uniqItemNrTB" HorizontalAlignment="Left" Height="26" Margin="78,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" KeyUp="uniqItemNrTB_KeyUp"/>
+        <Button x:Name="addDeliveryItemBtn" Content="添加" HorizontalAlignment="Left" Margin="288,43,0,0" VerticalAlignment="Top" Width="52" Height="24" Click="addDeliveryItemBtn_Click"/>
+        <Button x:Name="removeDeliveryItemBtn" Content="移除" HorizontalAlignment="Left" Margin="358,43,0,0" VerticalAlignment="Top" Width="52" Height="24" Click="removeDeliveryItemBtn_Click"/>
+
+        <DataGrid x:Name="deliveryItemDG"
+                  HorizontalAlignment="Left" Margin="26,72,0,0" 
+                  VerticalAlignment="Top" Height="316" Width="421" 
+                  RenderTransformOrigin="0.499,0.316">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="产品唯一号" Binding="{Binding Path=Nr}"/>
+                <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

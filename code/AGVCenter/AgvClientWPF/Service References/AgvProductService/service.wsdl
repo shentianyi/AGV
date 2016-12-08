@@ -21,10 +21,20 @@
   <wsdl:message name="IProductService_CreateUniqItem_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateUniqItemResponse" />
   </wsdl:message>
+  <wsdl:message name="IProductService_FindUniqItemByNr_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindUniqItemByNr" />
+  </wsdl:message>
+  <wsdl:message name="IProductService_FindUniqItemByNr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindUniqItemByNrResponse" />
+  </wsdl:message>
   <wsdl:portType name="IProductService">
     <wsdl:operation name="CreateUniqItem">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductService/CreateUniqItem" message="tns:IProductService_CreateUniqItem_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IProductService/CreateUniqItemResponse" message="tns:IProductService_CreateUniqItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindUniqItemByNr">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProductService/FindUniqItemByNr" message="tns:IProductService_FindUniqItemByNr_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProductService/FindUniqItemByNrResponse" message="tns:IProductService_FindUniqItemByNr_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="productservice" type="tns:IProductService">
@@ -32,6 +42,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="CreateUniqItem">
       <soap:operation soapAction="http://tempuri.org/IProductService/CreateUniqItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindUniqItemByNr">
+      <soap:operation soapAction="http://tempuri.org/IProductService/FindUniqItemByNr" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

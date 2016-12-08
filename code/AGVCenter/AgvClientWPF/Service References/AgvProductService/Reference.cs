@@ -23,13 +23,13 @@ namespace AgvClientWPF.AgvProductService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int BoxTypeIdField;
+        private System.Nullable<int> BoxTypeIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CheckCodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime CreatedAtField;
+        private System.Nullable<System.DateTime> CreatedAtField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string KNrField;
@@ -50,7 +50,7 @@ namespace AgvClientWPF.AgvProductService {
         private string QRField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int StateField;
+        private System.Nullable<int> StateField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -63,7 +63,7 @@ namespace AgvClientWPF.AgvProductService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int BoxTypeId {
+        public System.Nullable<int> BoxTypeId {
             get {
                 return this.BoxTypeIdField;
             }
@@ -89,7 +89,7 @@ namespace AgvClientWPF.AgvProductService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime CreatedAt {
+        public System.Nullable<System.DateTime> CreatedAt {
             get {
                 return this.CreatedAtField;
             }
@@ -180,7 +180,7 @@ namespace AgvClientWPF.AgvProductService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int State {
+        public System.Nullable<int> State {
             get {
                 return this.StateField;
             }
@@ -208,6 +208,9 @@ namespace AgvClientWPF.AgvProductService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductService/CreateUniqItem", ReplyAction="http://tempuri.org/IProductService/CreateUniqItemResponse")]
         AGVCenterLib.Model.Message.ResultMessage CreateUniqItem(AgvClientWPF.AgvProductService.UniqueItemModel item);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductService/FindUniqItemByNr", ReplyAction="http://tempuri.org/IProductService/FindUniqItemByNrResponse")]
+        AgvClientWPF.AgvProductService.UniqueItemModel FindUniqItemByNr(string nr);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -239,6 +242,10 @@ namespace AgvClientWPF.AgvProductService {
         
         public AGVCenterLib.Model.Message.ResultMessage CreateUniqItem(AgvClientWPF.AgvProductService.UniqueItemModel item) {
             return base.Channel.CreateUniqItem(item);
+        }
+        
+        public AgvClientWPF.AgvProductService.UniqueItemModel FindUniqItemByNr(string nr) {
+            return base.Channel.FindUniqItemByNr(nr);
         }
     }
 }

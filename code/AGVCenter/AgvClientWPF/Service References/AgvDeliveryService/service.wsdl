@@ -11,6 +11,8 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IDeliveryService_DeliveryExists_InputMessage">
@@ -19,10 +21,30 @@
   <wsdl:message name="IDeliveryService_DeliveryExists_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeliveryExistsResponse" />
   </wsdl:message>
+  <wsdl:message name="IDeliveryService_CanItemAddToDelivery_InputMessage">
+    <wsdl:part name="parameters" element="tns:CanItemAddToDelivery" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_CanItemAddToDelivery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CanItemAddToDeliveryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_CreateDelivery_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateDelivery" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_CreateDelivery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateDeliveryResponse" />
+  </wsdl:message>
   <wsdl:portType name="IDeliveryService">
     <wsdl:operation name="DeliveryExists">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/DeliveryExists" message="tns:IDeliveryService_DeliveryExists_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/DeliveryExistsResponse" message="tns:IDeliveryService_DeliveryExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CanItemAddToDelivery">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/CanItemAddToDelivery" message="tns:IDeliveryService_CanItemAddToDelivery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/CanItemAddToDeliveryResponse" message="tns:IDeliveryService_CanItemAddToDelivery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateDelivery">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/CreateDelivery" message="tns:IDeliveryService_CreateDelivery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/CreateDeliveryResponse" message="tns:IDeliveryService_CreateDelivery_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="deliveryservice" type="tns:IDeliveryService">
@@ -30,6 +52,24 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="DeliveryExists">
       <soap:operation soapAction="http://tempuri.org/IDeliveryService/DeliveryExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanItemAddToDelivery">
+      <soap:operation soapAction="http://tempuri.org/IDeliveryService/CanItemAddToDelivery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateDelivery">
+      <soap:operation soapAction="http://tempuri.org/IDeliveryService/CreateDelivery" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

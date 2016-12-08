@@ -17,6 +17,12 @@ namespace AgvClientWPF.AgvDeliveryService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/DeliveryExists", ReplyAction="http://tempuri.org/IDeliveryService/DeliveryExistsResponse")]
         bool DeliveryExists(string nr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/CanItemAddToDelivery", ReplyAction="http://tempuri.org/IDeliveryService/CanItemAddToDeliveryResponse")]
+        AGVCenterLib.Model.Message.ResultMessage CanItemAddToDelivery(string uniqNr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/CreateDelivery", ReplyAction="http://tempuri.org/IDeliveryService/CreateDeliveryResponse")]
+        AGVCenterLib.Model.Message.ResultMessage CreateDelivery(string delieryNr, string[] uniqItemsNrs);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -48,6 +54,14 @@ namespace AgvClientWPF.AgvDeliveryService {
         
         public bool DeliveryExists(string nr) {
             return base.Channel.DeliveryExists(nr);
+        }
+        
+        public AGVCenterLib.Model.Message.ResultMessage CanItemAddToDelivery(string uniqNr) {
+            return base.Channel.CanItemAddToDelivery(uniqNr);
+        }
+        
+        public AGVCenterLib.Model.Message.ResultMessage CreateDelivery(string delieryNr, string[] uniqItemsNrs) {
+            return base.Channel.CreateDelivery(delieryNr, uniqItemsNrs);
         }
     }
 }

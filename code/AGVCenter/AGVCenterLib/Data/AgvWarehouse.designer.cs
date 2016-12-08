@@ -54,6 +54,21 @@ namespace AGVCenterLib.Data
     partial void InsertStockMovement(StockMovement instance);
     partial void UpdateStockMovement(StockMovement instance);
     partial void DeleteStockMovement(StockMovement instance);
+    partial void InsertDeliveryTray(DeliveryTray instance);
+    partial void UpdateDeliveryTray(DeliveryTray instance);
+    partial void DeleteDeliveryTray(DeliveryTray instance);
+    partial void InsertTray(Tray instance);
+    partial void UpdateTray(Tray instance);
+    partial void DeleteTray(Tray instance);
+    partial void InsertTrayItem(TrayItem instance);
+    partial void UpdateTrayItem(TrayItem instance);
+    partial void DeleteTrayItem(TrayItem instance);
+    partial void InsertDelivery(Delivery instance);
+    partial void UpdateDelivery(Delivery instance);
+    partial void DeleteDelivery(Delivery instance);
+    partial void InsertDeliveryItem(DeliveryItem instance);
+    partial void UpdateDeliveryItem(DeliveryItem instance);
+    partial void DeleteDeliveryItem(DeliveryItem instance);
     #endregion
 		
 		public AgvWarehouseDataContext() : 
@@ -147,6 +162,46 @@ namespace AGVCenterLib.Data
 			get
 			{
 				return this.GetTable<StockMovement>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DeliveryTray> DeliveryTray
+		{
+			get
+			{
+				return this.GetTable<DeliveryTray>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Tray> Tray
+		{
+			get
+			{
+				return this.GetTable<Tray>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TrayItem> TrayItem
+		{
+			get
+			{
+				return this.GetTable<TrayItem>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Delivery> Delivery
+		{
+			get
+			{
+				return this.GetTable<Delivery>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DeliveryItem> DeliveryItem
+		{
+			get
+			{
+				return this.GetTable<DeliveryItem>();
 			}
 		}
 	}
@@ -1503,6 +1558,10 @@ namespace AGVCenterLib.Data
 		
 		private EntitySet<Storage> _Storage;
 		
+		private EntitySet<TrayItem> _TrayItem;
+		
+		private EntitySet<DeliveryItem> _DeliveryItem;
+		
 		private EntityRef<Part> _Part;
 		
 		private EntityRef<BoxType> _BoxType;
@@ -1536,6 +1595,8 @@ namespace AGVCenterLib.Data
 		public UniqueItem()
 		{
 			this._Storage = new EntitySet<Storage>(new Action<Storage>(this.attach_Storage), new Action<Storage>(this.detach_Storage));
+			this._TrayItem = new EntitySet<TrayItem>(new Action<TrayItem>(this.attach_TrayItem), new Action<TrayItem>(this.detach_TrayItem));
+			this._DeliveryItem = new EntitySet<DeliveryItem>(new Action<DeliveryItem>(this.attach_DeliveryItem), new Action<DeliveryItem>(this.detach_DeliveryItem));
 			this._Part = default(EntityRef<Part>);
 			this._BoxType = default(EntityRef<BoxType>);
 			OnCreated();
@@ -1762,6 +1823,32 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_TrayItem", Storage="_TrayItem", ThisKey="Nr", OtherKey="UniqNr")]
+		public EntitySet<TrayItem> TrayItem
+		{
+			get
+			{
+				return this._TrayItem;
+			}
+			set
+			{
+				this._TrayItem.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_DeliveryItem", Storage="_DeliveryItem", ThisKey="Nr", OtherKey="UniqItemNr")]
+		public EntitySet<DeliveryItem> DeliveryItem
+		{
+			get
+			{
+				return this._DeliveryItem;
+			}
+			set
+			{
+				this._DeliveryItem.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Part_UniqueItem", Storage="_Part", ThisKey="PartNr", OtherKey="Nr", IsForeignKey=true)]
 		public Part Part
 		{
@@ -1857,6 +1944,30 @@ namespace AGVCenterLib.Data
 		}
 		
 		private void detach_Storage(Storage entity)
+		{
+			this.SendPropertyChanging();
+			entity.UniqueItem = null;
+		}
+		
+		private void attach_TrayItem(TrayItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.UniqueItem = this;
+		}
+		
+		private void detach_TrayItem(TrayItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.UniqueItem = null;
+		}
+		
+		private void attach_DeliveryItem(DeliveryItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.UniqueItem = this;
+		}
+		
+		private void detach_DeliveryItem(DeliveryItem entity)
 		{
 			this.SendPropertyChanging();
 			entity.UniqueItem = null;
@@ -2044,6 +2155,1010 @@ namespace AGVCenterLib.Data
 					this._CreatedAt = value;
 					this.SendPropertyChanged("CreatedAt");
 					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DeliveryTray")]
+	public partial class DeliveryTray : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _DeliveryNr;
+		
+		private string _TrayNr;
+		
+		private EntityRef<Tray> _Tray;
+		
+		private EntityRef<Delivery> _Delivery;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnDeliveryNrChanging(string value);
+    partial void OnDeliveryNrChanged();
+    partial void OnTrayNrChanging(string value);
+    partial void OnTrayNrChanged();
+    #endregion
+		
+		public DeliveryTray()
+		{
+			this._Tray = default(EntityRef<Tray>);
+			this._Delivery = default(EntityRef<Delivery>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryNr", DbType="VarChar(50)")]
+		public string DeliveryNr
+		{
+			get
+			{
+				return this._DeliveryNr;
+			}
+			set
+			{
+				if ((this._DeliveryNr != value))
+				{
+					if (this._Delivery.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDeliveryNrChanging(value);
+					this.SendPropertyChanging();
+					this._DeliveryNr = value;
+					this.SendPropertyChanged("DeliveryNr");
+					this.OnDeliveryNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayNr", DbType="VarChar(50)")]
+		public string TrayNr
+		{
+			get
+			{
+				return this._TrayNr;
+			}
+			set
+			{
+				if ((this._TrayNr != value))
+				{
+					if (this._Tray.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrayNrChanging(value);
+					this.SendPropertyChanging();
+					this._TrayNr = value;
+					this.SendPropertyChanged("TrayNr");
+					this.OnTrayNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tray_DeliveryTray", Storage="_Tray", ThisKey="TrayNr", OtherKey="Nr", IsForeignKey=true)]
+		public Tray Tray
+		{
+			get
+			{
+				return this._Tray.Entity;
+			}
+			set
+			{
+				Tray previousValue = this._Tray.Entity;
+				if (((previousValue != value) 
+							|| (this._Tray.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tray.Entity = null;
+						previousValue.DeliveryTray.Remove(this);
+					}
+					this._Tray.Entity = value;
+					if ((value != null))
+					{
+						value.DeliveryTray.Add(this);
+						this._TrayNr = value.Nr;
+					}
+					else
+					{
+						this._TrayNr = default(string);
+					}
+					this.SendPropertyChanged("Tray");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Delivery_DeliveryTray", Storage="_Delivery", ThisKey="DeliveryNr", OtherKey="Nr", IsForeignKey=true)]
+		public Delivery Delivery
+		{
+			get
+			{
+				return this._Delivery.Entity;
+			}
+			set
+			{
+				Delivery previousValue = this._Delivery.Entity;
+				if (((previousValue != value) 
+							|| (this._Delivery.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Delivery.Entity = null;
+						previousValue.DeliveryTray.Remove(this);
+					}
+					this._Delivery.Entity = value;
+					if ((value != null))
+					{
+						value.DeliveryTray.Add(this);
+						this._DeliveryNr = value.Nr;
+					}
+					else
+					{
+						this._DeliveryNr = default(string);
+					}
+					this.SendPropertyChanged("Delivery");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Tray")]
+	public partial class Tray : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Nr;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private System.Nullable<int> _State;
+		
+		private EntitySet<DeliveryTray> _DeliveryTray;
+		
+		private EntitySet<TrayItem> _TrayItem;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNrChanging(string value);
+    partial void OnNrChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    partial void OnStateChanging(System.Nullable<int> value);
+    partial void OnStateChanged();
+    #endregion
+		
+		public Tray()
+		{
+			this._DeliveryTray = new EntitySet<DeliveryTray>(new Action<DeliveryTray>(this.attach_DeliveryTray), new Action<DeliveryTray>(this.detach_DeliveryTray));
+			this._TrayItem = new EntitySet<TrayItem>(new Action<TrayItem>(this.attach_TrayItem), new Action<TrayItem>(this.detach_TrayItem));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Nr
+		{
+			get
+			{
+				return this._Nr;
+			}
+			set
+			{
+				if ((this._Nr != value))
+				{
+					this.OnNrChanging(value);
+					this.SendPropertyChanging();
+					this._Nr = value;
+					this.SendPropertyChanged("Nr");
+					this.OnNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
+		public System.Nullable<int> State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this.OnStateChanging(value);
+					this.SendPropertyChanging();
+					this._State = value;
+					this.SendPropertyChanged("State");
+					this.OnStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tray_DeliveryTray", Storage="_DeliveryTray", ThisKey="Nr", OtherKey="TrayNr")]
+		public EntitySet<DeliveryTray> DeliveryTray
+		{
+			get
+			{
+				return this._DeliveryTray;
+			}
+			set
+			{
+				this._DeliveryTray.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tray_TrayItem", Storage="_TrayItem", ThisKey="Nr", OtherKey="TrayNr")]
+		public EntitySet<TrayItem> TrayItem
+		{
+			get
+			{
+				return this._TrayItem;
+			}
+			set
+			{
+				this._TrayItem.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DeliveryTray(DeliveryTray entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tray = this;
+		}
+		
+		private void detach_DeliveryTray(DeliveryTray entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tray = null;
+		}
+		
+		private void attach_TrayItem(TrayItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tray = this;
+		}
+		
+		private void detach_TrayItem(TrayItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Tray = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TrayItem")]
+	public partial class TrayItem : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _UniqNr;
+		
+		private System.Nullable<int> _State;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private string _TrayNr;
+		
+		private EntityRef<Tray> _Tray;
+		
+		private EntityRef<UniqueItem> _UniqueItem;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnUniqNrChanging(string value);
+    partial void OnUniqNrChanged();
+    partial void OnStateChanging(System.Nullable<int> value);
+    partial void OnStateChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    partial void OnTrayNrChanging(string value);
+    partial void OnTrayNrChanged();
+    #endregion
+		
+		public TrayItem()
+		{
+			this._Tray = default(EntityRef<Tray>);
+			this._UniqueItem = default(EntityRef<UniqueItem>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqNr", DbType="VarChar(50)")]
+		public string UniqNr
+		{
+			get
+			{
+				return this._UniqNr;
+			}
+			set
+			{
+				if ((this._UniqNr != value))
+				{
+					if (this._UniqueItem.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUniqNrChanging(value);
+					this.SendPropertyChanging();
+					this._UniqNr = value;
+					this.SendPropertyChanged("UniqNr");
+					this.OnUniqNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
+		public System.Nullable<int> State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this.OnStateChanging(value);
+					this.SendPropertyChanging();
+					this._State = value;
+					this.SendPropertyChanged("State");
+					this.OnStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayNr", DbType="VarChar(50)")]
+		public string TrayNr
+		{
+			get
+			{
+				return this._TrayNr;
+			}
+			set
+			{
+				if ((this._TrayNr != value))
+				{
+					if (this._Tray.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTrayNrChanging(value);
+					this.SendPropertyChanging();
+					this._TrayNr = value;
+					this.SendPropertyChanged("TrayNr");
+					this.OnTrayNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tray_TrayItem", Storage="_Tray", ThisKey="TrayNr", OtherKey="Nr", IsForeignKey=true)]
+		public Tray Tray
+		{
+			get
+			{
+				return this._Tray.Entity;
+			}
+			set
+			{
+				Tray previousValue = this._Tray.Entity;
+				if (((previousValue != value) 
+							|| (this._Tray.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Tray.Entity = null;
+						previousValue.TrayItem.Remove(this);
+					}
+					this._Tray.Entity = value;
+					if ((value != null))
+					{
+						value.TrayItem.Add(this);
+						this._TrayNr = value.Nr;
+					}
+					else
+					{
+						this._TrayNr = default(string);
+					}
+					this.SendPropertyChanged("Tray");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_TrayItem", Storage="_UniqueItem", ThisKey="UniqNr", OtherKey="Nr", IsForeignKey=true)]
+		public UniqueItem UniqueItem
+		{
+			get
+			{
+				return this._UniqueItem.Entity;
+			}
+			set
+			{
+				UniqueItem previousValue = this._UniqueItem.Entity;
+				if (((previousValue != value) 
+							|| (this._UniqueItem.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._UniqueItem.Entity = null;
+						previousValue.TrayItem.Remove(this);
+					}
+					this._UniqueItem.Entity = value;
+					if ((value != null))
+					{
+						value.TrayItem.Add(this);
+						this._UniqNr = value.Nr;
+					}
+					else
+					{
+						this._UniqNr = default(string);
+					}
+					this.SendPropertyChanged("UniqueItem");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Delivery")]
+	public partial class Delivery : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Nr;
+		
+		private System.Nullable<int> _State;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private System.Nullable<System.DateTime> _UpdatedAt;
+		
+		private EntitySet<DeliveryTray> _DeliveryTray;
+		
+		private EntitySet<DeliveryItem> _DeliveryItem;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNrChanging(string value);
+    partial void OnNrChanged();
+    partial void OnStateChanging(System.Nullable<int> value);
+    partial void OnStateChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    partial void OnUpdatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedAtChanged();
+    #endregion
+		
+		public Delivery()
+		{
+			this._DeliveryTray = new EntitySet<DeliveryTray>(new Action<DeliveryTray>(this.attach_DeliveryTray), new Action<DeliveryTray>(this.detach_DeliveryTray));
+			this._DeliveryItem = new EntitySet<DeliveryItem>(new Action<DeliveryItem>(this.attach_DeliveryItem), new Action<DeliveryItem>(this.detach_DeliveryItem));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Nr
+		{
+			get
+			{
+				return this._Nr;
+			}
+			set
+			{
+				if ((this._Nr != value))
+				{
+					this.OnNrChanging(value);
+					this.SendPropertyChanging();
+					this._Nr = value;
+					this.SendPropertyChanged("Nr");
+					this.OnNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
+		public System.Nullable<int> State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this.OnStateChanging(value);
+					this.SendPropertyChanging();
+					this._State = value;
+					this.SendPropertyChanged("State");
+					this.OnStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedAt
+		{
+			get
+			{
+				return this._UpdatedAt;
+			}
+			set
+			{
+				if ((this._UpdatedAt != value))
+				{
+					this.OnUpdatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedAt = value;
+					this.SendPropertyChanged("UpdatedAt");
+					this.OnUpdatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Delivery_DeliveryTray", Storage="_DeliveryTray", ThisKey="Nr", OtherKey="DeliveryNr")]
+		public EntitySet<DeliveryTray> DeliveryTray
+		{
+			get
+			{
+				return this._DeliveryTray;
+			}
+			set
+			{
+				this._DeliveryTray.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Delivery_DeliveryItem", Storage="_DeliveryItem", ThisKey="Nr", OtherKey="DeliveryNr")]
+		public EntitySet<DeliveryItem> DeliveryItem
+		{
+			get
+			{
+				return this._DeliveryItem;
+			}
+			set
+			{
+				this._DeliveryItem.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DeliveryTray(DeliveryTray entity)
+		{
+			this.SendPropertyChanging();
+			entity.Delivery = this;
+		}
+		
+		private void detach_DeliveryTray(DeliveryTray entity)
+		{
+			this.SendPropertyChanging();
+			entity.Delivery = null;
+		}
+		
+		private void attach_DeliveryItem(DeliveryItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Delivery = this;
+		}
+		
+		private void detach_DeliveryItem(DeliveryItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Delivery = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DeliveryItem")]
+	public partial class DeliveryItem : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _DeliveryNr;
+		
+		private string _UniqItemNr;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private EntityRef<Delivery> _Delivery;
+		
+		private EntityRef<UniqueItem> _UniqueItem;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnDeliveryNrChanging(string value);
+    partial void OnDeliveryNrChanged();
+    partial void OnUniqItemNrChanging(string value);
+    partial void OnUniqItemNrChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    #endregion
+		
+		public DeliveryItem()
+		{
+			this._Delivery = default(EntityRef<Delivery>);
+			this._UniqueItem = default(EntityRef<UniqueItem>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryNr", DbType="VarChar(50)")]
+		public string DeliveryNr
+		{
+			get
+			{
+				return this._DeliveryNr;
+			}
+			set
+			{
+				if ((this._DeliveryNr != value))
+				{
+					if (this._Delivery.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDeliveryNrChanging(value);
+					this.SendPropertyChanging();
+					this._DeliveryNr = value;
+					this.SendPropertyChanged("DeliveryNr");
+					this.OnDeliveryNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqItemNr", DbType="VarChar(50)")]
+		public string UniqItemNr
+		{
+			get
+			{
+				return this._UniqItemNr;
+			}
+			set
+			{
+				if ((this._UniqItemNr != value))
+				{
+					if (this._UniqueItem.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUniqItemNrChanging(value);
+					this.SendPropertyChanging();
+					this._UniqItemNr = value;
+					this.SendPropertyChanged("UniqItemNr");
+					this.OnUniqItemNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Delivery_DeliveryItem", Storage="_Delivery", ThisKey="DeliveryNr", OtherKey="Nr", IsForeignKey=true)]
+		public Delivery Delivery
+		{
+			get
+			{
+				return this._Delivery.Entity;
+			}
+			set
+			{
+				Delivery previousValue = this._Delivery.Entity;
+				if (((previousValue != value) 
+							|| (this._Delivery.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Delivery.Entity = null;
+						previousValue.DeliveryItem.Remove(this);
+					}
+					this._Delivery.Entity = value;
+					if ((value != null))
+					{
+						value.DeliveryItem.Add(this);
+						this._DeliveryNr = value.Nr;
+					}
+					else
+					{
+						this._DeliveryNr = default(string);
+					}
+					this.SendPropertyChanged("Delivery");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_DeliveryItem", Storage="_UniqueItem", ThisKey="UniqItemNr", OtherKey="Nr", IsForeignKey=true)]
+		public UniqueItem UniqueItem
+		{
+			get
+			{
+				return this._UniqueItem.Entity;
+			}
+			set
+			{
+				UniqueItem previousValue = this._UniqueItem.Entity;
+				if (((previousValue != value) 
+							|| (this._UniqueItem.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._UniqueItem.Entity = null;
+						previousValue.DeliveryItem.Remove(this);
+					}
+					this._UniqueItem.Entity = value;
+					if ((value != null))
+					{
+						value.DeliveryItem.Add(this);
+						this._UniqItemNr = value.Nr;
+					}
+					else
+					{
+						this._UniqItemNr = default(string);
+					}
+					this.SendPropertyChanged("UniqueItem");
 				}
 			}
 		}

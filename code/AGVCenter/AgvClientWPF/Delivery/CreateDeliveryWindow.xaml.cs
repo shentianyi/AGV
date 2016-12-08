@@ -1,4 +1,7 @@
-﻿using AgvClientWPF.AgvDeliveryService;
+﻿using AGVCenterLib.Model.Message;
+using AgvClientWPF.AgvDeliveryService;
+using AgvClientWPF.AgvProductService;
+using AgvClientWPF.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +21,7 @@ namespace AgvClientWPF.Delivery
     /// CreateDelivery.xaml 的交互逻辑
     /// </summary>
     public partial class CreateDeliveryWindow : Window
-    {
-        int count = 0;
+    { 
         public CreateDeliveryWindow()
         {
             InitializeComponent();
@@ -27,12 +29,30 @@ namespace AgvClientWPF.Delivery
 
         private void createDeliveryBtn_Click(object sender, RoutedEventArgs e)
         {
-            count++;
             string nr = deliveryNrTB.Text;
 
             if (string.IsNullOrEmpty(nr))
             {
-                MessageBox.Show("运单号不可为空！"+count.ToString());
+                MessageBox.Show("运单号不可为空！");
+                return;
+            }
+
+            if (deliveryItemDG.Items.Count == 0)
+            {
+                MessageBox.Show("运单项不可为空，请添加！");
+                return;
+            }
+
+            DeliveryServiceClient dsc = new DeliveryServiceClient();
+            ResultMessage message = dsc.CreateDelivery(nr, this.GetCurrentUniqItems().Select(s => s.Nr).ToArray());
+            if (message.Success)
+            {
+                MessageBox.Show("运单创建成功");
+                deliveryItemDG.Items.Clear();
+            }
+            else
+            {
+                MessageBox.Show(message.Content);
             }
         }
 
@@ -44,18 +64,93 @@ namespace AgvClientWPF.Delivery
             }
         }
 
-        private void CheckDeliveryExsits()
+        private bool CheckDeliveryExsits()
         {
-            if (!string.IsNullOrEmpty(deliveryNrTB.Text))
+            DeliveryServiceClient client = new DeliveryServiceClient();
+            return client.DeliveryExists(deliveryNrTB.Text);
+        }
+
+        private void generateDeliveryNrBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.deliveryNrTB.Text = UniqueHelper.GenerateUniqString();
+        }
+
+        private void addDeliveryItemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddItemToDelivery();
+        }
+        
+        private void AddItemToDelivery()
+        {
+            if(!string.IsNullOrEmpty(uniqItemNrTB.Text))
             {
-                DeliveryServiceClient client = new DeliveryServiceClient();
-                if (client.DeliveryExists(deliveryNrTB.Text)) {
-                    MessageBox.Show("YES");
+                if ( GetCurrentUniqItem(uniqItemNrTB.Text) == null)
+                {
+                    DeliveryServiceClient dsClient = new DeliveryServiceClient();
+                    ProductServiceClient psClient = new ProductServiceClient();
+
+                    ResultMessage message = dsClient.CanItemAddToDelivery(uniqItemNrTB.Text);
+                    if (message.Success)
+                    {
+                        AgvProductService.UniqueItemModel item = psClient.FindUniqItemByNr(uniqItemNrTB.Text);
+                        if (item != null)
+                        {
+                            deliveryItemDG.Items.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show(message.Content);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("NO");
+                    MessageBox.Show("运单项不可重复加入此运单");
                 }
+            }
+        }
+
+        /// <summary>
+        /// 在当前运单中到UniqItem
+        /// </summary>
+        /// <param name="nr"></param>
+        /// <returns></returns>
+        private AgvProductService.UniqueItemModel GetCurrentUniqItem(string nr)
+        {
+            foreach(var i in deliveryItemDG.Items)
+            {
+                if((i as AgvProductService.UniqueItemModel).Nr == nr)
+                {
+                    return i as AgvProductService.UniqueItemModel;
+                }
+            }
+            return null;
+            //return deliveryItemDG.ItemsSource==null ? null :(deliveryItemDG.ItemsSource as List<UniqueItemModel>).FirstOrDefault(s => s.Nr == nr);
+        }
+
+        List<AgvProductService.UniqueItemModel> GetCurrentUniqItems()
+        {
+            List<AgvProductService.UniqueItemModel> items = new List<AgvProductService.UniqueItemModel>();
+            foreach(var i in deliveryItemDG.Items)
+            {
+                items.Add(i as AgvProductService.UniqueItemModel);
+            }
+            return items;
+        }
+
+        private void uniqItemNrTB_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key==Key.Enter && !string.IsNullOrEmpty(uniqItemNrTB.Text))
+            {
+                this.AddItemToDelivery();
+            }
+        }
+
+        private void removeDeliveryItemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.deliveryItemDG.SelectedIndex > -1)
+            {
+                this.deliveryItemDG.Items.RemoveAt(this.deliveryItemDG.SelectedIndex);
             }
         }
     }

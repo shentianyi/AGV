@@ -18,6 +18,10 @@ namespace AGVCenterLib.Enum
         OutStocked = 200,
 
         [Description("已出库返工")]
-        OutStockRework = 300
+        OutStockRework = 300,
+
+        
+        [Description("已发运")]
+        Sent = 600
     }
 }
