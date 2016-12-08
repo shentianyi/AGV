@@ -9,25 +9,25 @@ using System.Text;
 
 namespace AGVCenterLib.Service
 {
-    public class DeliveryItemService : ServiceBase
+    public class TrayItemService : ServiceBase
     {
 
-        public DeliveryItemService(string dbString) : base(dbString)
+        public TrayItemService(string dbString) : base(dbString)
         {
 
         }
 
-        public bool DeliveryItemExsits(string uniqNr)
+        public bool TrayItemExsits(string uniqNr)
         {
             return this.FindByUniqNr(uniqNr) != null;
         }
 
-        public DeliveryItem FindByUniqNr(string uniqNr)
+        public TrayItem FindByUniqNr(string uniqNr)
         {
-            return new DeliveryItemRepository(this.Context).FindByUniqNr(uniqNr);
+            return new TrayItemRepository(this.Context).FindByUniqNr(uniqNr);
         }
 
-        public ResultMessage CanItemAddToDelivery(string uniqNr)
+        public ResultMessage CanItemAddToTray(string uniqNr)
         {
             ResultMessage message = new ResultMessage();
             UniqueItemService service = new UniqueItemService(this.DbString);
@@ -39,23 +39,16 @@ namespace AGVCenterLib.Service
                 return message;
             }
 
-            //if (item.State == (int)UniqueItemState.Sent)
-            //{
-
-            //}
-
-            if (this.DeliveryItemExsits(uniqNr))
+            if (this.TrayItemExsits(uniqNr))
             {
-                message.Content = "产品已在其它运单中，不可重复添加！";
+                message.Content = "产品已在其它托中，不可重复添加！";
                 return message;
             }
 
             message.MessageType = MessageType.OK;
             message.Success = true;
-            
+
             return message;
         }
-
-     
     }
 }

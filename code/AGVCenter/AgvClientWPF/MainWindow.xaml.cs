@@ -36,5 +36,10 @@ namespace AgvClientWPF
         {
             new CreateDeliveryWindow().Show();
         }
+
+        private void createTrayBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new CreateTrayWindow().Show();
+        }
     }
 }

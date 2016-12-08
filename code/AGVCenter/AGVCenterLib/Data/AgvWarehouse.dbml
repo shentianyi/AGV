@@ -79,8 +79,8 @@
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="BoxTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="UniqueItem_Storage" Member="Storage" ThisKey="Nr" OtherKey="UniqItemNr" Type="Storage" />
-      <Association Name="UniqueItem_TrayItem" Member="TrayItem" ThisKey="Nr" OtherKey="UniqNr" Type="TrayItem" />
       <Association Name="UniqueItem_DeliveryItem" Member="DeliveryItem" ThisKey="Nr" OtherKey="UniqItemNr" Type="DeliveryItem" />
+      <Association Name="UniqueItem_TrayItem" Member="TrayItem" ThisKey="Nr" OtherKey="UniqItemNr" Type="TrayItem" />
       <Association Name="Part_UniqueItem" Member="Part" ThisKey="PartNr" OtherKey="Nr" Type="Part" IsForeignKey="true" />
       <Association Name="BoxType_UniqueItem" Member="BoxType" ThisKey="BoxTypeId" OtherKey="Id" Type="BoxType" IsForeignKey="true" />
     </Type>
@@ -96,43 +96,14 @@
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.DeliveryTray" Member="DeliveryTray">
-    <Type Name="DeliveryTray">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="DeliveryNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="TrayNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Tray_DeliveryTray" Member="Tray" ThisKey="TrayNr" OtherKey="Nr" Type="Tray" IsForeignKey="true" />
-      <Association Name="Delivery_DeliveryTray" Member="Delivery" ThisKey="DeliveryNr" OtherKey="Nr" Type="Delivery" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Tray" Member="Tray">
-    <Type Name="Tray">
-      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Tray_DeliveryTray" Member="DeliveryTray" ThisKey="Nr" OtherKey="TrayNr" Type="DeliveryTray" />
-      <Association Name="Tray_TrayItem" Member="TrayItem" ThisKey="Nr" OtherKey="TrayNr" Type="TrayItem" />
-    </Type>
-  </Table>
-  <Table Name="dbo.TrayItem" Member="TrayItem">
-    <Type Name="TrayItem">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UniqNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="TrayNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Tray_TrayItem" Member="Tray" ThisKey="TrayNr" OtherKey="Nr" Type="Tray" IsForeignKey="true" />
-      <Association Name="UniqueItem_TrayItem" Member="UniqueItem" ThisKey="UniqNr" OtherKey="Nr" Type="UniqueItem" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Delivery" Member="Delivery">
     <Type Name="Delivery">
       <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="Delivery_DeliveryTray" Member="DeliveryTray" ThisKey="Nr" OtherKey="DeliveryNr" Type="DeliveryTray" />
       <Association Name="Delivery_DeliveryItem" Member="DeliveryItem" ThisKey="Nr" OtherKey="DeliveryNr" Type="DeliveryItem" />
+      <Association Name="Delivery_DeliveryTray" Member="DeliveryTray" ThisKey="Nr" OtherKey="DeliveryNr" Type="DeliveryTray" />
     </Type>
   </Table>
   <Table Name="dbo.DeliveryItem" Member="DeliveryItem">
@@ -141,8 +112,42 @@
       <Column Name="DeliveryNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="UniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="Delivery_DeliveryItem" Member="Delivery" ThisKey="DeliveryNr" OtherKey="Nr" Type="Delivery" IsForeignKey="true" />
       <Association Name="UniqueItem_DeliveryItem" Member="UniqueItem" ThisKey="UniqItemNr" OtherKey="Nr" Type="UniqueItem" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DeliveryTray" Member="DeliveryTray">
+    <Type Name="DeliveryTray">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DeliveryNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TrayNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Delivery_DeliveryTray" Member="Delivery" ThisKey="DeliveryNr" OtherKey="Nr" Type="Delivery" IsForeignKey="true" />
+      <Association Name="Tray_DeliveryTray" Member="Tray" ThisKey="TrayNr" OtherKey="Nr" Type="Tray" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tray" Member="Tray">
+    <Type Name="Tray">
+      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Tray_DeliveryTray" Member="DeliveryTray" ThisKey="Nr" OtherKey="TrayNr" Type="DeliveryTray" />
+      <Association Name="Tray_TrayItem" Member="TrayItem" ThisKey="Nr" OtherKey="TrayNr" Type="TrayItem" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TrayItem" Member="TrayItem">
+    <Type Name="TrayItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TrayNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Tray_TrayItem" Member="Tray" ThisKey="TrayNr" OtherKey="Nr" Type="Tray" IsForeignKey="true" />
+      <Association Name="UniqueItem_TrayItem" Member="UniqueItem" ThisKey="UniqItemNr" OtherKey="Nr" Type="UniqueItem" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

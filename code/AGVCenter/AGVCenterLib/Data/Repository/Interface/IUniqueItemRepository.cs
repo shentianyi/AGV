@@ -16,5 +16,8 @@ namespace AGVCenterLib.Data.Repository.Interface
         void Delete(UniqueItem entity);
 
         void Update(UniqueItem entity);
+
+
+        List<UniqueItem> ListByDeliveryNr(string deliveryNr);
     }
 }

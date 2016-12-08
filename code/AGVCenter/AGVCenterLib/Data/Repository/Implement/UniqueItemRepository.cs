@@ -44,5 +44,14 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             throw new NotImplementedException();
         }
+
+        public List<UniqueItem> ListByDeliveryNr(string deliveryNr)
+        {
+
+            return (from i in context.UniqueItem
+                    join d in context.DeliveryItem on i.Nr equals d.UniqItemNr
+                    where d.DeliveryNr == deliveryNr
+                    select i).ToList();
+        }
     }
 }

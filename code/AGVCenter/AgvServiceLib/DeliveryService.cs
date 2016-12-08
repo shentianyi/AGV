@@ -12,10 +12,17 @@ namespace AgvServiceLib
 {
     public class DeliveryService : IDeliveryService
     {
+        AGVCenterLib.Service.DeliveryService ds = new AGVCenterLib.Service.DeliveryService(SqlHelper.connectStr);
+
         public bool DeliveryExists(string nr)
         {
-            AGVCenterLib.Service.DeliveryService ds = new AGVCenterLib.Service.DeliveryService(SqlHelper.connectStr);
             return ds.DeliveryExsits(nr);
+        }
+
+
+        public ResultMessage CanDeliverySend(string nr)
+        {
+            return ds.CanDeliverySend(nr);
         }
 
         public ResultMessage CanItemAddToDelivery(string uniqNr)
@@ -24,10 +31,22 @@ namespace AgvServiceLib
             return dis.CanItemAddToDelivery(uniqNr);
         }
 
+        public ResultMessage CanItemAddToTray(string uniqNr)
+        {
+            TrayItemService tis = new TrayItemService(SqlHelper.connectStr);
+            return tis.CanItemAddToTray(uniqNr);
+        }
+        
+
         public ResultMessage CreateDelivery(string delieryNr, List<string> uniqItemsNrs)
         {
-            return new AGVCenterLib.Service.DeliveryService(SqlHelper.connectStr)
-                .CreateDelivery(delieryNr, uniqItemsNrs);
+            return ds.CreateDelivery(delieryNr, uniqItemsNrs);
+        }
+        
+
+        public List<UniqueItemModel> GetDeliveryUniqItemsByNr(string nr)
+        {
+            return UniqueItemModel.Converts(ds.GetDeliveryUniqItemsByNr(nr));
         }
     }
 }

@@ -1,0 +1,22 @@
+﻿<Window x:Class="AgvClientWPF.Delivery.CreateTrayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AgvClientWPF.Delivery"
+        mc:Ignorable="d"
+        Title="CreateTrayWindow" Height="398.581" Width="427.788">
+    <Grid>
+        <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="22,18,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="deliveryNrTB" HorizontalAlignment="Left" Height="26" Margin="85,18,0,0" TextWrapping="Wrap"
+                 Text="" VerticalAlignment="Top" Width="225" KeyUp="deliveryNrTB_KeyUp"/>
+        <Button x:Name="checkAndLoadDeliveryBtn" Content="验证" HorizontalAlignment="Left" Margin="325,18,0,0" VerticalAlignment="Top" Width="38" Height="26" Click="checkAndLoadDeliveryBtn_Click"/>
+        <Label x:Name="label1" Content="托盘号：" HorizontalAlignment="Left" Margin="22,49,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="trayNrTB" HorizontalAlignment="Left" Height="23" Margin="85,49,0,0" TextWrapping="Wrap" Text="" IsEnabled="False" VerticalAlignment="Top" Width="225"/>
+        <Button x:Name="refreshTrayNrBtn" Content="刷新" HorizontalAlignment="Left" Margin="325,49,0,0" VerticalAlignment="Top" Width="38" Height="23" Click="refreshTrayNrBtn_Click"/>
+        <TextBox x:Name="checkCodeBtn" HorizontalAlignment="Left" Height="23" Margin="85,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"
+                 Width="225" IsEnabled="False"/>
+        <Label x:Name="label2" Content="验证码：" HorizontalAlignment="Left" Margin="22,76,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

@@ -28,6 +28,33 @@ namespace AGVCenterLib.Service
             return new DeliveryRepository(this.Context).FindByNr(nr);
         }
 
+        public List<UniqueItem> GetDeliveryUniqItemsByNr(string nr)
+        {
+            return new UniqueItemRepository(this.Context).ListByDeliveryNr(nr);
+        }
+
+        public ResultMessage CanDeliverySend(string nr)
+        {
+            ResultMessage message = new ResultMessage();
+            Delivery delivery = this.FindByNr(nr);
+            if (delivery == null)
+            {
+                message.Content = "运单不存在，不可发运";
+                return message;
+            }
+
+            if (delivery.CanSend)
+            {
+                message.Success = true;
+            }
+            else
+            {
+                message.Content = string.Format("运单当前状态为:{0},不可发运", delivery.StateStr);
+            }
+
+            return message;
+        }
+
         public ResultMessage CreateDelivery(string deliveryNr, List<string> uniqItemNrs)
         {
 
@@ -36,7 +63,7 @@ namespace AGVCenterLib.Service
             {
                 if (uniqItemNrs == null || uniqItemNrs.Count == 0)
                 {
-                    message.Content = "运单不可为空";
+                    message.Content = "运单项不可为空";
                     return message;
                 }
 
@@ -67,7 +94,8 @@ namespace AGVCenterLib.Service
                         {
                             DeliveryNr = deliveryNr,
                             UniqItemNr = uniqNr,
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            UpdatedAt = DateTime.Now
                         });
                     }
                     else

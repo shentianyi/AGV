@@ -74,7 +74,11 @@
       <DependentUpon>AgvWarehouse.dbml</DependentUpon>
     </Compile>
     <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\PartialDelivery.cs" />
     <Compile Include="Data\IDataContextFactory.cs" />
+    <Compile Include="Data\Repository\Implement\DeliveryTrayRepository.cs" />
+    <Compile Include="Data\Repository\Implement\TrayRepository.cs" />
+    <Compile Include="Data\Repository\Implement\TrayItemRepository.cs" />
     <Compile Include="Data\Repository\Implement\DeliveryItemRepository.cs" />
     <Compile Include="Data\Repository\Implement\DeliveryRepository.cs" />
     <Compile Include="Data\Repository\Implement\PartRepository.cs" />
@@ -84,10 +88,13 @@
     <Compile Include="Data\Repository\Implement\UniqueItemRepository.cs" />
     <Compile Include="Data\Repository\Implement\WarehouseRepository.cs" />
     <Compile Include="Data\Repository\Interface\IDeliveryItemRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IDeliveryTrayRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ITrayRepository.cs" />
     <Compile Include="Data\Repository\Interface\IPartRepository.cs" />
     <Compile Include="Data\Repository\Interface\IPositionRepository.cs" />
     <Compile Include="Data\Repository\Interface\IStockMovementRepository.cs" />
     <Compile Include="Data\Repository\Interface\IStorageRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ITrayItemRepository.cs" />
     <Compile Include="Data\Repository\Interface\IUniqueItemRepository.cs" />
     <Compile Include="Data\Repository\Interface\IDeliveryRepository.cs" />
     <Compile Include="Data\Repository\Interface\IWarehouseRepository.cs" />
@@ -115,6 +122,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\TrayService.cs" />
+    <Compile Include="Service\TrayItemService.cs" />
     <Compile Include="Service\DeliveryItemService.cs" />
     <Compile Include="Service\DeliveryService.cs" />
     <Compile Include="Service\PositionService.cs" />

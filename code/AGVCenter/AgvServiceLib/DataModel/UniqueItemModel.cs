@@ -42,6 +42,15 @@ namespace AgvServiceLib.DataModel
         public int? BoxTypeId { get; set; }
 
 
+        public static List<UniqueItemModel> Converts(List<UniqueItem> items)
+        {
+            List<UniqueItemModel> itemModels = new List<UniqueItemModel>();
+            foreach(var i in items)
+            {
+                itemModels.Add(Convert(i));
+            }
+            return itemModels;
+        }
 
         public static UniqueItemModel Convert(UniqueItem item)
         {
@@ -60,5 +69,7 @@ namespace AgvServiceLib.DataModel
                   BoxTypeId = item.BoxTypeId
               };
         }
+
+
     }
 }

@@ -15,9 +15,15 @@ namespace AgvServiceLib
         bool DeliveryExists(string nr);
 
         [OperationContract]
+        ResultMessage CanDeliverySend(string nr);
+
+        [OperationContract]
         ResultMessage CanItemAddToDelivery(string uniqNr);
 
         [OperationContract]
         ResultMessage CreateDelivery(string delieryNr, List<string> uniqItemsNrs);
+
+        [OperationContract]
+        List<UniqueItemModel> GetDeliveryUniqItemsByNr(string nr);
     }
 }
