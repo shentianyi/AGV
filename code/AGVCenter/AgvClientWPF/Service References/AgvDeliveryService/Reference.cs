@@ -18,11 +18,23 @@ namespace AgvClientWPF.AgvDeliveryService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/DeliveryExists", ReplyAction="http://tempuri.org/IDeliveryService/DeliveryExistsResponse")]
         bool DeliveryExists(string nr);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/CanDeliverySend", ReplyAction="http://tempuri.org/IDeliveryService/CanDeliverySendResponse")]
+        AGVCenterLib.Model.Message.ResultMessage CanDeliverySend(string nr);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/CanItemAddToDelivery", ReplyAction="http://tempuri.org/IDeliveryService/CanItemAddToDeliveryResponse")]
         AGVCenterLib.Model.Message.ResultMessage CanItemAddToDelivery(string uniqNr);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/CanItemAddToTray", ReplyAction="http://tempuri.org/IDeliveryService/CanItemAddToTrayResponse")]
+        AGVCenterLib.Model.Message.ResultMessage CanItemAddToTray(string uniqNr, string deliveryNr);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/CreateDelivery", ReplyAction="http://tempuri.org/IDeliveryService/CreateDeliveryResponse")]
         AGVCenterLib.Model.Message.ResultMessage CreateDelivery(string delieryNr, string[] uniqItemsNrs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/GetDeliveryUniqItemsByNr", ReplyAction="http://tempuri.org/IDeliveryService/GetDeliveryUniqItemsByNrResponse")]
+        AGVCenterLib.Model.ViewModel.UniqueItemModel[] GetDeliveryUniqItemsByNr(string nr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/CreateTray", ReplyAction="http://tempuri.org/IDeliveryService/CreateTrayResponse")]
+        AGVCenterLib.Model.Message.ResultMessage CreateTray(string delieryNr, string trayNr, string[] uniqItemsNrs);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -56,12 +68,28 @@ namespace AgvClientWPF.AgvDeliveryService {
             return base.Channel.DeliveryExists(nr);
         }
         
+        public AGVCenterLib.Model.Message.ResultMessage CanDeliverySend(string nr) {
+            return base.Channel.CanDeliverySend(nr);
+        }
+        
         public AGVCenterLib.Model.Message.ResultMessage CanItemAddToDelivery(string uniqNr) {
             return base.Channel.CanItemAddToDelivery(uniqNr);
         }
         
+        public AGVCenterLib.Model.Message.ResultMessage CanItemAddToTray(string uniqNr, string deliveryNr) {
+            return base.Channel.CanItemAddToTray(uniqNr, deliveryNr);
+        }
+        
         public AGVCenterLib.Model.Message.ResultMessage CreateDelivery(string delieryNr, string[] uniqItemsNrs) {
             return base.Channel.CreateDelivery(delieryNr, uniqItemsNrs);
+        }
+        
+        public AGVCenterLib.Model.ViewModel.UniqueItemModel[] GetDeliveryUniqItemsByNr(string nr) {
+            return base.Channel.GetDeliveryUniqItemsByNr(nr);
+        }
+        
+        public AGVCenterLib.Model.Message.ResultMessage CreateTray(string delieryNr, string trayNr, string[] uniqItemsNrs) {
+            return base.Channel.CreateTray(delieryNr, trayNr, uniqItemsNrs);
         }
     }
 }

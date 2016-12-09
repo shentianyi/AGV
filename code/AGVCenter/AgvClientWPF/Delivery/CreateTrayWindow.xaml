@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Delivery"
         mc:Ignorable="d"
-        Title="CreateTrayWindow" Height="398.581" Width="427.788">
+        Title="CreateTrayWindow" Height="466.192" Width="510.209">
     <Grid>
         <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="22,18,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="deliveryNrTB" HorizontalAlignment="Left" Height="26" Margin="85,18,0,0" TextWrapping="Wrap"
@@ -14,9 +14,22 @@
         <Label x:Name="label1" Content="托盘号：" HorizontalAlignment="Left" Margin="22,49,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="trayNrTB" HorizontalAlignment="Left" Height="23" Margin="85,49,0,0" TextWrapping="Wrap" Text="" IsEnabled="False" VerticalAlignment="Top" Width="225"/>
         <Button x:Name="refreshTrayNrBtn" Content="刷新" HorizontalAlignment="Left" Margin="325,49,0,0" VerticalAlignment="Top" Width="38" Height="23" Click="refreshTrayNrBtn_Click"/>
-        <TextBox x:Name="checkCodeBtn" HorizontalAlignment="Left" Height="23" Margin="85,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"
-                 Width="225" IsEnabled="False"/>
+        <TextBox x:Name="checkCodeTB" HorizontalAlignment="Left" Height="23" Margin="85,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"
+                 Width="225" IsEnabled="False" KeyUp="checkCodeText_KeyUp"/>
         <Label x:Name="label2" Content="验证码：" HorizontalAlignment="Left" Margin="22,76,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label3" Content="托盘项：" HorizontalAlignment="Left" Margin="22,107,0,0" VerticalAlignment="Top"/>
 
+        <DataGrid x:Name="trayItemDG"
+                  HorizontalAlignment="Left" Margin="22,133,0,0" 
+                  VerticalAlignment="Top" Height="268" Width="438" 
+                  RenderTransformOrigin="0.499,0.316">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="产品唯一号" Binding="{Binding Path=Nr}"/>
+                <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="createTrayBtn" Content="创 建" HorizontalAlignment="Left" Margin="385,406,0,0" 
+                VerticalAlignment="Top"  Width="49" Height="24" Click="createTrayBtn_Click"/>
+        <Button x:Name="removeTrayItemBtn" Content="移除项" HorizontalAlignment="Left" Margin="314,406,0,0" VerticalAlignment="Top" Width="49" Height="24" Click="removeTrayItemBtn_Click"/>
     </Grid>
 </Window>

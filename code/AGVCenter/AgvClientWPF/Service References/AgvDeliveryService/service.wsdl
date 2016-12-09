@@ -13,6 +13,7 @@
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IDeliveryService_DeliveryExists_InputMessage">
@@ -21,11 +22,23 @@
   <wsdl:message name="IDeliveryService_DeliveryExists_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeliveryExistsResponse" />
   </wsdl:message>
+  <wsdl:message name="IDeliveryService_CanDeliverySend_InputMessage">
+    <wsdl:part name="parameters" element="tns:CanDeliverySend" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_CanDeliverySend_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CanDeliverySendResponse" />
+  </wsdl:message>
   <wsdl:message name="IDeliveryService_CanItemAddToDelivery_InputMessage">
     <wsdl:part name="parameters" element="tns:CanItemAddToDelivery" />
   </wsdl:message>
   <wsdl:message name="IDeliveryService_CanItemAddToDelivery_OutputMessage">
     <wsdl:part name="parameters" element="tns:CanItemAddToDeliveryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_CanItemAddToTray_InputMessage">
+    <wsdl:part name="parameters" element="tns:CanItemAddToTray" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_CanItemAddToTray_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CanItemAddToTrayResponse" />
   </wsdl:message>
   <wsdl:message name="IDeliveryService_CreateDelivery_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateDelivery" />
@@ -33,18 +46,46 @@
   <wsdl:message name="IDeliveryService_CreateDelivery_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateDeliveryResponse" />
   </wsdl:message>
+  <wsdl:message name="IDeliveryService_GetDeliveryUniqItemsByNr_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryUniqItemsByNr" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_GetDeliveryUniqItemsByNr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryUniqItemsByNrResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_CreateTray_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateTray" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_CreateTray_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateTrayResponse" />
+  </wsdl:message>
   <wsdl:portType name="IDeliveryService">
     <wsdl:operation name="DeliveryExists">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/DeliveryExists" message="tns:IDeliveryService_DeliveryExists_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/DeliveryExistsResponse" message="tns:IDeliveryService_DeliveryExists_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="CanDeliverySend">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/CanDeliverySend" message="tns:IDeliveryService_CanDeliverySend_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/CanDeliverySendResponse" message="tns:IDeliveryService_CanDeliverySend_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="CanItemAddToDelivery">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/CanItemAddToDelivery" message="tns:IDeliveryService_CanItemAddToDelivery_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/CanItemAddToDeliveryResponse" message="tns:IDeliveryService_CanItemAddToDelivery_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="CanItemAddToTray">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/CanItemAddToTray" message="tns:IDeliveryService_CanItemAddToTray_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/CanItemAddToTrayResponse" message="tns:IDeliveryService_CanItemAddToTray_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="CreateDelivery">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/CreateDelivery" message="tns:IDeliveryService_CreateDelivery_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/CreateDeliveryResponse" message="tns:IDeliveryService_CreateDelivery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryUniqItemsByNr">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/GetDeliveryUniqItemsByNr" message="tns:IDeliveryService_GetDeliveryUniqItemsByNr_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/GetDeliveryUniqItemsByNrResponse" message="tns:IDeliveryService_GetDeliveryUniqItemsByNr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateTray">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/CreateTray" message="tns:IDeliveryService_CreateTray_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/CreateTrayResponse" message="tns:IDeliveryService_CreateTray_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="deliveryservice" type="tns:IDeliveryService">
@@ -52,6 +93,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="DeliveryExists">
       <soap:operation soapAction="http://tempuri.org/IDeliveryService/DeliveryExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanDeliverySend">
+      <soap:operation soapAction="http://tempuri.org/IDeliveryService/CanDeliverySend" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -68,8 +118,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CanItemAddToTray">
+      <soap:operation soapAction="http://tempuri.org/IDeliveryService/CanItemAddToTray" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateDelivery">
       <soap:operation soapAction="http://tempuri.org/IDeliveryService/CreateDelivery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryUniqItemsByNr">
+      <soap:operation soapAction="http://tempuri.org/IDeliveryService/GetDeliveryUniqItemsByNr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateTray">
+      <soap:operation soapAction="http://tempuri.org/IDeliveryService/CreateTray" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

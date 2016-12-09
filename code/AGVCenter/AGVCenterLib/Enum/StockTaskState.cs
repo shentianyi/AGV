@@ -40,18 +40,24 @@ namespace AGVCenterLib.Enum
         /// 机械手入库中
         /// </summary>
         RobootInStocking = 2,
+
+        /// <summary>
+        /// 巷道机入库缓冲区中
+        /// </summary>
+        RoadMachineStockBuffing = 3,
+
         /// <summary>
         /// 巷道机入库中
         /// </summary>
-        RoadMachineInStocking = 3,
+        RoadMachineInStocking = 4,
         /// <summary>
         /// 入库成功
         /// </summary>
-        InStocked = 4,
-        InCanceled = 5,
-        RoadMachineWaitOutStock = 6,
-        RoadMachineOutStocking = 7,
-        OutStocked = 8,
+        InStocked = 5,
+        InCanceled = 6,
+        RoadMachineWaitOutStock = 7,
+        RoadMachineOutStocking = 8,
+        OutStocked = 9,
 
         // Error
         ErrorNoPositoin = 20,

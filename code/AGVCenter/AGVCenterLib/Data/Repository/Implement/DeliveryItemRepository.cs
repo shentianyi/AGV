@@ -25,5 +25,10 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             return this.context.DeliveryItem.FirstOrDefault(s => s.UniqItemNr == uniqNr);
         }
+
+        public DeliveryItem FindByUniqNr(string uniqNr, string deliveryNr)
+        {
+            return this.context.DeliveryItem.FirstOrDefault(s => s.UniqItemNr == uniqNr && s.DeliveryNr==deliveryNr);
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace AGVCenterLib.Data.Repository.Interface
     {
         void Creates(List<DeliveryItem> entities);
         DeliveryItem FindByUniqNr(string uniqNr);
+        DeliveryItem FindByUniqNr(string uniqNr, string deliveryNr);
     }
 }

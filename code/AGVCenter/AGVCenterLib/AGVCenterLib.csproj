@@ -115,6 +115,7 @@
     <Compile Include="Model\OPC\OPCRoadMachineTaskFeed.cs" />
     <Compile Include="Model\OPC\OPCSetStockTask.cs" />
     <Compile Include="Model\StockTaskItem.cs" />
+    <Compile Include="Model\ViewModel\UniqueItemModel.cs" />
     <Compile Include="OPCAddressMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

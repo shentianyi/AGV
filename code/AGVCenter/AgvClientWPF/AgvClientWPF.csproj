@@ -123,12 +123,16 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\DataSources\AGVCenterLib.Model.Message.ResultMessage.datasource" />
+    <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.UniqueItemModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="Service References\AgvDeliveryService\AGVCenterLib.Model.Message.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvDeliveryService\AGVCenterLib.Model.ViewModel.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AgvDeliveryService\Arrays.xsd">
@@ -144,10 +148,7 @@
     <None Include="Service References\AgvProductService\AGVCenterLib.Model.Message.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AgvProductService\AgvClientWPF.AgvProductService.UniqueItemModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AgvProductService\AgvServiceLib.DataModel.xsd">
+    <None Include="Service References\AgvProductService\AGVCenterLib.Model.ViewModel.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AgvProductService\service.wsdl" />

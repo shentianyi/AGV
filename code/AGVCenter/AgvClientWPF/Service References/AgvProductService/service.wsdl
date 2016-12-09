@@ -11,7 +11,7 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import namespace="http://schemas.datacontract.org/2004/07/AgvServiceLib.DataModel" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" />
     </xsd:schema>
   </wsdl:types>
@@ -27,6 +27,12 @@
   <wsdl:message name="IProductService_FindUniqItemByNr_OutputMessage">
     <wsdl:part name="parameters" element="tns:FindUniqItemByNrResponse" />
   </wsdl:message>
+  <wsdl:message name="IProductService_FindUniqItemByCheckCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindUniqItemByCheckCode" />
+  </wsdl:message>
+  <wsdl:message name="IProductService_FindUniqItemByCheckCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindUniqItemByCheckCodeResponse" />
+  </wsdl:message>
   <wsdl:portType name="IProductService">
     <wsdl:operation name="CreateUniqItem">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductService/CreateUniqItem" message="tns:IProductService_CreateUniqItem_InputMessage" />
@@ -35,6 +41,10 @@
     <wsdl:operation name="FindUniqItemByNr">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductService/FindUniqItemByNr" message="tns:IProductService_FindUniqItemByNr_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IProductService/FindUniqItemByNrResponse" message="tns:IProductService_FindUniqItemByNr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindUniqItemByCheckCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProductService/FindUniqItemByCheckCode" message="tns:IProductService_FindUniqItemByCheckCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProductService/FindUniqItemByCheckCodeResponse" message="tns:IProductService_FindUniqItemByCheckCode_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="productservice" type="tns:IProductService">
@@ -51,6 +61,15 @@
     </wsdl:operation>
     <wsdl:operation name="FindUniqItemByNr">
       <soap:operation soapAction="http://tempuri.org/IProductService/FindUniqItemByNr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindUniqItemByCheckCode">
+      <soap:operation soapAction="http://tempuri.org/IProductService/FindUniqItemByCheckCode" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

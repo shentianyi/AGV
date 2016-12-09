@@ -1,4 +1,5 @@
 ﻿using AGVCenterLib.Model.Message;
+using AGVCenterLib.Model.ViewModel;
 using AgvClientWPF.AgvDeliveryService;
 using AgvClientWPF.AgvProductService;
 using AgvClientWPF.Helper;
@@ -84,7 +85,7 @@ namespace AgvClientWPF.Delivery
         {
             if(!string.IsNullOrEmpty(uniqItemNrTB.Text))
             {
-                if ( GetCurrentUniqItem(uniqItemNrTB.Text) == null)
+                if (GetCurrentUniqItem(uniqItemNrTB.Text) == null)
                 {
                     DeliveryServiceClient dsClient = new DeliveryServiceClient();
                     ProductServiceClient psClient = new ProductServiceClient();
@@ -92,7 +93,7 @@ namespace AgvClientWPF.Delivery
                     ResultMessage message = dsClient.CanItemAddToDelivery(uniqItemNrTB.Text);
                     if (message.Success)
                     {
-                        AgvProductService.UniqueItemModel item = psClient.FindUniqItemByNr(uniqItemNrTB.Text);
+                         UniqueItemModel item = psClient.FindUniqItemByNr(uniqItemNrTB.Text);
                         if (item != null)
                         {
                             deliveryItemDG.Items.Add(item);
@@ -115,25 +116,25 @@ namespace AgvClientWPF.Delivery
         /// </summary>
         /// <param name="nr"></param>
         /// <returns></returns>
-        private AgvProductService.UniqueItemModel GetCurrentUniqItem(string nr)
+        private  UniqueItemModel GetCurrentUniqItem(string nr)
         {
             foreach(var i in deliveryItemDG.Items)
             {
-                if((i as AgvProductService.UniqueItemModel).Nr == nr)
+                if((i as  UniqueItemModel).Nr == nr)
                 {
-                    return i as AgvProductService.UniqueItemModel;
+                    return i as  UniqueItemModel;
                 }
             }
             return null;
             //return deliveryItemDG.ItemsSource==null ? null :(deliveryItemDG.ItemsSource as List<UniqueItemModel>).FirstOrDefault(s => s.Nr == nr);
         }
 
-        List<AgvProductService.UniqueItemModel> GetCurrentUniqItems()
+        List<UniqueItemModel> GetCurrentUniqItems()
         {
-            List<AgvProductService.UniqueItemModel> items = new List<AgvProductService.UniqueItemModel>();
+            List<UniqueItemModel> items = new List<UniqueItemModel>();
             foreach(var i in deliveryItemDG.Items)
             {
-                items.Add(i as AgvProductService.UniqueItemModel);
+                items.Add(i as UniqueItemModel);
             }
             return items;
         }

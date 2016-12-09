@@ -18,8 +18,6 @@ namespace AGVCenterLib.Service
 
         }
 
-       
-
         public ResultMessage CreateTray(string deliveryNr,string trayNr, List<string> uniqItemNrs)
         {
 
@@ -54,7 +52,7 @@ namespace AGVCenterLib.Service
 
                 foreach (var uniqNr in uniqItemNrs)
                 {
-                    var msg = tis.CanItemAddToTray(uniqNr);
+                    var msg = tis.CanItemAddToTray(uniqNr,deliveryNr);
                     if (msg.Success)
                     {
                         items.Add(new TrayItem()

@@ -1,5 +1,6 @@
 ﻿using AGVCenterLib.Data;
 using AGVCenterLib.Data.Repository.Implement;
+using AGVCenterLib.Data.Repository.Interface;
 using AGVCenterLib.Enum;
 using AGVCenterLib.Model.Message;
 using System;
@@ -27,7 +28,7 @@ namespace AGVCenterLib.Service
             return new TrayItemRepository(this.Context).FindByUniqNr(uniqNr);
         }
 
-        public ResultMessage CanItemAddToTray(string uniqNr)
+        public ResultMessage CanItemAddToTray(string uniqNr,string deliveryNr)
         {
             ResultMessage message = new ResultMessage();
             UniqueItemService service = new UniqueItemService(this.DbString);
@@ -36,6 +37,15 @@ namespace AGVCenterLib.Service
             if (item == null)
             {
                 message.Content = "产品不存在不可添加";
+                return message;
+            }
+
+            IDeliveryItemRepository direp = new DeliveryItemRepository(this.Context);
+            var deliveryItem = direp.FindByUniqNr(uniqNr, deliveryNr);
+
+            if (deliveryItem == null)
+            {
+                message.Content = "产品不属于本订单，不可添加！";
                 return message;
             }
 

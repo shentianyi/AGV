@@ -24,7 +24,7 @@
     <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="a8bb40e7-813f-44af-92d6-cfc6dfd4307b" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="3ff18fe5-b941-4a20-9529-18cf390a4019" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="77b88779-e675-49d3-8f32-faf8406d1e73" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
-    <MetadataFile FileName="AgvServiceLib.DataModel.xsd" MetadataType="Schema" ID="dd8b97d8-2018-497a-9d1a-aed76499a457" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.ViewModel.xsd" MetadataType="Schema" ID="0f5ef492-cbd7-452d-80dc-8494616000f2" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
     <MetadataFile FileName="AGVCenterLib.Model.Message.xsd" MetadataType="Schema" ID="7f0840ec-3157-4bcb-b4c2-02ef0f5bf4e4" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
   </Metadata>
   <Extensions>

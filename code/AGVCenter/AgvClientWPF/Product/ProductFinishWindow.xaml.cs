@@ -1,5 +1,6 @@
 ﻿using AGVCenterLib.Data;
 using AGVCenterLib.Model.Message;
+using AGVCenterLib.Model.ViewModel;
 using AgvClientWPF.AgvProductService;
 using System;
 using System.Collections.Generic;

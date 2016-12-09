@@ -2,6 +2,7 @@
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" />
   <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" />
   <xs:element name="DeliveryExists">
     <xs:complexType>
       <xs:sequence>
@@ -16,6 +17,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="CanDeliverySend">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CanDeliverySendResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CanDeliverySendResult" nillable="true" type="q1:ResultMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="CanItemAddToDelivery">
     <xs:complexType>
       <xs:sequence>
@@ -26,7 +41,22 @@
   <xs:element name="CanItemAddToDeliveryResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CanItemAddToDeliveryResult" nillable="true" type="q1:ResultMessage" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CanItemAddToDeliveryResult" nillable="true" type="q2:ResultMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CanItemAddToTray">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="uniqNr" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="deliveryNr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CanItemAddToTrayResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CanItemAddToTrayResult" nillable="true" type="q3:ResultMessage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -34,14 +64,44 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="delieryNr" nillable="true" type="xs:string" />
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="uniqItemsNrs" nillable="true" type="q2:ArrayOfstring" />
+        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="uniqItemsNrs" nillable="true" type="q4:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateDeliveryResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CreateDeliveryResult" nillable="true" type="q3:ResultMessage" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CreateDeliveryResult" nillable="true" type="q5:ResultMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliveryUniqItemsByNr">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDeliveryUniqItemsByNrResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" minOccurs="0" name="GetDeliveryUniqItemsByNrResult" nillable="true" type="q6:ArrayOfUniqueItemModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateTray">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="delieryNr" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="trayNr" nillable="true" type="xs:string" />
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="uniqItemsNrs" nillable="true" type="q7:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateTrayResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CreateTrayResult" nillable="true" type="q8:ResultMessage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

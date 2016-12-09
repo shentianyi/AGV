@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfUniqueItemModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UniqueItemModel" nillable="true" type="tns:UniqueItemModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUniqueItemModel" nillable="true" type="tns:ArrayOfUniqueItemModel" />
+  <xs:complexType name="UniqueItemModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BoxTypeId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CheckCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="KNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KNrWithYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KskNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PartNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UniqueItemModel" nillable="true" type="tns:UniqueItemModel" />
+</xs:schema>
