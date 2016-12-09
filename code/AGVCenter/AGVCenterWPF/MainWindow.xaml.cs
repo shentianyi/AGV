@@ -988,9 +988,11 @@ namespace AGVCenterWPF
             //}
             if (!string.IsNullOrEmpty(barcode))
             {
-                if (AgvScanTaskQueue.Keys.Contains(barcode))
+var dicQ= roadMachineIndex==1 ? RoadMachine1TaskQueue : RoadMachine2TaskMachine;
+
+                if (dicQ.Keys.Contains(barcode))
                 {
-                    StockTaskItem taskItem = AgvScanTaskQueue[barcode];
+                    StockTaskItem taskItem = dicQ[barcode];
                     switch ((StockTaskActionFlag)((int)actionFlag))
                     {
                         case StockTaskActionFlag.InSuccess:
@@ -1006,6 +1008,7 @@ namespace AGVCenterWPF
 
                     sts.UpdateTaskState(taskItem);
 
+                    dicQ.Remove(barcode);
                     RefreshList();
                 }
             }
