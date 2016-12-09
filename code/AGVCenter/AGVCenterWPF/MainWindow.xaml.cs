@@ -1011,6 +1011,7 @@ namespace AGVCenterWPF
             }
         }
 
+        private string prevScanedBarcode=string.Empty;
         /// <summary>
         /// 将入库任务写入AGV扫描任务队列，并派发到AGV放行队列
         /// </summary>
@@ -1570,12 +1571,6 @@ namespace AGVCenterWPF
 
             }
         }
-
-        private bool CanUniqInStock(string barcode)
-        {
-            UniqueItemService uniqItemService = new UniqueItemService(OPCConfig.DbString);
-            return uniqItemService.CanUniqInStock(barcode);
-
-        }
+        
     }
 }
