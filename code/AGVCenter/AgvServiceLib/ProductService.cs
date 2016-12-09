@@ -1,7 +1,7 @@
 ﻿using AGVCenterLib.Data;
 using AGVCenterLib.Model.Message;
+using AGVCenterLib.Model.ViewModel;
 using AGVCenterLib.Service;
-using AgvServiceLib.DataModel;
 using AgvServiceLib.Helper;
 using Brilliantech.Framwork.Utils.LogUtil;
 using System;
@@ -17,7 +17,7 @@ namespace AgvServiceLib
     {
         public ResultMessage CreateUniqItem(UniqueItemModel item)
         {
-            UniqueItemService service = new UniqueItemService(SqlHelper.connectStr);
+            UniqueItemService service = new UniqueItemService(SqlHelper.ConnectStr);
             ResultMessage message = new ResultMessage();
             UniqueItem uitem = new UniqueItem()
             {
@@ -34,9 +34,16 @@ namespace AgvServiceLib
             return message;
         }
 
+        public UniqueItemModel FindUniqItemByCheckCode(string checkCode)
+        {
+            UniqueItemService service = new UniqueItemService(SqlHelper.ConnectStr);
+            UniqueItem item = service.FindByCheckCode(checkCode);
+            return UniqueItemModel.Convert(item);
+        }
+
         public UniqueItemModel FindUniqItemByNr(string nr)
         {
-            UniqueItemService service = new UniqueItemService(SqlHelper.connectStr);
+            UniqueItemService service = new UniqueItemService(SqlHelper.ConnectStr);
             UniqueItem item = service.FindByNr(nr);
             return UniqueItemModel.Convert(item);
         }

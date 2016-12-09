@@ -1,6 +1,6 @@
 ﻿using AGVCenterLib.Data;
 using AGVCenterLib.Model.Message;
-using AgvServiceLib.DataModel;
+using AGVCenterLib.Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +24,9 @@ namespace AgvServiceLib
 
         [OperationContract]
         UniqueItemModel FindUniqItemByNr(string nr);
+
+        [OperationContract]
+        UniqueItemModel FindUniqItemByCheckCode(string checkCode);
     }
 
     

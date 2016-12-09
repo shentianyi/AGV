@@ -6,13 +6,13 @@ using System.Text;
 using AGVCenterLib.Model.Message;
 using AGVCenterLib.Service;
 using AGVCenterLib.Data;
-using AgvServiceLib.DataModel;
+using AGVCenterLib.Model.ViewModel;
 
 namespace AgvServiceLib
 {
     public class DeliveryService : IDeliveryService
     {
-        AGVCenterLib.Service.DeliveryService ds = new AGVCenterLib.Service.DeliveryService(SqlHelper.connectStr);
+        AGVCenterLib.Service.DeliveryService ds = new AGVCenterLib.Service.DeliveryService(SqlHelper.ConnectStr);
 
         public bool DeliveryExists(string nr)
         {
@@ -27,26 +27,32 @@ namespace AgvServiceLib
 
         public ResultMessage CanItemAddToDelivery(string uniqNr)
         {
-            DeliveryItemService dis = new DeliveryItemService(SqlHelper.connectStr);
+            DeliveryItemService dis = new DeliveryItemService(SqlHelper.ConnectStr);
             return dis.CanItemAddToDelivery(uniqNr);
         }
 
-        public ResultMessage CanItemAddToTray(string uniqNr)
+        public ResultMessage CanItemAddToTray(string uniqNr, string deliveryNr)
         {
-            TrayItemService tis = new TrayItemService(SqlHelper.connectStr);
-            return tis.CanItemAddToTray(uniqNr);
+            TrayItemService tis = new TrayItemService(SqlHelper.ConnectStr);
+            return tis.CanItemAddToTray(uniqNr, deliveryNr);
         }
-        
+
 
         public ResultMessage CreateDelivery(string delieryNr, List<string> uniqItemsNrs)
         {
             return ds.CreateDelivery(delieryNr, uniqItemsNrs);
         }
-        
+
 
         public List<UniqueItemModel> GetDeliveryUniqItemsByNr(string nr)
         {
             return UniqueItemModel.Converts(ds.GetDeliveryUniqItemsByNr(nr));
+        }
+
+        public ResultMessage CreateTray(string delieryNr, string trayNr, List<string> uniqItemsNrs)
+        {
+            TrayService ts = new TrayService(SqlHelper.ConnectStr);
+            return ts.CreateTray(delieryNr, trayNr, uniqItemsNrs);
         }
     }
 }
