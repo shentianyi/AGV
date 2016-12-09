@@ -977,7 +977,8 @@ namespace AGVCenterWPF
         public void UpdateTaskByFeed(int roadMachineIndex, StockTaskActionFlag actionFlag, string barcode)
         {
             // string barcode = string.Empty;
-            if (roadMachineIndex <= 0) {
+            if (roadMachineIndex <= 0)
+            {
                 return;
             }
             //if (feed.RoadMachineIndex == 1) {
@@ -988,7 +989,7 @@ namespace AGVCenterWPF
             //}
             if (!string.IsNullOrEmpty(barcode))
             {
-var dicQ= roadMachineIndex==1 ? RoadMachine1TaskQueue : RoadMachine2TaskMachine;
+                var dicQ = roadMachineIndex == 1 ? RoadMachine1TaskQueue : RoadMachine2TaskQueue;
 
                 if (dicQ.Keys.Contains(barcode))
                 {
@@ -997,9 +998,20 @@ var dicQ= roadMachineIndex==1 ? RoadMachine1TaskQueue : RoadMachine2TaskMachine;
                     {
                         case StockTaskActionFlag.InSuccess:
                             taskItem.State = StockTaskState.InStocked;
+                            dicQ.Remove(barcode);
+                            break;
+                        case StockTaskActionFlag.InFailPositionWasStored:
+                        case StockTaskActionFlag.InFailPositionNotExists:
+                            throw new NotImplementedException("入库反馈错误未实现!");
                             break;
                         case StockTaskActionFlag.OutSuccess:
                             taskItem.State = StockTaskState.OutStocked;
+                            dicQ.Remove(barcode);
+                            break;
+                        case StockTaskActionFlag.OutFailStoreNotFound:
+                        case StockTaskActionFlag.OutFailBarNotMatch:
+                        case StockTaskActionFlag.OutFailPositionNotExists:
+                            throw new NotImplementedException("出库反馈错误未实现!");
                             break;
                         default: break;
                     }
@@ -1008,7 +1020,6 @@ var dicQ= roadMachineIndex==1 ? RoadMachine1TaskQueue : RoadMachine2TaskMachine;
 
                     sts.UpdateTaskState(taskItem);
 
-                    dicQ.Remove(barcode);
                     RefreshList();
                 }
             }
@@ -1031,6 +1042,17 @@ var dicQ= roadMachineIndex==1 ? RoadMachine1TaskQueue : RoadMachine2TaskMachine;
                 };
                 taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
 
+
+                // 是否是重复扫描
+                if (prevScanedBarcode == barcode)
+                {
+                    prevScanedBarcode = barcode;
+                    // 重复扫描的不再生成任务
+                    taskItem.State = StockTaskState.ErrorBarcodeReScan;
+                    TaskCenterForDisplayQueue.Add(taskItem);
+                    return true;
+                }
+
                 #region 入库
                 UniqueItemService uniqItemService = new UniqueItemService(OPCConfig.DbString);
                 UniqueItem item = uniqItemService.FindByCheckCode(barcode);
@@ -1042,6 +1064,7 @@ var dicQ= roadMachineIndex==1 ? RoadMachine1TaskQueue : RoadMachine2TaskMachine;
                         // 是否是重复扫描
                         if (AgvScanTaskQueue.Keys.Contains(barcode))
                         {
+                            prevScanedBarcode = barcode;
                             // 重复扫描的不再生成任务
                             taskItem.State = StockTaskState.ErrorBarcodeReScan;
                             TaskCenterForDisplayQueue.Add(taskItem);
@@ -1095,6 +1118,7 @@ var dicQ= roadMachineIndex==1 ? RoadMachine1TaskQueue : RoadMachine2TaskMachine;
                 }
                 #endregion
 
+                prevScanedBarcode = barcode;
                 /// 加入到AGV扫描队列
                 EnqueueAgvScanTaskQueue(taskItem);
                 return false;
