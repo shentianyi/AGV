@@ -51,15 +51,36 @@ namespace AGVCenterLib.Service
             }
             return messge;
         }
-       
+
         /// <summary>
         /// 判断唯一件是否可以入库
         /// </summary>
-        /// <param name="uniqNr"></param>
+        /// <param name="checkCode"></param>
         /// <returns></returns>
-        public bool CanUniqInStock(string uniqNr)
+        public bool CanUniqInStock(string checkCode)
         {
-            return true;
+
+            // 是否有正在入库的任务
+            IStockTaskRepository stockTaskRep = new StockTaskRepository(this.Context);
+
+            StockTask stockTask = stockTaskRep.FindLastByCheckCode(checkCode);
+
+            if (stockTask != null)
+            {
+                if (stockTask.IsCannotInStockState)
+                {
+                    return false;
+                }
+            }
+
+            // 状态是否可以出入库
+            IUniqueItemRepository itemRep = new UniqueItemRepository(this.Context);
+
+            UniqueItem item = itemRep.FindByCheckCode(checkCode);
+            if (item == null)
+                return false;
+
+            return item.IsCanInStockState;
         }
 
 

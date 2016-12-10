@@ -1164,6 +1164,7 @@ namespace AGVCenterWPF
                 RefreshList();
             }
         }
+        #endregion
 
         #region 获得最优先的库存操作任务
         /// <summary>
@@ -1212,7 +1213,7 @@ namespace AGVCenterWPF
         //        return item;
         //    }
         //}
-        #region
+
 
         /// <summary>
         /// 分发任务给巷道机1 或 2
