@@ -998,6 +998,7 @@ namespace AGVCenterWPF
                     {
                         case StockTaskActionFlag.InSuccess:
                             taskItem.State = StockTaskState.InStocked;
+                            new StorageService(OPCConfig.DbString).InStockByCheckCode(taskItem.PositionNr, taskItem.Barcode);
                             dicQ.Remove(barcode);
                             break;
                         case StockTaskActionFlag.InFailPositionWasStored:
