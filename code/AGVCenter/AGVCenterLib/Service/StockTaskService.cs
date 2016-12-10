@@ -23,22 +23,23 @@ namespace AGVCenterLib.Service
         /// <returns></returns>
         public bool CreateInStockTask(StockTaskItem task)
         {
-            //StockTask st = new StockTask()
-            //{
-            //    BoxType = task.BoxType,
-            //    PositionFloor = task.PositionFloor,
-            //    PositionColumn = task.PositionColumn,
-            //    PositionRow = task.PositionRow,
-            //    AgvPassFlag = task.AgvPassFlag,
-            //    RestPositionFlag = task.RestPositionFlag,
-            //    BarCode = task.Barcode,
-            //    State = (int)task.State,
-            //    Type = (int)StockTaskType.IN,
-            //    CreatedAt = DateTime.Now
-            //};
-            //this.Context.StockTask.InsertOnSubmit(st);
-            //this.Context.SubmitChanges();
-            //task.DbId = st.id;
+            StockTask st = new StockTask()
+            {
+                BoxType = task.BoxType,
+                PositionFloor = task.PositionFloor,
+                PositionColumn = task.PositionColumn,
+                PositionRow = task.PositionRow,
+                AgvPassFlag = task.AgvPassFlag,
+                RestPositionFlag = task.RestPositionFlag,
+                BarCode = task.Barcode,
+                State = (int)task.State,
+                Type = (int)StockTaskType.IN,
+                CreatedAt = DateTime.Now
+            };
+            IStockTaskRepository stRep = new StockTaskRepository(this.Context);
+            stRep.Create(st);
+            this.Context.SaveAll();
+            task.DbId = st.id;
             return true;
         }
 
@@ -56,10 +57,11 @@ namespace AGVCenterLib.Service
                 t.State = (int)taskItem.State;
 
                 t.RoadMachineIndex = taskItem.RoadMachineIndex;
+                t.PositionNr = taskItem.PositionNr;
                 t.PositionFloor = taskItem.PositionFloor;
                 t.PositionColumn = taskItem.PositionColumn;
                 t.PositionRow = taskItem.PositionRow;
-
+                
                 this.Context.SaveAll();
             }
             

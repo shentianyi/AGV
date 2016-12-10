@@ -33,17 +33,19 @@ namespace TestCon
             //Console.WriteLine(B == A);
 
 
-            Dictionary<string, int> dic = new Dictionary<string, int>();
-            dic.Add("a", 1);
-            dic.Add("d", 4);
-            dic.Add("e", 5);
-            dic.Add("b", 2);
-            dic.Add("c", 3);
-            
-            foreach (var d in dic)
-            {
-                Console.WriteLine(string.Format("{0}-{1}", d.Key, d.Value));
-            }
+            //Dictionary<string, int> dic = new Dictionary<string, int>();
+            //dic.Add("a", 1);
+            //dic.Add("d", 4);
+            //dic.Add("e", 5);
+            //dic.Add("b", 2);
+            //dic.Add("c", 3);
+
+            //foreach (var d in dic)
+            //{
+            //    Console.WriteLine(string.Format("{0}-{1}", d.Key, d.Value));
+            //}
+            //Console.WriteLine("1".PadLeft(2, '0'));
+            TestGetInStockPosition.Test();
             Console.Read();
         }
 

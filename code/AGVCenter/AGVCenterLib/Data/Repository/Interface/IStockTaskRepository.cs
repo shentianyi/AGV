@@ -11,6 +11,9 @@ namespace AGVCenterLib.Data.Repository.Interface
     {
         StockTask FindLastByCheckCode(string checkCode);
 
-        StockTask FindById(int id);    
+        StockTask FindById(int id);
+
+        void Create(StockTask entity);
+
     }
 }

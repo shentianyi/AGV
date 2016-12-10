@@ -1074,7 +1074,7 @@ namespace AGVCenterWPF
 
                         // 查询可用库位！
                         PositionService ps = new PositionService(OPCConfig.DbString);
-                        bool hasAvaliablePosition = ps.HasAvaliablePosition();
+                        bool hasAvaliablePosition = ps.HasAvaliablePosition(this.GetDispatchedPositions());
                         if (hasAvaliablePosition)
                         {
                             taskItem.AgvPassFlag = (byte)AgvPassFlag.Pass;
@@ -1241,7 +1241,8 @@ namespace AGVCenterWPF
             {
                 /// 计算库位
                 PositionService ps = new PositionService(OPCConfig.DbString);
-                Position position = ps.FindInStockPosition(roadMachineIndex);
+                Position position = ps.FindInStockPosition(roadMachineIndex,
+                    this.GetDispatchedPositions(roadMachineIndex));
 
                 taskItem.PositionNr = position.Nr;
                 taskItem.PositionFloor = position.Floor;
@@ -1599,6 +1600,33 @@ namespace AGVCenterWPF
 
             }
         }
-        
+
+
+        public List<string> GetDispatchedPositions(int? roadMachineIndex = null)
+        {
+            List<string> dispatchedPositions = new List<string>();
+            if (roadMachineIndex.HasValue)
+            {
+                if (roadMachineIndex == 1)
+                {
+                    dispatchedPositions.AddRange(
+                        this.RoadMachine1TaskQueue.Select(s => s.Value.PositionNr).ToList()
+                        );
+                }
+                else if (roadMachineIndex == 2)
+                {
+                    dispatchedPositions.AddRange(
+                        this.RoadMachine2TaskQueue.Select(s => s.Value.PositionNr).ToList()
+                        );
+                }
+            }
+            else
+            {
+                dispatchedPositions.AddRange(this.GetDispatchedPositions(1));
+                dispatchedPositions.AddRange(this.GetDispatchedPositions(2));
+            }
+            return dispatchedPositions;
+        }
+
     }
 }

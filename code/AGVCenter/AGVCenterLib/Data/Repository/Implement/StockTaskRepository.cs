@@ -16,6 +16,11 @@ namespace AGVCenterLib.Data.Repository.Implement
             this.context = dataContextFactory.Context as AgvWarehouseDataContext;
         }
 
+        public void Create(StockTask entity)
+        {
+            this.context.StockTask.InsertOnSubmit(entity);
+        }
+
         public StockTask FindById(int id)
         {
             return this.context.StockTask.FirstOrDefault(s => s.id == id);

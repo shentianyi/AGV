@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGVCenterWPF", "AGVCenterWPF\AGVCenterWPF.csproj", "{1CA7279E-B19E-4A38-9F1D-71F42303DABE}"
 EndProject
@@ -24,6 +24,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgvClientWPF", "AgvClientWP
 	ProjectSection(ProjectDependencies) = postProject
 		{9FF5627E-FA52-4A7F-B033-02514DD9A11E} = {9FF5627E-FA52-4A7F-B033-02514DD9A11E}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F5EE7488-E351-4888-90BE-88357D41B845}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWPF", "TestWPF\TestWPF.csproj", "{8737F142-F4EC-4E23-8CAB-F35DFECBDF9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,11 +63,17 @@ Global
 		{5AE49BAB-5D05-4C65-A78F-079C1635364B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AE49BAB-5D05-4C65-A78F-079C1635364B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AE49BAB-5D05-4C65-A78F-079C1635364B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8737F142-F4EC-4E23-8CAB-F35DFECBDF9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8737F142-F4EC-4E23-8CAB-F35DFECBDF9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8737F142-F4EC-4E23-8CAB-F35DFECBDF9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8737F142-F4EC-4E23-8CAB-F35DFECBDF9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{F7FBCE22-221B-4654-B102-9A43FBFF1A64} = {F5EE7488-E351-4888-90BE-88357D41B845}
 		{8D149F77-D296-485E-95A8-FB602EA5D98C} = {1B6EE808-658F-4893-B60A-5A71BBE0357D}
+		{8737F142-F4EC-4E23-8CAB-F35DFECBDF9C} = {F5EE7488-E351-4888-90BE-88357D41B845}
 	EndGlobalSection
 EndGlobal

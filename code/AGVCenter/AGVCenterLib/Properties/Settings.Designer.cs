@@ -44,5 +44,16 @@ namespace AGVCenterLib.Properties {
                 return ((string)(this["AgvWarehoueDbConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Charlot-PC\\MSSQLSERVER20082;Initial Catalog=AgvWarehoueDb;Persist Sec" +
+            "urity Info=True;User ID=sa")]
+        public string AgvWarehoueDbConnectionString2 {
+            get {
+                return ((string)(this["AgvWarehoueDbConnectionString2"]));
+            }
+        }
     }
 }
