@@ -29,6 +29,11 @@ namespace AGVCenterLib.Data.Repository.Implement
             this.context.Position.DeleteAllOnSubmit(this.context.Position.Where(s=>true));
         }
 
+        public Position FindByNr(string nr)
+        {
+            return this.context.Position.FirstOrDefault(s => s.Nr == nr);
+        }
+
         public Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs)
         {
             PositionStorage ps = this.context.PositionStorage

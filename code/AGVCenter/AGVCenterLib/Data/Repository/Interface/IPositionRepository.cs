@@ -17,8 +17,11 @@ namespace AGVCenterLib.Data.Repository.Interface
         /// <returns></returns>
         Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs);
 
+        Position FindByNr(string nr);
+
         void Creates(List<Position> entities);
 
         void DeleteAll();
+        
     }
 }

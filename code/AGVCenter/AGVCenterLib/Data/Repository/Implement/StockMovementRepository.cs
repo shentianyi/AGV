@@ -16,7 +16,10 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             this.context = dataContextFactory.Context as AgvWarehouseDataContext;
         }
-         
 
+        public void Create(StockMovement entity)
+        {
+            this.context.StockMovement.InsertOnSubmit(entity);
+        }
     }
 }

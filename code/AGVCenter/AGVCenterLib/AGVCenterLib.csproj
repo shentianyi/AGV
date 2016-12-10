@@ -108,6 +108,7 @@
     <Compile Include="Enum\BoxType.cs" />
     <Compile Include="Enum\DeliveryState.cs" />
     <Compile Include="Enum\OPC\CanonicalDataType.cs" />
+    <Compile Include="Enum\StockMovementType.cs" />
     <Compile Include="Enum\StockTaskActionFlag.cs" />
     <Compile Include="Enum\StockTaskState.cs" />
     <Compile Include="Enum\UniqueItemState.cs" />
@@ -127,6 +128,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\StorageService.cs" />
     <Compile Include="Service\TrayService.cs" />
     <Compile Include="Service\TrayItemService.cs" />
     <Compile Include="Service\DeliveryItemService.cs" />

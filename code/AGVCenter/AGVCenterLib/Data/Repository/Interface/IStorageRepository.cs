@@ -9,8 +9,11 @@ namespace AGVCenterLib.Data.Repository.Interface
 {
     public interface IStorageRepository
     {
-       
-          
+        void Create(Storage entity);
+        void Delete(Storage entity);
 
+        Storage FindByPositionNr(string positionNr);
+        Storage FindByUniqNr(string uniqNr);
+        Storage FindByPositionNrOrUniqNr(string positionNr, string uniqNr);
     }
 }

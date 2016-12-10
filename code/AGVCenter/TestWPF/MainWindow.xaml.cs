@@ -28,5 +28,10 @@ namespace TestWPF
         {
             new CreatePositionWindow().Show();
         }
+
+        private void inStockBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new InStockOrOutStockWindow().Show();
+        }
     }
 }

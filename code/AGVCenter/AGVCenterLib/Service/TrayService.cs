@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace AGVCenterLib.Service
 {
@@ -84,6 +85,7 @@ namespace AGVCenterLib.Service
             }
             catch (Exception ex)
             {
+                LogUtil.Logger.Error(ex.Message, ex);
                 message.MessageType = MessageType.Exception;
                 message.Content = ex.Message;
             }

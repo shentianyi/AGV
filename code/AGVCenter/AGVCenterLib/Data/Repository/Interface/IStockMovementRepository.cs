@@ -8,6 +8,6 @@ namespace AGVCenterLib.Data.Repository.Interface
 {
     public interface IStockMovementRepository
     {
-       
+        void Create(StockMovement entity);
     }
 }

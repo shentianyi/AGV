@@ -18,33 +18,30 @@ namespace AGVCenterLib.Data.Repository.Implement
             this.context = dataContextFactory.Context as AgvWarehouseDataContext;
         }
 
-        public bool Create(Storage sg)
+        public void Create(Storage entity)
         {
-            try
-            {
-                this.context.GetTable<Storage>().InsertOnSubmit(sg);
-                this.context.SubmitChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            this.context.Storage.InsertOnSubmit(entity);
         }
 
-        public bool Delete(Storage sg)
+        public void Delete(Storage entity)
         {
-            try
-            {
-                this.context.GetTable<Storage>().DeleteOnSubmit(sg);
-                this.context.SubmitChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            this.context.Storage.DeleteOnSubmit(entity);
         }
-      
+
+        public Storage FindByPositionNr(string positionNr)
+        {
+            return this.context.Storage.FirstOrDefault(s => s.PositionNr == positionNr);
+        }
+
+        public Storage FindByUniqNr(string uniqNr)
+        {
+            return this.context.Storage.FirstOrDefault(s => s.UniqItemNr == uniqNr);
+        }
+
+        public Storage FindByPositionNrOrUniqNr(string positionNr, string uniqNr)
+        {
+            return this.context.Storage.FirstOrDefault(s => s.PositionNr == positionNr || s.UniqItemNr==uniqNr);
+        }
+
     }
 }

@@ -8,6 +8,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Button x:Name="createPositionsBtn" Content="批量创建库位" HorizontalAlignment="Left" Margin="51,51,0,0" VerticalAlignment="Top" Width="102" Height="41" Click="createPositionsBtn_Click"/>
+        <Button x:Name="inStockBtn" Content="入库、出库" HorizontalAlignment="Left" Margin="198,51,0,0" VerticalAlignment="Top" Width="97" Height="41" Click="inStockBtn_Click"/>
 
     </Grid>
 </Window>

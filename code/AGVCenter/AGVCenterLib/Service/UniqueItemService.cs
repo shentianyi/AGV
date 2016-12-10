@@ -38,6 +38,7 @@ namespace AGVCenterLib.Service
                 {
                     item.State = (int)UniqueItemState.Created;
                     item.CreatedAt = DateTime.Now;
+                    item.UpdatedAt = DateTime.Now;
                     rep.Create(item);
                     this.Context.SaveAll();
                     messge.Content = "创建成功";
