@@ -142,7 +142,7 @@ namespace AGVCenterLib.Service
                                     PositionColumn = position.Column,
                                     PositionRow = position.Row,
 
-                                    State = (int)StockTaskState.RoadMachineWaitOutStock,
+                                    State = (int)StockTaskState.RoadMachineOutStockInit,
                                     DeliveryItemNum = deliveryStoragesCount,
                                     TrayNum= currentTrayItemCount,
                                     TrayReverseNo= currentTrayItemCount-j,
@@ -169,6 +169,24 @@ namespace AGVCenterLib.Service
             }
             return message;
         }
-        
+
+        /// <summary>
+        /// 获取新创建的出库任务
+        /// </summary>
+        /// <param name="dispatchedBatchId"></param>
+        /// <returns></returns>
+        public List<StockTask> GetInitOutStockTasksAndUpdateState(List<string> dispatchedBatchId)
+        {
+            IStockTaskRepository stockTaskRep=new  StockTaskRepository(this.Context);
+            List<StockTask> tasks = stockTaskRep
+                .GetByState(StockTaskState.RoadMachineOutStockInit)
+                .Where(s => (!dispatchedBatchId.Contains(s.TrayBatchId))).ToList();
+            if (tasks.Count > 0)
+            {
+                stockTaskRep.UpdateTasksState(tasks.Select(s => s.id).ToList(),
+                    StockTaskState.RoadMachineWaitOutStock);
+            }
+            return tasks;
+        }
     }
 }

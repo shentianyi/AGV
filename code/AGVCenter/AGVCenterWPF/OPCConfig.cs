@@ -64,6 +64,11 @@ namespace AGVCenterWPF
         public static int OPCSetStockTaskRM2OPCGroupDeadBand = 0;
 
         /// <summary>
+        /// 库存操作任务定时器Interval
+        /// </summary>
+        public static int SetOPCStockTaskTimerInterval = 100;
+
+        /// <summary>
         /// OPCTaskFeedRM1OPCGroup，库存操作反馈 巷道机1
         /// </summary>
         public static string OPCTaskFeedRM1OPCGroupName = "OPCTaskFeedRM1OPCGroup";
@@ -79,6 +84,10 @@ namespace AGVCenterWPF
         #endregion
 
 
+        /// <summary>
+        /// 加载数据库出库任务定时器Interval
+        /// </summary>
+        public static int LoadOutStockTaskFromDbTimerInterval = 100;
 
     }
 }

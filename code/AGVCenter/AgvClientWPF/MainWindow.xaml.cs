@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AgvClientWPF.Delivery;
+using AGVCenterLib.Model;
 
 namespace AgvClientWPF
 {
@@ -46,5 +47,6 @@ namespace AgvClientWPF
         {
             new CreateDeliveryOutStockTaskWindow().Show();
         }
+
     }
 }

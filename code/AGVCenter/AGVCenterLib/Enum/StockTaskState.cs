@@ -55,9 +55,10 @@ namespace AGVCenterLib.Enum
         /// </summary>
         InStocked = 5,
         InCanceled = 6,
-        RoadMachineWaitOutStock = 7,
-        RoadMachineOutStocking = 8,
-        OutStocked = 9,
+        RoadMachineOutStockInit=7,
+        RoadMachineWaitOutStock = 8,
+        RoadMachineOutStocking = 9,
+        OutStocked = 10,
 
         // Error
         ErrorNoPositoin = 20,

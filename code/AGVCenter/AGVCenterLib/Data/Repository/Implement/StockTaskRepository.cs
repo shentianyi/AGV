@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AGVCenterLib.Data.Repository.Interface;
+using AGVCenterLib.Enum;
 using AGVCenterLib.Model;
 
 namespace AGVCenterLib.Data.Repository.Implement
@@ -35,6 +36,19 @@ namespace AGVCenterLib.Data.Repository.Implement
         public StockTask FindLastByCheckCode(string checkCode)
         {
             return this.context.StockTask.LastOrDefault(s => s.BarCode == checkCode);
-        } 
+        }
+
+        public List<StockTask> GetByState(StockTaskState state)
+        {
+            return this.context.StockTask.Where(s => s.State == (int)state).ToList();
+        }
+
+        public void UpdateTasksState(List<int> taskIds, StockTaskState state)
+        {
+            string cmd = string.Format("update stocktask set state={0} where id in ({1});",
+                (int)state,
+                string.Join(",", taskIds.ToArray()));
+            this.context.ExecuteCommand(cmd);
+        }
     }
 }

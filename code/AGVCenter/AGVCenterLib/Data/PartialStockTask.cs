@@ -14,6 +14,7 @@ namespace AGVCenterLib.Data
             StockTaskState.RobootInStocking,
             StockTaskState.RoadMachineStockBuffing,
             StockTaskState.RoadMachineInStocking,
+            StockTaskState.RoadMachineOutStockInit,
             StockTaskState.RoadMachineWaitOutStock,
             StockTaskState.RoadMachineOutStocking
         };
