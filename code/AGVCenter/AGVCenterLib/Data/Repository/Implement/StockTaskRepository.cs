@@ -21,6 +21,12 @@ namespace AGVCenterLib.Data.Repository.Implement
             this.context.StockTask.InsertOnSubmit(entity);
         }
 
+        public void Creates(List<StockTask> entities)
+        {
+
+            this.context.StockTask.InsertAllOnSubmit(entities);
+        }
+
         public StockTask FindById(int id)
         {
             return this.context.StockTask.FirstOrDefault(s => s.id == id);

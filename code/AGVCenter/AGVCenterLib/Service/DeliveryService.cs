@@ -29,11 +29,21 @@ namespace AGVCenterLib.Service
             return new DeliveryRepository(this.Context).FindByNr(nr);
         }
 
+        /// <summary>
+        /// 获取运单产品列表
+        /// </summary>
+        /// <param name="nr"></param>
+        /// <returns></returns>
         public List<UniqueItem> GetDeliveryUniqItemsByNr(string nr)
         {
             return new UniqueItemRepository(this.Context).ListByDeliveryNr(nr);
         }
 
+        /// <summary>
+        /// 订单是否可以发运
+        /// </summary>
+        /// <param name="nr"></param>
+        /// <returns></returns>
         public ResultMessage CanDeliverySend(string nr)
         {
             ResultMessage message = new ResultMessage();
@@ -56,6 +66,12 @@ namespace AGVCenterLib.Service
             return message;
         }
 
+        /// <summary>
+        /// 创建运单
+        /// </summary>
+        /// <param name="deliveryNr"></param>
+        /// <param name="uniqItemNrs"></param>
+        /// <returns></returns>
         public ResultMessage CreateDelivery(string deliveryNr, List<string> uniqItemNrs)
         {
 
@@ -120,6 +136,16 @@ namespace AGVCenterLib.Service
                 message.Content = ex.Message;
             }
             return message;
+        }
+
+        /// <summary>
+        /// 根据运单获取库存项，包含未在库的
+        /// </summary>
+        /// <param name="nr"></param>
+        /// <returns></returns>
+        public List<DeliveryStorageView> GetDeliveryStorageByNr(string nr)
+        {
+            return new DeliveryRepository(this.Context).GetStorageList(nr, true);
         }
     }
 }

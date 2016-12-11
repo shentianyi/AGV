@@ -33,8 +33,14 @@ namespace AgvClientWPF.AgvDeliveryService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/GetDeliveryUniqItemsByNr", ReplyAction="http://tempuri.org/IDeliveryService/GetDeliveryUniqItemsByNrResponse")]
         AGVCenterLib.Model.ViewModel.UniqueItemModel[] GetDeliveryUniqItemsByNr(string nr);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/GetDeliveryStorageByNr", ReplyAction="http://tempuri.org/IDeliveryService/GetDeliveryStorageByNrResponse")]
+        AGVCenterLib.Model.ViewModel.DeliveryStorageViewModel[] GetDeliveryStorageByNr(string nr);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/CreateTray", ReplyAction="http://tempuri.org/IDeliveryService/CreateTrayResponse")]
         AGVCenterLib.Model.Message.ResultMessage CreateTray(string delieryNr, string trayNr, string[] uniqItemsNrs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/CreateOutStockTaskByNr", ReplyAction="http://tempuri.org/IDeliveryService/CreateOutStockTaskByNrResponse")]
+        AGVCenterLib.Model.Message.ResultMessage CreateOutStockTaskByNr(string nr);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -88,8 +94,16 @@ namespace AgvClientWPF.AgvDeliveryService {
             return base.Channel.GetDeliveryUniqItemsByNr(nr);
         }
         
+        public AGVCenterLib.Model.ViewModel.DeliveryStorageViewModel[] GetDeliveryStorageByNr(string nr) {
+            return base.Channel.GetDeliveryStorageByNr(nr);
+        }
+        
         public AGVCenterLib.Model.Message.ResultMessage CreateTray(string delieryNr, string trayNr, string[] uniqItemsNrs) {
             return base.Channel.CreateTray(delieryNr, trayNr, uniqItemsNrs);
+        }
+        
+        public AGVCenterLib.Model.Message.ResultMessage CreateOutStockTaskByNr(string nr) {
+            return base.Channel.CreateOutStockTaskByNr(nr);
         }
     }
 }

@@ -15,5 +15,6 @@ namespace AGVCenterLib.Data.Repository.Interface
 
         void Create(StockTask entity);
 
+        void Creates(List<StockTask> entities);
     }
 }

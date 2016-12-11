@@ -76,6 +76,7 @@
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\PartialDelivery.cs" />
     <Compile Include="Data\IDataContextFactory.cs" />
+    <Compile Include="Data\PartialDeliveryStorageView.cs" />
     <Compile Include="Data\PartialStockTask.cs" />
     <Compile Include="Data\PartialUniqueItem.cs" />
     <Compile Include="Data\Repository\Implement\DeliveryTrayRepository.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Data\Repository\Implement\StorageRepository.cs" />
     <Compile Include="Data\Repository\Implement\UniqueItemRepository.cs" />
     <Compile Include="Data\Repository\Implement\StockTaskRepository.cs" />
+    <Compile Include="Data\Repository\Implement\BoxTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\WarehouseRepository.cs" />
     <Compile Include="Data\Repository\Interface\IDeliveryItemRepository.cs" />
     <Compile Include="Data\Repository\Interface\IDeliveryTrayRepository.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Data\Repository\Interface\IUniqueItemRepository.cs" />
     <Compile Include="Data\Repository\Interface\IDeliveryRepository.cs" />
     <Compile Include="Data\Repository\Interface\IStockTaskRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IBoxTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IWarehouseRepository.cs" />
     <Compile Include="Data\Repository\IRepository.cs" />
     <Compile Include="Data\Repository\RepositoryBase.cs" />
@@ -120,6 +123,7 @@
     <Compile Include="Model\OPC\OPCRoadMachineTaskFeed.cs" />
     <Compile Include="Model\OPC\OPCSetStockTask.cs" />
     <Compile Include="Model\StockTaskItem.cs" />
+    <Compile Include="Model\ViewModel\DeliveryStorageViewModel.cs" />
     <Compile Include="Model\ViewModel\UniqueItemModel.cs" />
     <Compile Include="OPCAddressMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

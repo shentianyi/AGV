@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AGVCenterLib.Model.ViewModel;
+using AGVCenterLib.Service;
 using Brilliantech.Framwork.Utils.ConvertUtil;
+using TestCon.Properties;
 
 namespace TestCon
 {
@@ -45,7 +48,9 @@ namespace TestCon
             //    Console.WriteLine(string.Format("{0}-{1}", d.Key, d.Value));
             //}
             //Console.WriteLine("1".PadLeft(2, '0'));
-            TestGetInStockPosition.Test();
+             TestGetInStockPosition.Test(true);
+            //var l = DeliveryStorageViewModel.Converts(new DeliveryService(Settings.Default.db).GetDeliveryStorageByNr("20161211180345"));
+            //TestCreateProduct.Test();
             Console.Read();
         }
 

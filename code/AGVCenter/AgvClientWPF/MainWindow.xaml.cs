@@ -41,5 +41,10 @@ namespace AgvClientWPF
         {
             new CreateTrayWindow().Show();
         }
+
+        private void createDeliveryOutStockTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new CreateDeliveryOutStockTaskWindow().Show();
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace AgvServiceLib
         ResultMessage CanItemAddToDelivery(string uniqNr);
 
         [OperationContract]
-        ResultMessage CanItemAddToTray(string uniqNr,string deliveryNr);
+        ResultMessage CanItemAddToTray(string uniqNr, string deliveryNr);
 
         [OperationContract]
         ResultMessage CreateDelivery(string delieryNr, List<string> uniqItemsNrs);
@@ -30,7 +30,12 @@ namespace AgvServiceLib
         List<UniqueItemModel> GetDeliveryUniqItemsByNr(string nr);
 
         [OperationContract]
-        ResultMessage CreateTray(string delieryNr,string trayNr, List<string> uniqItemsNrs);
+        List<DeliveryStorageViewModel> GetDeliveryStorageByNr(string nr);
 
+        [OperationContract]
+        ResultMessage CreateTray(string delieryNr, string trayNr, List<string> uniqItemsNrs);
+
+        [OperationContract]
+        ResultMessage CreateOutStockTaskByNr(string nr);
     }
 }

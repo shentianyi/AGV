@@ -54,5 +54,15 @@ namespace AgvServiceLib
             TrayService ts = new TrayService(SqlHelper.ConnectStr);
             return ts.CreateTray(delieryNr, trayNr, uniqItemsNrs);
         }
+
+        public List<DeliveryStorageViewModel> GetDeliveryStorageByNr(string nr)
+        {
+            return DeliveryStorageViewModel.Converts(ds.GetDeliveryStorageByNr(nr));
+        }
+
+        public ResultMessage CreateOutStockTaskByNr(string nr)
+        {
+            return new StockTaskService(SqlHelper.ConnectStr).CreateOutStockTaskByDeliery(nr);
+        }
     }
 }

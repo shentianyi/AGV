@@ -25,5 +25,11 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             return this.context.Delivery.FirstOrDefault(s => s.Nr==nr);
         }
+
+        public List<DeliveryStorageView> GetStorageList(string nr, bool all = false)
+        {
+            var q = this.context.DeliveryStorageView.Where(s => s.Nr == nr);
+            return all ? q.ToList() : q.Where(s => s.StorageId != null).ToList();
+        }
     }
 }

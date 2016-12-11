@@ -36,7 +36,7 @@ namespace AGVCenterLib.Data.Repository.Implement
 
         public Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs)
         {
-            PositionStorage ps = this.context.PositionStorage
+            PositionStorageView ps = this.context.PositionStorageView
                 .Where(s => (!exceptsNrs.Contains(s.Nr))
                 && s.RoadMachineIndex==roadMachineIndex
                 && s.StorageId==null)

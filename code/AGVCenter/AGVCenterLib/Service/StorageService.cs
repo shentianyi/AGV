@@ -210,6 +210,7 @@ namespace AGVCenterLib.Service
                 message.MessageType = MessageType.OK;
             }catch(Exception ex)
             {
+                LogUtil.Logger.Error(ex.Message, ex);
                 message.Content = ex.Message;
                 message.MessageType = MessageType.Exception;
             }

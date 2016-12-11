@@ -10,7 +10,8 @@
         <Button x:Name="productOffLineBtn" Content="生产下线" 
                 HorizontalAlignment="Left" Margin="35,39,0,0" VerticalAlignment="Top" Width="74" Height="42" Click="productOffLineBtn_Click"/>
         <Button x:Name="createDevlieryBtn" Content="创建订单" HorizontalAlignment="Left" Margin="141,39,0,0" VerticalAlignment="Top" Width="78" Height="42" Click="createDevlieryBtn_Click"/>
-        <Button x:Name="createTrayBtn" Content="创建托盘" HorizontalAlignment="Left" Margin="245,39,0,0" VerticalAlignment="Top" Width="78" Height="42" Click="createTrayBtn_Click"/>
+        <Button x:Name="createTrayBtn" Content="创建托盘" HorizontalAlignment="Left" Margin="346,39,0,0" VerticalAlignment="Top" Width="78" Height="42" Click="createTrayBtn_Click"/>
+        <Button x:Name="createDeliveryOutStockTaskBtn" Content="订单出库" HorizontalAlignment="Left" Margin="243,39,0,0" VerticalAlignment="Top" Width="78" Height="42" Click="createDeliveryOutStockTaskBtn_Click"/>
 
     </Grid>
 </Window>
