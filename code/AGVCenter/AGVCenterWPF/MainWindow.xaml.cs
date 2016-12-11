@@ -245,6 +245,7 @@ namespace AGVCenterWPF
             SetOPCAgvPassTimer.Start();
         }
 
+        private int prevRoadMahineIndex = 0;
         /// <summary>
         /// 读取入库机械手数据队列中的任务，写入OPC值并可读
         /// </summary>
@@ -262,7 +263,18 @@ namespace AGVCenterWPF
                 int roadMachineIndex = 0;
 
                 // 判断将其写入巷道机的任务队列
-                if (RoadMachine1TaskQueue.Count == 0)
+                // 两个都空闲的话使用平均原则，1,2,1,2,1,2 间隔入库
+                if(RoadMachine1TaskQueue.Count==0 && RoadMachine2TaskQueue.Count == 0)
+                {
+                    if (prevRoadMahineIndex == 1)
+                    {
+                        roadMachineIndex = 2;
+                    }
+                    else
+                    {
+                        roadMachineIndex = 1;
+                    }
+                } else if (RoadMachine1TaskQueue.Count == 0)
                 {
                     roadMachineIndex = 1;
                 }
@@ -283,6 +295,8 @@ namespace AGVCenterWPF
                     /// 无可用的巷道机缓冲
                     return;
                 }
+
+                prevRoadMahineIndex = roadMachineIndex;
 
                 taskItem.State = StockTaskState.RoadMachineStockBuffing;
                 taskItem.RoadMachineIndex = roadMachineIndex;
@@ -1595,6 +1609,11 @@ namespace AGVCenterWPF
             }
         }
 
+        /// <summary>
+        /// 判断是否有缓冲的入库任务
+        /// </summary>
+        /// <param name="roadMachineIndex"></param>
+        /// <returns></returns>
         private bool NotHasRoadMachineBuffingTask(int roadMachineIndex)
         {
             switch (roadMachineIndex)
