@@ -1007,6 +1007,7 @@ namespace AGVCenterWPF
                             break;
                         case StockTaskActionFlag.OutSuccess:
                             taskItem.State = StockTaskState.OutStocked;
+                            new StorageService(OPCConfig.DbString).OutStockByCheckCode(taskItem.Barcode);
                             dicQ.Remove(barcode);
                             break;
                         case StockTaskActionFlag.OutFailStoreNotFound:

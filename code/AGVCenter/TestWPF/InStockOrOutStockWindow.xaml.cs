@@ -38,6 +38,20 @@ namespace TestWPF
             {
                 MessageBox.Show(message.Content);
             }
-        } 
+        }
+
+        private void outStockBtn_Click(object sender, RoutedEventArgs e)
+        {
+            StorageService ss = new StorageService(Settings.Default.db);
+            ResultMessage message = ss.OutStockByCheckCode(checkCodeTB.Text);
+            if (message.Success)
+            {
+                MessageBox.Show("Out OK");
+            }
+            else
+            {
+                MessageBox.Show(message.Content);
+            }
+        }
     }
 }

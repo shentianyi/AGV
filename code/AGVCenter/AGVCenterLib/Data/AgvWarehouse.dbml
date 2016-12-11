@@ -139,17 +139,6 @@
       <Association Name="UniqueItem_Storage" Member="UniqueItem" ThisKey="UniqItemNr" OtherKey="Nr" Type="UniqueItem" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.StockMovement" Member="StockMovement">
-    <Type Name="StockMovement">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="SourcePosition" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="AimedPosition" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Operator" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.UniqueItem" Member="UniqueItem">
     <Type Name="UniqueItem">
       <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -168,6 +157,18 @@
       <Association Name="UniqueItem_Storage" Member="Storage" ThisKey="Nr" OtherKey="UniqItemNr" Type="Storage" />
       <Association Name="Part_UniqueItem" Member="Part" ThisKey="PartNr" OtherKey="Nr" Type="Part" IsForeignKey="true" />
       <Association Name="BoxType_UniqueItem" Member="BoxType" ThisKey="BoxTypeId" OtherKey="Id" Type="BoxType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StockMovement" Member="StockMovement">
+    <Type Name="StockMovement">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SourcePosition" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AimedPosition" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Operator" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

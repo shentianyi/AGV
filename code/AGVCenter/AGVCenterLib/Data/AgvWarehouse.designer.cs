@@ -63,12 +63,12 @@ namespace AGVCenterLib.Data
     partial void InsertStorage(Storage instance);
     partial void UpdateStorage(Storage instance);
     partial void DeleteStorage(Storage instance);
-    partial void InsertStockMovement(StockMovement instance);
-    partial void UpdateStockMovement(StockMovement instance);
-    partial void DeleteStockMovement(StockMovement instance);
     partial void InsertUniqueItem(UniqueItem instance);
     partial void UpdateUniqueItem(UniqueItem instance);
     partial void DeleteUniqueItem(UniqueItem instance);
+    partial void InsertStockMovement(StockMovement instance);
+    partial void UpdateStockMovement(StockMovement instance);
+    partial void DeleteStockMovement(StockMovement instance);
     #endregion
 		
 		public AgvWarehouseDataContext() : 
@@ -197,19 +197,19 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<StockMovement> StockMovement
-		{
-			get
-			{
-				return this.GetTable<StockMovement>();
-			}
-		}
-		
 		public System.Data.Linq.Table<UniqueItem> UniqueItem
 		{
 			get
 			{
 				return this.GetTable<UniqueItem>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StockMovement> StockMovement
+		{
+			get
+			{
+				return this.GetTable<StockMovement>();
 			}
 		}
 	}
@@ -2953,212 +2953,6 @@ namespace AGVCenterLib.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StockMovement")]
-	public partial class StockMovement : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _SourcePosition;
-		
-		private string _AimedPosition;
-		
-		private System.Nullable<int> _Type;
-		
-		private string _Operator;
-		
-		private System.Nullable<System.DateTime> _Time;
-		
-		private System.Nullable<System.DateTime> _CreatedAt;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnSourcePositionChanging(string value);
-    partial void OnSourcePositionChanged();
-    partial void OnAimedPositionChanging(string value);
-    partial void OnAimedPositionChanged();
-    partial void OnTypeChanging(System.Nullable<int> value);
-    partial void OnTypeChanged();
-    partial void OnOperatorChanging(string value);
-    partial void OnOperatorChanged();
-    partial void OnTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnTimeChanged();
-    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedAtChanged();
-    #endregion
-		
-		public StockMovement()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SourcePosition", DbType="VarChar(50)")]
-		public string SourcePosition
-		{
-			get
-			{
-				return this._SourcePosition;
-			}
-			set
-			{
-				if ((this._SourcePosition != value))
-				{
-					this.OnSourcePositionChanging(value);
-					this.SendPropertyChanging();
-					this._SourcePosition = value;
-					this.SendPropertyChanged("SourcePosition");
-					this.OnSourcePositionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AimedPosition", DbType="VarChar(50)")]
-		public string AimedPosition
-		{
-			get
-			{
-				return this._AimedPosition;
-			}
-			set
-			{
-				if ((this._AimedPosition != value))
-				{
-					this.OnAimedPositionChanging(value);
-					this.SendPropertyChanging();
-					this._AimedPosition = value;
-					this.SendPropertyChanged("AimedPosition");
-					this.OnAimedPositionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
-		public System.Nullable<int> Type
-		{
-			get
-			{
-				return this._Type;
-			}
-			set
-			{
-				if ((this._Type != value))
-				{
-					this.OnTypeChanging(value);
-					this.SendPropertyChanging();
-					this._Type = value;
-					this.SendPropertyChanged("Type");
-					this.OnTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Operator", DbType="VarChar(50)")]
-		public string Operator
-		{
-			get
-			{
-				return this._Operator;
-			}
-			set
-			{
-				if ((this._Operator != value))
-				{
-					this.OnOperatorChanging(value);
-					this.SendPropertyChanging();
-					this._Operator = value;
-					this.SendPropertyChanged("Operator");
-					this.OnOperatorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Time", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Time
-		{
-			get
-			{
-				return this._Time;
-			}
-			set
-			{
-				if ((this._Time != value))
-				{
-					this.OnTimeChanging(value);
-					this.SendPropertyChanging();
-					this._Time = value;
-					this.SendPropertyChanged("Time");
-					this.OnTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedAt
-		{
-			get
-			{
-				return this._CreatedAt;
-			}
-			set
-			{
-				if ((this._CreatedAt != value))
-				{
-					this.OnCreatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedAt = value;
-					this.SendPropertyChanged("CreatedAt");
-					this.OnCreatedAtChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UniqueItem")]
 	public partial class UniqueItem : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3624,6 +3418,236 @@ namespace AGVCenterLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.UniqueItem = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StockMovement")]
+	public partial class StockMovement : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _UniqItemNr;
+		
+		private string _SourcePosition;
+		
+		private string _AimedPosition;
+		
+		private System.Nullable<int> _Type;
+		
+		private string _Operator;
+		
+		private System.Nullable<System.DateTime> _Time;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnUniqItemNrChanging(string value);
+    partial void OnUniqItemNrChanged();
+    partial void OnSourcePositionChanging(string value);
+    partial void OnSourcePositionChanged();
+    partial void OnAimedPositionChanging(string value);
+    partial void OnAimedPositionChanged();
+    partial void OnTypeChanging(System.Nullable<int> value);
+    partial void OnTypeChanged();
+    partial void OnOperatorChanging(string value);
+    partial void OnOperatorChanged();
+    partial void OnTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimeChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    #endregion
+		
+		public StockMovement()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqItemNr", DbType="VarChar(50)")]
+		public string UniqItemNr
+		{
+			get
+			{
+				return this._UniqItemNr;
+			}
+			set
+			{
+				if ((this._UniqItemNr != value))
+				{
+					this.OnUniqItemNrChanging(value);
+					this.SendPropertyChanging();
+					this._UniqItemNr = value;
+					this.SendPropertyChanged("UniqItemNr");
+					this.OnUniqItemNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SourcePosition", DbType="VarChar(50)")]
+		public string SourcePosition
+		{
+			get
+			{
+				return this._SourcePosition;
+			}
+			set
+			{
+				if ((this._SourcePosition != value))
+				{
+					this.OnSourcePositionChanging(value);
+					this.SendPropertyChanging();
+					this._SourcePosition = value;
+					this.SendPropertyChanged("SourcePosition");
+					this.OnSourcePositionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AimedPosition", DbType="VarChar(50)")]
+		public string AimedPosition
+		{
+			get
+			{
+				return this._AimedPosition;
+			}
+			set
+			{
+				if ((this._AimedPosition != value))
+				{
+					this.OnAimedPositionChanging(value);
+					this.SendPropertyChanging();
+					this._AimedPosition = value;
+					this.SendPropertyChanged("AimedPosition");
+					this.OnAimedPositionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
+		public System.Nullable<int> Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Operator", DbType="VarChar(50)")]
+		public string Operator
+		{
+			get
+			{
+				return this._Operator;
+			}
+			set
+			{
+				if ((this._Operator != value))
+				{
+					this.OnOperatorChanging(value);
+					this.SendPropertyChanging();
+					this._Operator = value;
+					this.SendPropertyChanged("Operator");
+					this.OnOperatorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Time", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Time
+		{
+			get
+			{
+				return this._Time;
+			}
+			set
+			{
+				if ((this._Time != value))
+				{
+					this.OnTimeChanging(value);
+					this.SendPropertyChanging();
+					this._Time = value;
+					this.SendPropertyChanged("Time");
+					this.OnTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
