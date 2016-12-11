@@ -25,7 +25,7 @@ namespace TestCon
                     KNrWithYear = iss,
                     CheckCode = iss,
                     KskNr = iss,
-                    BoxTypeId = i % 2 == 0 ?
+                    BoxTypeId = i % 3 == 0 ?
                         (int)AGVCenterLib.Enum.BoxType.Big : (int)AGVCenterLib.Enum.BoxType.Small
 
                 });

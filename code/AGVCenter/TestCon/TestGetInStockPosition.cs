@@ -15,7 +15,7 @@ namespace TestCon
             List<string> d = new List<string>();
             for (int i = 0; i < 10000; i++)
             {
-                var p = ps.FindInStockPosition(i % 2 == 0 ? 1 : 2, d);
+                var p = ps.FindInStockPosition(i % 5 == 0 ? 1 : 2, d);
 
                 if (p == null)
                 {

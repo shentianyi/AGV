@@ -48,9 +48,11 @@ namespace TestCon
             //    Console.WriteLine(string.Format("{0}-{1}", d.Key, d.Value));
             //}
             //Console.WriteLine("1".PadLeft(2, '0'));
-             TestGetInStockPosition.Test(true);
+
+            TestCreateProduct.Test();
+            TestGetInStockPosition.Test(true);
             //var l = DeliveryStorageViewModel.Converts(new DeliveryService(Settings.Default.db).GetDeliveryStorageByNr("20161211180345"));
-            //TestCreateProduct.Test();
+         
             Console.Read();
         }
 
