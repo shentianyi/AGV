@@ -14,6 +14,7 @@ namespace AGVCenterLib
         /// </summary>
         public static Dictionary<string, Dictionary<string, string>> GroupNameAddress = new Dictionary<string, Dictionary<string, string>>()
         {
+
             #region 获取条码
             {
                 "OPCCheckInStockBarcode",
@@ -24,6 +25,7 @@ namespace AGVCenterLib
                 }
             },
             #endregion
+            
             #region 小车入库扫描放行
             {
                 "OPCAgvInStockPass",
@@ -34,6 +36,7 @@ namespace AGVCenterLib
                 }
             },
             #endregion
+            
             #region 入库机械手任务信息
             {
                 "OPCInRobootPick",
@@ -44,6 +47,7 @@ namespace AGVCenterLib
                 }
             },
             #endregion
+           
             #region 巷道机1库存任务
             {
                 "SetStockTaskRoadMachine1",
@@ -63,6 +67,7 @@ namespace AGVCenterLib
                 }
             },
            #endregion
+            
             #region 巷道机2库存任务
             {
                 "SetStockTaskRoadMachine2",
@@ -83,7 +88,7 @@ namespace AGVCenterLib
             },
            #endregion
 
-             #region 巷道机1库存任务反馈
+            #region 巷道机1库存任务反馈
             {
                 "OPCRoadMachine1TaskFeed",
                 new Dictionary<string,string>()
@@ -106,7 +111,7 @@ namespace AGVCenterLib
             },
            #endregion
 
-             #region 巷道机2库存任务反馈
+            #region 巷道机2库存任务反馈
             {
                 "OPCRoadMachine2TaskFeed",
                  new Dictionary<string,string>()

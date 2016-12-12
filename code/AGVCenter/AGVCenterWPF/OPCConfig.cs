@@ -81,6 +81,14 @@ namespace AGVCenterWPF
         public static string OPCTaskFeedRM2OPCGroupName = "OPCTaskFeedRM2OPCGroup";
         public static int OPCTaskFeedRM2OPCGroupRate = 10;
         public static int OPCTaskFeedRM2OPCGroupDeadBand = 0;
+
+        /// <summary>
+        /// OPCOutRobootPickOPCGroup, 出库机械手任务，反馈大小箱、托盘个数
+        /// </summary>
+        public static string OPCOutRobootPickOPCGroupName = "OPCOutRobootPickOPCGroup";
+        public static int OPCOutRobootPickOPCGroupRate = 10;
+        public static int OPCOutRobootPickOPCGroupDeadBand = 0;
+        public static int DispatchTrayOutStockTaskTimerInterval = 100;
         #endregion
 
 

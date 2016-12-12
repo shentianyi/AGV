@@ -94,6 +94,10 @@ namespace AGVCenterWPF
         OPCRoadMachineTaskFeed OPCRoadMachine2TaskFeedData;
         OPCGroup OPCRoadMachine2TaskFeedOPCGroup;
 
+
+        // 出库机械手码垛
+        OPCOutRobootPick OPCOutRobootPickData;
+        OPCGroup OPCOutRobootPickOPCGroup;
         #endregion
 
         #region 监控定时器
@@ -106,6 +110,12 @@ namespace AGVCenterWPF
         /// 写入OPC入库机械手信息，将对列InRobootPickQueue的任务写入OPC
         /// </summary>
         Timer SetOPCInRobootPickTimer;
+
+        /// <summary>
+        /// 逐托分发出库任务定时器
+        /// </summary>
+        Timer DispatchTrayOutStockTaskTimer;
+        private static object DispatchTrayOutStockTaskLocker = new object();
 
         /// <summary>
         /// 写入OPC库存任务定时器
@@ -164,7 +174,9 @@ namespace AGVCenterWPF
             OPCRoadMachine2TaskFeedData = new OPCRoadMachineTaskFeed("OPCRoadMachine2TaskFeed", 2);
             OPCRoadMachine2TaskFeedData.ActionFlagChangeEvent += new OPCRoadMachineTaskFeed.ActionFlagChangeEventHandler(OPCRoadMachine1TaskFeedData_ActionFlagChangeEvent);
 
-
+            //出库机械手
+            OPCOutRobootPickData = new OPCOutRobootPick();
+            OPCOutRobootPickData.RwFlagChangedEvent +=new OPCOutRobootPick.RwFlagChangedEventHandler( OPCOutRobootPickData_RwFlagChangedEvent);
             #endregion
 
             #region 初始化定时器
@@ -180,26 +192,36 @@ namespace AGVCenterWPF
             SetOPCInRobootPickTimer.Enabled = true;
             SetOPCInRobootPickTimer.Elapsed += SetOPCInRobootPickTimer_Elapsed;
 
+           
+            // 从数据库加载出库任务定时器
+            LoadOutStockTaskFromDbTimer = new Timer();
+            LoadOutStockTaskFromDbTimer.Interval = OPCConfig.LoadOutStockTaskFromDbTimerInterval;
+            LoadOutStockTaskFromDbTimer.Enabled = true;
+            LoadOutStockTaskFromDbTimer.Elapsed += LoadOutStockTaskFromDbTimer_Elapsed;
+
+            // 逐托分发出库任务定时器，查看是可以分发
+            DispatchTrayOutStockTaskTimer = new Timer();
+            DispatchTrayOutStockTaskTimer.Interval = OPCConfig.DispatchTrayOutStockTaskTimerInterval;
+            DispatchTrayOutStockTaskTimer.Enabled = true;
+            DispatchTrayOutStockTaskTimer.Elapsed += DispatchTrayOutStockTaskTimer_Elapsed;
+
             // 库存任务定时器，查看巷道机是否可以工作
             SetOPCStockTaskTimer = new Timer();
             SetOPCStockTaskTimer.Interval = OPCConfig.SetOPCStockTaskTimerInterval;
             SetOPCStockTaskTimer.Enabled = true;
             SetOPCStockTaskTimer.Elapsed += SetOPCStockTaskTimer_Elapsed;
 
-            // 从数据库加载出库任务定时器
-            LoadOutStockTaskFromDbTimer = new Timer();
-            LoadOutStockTaskFromDbTimer.Interval = OPCConfig.LoadOutStockTaskFromDbTimerInterval;
-            LoadOutStockTaskFromDbTimer.Enabled = true;
-            LoadOutStockTaskFromDbTimer.Elapsed += LoadOutStockTaskFromDbTimer_Elapsed;
             /// 启动定时器
             LogUtil.Logger.Info("【启动SetOPCAgvPassTimer定时器】");
             SetOPCAgvPassTimer.Start();
             LogUtil.Logger.Info("【启动SetOPCInRobootPickTimer定时器】");
             SetOPCInRobootPickTimer.Start();
-            LogUtil.Logger.Info("【启动SetOPCStockTaskTimer定时器】");
-            SetOPCStockTaskTimer.Start();
             LogUtil.Logger.Info("【启动LoadOutStockTaskFromDbTimer定时器】");
             LoadOutStockTaskFromDbTimer.Start();
+            LogUtil.Logger.Info("【启动DispatchTrayOutStockTaskTimer定时器】");
+            DispatchTrayOutStockTaskTimer.Start();
+            LogUtil.Logger.Info("【启动SetOPCStockTaskTimer定时器】");
+            SetOPCStockTaskTimer.Start();
             #endregion
         }
 
@@ -492,6 +514,21 @@ namespace AGVCenterWPF
         }
 
         /// <summary>
+        /// 逐托分发出库任务
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DispatchTrayOutStockTaskTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (OPCOutRobootPickData.CanWrite)
+            {
+                if (this.DispatchOutStockTaskByTray())
+                {
+                    this.OPCOutRobootPickData.SyncWrite(this.OPCOutRobootPickOPCGroup);
+                }
+            }
+        }
+        /// <summary>
         /// 列出OPC服务
         /// </summary>
         /// <param name="sender"></param>
@@ -613,7 +650,7 @@ namespace AGVCenterWPF
 
                 // 添加item
                 OPCAgvInStockPassData.AddItemToGroup(OPCAgvInStockPassOPCGroup);
-                OPCAgvInStockPassOPCGroup.DataChange += OPCAgvInStockPassOPCGroup_DataChange; ;
+                OPCAgvInStockPassOPCGroup.DataChange += OPCAgvInStockPassOPCGroup_DataChange; 
                 #endregion
 
                 #region 入库机械手抓取信息组
@@ -648,7 +685,7 @@ namespace AGVCenterWPF
                 OPCSetStockTaskRoadMachine2OPCGroup.IsActive = true;
                 // 添加item
                 OPCSetStockTaskRoadMachine2Data.AddItemToGroup(OPCSetStockTaskRoadMachine2OPCGroup);
-                OPCSetStockTaskRoadMachine2OPCGroup.DataChange += OPCSetStockTaskRoadMachine2OPCGroup_DataChange; ;
+                OPCSetStockTaskRoadMachine2OPCGroup.DataChange += OPCSetStockTaskRoadMachine2OPCGroup_DataChange; 
 
                 // 初始化 巷道机1 入库任务反馈组
                 OPCRoadMachine1TaskFeedOPCGroup = ConnectedOPCServer.OPCGroups.Add(OPCConfig.OPCTaskFeedRM1OPCGroupName);
@@ -668,8 +705,18 @@ namespace AGVCenterWPF
                 OPCRoadMachine2TaskFeedOPCGroup.IsActive = true;
                 // 添加item
                 OPCRoadMachine2TaskFeedData.AddItemToGroup(OPCRoadMachine2TaskFeedOPCGroup);
-                OPCRoadMachine2TaskFeedOPCGroup.DataChange += OPCRoadMachine2TaskFeedOPCGroup_DataChange; ;
+                OPCRoadMachine2TaskFeedOPCGroup.DataChange += OPCRoadMachine2TaskFeedOPCGroup_DataChange;
 
+
+                // 初始化 出库抓手 任务
+                OPCOutRobootPickOPCGroup = ConnectedOPCServer.OPCGroups.Add(OPCConfig.OPCOutRobootPickOPCGroupName);
+                OPCOutRobootPickOPCGroup.UpdateRate = OPCConfig.OPCOutRobootPickOPCGroupRate;
+                OPCOutRobootPickOPCGroup.DeadBand = OPCConfig.OPCOutRobootPickOPCGroupDeadBand;
+                OPCOutRobootPickOPCGroup.IsSubscribed = true;
+                OPCOutRobootPickOPCGroup.IsActive = true;
+                // 添加item
+                OPCOutRobootPickData.AddItemToGroup(OPCOutRobootPickOPCGroup);
+                OPCOutRobootPickOPCGroup.DataChange += OPCOutRobootPickOPCGroup_DataChange;
                 #endregion
                 return true;
 
@@ -682,8 +729,7 @@ namespace AGVCenterWPF
             return false;
         }
 
-
-
+        
 
         // 第一次会获取到opcserver的数据，即使没有触发，相当于初始化
         // 扫描入库的信息获取
@@ -709,7 +755,7 @@ namespace AGVCenterWPF
             catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
         }
 
@@ -738,7 +784,7 @@ namespace AGVCenterWPF
             catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
         }
 
@@ -767,7 +813,7 @@ namespace AGVCenterWPF
             catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
         }
 
@@ -797,7 +843,7 @@ namespace AGVCenterWPF
             catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
         }
 
@@ -826,7 +872,7 @@ namespace AGVCenterWPF
             catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
         }
 
@@ -857,7 +903,7 @@ namespace AGVCenterWPF
             catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
         }
 
@@ -886,9 +932,40 @@ namespace AGVCenterWPF
             catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
-                MessageBox.Show(ex.Message);
+               // MessageBox.Show(ex.Message);
             }
         }
+
+        /// <summary>
+        /// 出库机械手 数据改变事件处理
+        /// </summary>
+        /// <param name="TransactionID"></param>
+        /// <param name="NumItems"></param>
+        /// <param name="ClientHandles"></param>
+        /// <param name="ItemValues"></param>
+        /// <param name="Qualities"></param>
+        /// <param name="TimeStamps"></param>
+        private void OPCOutRobootPickOPCGroup_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        {
+            try
+            {
+                // 从1开始
+                for (var i = 1; i <= NumItems; i++)
+                {
+                    LogUtil.Logger.InfoFormat("【数据改变】【出库机械手】【{0}】{1}",
+                        OPCOutRobootPickData.GetSimpleOpcKey(i),
+                        ItemValues.GetValue(i));
+                }
+                OPCOutRobootPickData.SetValue(NumItems, ClientHandles, ItemValues);
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+             //   MessageBox.Show(ex.Message);
+            }
+        }
+
+
 
 
         /// <summary>
@@ -988,6 +1065,19 @@ namespace AGVCenterWPF
             UpdateTaskByFeed(taskFeed.RoadMachineIndex, (StockTaskActionFlag)taskFeed.ActionFlag, taskFeed.CurrentBarcode);
         }
 
+        /// <summary>
+        /// 出库机械手可写标记改变事件
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="toFlag"></param>
+        private void OPCOutRobootPickData_RwFlagChangedEvent(OPCDataBase b, byte toFlag)
+        {
+            LogUtil.Logger.InfoFormat("【OPC  入库机械手 读写标记改变】{0}->{1}", b.OPCRwFlagWas, b.OPCRwFlag);
+            //if (b.CanWrite)
+            //{
+               
+            //}
+        }
 
 
         /// <summary>
@@ -1337,8 +1427,8 @@ namespace AGVCenterWPF
         /// </summary>
         private void ShutDownComponents()
         {
-            this.DisconnectOPCServer();
             this.StopTimers();
+            this.DisconnectOPCServer();
         }
 
         /// <summary>
@@ -1382,6 +1472,11 @@ namespace AGVCenterWPF
             {
                 SetOPCInRobootPickTimer.Enabled = false;
                 SetOPCInRobootPickTimer.Stop();
+            }
+            if (DispatchTrayOutStockTaskTimer != null)
+            {
+                DispatchTrayOutStockTaskTimer.Enabled = false;
+                DispatchTrayOutStockTaskTimer.Stop();
             }
             if (SetOPCStockTaskTimer != null)
             {
@@ -1661,6 +1756,8 @@ namespace AGVCenterWPF
 
 
 
+
+
         #region 从数据库加载出库任务
         /// <summary>
         /// 出库任务总队列
@@ -1713,10 +1810,7 @@ namespace AGVCenterWPF
                         ///
                         if (!OutStockCenterQueue.Keys.Contains(st.TrayBatchId))
                         {
-                            OutStockCenterQueue.Add(st.TrayBatchId, new List<StockTaskItem>()
-                        {
-                            taskItem
-                        });
+                            OutStockCenterQueue.Add(st.TrayBatchId, new List<StockTaskItem>() { taskItem });
                         }
                         else
                         {
@@ -1732,6 +1826,34 @@ namespace AGVCenterWPF
                 LogUtil.Logger.Error(ex.Message,ex);
             }
 
+        }
+
+        /// <summary>
+        /// 逐托分发任务
+        /// </summary>
+        private bool DispatchOutStockTaskByTray()
+        {
+            lock (DispatchTrayOutStockTaskLocker)
+            {
+                if (OutStockCenterQueue.Count == 0)
+                {
+                    return false;
+                }
+                var f= OutStockCenterQueue.FirstOrDefault();
+                foreach (var taskItem in f.Value)
+                {
+                    if (taskItem.RoadMachineIndex == 1)
+                    {
+                        RoadMachine1TaskQueue.Add(taskItem.Barcode, taskItem);
+                    }
+                    else if (taskItem.RoadMachineIndex == 2)
+                    {
+                        RoadMachine2TaskQueue.Add(taskItem.Barcode, taskItem);
+                    }
+                }
+                OutStockCenterQueue.Remove(f.Key);
+                return true;
+            }
         }
         #endregion
     }
