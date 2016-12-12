@@ -31,17 +31,17 @@ namespace AGVCenterLib.Model.OPC
         /// <summary>
         /// 库位，层，3
         /// </summary>
-        public byte PositionFloor { get; set; }
+        public int PositionFloor { get; set; }
 
         /// <summary>
         /// 库位，列，4
         /// </summary>
-        public byte PositionColumn { get; set; }
+        public int PositionColumn { get; set; }
 
         /// <summary>
         /// 库位，排，5
         /// </summary>
-        public byte PositionRow { get; set; }
+        public int PositionRow { get; set; }
 
         /// <summary>
         /// 箱型，6
@@ -148,13 +148,13 @@ namespace AGVCenterLib.Model.OPC
                         this.StockTaskType = (byte)ItemValues.GetValue(i);
                         break;
                     case 3:
-                        this.PositionFloor = (byte)ItemValues.GetValue(i);
+                        this.PositionFloor = (int)ItemValues.GetValue(i);
                         break;
                     case 4:
-                        this.PositionColumn = (byte)ItemValues.GetValue(i);
+                        this.PositionColumn = (int)ItemValues.GetValue(i);
                         break;
                     case 5:
-                        this.PositionRow = (byte)ItemValues.GetValue(i);
+                        this.PositionRow = (int)ItemValues.GetValue(i);
                         break;
                     case 6:
                         this.BoxType = (byte)ItemValues.GetValue(i);

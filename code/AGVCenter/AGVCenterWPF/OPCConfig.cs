@@ -20,9 +20,9 @@ namespace AGVCenterWPF
         /// <summary>
         /// OPC 服务
         /// </summary>
-        public static string OPCServer = "OPC.SimaticNET.1";
+        public static string OPCServerName = Settings.Default.OPCServerName;//"OPC.SimaticNET.1";
 
-        public static string OPCNodeName = "192.168.1.105";
+        public static string OPCNodeName = Settings.Default.OPCNodeName; //"192.168.1.105";
 
         #region OPC组
         /// <summary>

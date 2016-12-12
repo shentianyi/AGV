@@ -130,7 +130,7 @@ namespace AGVCenterWPF
             {
                 OPCServersLB.Items.Add(i);
             }
-            OPCServerTB.Text = OPCConfig.OPCServer;
+            OPCServerTB.Text = OPCConfig.OPCServerName;
             OPCNodeNameTB.Text = OPCConfig.OPCNodeName;
 
             #endregion
@@ -347,9 +347,9 @@ namespace AGVCenterWPF
                     OPCSetStockTaskRoadMachine1Data.StockTaskType = (byte)taskItem.StockTaskType;
 
                     OPCSetStockTaskRoadMachine1Data.BoxType = taskItem.BoxType;
-                    OPCSetStockTaskRoadMachine1Data.PositionFloor = (byte)taskItem.PositionFloor;
-                    OPCSetStockTaskRoadMachine1Data.PositionColumn = (byte)taskItem.PositionColumn;
-                    OPCSetStockTaskRoadMachine1Data.PositionRow = (byte)taskItem.PositionRow;
+                    OPCSetStockTaskRoadMachine1Data.PositionFloor =  taskItem.PositionFloor;
+                    OPCSetStockTaskRoadMachine1Data.PositionColumn =  taskItem.PositionColumn;
+                    OPCSetStockTaskRoadMachine1Data.PositionRow =  taskItem.PositionRow;
 
 
                     OPCSetStockTaskRoadMachine1Data.RestPositionFlag = taskItem.RestPositionFlag;
@@ -382,9 +382,9 @@ namespace AGVCenterWPF
                     OPCSetStockTaskRoadMachine2Data.StockTaskType = (byte)taskItem.StockTaskType;
 
                     OPCSetStockTaskRoadMachine2Data.BoxType = taskItem.BoxType;
-                    OPCSetStockTaskRoadMachine2Data.PositionFloor = (byte)taskItem.PositionFloor;
-                    OPCSetStockTaskRoadMachine2Data.PositionColumn = (byte)taskItem.PositionColumn;
-                    OPCSetStockTaskRoadMachine2Data.PositionRow = (byte)taskItem.PositionRow;
+                    OPCSetStockTaskRoadMachine2Data.PositionFloor =  taskItem.PositionFloor;
+                    OPCSetStockTaskRoadMachine2Data.PositionColumn =  taskItem.PositionColumn;
+                    OPCSetStockTaskRoadMachine2Data.PositionRow =  taskItem.PositionRow;
 
 
                     OPCSetStockTaskRoadMachine2Data.RestPositionFlag = taskItem.RestPositionFlag;

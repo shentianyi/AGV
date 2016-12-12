@@ -40,47 +40,47 @@ namespace AGVCenterLib.Model.OPC
         /// <summary>
         /// 当前位置，层，1
         /// </summary>
-        public byte CurrentPositionFloor { get; set; }
+        public int CurrentPositionFloor { get; set; }
 
         /// <summary>
         /// 当前位置，列，2
         /// </summary>
-        public byte CurrentPositionColumn { get; set; }
+        public int CurrentPositionColumn { get; set; }
 
         /// <summary>
         /// 当前位置，排，3
         /// </summary>
-        public byte CurrentPositionRow { get; set; }
+        public int CurrentPositionRow { get; set; }
 
         /// <summary>
         /// 目标出库位置，层，4
         /// </summary>
-        public byte TargetOutPositionFloor { get; set; }
+        public int TargetOutPositionFloor { get; set; }
 
         /// <summary>
         /// 目标出库位置，列，5
         /// </summary>
-        public byte TargetOutPositionColumn { get; set; }
+        public int TargetOutPositionColumn { get; set; }
 
         /// <summary>
         /// 目标出库位置，排，6
         /// </summary>
-        public byte TargetOutPositionRow { get; set; }
+        public int TargetOutPositionRow { get; set; }
 
         /// <summary>
         /// 目标入库位置，层，7
         /// </summary>
-        public byte TargetInPositionFloor { get; set; }
+        public int TargetInPositionFloor { get; set; }
 
         /// <summary>
         /// 目标入库位置，列，8
         /// </summary>
-        public byte TargetInPositionColumn { get; set; }
+        public int TargetInPositionColumn { get; set; }
         
         /// <summary>
         /// 目标入库位置，排，9
         /// </summary>
-        public byte TargetInPositionRow { get; set; }
+        public int TargetInPositionRow { get; set; }
 
         /// <summary>
         /// 当前状态，10
@@ -140,8 +140,8 @@ namespace AGVCenterLib.Model.OPC
         public override bool SyncWrite(OPCGroup group)
         {
 
-            int[] SyncItemServerHandles = new int[11];
-            object[] SyncItemValues = new object[11];
+            int[] SyncItemServerHandles = new int[14];
+            object[] SyncItemValues = new object[14];
             Array SyncItemServerErrors;
 
 
@@ -201,31 +201,31 @@ namespace AGVCenterLib.Model.OPC
                 switch ((int)ClientHandles.GetValue(i))
                 {
                     case 1:
-                        this.CurrentPositionFloor = (byte)ItemValues.GetValue(i);
+                        this.CurrentPositionFloor = (int)ItemValues.GetValue(i);
                         break;
                     case 2:
-                        this.CurrentPositionColumn = (byte)ItemValues.GetValue(i);
+                        this.CurrentPositionColumn = (int)ItemValues.GetValue(i);
                         break;
                     case 3:
-                        this.CurrentPositionRow = (byte)ItemValues.GetValue(i);
+                        this.CurrentPositionRow = (int)ItemValues.GetValue(i);
                         break;
                     case 4:
-                        this.TargetOutPositionFloor = (byte)ItemValues.GetValue(i);
+                        this.TargetOutPositionFloor = (int)ItemValues.GetValue(i);
                         break;
                     case 5:
-                        this.TargetOutPositionColumn = (byte)ItemValues.GetValue(i);
+                        this.TargetOutPositionColumn = (int)ItemValues.GetValue(i);
                         break;
                     case 6:
-                        this.TargetOutPositionRow = (byte)ItemValues.GetValue(i);
+                        this.TargetOutPositionRow = (int)ItemValues.GetValue(i);
                         break;
                     case 7:
-                        this.TargetInPositionFloor = (byte)ItemValues.GetValue(i);
+                        this.TargetInPositionFloor = (int)ItemValues.GetValue(i);
                         break;
                     case 8:
-                        this.TargetInPositionColumn = (byte) ItemValues.GetValue(i);
+                        this.TargetInPositionColumn = (int) ItemValues.GetValue(i);
                         break;
                     case 9:
-                        this.TargetInPositionRow = (byte)ItemValues.GetValue(i);
+                        this.TargetInPositionRow = (int)ItemValues.GetValue(i);
                         break;
                     case 10:
                         this.CurrentState = int.Parse(ItemValues.GetValue(i).ToString());

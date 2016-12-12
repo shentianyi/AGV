@@ -32,5 +32,23 @@ namespace AGVCenterWPF.Properties {
                 return ((string)(this["dbString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.105")]
+        public string OPCNodeName {
+            get {
+                return ((string)(this["OPCNodeName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("OPC.SimaticNET.1")]
+        public string OPCServerName {
+            get {
+                return ((string)(this["OPCServerName"]));
+            }
+        }
     }
 }

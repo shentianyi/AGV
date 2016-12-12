@@ -18,6 +18,11 @@ namespace AGVCenterLib.Data.Repository.Implement
             this.context = dataContextFactory.Context as AgvWarehouseDataContext;
         }
 
+        public void Create(Position entity)
+        {
+            this.context.Position.InsertOnSubmit(entity);
+        }
+
         public void Creates(List<Position> entities)
         {
             this.context.Position.InsertAllOnSubmit(entities);

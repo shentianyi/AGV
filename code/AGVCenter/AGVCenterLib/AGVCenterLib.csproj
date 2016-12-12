@@ -116,6 +116,7 @@
     <Compile Include="Enum\StockTaskState.cs" />
     <Compile Include="Enum\UniqueItemState.cs" />
     <Compile Include="Model\Message\ResultMessage.cs" />
+    <Compile Include="Model\OPC\OPCOutRobootPick.cs" />
     <Compile Include="Model\OPC\OPCInRobootPick.cs" />
     <Compile Include="Model\OPC\OPCAgvInStockPass.cs" />
     <Compile Include="Model\OPC\OPCCheckInStockBarcode.cs" />

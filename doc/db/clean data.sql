@@ -11,6 +11,7 @@ delete from UniqueItem;
 
 
 
+delete from Position;
 
 
 

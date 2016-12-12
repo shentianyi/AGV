@@ -5,5 +5,11 @@
     <Setting Name="dbString" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=AgvWarehoueDb;Persist Security Info=True;User ID=sa;Password=123456@</Value>
     </Setting>
+    <Setting Name="OPCNodeName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">192.168.0.105</Value>
+    </Setting>
+    <Setting Name="OPCServerName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">OPC.SimaticNET.1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

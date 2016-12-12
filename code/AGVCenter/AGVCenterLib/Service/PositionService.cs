@@ -54,12 +54,12 @@ namespace AGVCenterLib.Service
             int roadMachineIndex, 
             int rowNum,
             int columnNum ,
-            int floorNum)
+            int floorNum, int startColumn=1)
         {
             List<Position> positions = new List<Position>();
             for(int i = 1; i <= rowNum; i++)
             {
-                for(int j = 1; j <= columnNum; j++)
+                for(int j = startColumn; j <= columnNum; j++)
                 {
                     for(int k = 1; k <= floorNum; k++)
                     {
@@ -80,5 +80,11 @@ namespace AGVCenterLib.Service
             this.Context.SaveAll();
         }
 
+        public void CreatePosition( Position position)
+        {
+            IPositionRepository posiRep = new PositionRepository(this.Context);
+            posiRep.Create(position);
+            this.Context.SaveAll();
+        }
     }
 }

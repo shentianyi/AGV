@@ -19,6 +19,8 @@ namespace AGVCenterLib.Data.Repository.Interface
 
         Position FindByNr(string nr);
 
+        void Create(Position entity);
+
         void Creates(List<Position> entities);
 
         void DeleteAll();
