@@ -201,31 +201,31 @@ namespace AGVCenterLib.Model.OPC
                 switch ((int)ClientHandles.GetValue(i))
                 {
                     case 1:
-                        this.CurrentPositionFloor = (int)ItemValues.GetValue(i);
+                        this.CurrentPositionFloor = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 2:
-                        this.CurrentPositionColumn = (int)ItemValues.GetValue(i);
+                        this.CurrentPositionColumn = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 3:
-                        this.CurrentPositionRow = (int)ItemValues.GetValue(i);
+                        this.CurrentPositionRow = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 4:
-                        this.TargetOutPositionFloor = (int)ItemValues.GetValue(i);
+                        this.TargetOutPositionFloor = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 5:
-                        this.TargetOutPositionColumn = (int)ItemValues.GetValue(i);
+                        this.TargetOutPositionColumn = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 6:
-                        this.TargetOutPositionRow = (int)ItemValues.GetValue(i);
+                        this.TargetOutPositionRow = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 7:
-                        this.TargetInPositionFloor = (int)ItemValues.GetValue(i);
+                        this.TargetInPositionFloor = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 8:
-                        this.TargetInPositionColumn = (int) ItemValues.GetValue(i);
+                        this.TargetInPositionColumn = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 9:
-                        this.TargetInPositionRow = (int)ItemValues.GetValue(i);
+                        this.TargetInPositionRow = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 10:
                         this.CurrentState = int.Parse(ItemValues.GetValue(i).ToString());

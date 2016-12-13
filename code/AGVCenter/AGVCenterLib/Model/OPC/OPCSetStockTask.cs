@@ -148,13 +148,13 @@ namespace AGVCenterLib.Model.OPC
                         this.StockTaskType = (byte)ItemValues.GetValue(i);
                         break;
                     case 3:
-                        this.PositionFloor = (int)ItemValues.GetValue(i);
+                        this.PositionFloor = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 4:
-                        this.PositionColumn = (int)ItemValues.GetValue(i);
+                        this.PositionColumn = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 5:
-                        this.PositionRow = (int)ItemValues.GetValue(i);
+                        this.PositionRow = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 6:
                         this.BoxType = (byte)ItemValues.GetValue(i);

@@ -35,7 +35,7 @@ namespace AGVCenterLib.Data.Repository.Implement
 
         public StockTask FindLastByCheckCode(string checkCode)
         {
-            return this.context.StockTask.LastOrDefault(s => s.BarCode == checkCode);
+            return this.context.StockTask.OrderByDescending(s=>s.id).FirstOrDefault(s => s.BarCode == checkCode);
         }
 
         public List<StockTask> GetByState(StockTaskState state)

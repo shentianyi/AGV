@@ -81,7 +81,7 @@ namespace AGVCenterLib.Model.OPC
                         this.BoxType = (byte)ItemValues.GetValue(i);
                         break;
                     case 3:
-                        this.TrayNum = (int)ItemValues.GetValue(i);
+                        this.TrayNum = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     default:
                         break;

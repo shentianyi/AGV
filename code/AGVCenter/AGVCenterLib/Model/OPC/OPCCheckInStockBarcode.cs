@@ -83,7 +83,7 @@ namespace AGVCenterLib.Model.OPC
                         this.OPCRwFlag = (byte)ItemValues.GetValue(i);
                         break;
                     case 2:
-                        this.ScanedBarcode = ((string)ItemValues.GetValue(i)).Trim('\n').Trim('\r');
+                        this.ScanedBarcode = ParseBarcode(ItemValues.GetValue(i));
                         break;
                     default:
                         break;
