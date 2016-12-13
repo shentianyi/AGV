@@ -48,5 +48,9 @@ namespace AgvClientWPF
             new CreateDeliveryOutStockTaskWindow().Show();
         }
 
+        private void sendDeliveryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new SendDeliveryWindow().Show();
+        }
     }
 }

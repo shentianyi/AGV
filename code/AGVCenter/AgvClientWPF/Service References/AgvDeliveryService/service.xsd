@@ -133,4 +133,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SendDelivery">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendDeliveryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="SendDeliveryResult" nillable="true" type="q11:ResultMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

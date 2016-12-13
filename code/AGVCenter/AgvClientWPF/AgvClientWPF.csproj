@@ -59,7 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-  <Compile Include="Delivery\CreateDeliveryOutStockTaskWindow.xaml.cs">
+    <Compile Include="Delivery\CreateDeliveryOutStockTaskWindow.xaml.cs">
       <DependentUpon>CreateDeliveryOutStockTaskWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Delivery\CreateDeliveryWindow.xaml.cs">
@@ -67,6 +67,9 @@
     </Compile>
     <Compile Include="Delivery\CreateTrayWindow.xaml.cs">
       <DependentUpon>CreateTrayWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Delivery\SendDeliveryWindow.xaml.cs">
+      <DependentUpon>SendDeliveryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\UniqueHelper.cs" />
     <Compile Include="Service References\AgvDeliveryService\Reference.cs">
@@ -88,6 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Delivery\CreateTrayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Delivery\SendDeliveryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

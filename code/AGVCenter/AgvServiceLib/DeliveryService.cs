@@ -12,7 +12,12 @@ namespace AgvServiceLib
 {
     public class DeliveryService : IDeliveryService
     {
-        AGVCenterLib.Service.DeliveryService ds = new AGVCenterLib.Service.DeliveryService(SqlHelper.ConnectStr);
+        AGVCenterLib.Service.DeliveryService ds;
+
+        public DeliveryService()
+        {
+            ds = new AGVCenterLib.Service.DeliveryService(SqlHelper.ConnectStr);
+        }
 
         public bool DeliveryExists(string nr)
         {
@@ -63,6 +68,11 @@ namespace AgvServiceLib
         public ResultMessage CreateOutStockTaskByNr(string nr)
         {
             return new StockTaskService(SqlHelper.ConnectStr).CreateOutStockTaskByDeliery(nr);
+        }
+
+        public ResultMessage SendDelivery(string nr)
+        {
+            return ds.SendDeliveryByNr(nr);
         }
     }
 }

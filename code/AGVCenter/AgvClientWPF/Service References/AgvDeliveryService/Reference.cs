@@ -41,6 +41,9 @@ namespace AgvClientWPF.AgvDeliveryService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/CreateOutStockTaskByNr", ReplyAction="http://tempuri.org/IDeliveryService/CreateOutStockTaskByNrResponse")]
         AGVCenterLib.Model.Message.ResultMessage CreateOutStockTaskByNr(string nr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/SendDelivery", ReplyAction="http://tempuri.org/IDeliveryService/SendDeliveryResponse")]
+        AGVCenterLib.Model.Message.ResultMessage SendDelivery(string nr);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -104,6 +107,10 @@ namespace AgvClientWPF.AgvDeliveryService {
         
         public AGVCenterLib.Model.Message.ResultMessage CreateOutStockTaskByNr(string nr) {
             return base.Channel.CreateOutStockTaskByNr(nr);
+        }
+        
+        public AGVCenterLib.Model.Message.ResultMessage SendDelivery(string nr) {
+            return base.Channel.SendDelivery(nr);
         }
     }
 }

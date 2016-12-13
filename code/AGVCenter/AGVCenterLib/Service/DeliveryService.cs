@@ -50,7 +50,7 @@ namespace AGVCenterLib.Service
             Delivery delivery = this.FindByNr(nr);
             if (delivery == null)
             {
-                message.Content = "运单不存在，不可发运";
+                message.Content =string.Format( "运单{0}不存在，不可发运", nr);
                 return message;
             }
 
@@ -111,6 +111,7 @@ namespace AGVCenterLib.Service
                         {
                             DeliveryNr = deliveryNr,
                             UniqItemNr = uniqNr,
+                            State = (int)DeliveryState.Init,
                             CreatedAt = DateTime.Now,
                             UpdatedAt = DateTime.Now
                         });
@@ -146,6 +147,29 @@ namespace AGVCenterLib.Service
         public List<DeliveryStorageView> GetDeliveryStorageByNr(string nr)
         {
             return new DeliveryRepository(this.Context).GetStorageList(nr, true);
+        }
+
+
+        public ResultMessage SendDeliveryByNr(string nr)
+        {
+            ResultMessage message = this.CanDeliverySend(nr);
+            if (message.Success)
+            {
+                IDeliveryRepository deliveryRep = new DeliveryRepository(this.Context);
+                Delivery delivery = deliveryRep.FindByNr(nr);
+                foreach (var item in delivery.DeliveryItem.ToList())
+                {
+                    item.State = (int)DeliveryState.Sent;
+                    item.UniqueItem.State = (int)UniqueItemState.Sent;
+                }
+                delivery.State = (int)DeliveryState.Sent;
+
+                this.Context.SaveAll();
+
+                message.Success = true;
+
+            }
+            return message;
         }
     }
 }
