@@ -125,6 +125,7 @@
     <Compile Include="Model\OPC\OPCSetStockTask.cs" />
     <Compile Include="Model\StockTaskItem.cs" />
     <Compile Include="Model\ViewModel\DeliveryStorageViewModel.cs" />
+    <Compile Include="Model\ViewModel\StockTaskModel.cs" />
     <Compile Include="Model\ViewModel\UniqueItemModel.cs" />
     <Compile Include="OPCAddressMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

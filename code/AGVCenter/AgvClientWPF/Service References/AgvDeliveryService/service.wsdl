@@ -76,6 +76,12 @@
   <wsdl:message name="IDeliveryService_SendDelivery_OutputMessage">
     <wsdl:part name="parameters" element="tns:SendDeliveryResponse" />
   </wsdl:message>
+  <wsdl:message name="IDeliveryService_GetDeliveryOutStockTasks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOutStockTasks" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_GetDeliveryOutStockTasks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeliveryOutStockTasksResponse" />
+  </wsdl:message>
   <wsdl:portType name="IDeliveryService">
     <wsdl:operation name="DeliveryExists">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/DeliveryExists" message="tns:IDeliveryService_DeliveryExists_InputMessage" />
@@ -116,6 +122,10 @@
     <wsdl:operation name="SendDelivery">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/SendDelivery" message="tns:IDeliveryService_SendDelivery_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/SendDeliveryResponse" message="tns:IDeliveryService_SendDelivery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOutStockTasks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/GetDeliveryOutStockTasks" message="tns:IDeliveryService_GetDeliveryOutStockTasks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/GetDeliveryOutStockTasksResponse" message="tns:IDeliveryService_GetDeliveryOutStockTasks_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="deliveryservice" type="tns:IDeliveryService">
@@ -204,6 +214,15 @@
     </wsdl:operation>
     <wsdl:operation name="SendDelivery">
       <soap:operation soapAction="http://tempuri.org/IDeliveryService/SendDelivery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryOutStockTasks">
+      <soap:operation soapAction="http://tempuri.org/IDeliveryService/GetDeliveryOutStockTasks" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

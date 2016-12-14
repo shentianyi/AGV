@@ -30,12 +30,12 @@ namespace AGVCenterLib.Data.Repository.Implement
 
         public StockTask FindById(int id)
         {
-            return this.context.StockTask.FirstOrDefault(s => s.id == id);
+            return this.context.StockTask.FirstOrDefault(s => s.Id == id);
         }
 
         public StockTask FindLastByCheckCode(string checkCode)
         {
-            return this.context.StockTask.OrderByDescending(s=>s.id).FirstOrDefault(s => s.BarCode == checkCode);
+            return this.context.StockTask.OrderByDescending(s=>s.Id).FirstOrDefault(s => s.BarCode == checkCode);
         }
 
         public List<StockTask> GetByState(StockTaskState state)
@@ -43,12 +43,20 @@ namespace AGVCenterLib.Data.Repository.Implement
             return this.context.StockTask.Where(s => s.State == (int)state).ToList();
         }
 
+
         public void UpdateTasksState(List<int> taskIds, StockTaskState state)
         {
-            string cmd = string.Format("update stocktask set state={0} where id in ({1});",
+            string cmd = string.Format("update stocktask set state={0} where Id in ({1});",
                 (int)state,
                 string.Join(",", taskIds.ToArray()));
             this.context.ExecuteCommand(cmd);
+        }
+
+
+
+        public List<StockTask> GetOutStockTaskByDelivery(string deliveryNr)
+        {
+            return this.context.StockTask.Where(s => s.DeliveryBatchId == deliveryNr).ToList();
         }
     }
 }

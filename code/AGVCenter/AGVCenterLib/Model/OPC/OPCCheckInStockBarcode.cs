@@ -73,11 +73,11 @@ namespace AGVCenterLib.Model.OPC
         /// <param name="ClientHandles"></param>
         /// <param name="ClientHandles"></param>
         /// <param name="ItemValues"></param>
-        public override void SetValue(int NumItems, Array ClientHandles, Array ItemValues)
+        public override void SetValue(int NumItems, Array clientHandles, Array ItemValues)
         {
             for (int i = NumItems; i >= 1; i--)
             {
-                switch ((int)ClientHandles.GetValue(i))
+                switch ((int)clientHandles.GetValue(i))
                 {
                     case 1:
                         this.OPCRwFlag = (byte)ItemValues.GetValue(i);

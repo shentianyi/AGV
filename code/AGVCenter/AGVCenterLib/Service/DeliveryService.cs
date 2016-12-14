@@ -148,8 +148,12 @@ namespace AGVCenterLib.Service
         {
             return new DeliveryRepository(this.Context).GetStorageList(nr, true);
         }
-
-
+         
+        /// <summary>
+        /// 发送运单 根据运单号发送
+        /// </summary>
+        /// <param name="nr"></param>
+        /// <returns></returns>
         public ResultMessage SendDeliveryByNr(string nr)
         {
             ResultMessage message = this.CanDeliverySend(nr);
@@ -170,6 +174,16 @@ namespace AGVCenterLib.Service
 
             }
             return message;
+        }
+
+        /// <summary>
+        /// 根据订单获取出库任务
+        /// </summary>
+        /// <param name="nr"></param>
+        /// <returns></returns>
+        public List<StockTask> GetDeliveryOutStockTasks(string nr)
+        {
+            return new StockTaskRepository(this.Context).GetOutStockTaskByDelivery(nr);
         }
     }
 }

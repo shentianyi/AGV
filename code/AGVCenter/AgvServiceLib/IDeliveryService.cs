@@ -40,5 +40,8 @@ namespace AgvServiceLib
 
         [OperationContract]
         ResultMessage SendDelivery(string nr);
+
+        [OperationContract]
+        List<StockTaskModel> GetDeliveryOutStockTasks(string nr);
     }
 }

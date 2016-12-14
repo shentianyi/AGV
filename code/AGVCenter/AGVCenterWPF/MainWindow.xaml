@@ -101,8 +101,14 @@
                                 VerticalAlignment="Top" Width="104" Height="40" Click="createInStockBtn_Click"/>
                         <CheckBox x:Name="IncreaseBarcodeCheckBox"
                                   IsChecked="True"
-                                  Content="条码自增" Grid.Column="1" HorizontalAlignment="Left" Margin="119,24,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="81"/>
+                                  Content="条码自增" Grid.Column="1" HorizontalAlignment="Left" 
+                                  Margin="117,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="81"/>
 
+                        <CheckBox x:Name="LipRoadMachineCheckBox"
+                                  IsChecked="True"
+                                  Content="1,2巷道机间隔" Grid.Column="1" 
+                                  HorizontalAlignment="Left" Margin="117,34,0,0" 
+                                  VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="95"/>
 
                     </Grid>
 

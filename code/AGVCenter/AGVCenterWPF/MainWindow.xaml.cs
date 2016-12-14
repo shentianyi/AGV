@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -106,23 +107,23 @@ namespace AGVCenterWPF
         /// <summary>
         /// 写入OPC小车放行定时器，将队列AgvInStockPassQueue的任务写入OPC
         /// </summary>
-        Timer SetOPCAgvPassTimer;
+        System.Timers.Timer SetOPCAgvPassTimer;
 
         /// <summary>
         /// 写入OPC入库机械手信息，将对列InRobootPickQueue的任务写入OPC
         /// </summary>
-        Timer SetOPCInRobootPickTimer;
+        System.Timers.Timer SetOPCInRobootPickTimer;
 
         /// <summary>
         /// 逐托分发出库任务定时器
         /// </summary>
-        Timer DispatchTrayOutStockTaskTimer;
+        System.Timers.Timer DispatchTrayOutStockTaskTimer;
         private static object DispatchTrayOutStockTaskLocker = new object();
 
         /// <summary>
         /// 写入OPC库存任务定时器
         /// </summary>
-        Timer SetOPCStockTaskTimer;
+        System.Timers.Timer SetOPCStockTaskTimer;
         #endregion
 
         /// <summary>
@@ -181,34 +182,44 @@ namespace AGVCenterWPF
             OPCOutRobootPickData.RwFlagChangedEvent +=new OPCOutRobootPick.RwFlagChangedEventHandler( OPCOutRobootPickData_RwFlagChangedEvent);
             #endregion
 
+            this.InitAndStartTimers();
+            this.InitAndStartUpdateStackTaskStateComponent();
+        }
+
+
+        /// <summary>
+        /// 初始化并启动定时器
+        /// </summary>
+        private void InitAndStartTimers()
+        {
             #region 初始化定时器
             // AGV入库放行Timer
-            SetOPCAgvPassTimer = new Timer();
+            SetOPCAgvPassTimer = new System.Timers.Timer();
             SetOPCAgvPassTimer.Interval = OPCConfig.SetOPCAgvInStockPassTimerInterval;
             SetOPCAgvPassTimer.Enabled = true;
             SetOPCAgvPassTimer.Elapsed += SetOPCAgvPassTimer_Elapsed;
 
             // 入库机械手Timer
-            SetOPCInRobootPickTimer = new Timer();
+            SetOPCInRobootPickTimer = new System.Timers.Timer();
             SetOPCInRobootPickTimer.Interval = OPCConfig.SetOPCInRobootPickTimerInterval;
             SetOPCInRobootPickTimer.Enabled = true;
             SetOPCInRobootPickTimer.Elapsed += SetOPCInRobootPickTimer_Elapsed;
 
-           
+
             // 从数据库加载出库任务定时器
-            LoadOutStockTaskFromDbTimer = new Timer();
+            LoadOutStockTaskFromDbTimer = new System.Timers.Timer();
             LoadOutStockTaskFromDbTimer.Interval = OPCConfig.LoadOutStockTaskFromDbTimerInterval;
             LoadOutStockTaskFromDbTimer.Enabled = true;
             LoadOutStockTaskFromDbTimer.Elapsed += LoadOutStockTaskFromDbTimer_Elapsed;
 
             // 逐托分发出库任务定时器，查看是可以分发
-            DispatchTrayOutStockTaskTimer = new Timer();
+            DispatchTrayOutStockTaskTimer = new System.Timers.Timer();
             DispatchTrayOutStockTaskTimer.Interval = OPCConfig.DispatchTrayOutStockTaskTimerInterval;
             DispatchTrayOutStockTaskTimer.Enabled = true;
             DispatchTrayOutStockTaskTimer.Elapsed += DispatchTrayOutStockTaskTimer_Elapsed;
 
             // 库存任务定时器，查看巷道机是否可以工作
-            SetOPCStockTaskTimer = new Timer();
+            SetOPCStockTaskTimer = new System.Timers.Timer();
             SetOPCStockTaskTimer.Interval = OPCConfig.SetOPCStockTaskTimerInterval;
             SetOPCStockTaskTimer.Enabled = true;
             SetOPCStockTaskTimer.Elapsed += SetOPCStockTaskTimer_Elapsed;
@@ -226,9 +237,6 @@ namespace AGVCenterWPF
             SetOPCStockTaskTimer.Start();
             #endregion
         }
-
-
-
 
 
         /// <summary>
@@ -755,7 +763,7 @@ namespace AGVCenterWPF
                 for (var i = 1; i <= NumItems; i++)
                 {
                     LogUtil.Logger.InfoFormat("【数据改变】【入库条码扫描】【{0}】{1}",
-                        OPCCheckInStockBarcodeData.GetSimpleOpcKey(i),
+                        OPCCheckInStockBarcodeData.GetSimpleOpcKey(i, ClientHandles),
                         ItemValues.GetValue(i));
                 }
                 OPCCheckInStockBarcodeData.SetValue(NumItems, ClientHandles, ItemValues);
@@ -784,7 +792,7 @@ namespace AGVCenterWPF
                 for (var i = 1; i <= NumItems; i++)
                 {
                     LogUtil.Logger.InfoFormat("【数据改变】【AGV放行】【{0}】{1}",
-                        OPCAgvInStockPassData.GetSimpleOpcKey(i),
+                        OPCAgvInStockPassData.GetSimpleOpcKey(i, ClientHandles),
                         ItemValues.GetValue(i));
                 }
                 OPCAgvInStockPassData.SetValue(NumItems, ClientHandles, ItemValues);
@@ -813,7 +821,7 @@ namespace AGVCenterWPF
                 for (var i = 1; i <= NumItems; i++)
                 {
                     LogUtil.Logger.InfoFormat("【数据改变】【机械手】【{0}】{1}",
-                       OPCInRobootPickData.GetSimpleOpcKey(i),
+                       OPCInRobootPickData.GetSimpleOpcKey(i, ClientHandles),
                         ItemValues.GetValue(i));
                 }
                 OPCInRobootPickData.SetValue(NumItems, ClientHandles, ItemValues);
@@ -834,7 +842,12 @@ namespace AGVCenterWPF
         /// <param name="ItemValues"></param>
         /// <param name="Qualities"></param>
         /// <param name="TimeStamps"></param>
-        private void OPCSetStockTaskRoadMachine1OPCGroup_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        private void OPCSetStockTaskRoadMachine1OPCGroup_DataChange(int TransactionID,
+            int NumItems, 
+            ref Array ClientHandles,
+            ref Array ItemValues, 
+            ref Array Qualities,
+            ref Array TimeStamps)
         {
             try
             {
@@ -842,7 +855,7 @@ namespace AGVCenterWPF
                 for (var i = 1; i <= NumItems; i++)
                 {
                     LogUtil.Logger.InfoFormat("【数据改变】【任务接受】【巷道机1】【{0}】{1}",
-                        OPCSetStockTaskRoadMachine1Data.GetSimpleOpcKey(i),
+                        OPCSetStockTaskRoadMachine1Data.GetSimpleOpcKey(i, ClientHandles),
                         ItemValues.GetValue(i));
                 }
 
@@ -872,10 +885,18 @@ namespace AGVCenterWPF
                 for (var i = 1; i <= NumItems; i++)
                 {
                     LogUtil.Logger.InfoFormat("【数据改变】【任务接受】【巷道机 2】【{0}】{1}",
-                        OPCSetStockTaskRoadMachine2Data.GetSimpleOpcKey(i),
-                        ItemValues.GetValue(i));
+                        OPCSetStockTaskRoadMachine2Data.GetSimpleOpcKey(i, ClientHandles),
+                        ItemValues.GetValue(i).ToString());
                 }
                 OPCSetStockTaskRoadMachine2Data.SetValue(NumItems, ClientHandles, ItemValues);
+                //for(int j = 1; j <= NumItems;j++)
+                //{
+                //    string s = ClientHandles.GetValue(j).ToString();
+
+                //    string ss = "23";
+                //}
+
+                //string sss = "23";
             }
             catch (Exception ex)
             {
@@ -900,12 +921,12 @@ namespace AGVCenterWPF
             try
             {
                 // 从1开始
-                for (var i = 1; i <= NumItems; i++)
-                {
-                    LogUtil.Logger.InfoFormat("【数据改变】【任务反馈】【巷道机 1】【{0}】{1}",
-                        OPCRoadMachine1TaskFeedData.GetSimpleOpcKey(i),
-                        ItemValues.GetValue(i));
-                }
+                //for (var i = 1; i <= NumItems; i++)
+                //{
+                //    LogUtil.Logger.InfoFormat("【数据改变】【任务反馈】【巷道机 1】【{0}】{1}",
+                //        OPCRoadMachine1TaskFeedData.GetSimpleOpcKey(i),
+                //        ItemValues.GetValue(i));
+                //}
                 OPCRoadMachine1TaskFeedData.SetValue(NumItems, ClientHandles, ItemValues);
             }
             catch (Exception ex)
@@ -928,13 +949,13 @@ namespace AGVCenterWPF
         {
             try
             {
-                // 从1开始
-                for (var i = 1; i <= NumItems; i++)
-                {
-                    LogUtil.Logger.InfoFormat("【数据改变】【任务反馈】【巷道机 2】【{0}】{1}",
-                        OPCRoadMachine2TaskFeedData.GetSimpleOpcKey(i),
-                        ItemValues.GetValue(i));
-                }
+                //// 从1开始
+                //for (var i = 1; i <= NumItems; i++)
+                //{
+                //    LogUtil.Logger.InfoFormat("【数据改变】【任务反馈】【巷道机 2】【{0}】{1}",
+                //        OPCRoadMachine2TaskFeedData.GetSimpleOpcKey(i),
+                //        ItemValues.GetValue(i));
+                //}
                 OPCRoadMachine2TaskFeedData.SetValue(NumItems, ClientHandles, ItemValues);
             }
             catch (Exception ex)
@@ -961,7 +982,7 @@ namespace AGVCenterWPF
                 for (var i = 1; i <= NumItems; i++)
                 {
                     LogUtil.Logger.InfoFormat("【数据改变】【出库机械手】【{0}】{1}",
-                        OPCOutRobootPickData.GetSimpleOpcKey(i),
+                        OPCOutRobootPickData.GetSimpleOpcKey(i, ClientHandles),
                         ItemValues.GetValue(i));
                 }
                 OPCOutRobootPickData.SetValue(NumItems, ClientHandles, ItemValues);
@@ -1504,6 +1525,47 @@ namespace AGVCenterWPF
         }
         #endregion
 
+
+        #region 任务状态改变队列处理
+        private Queue comDataQ = new Queue();
+        private Queue receiveMessageQueue;
+        private Thread receiveMessageThread;
+        private ManualResetEvent receivedEvent = new ManualResetEvent(false);
+
+        /// <summary>
+        /// 初始化并启动 任务状态改变队列处理组件
+        /// </summary>
+        private void InitAndStartUpdateStackTaskStateComponent()
+        {
+            receiveMessageThread = new Thread(this.ReceiveMessageThread);
+            receiveMessageQueue = Queue.Synchronized(comDataQ);
+            receiveMessageThread.IsBackground = true;
+
+            receiveMessageThread.Start();
+        }
+        /// <summary>
+        /// 停止 任务状态改变队列处理组件
+        /// </summary>
+        private void ShutDownUpdateStackTaskStateComponent()
+        {
+            receiveMessageThread.Abort();
+        }
+
+        private void ReceiveMessageThread()
+        {
+            while (true)
+            {
+                while (receiveMessageQueue.Count > 0)
+                {
+                     StockTaskService sts = new StockTaskService(OPCConfig.DbString);
+                      sts.UpdateTaskState(receiveMessageQueue.Dequeue() as StockTask);
+                }
+
+                receivedEvent.WaitOne();
+                receivedEvent.Reset();
+            }
+        }
+
         /// <summary>
         /// 任务状态改变,#TO-BETTER#
         /// </summary>
@@ -1514,10 +1576,24 @@ namespace AGVCenterWPF
             // 更新数据库中的task的状态
             if (taskItem.DbId > 0)
             {
-                StockTaskService sts = new StockTaskService(OPCConfig.DbString);
-                sts.UpdateTaskState(taskItem);
+                StockTask updatedStockTask = new StockTask();
+
+                updatedStockTask.Id = taskItem.DbId;
+                updatedStockTask.State = (int)taskItem.State;
+
+                updatedStockTask.RoadMachineIndex = taskItem.RoadMachineIndex;
+                updatedStockTask.PositionNr = taskItem.PositionNr;
+                updatedStockTask.PositionFloor = taskItem.PositionFloor;
+                updatedStockTask.PositionColumn = taskItem.PositionColumn;
+                updatedStockTask.PositionRow = taskItem.PositionRow;
+
+                receiveMessageQueue.Enqueue(updatedStockTask);
+                receivedEvent.Set();
+                //StockTaskService sts = new StockTaskService(OPCConfig.DbString);
+                //sts.UpdateTaskState(updatedStockTask);
             }
         }
+        #endregion
 
 
 
@@ -1530,8 +1606,8 @@ namespace AGVCenterWPF
             InRobootPickQueue = new Queue();
             // RoadMachine1TaskQueue = new Dictionary<string, StockTaskItem>();
             RoadMachine1TaskQueue = new Queue();
-             // RoadMachine2TaskQueue = new Dictionary<string, StockTaskItem>();
-             AgvScanTaskQueue = new Dictionary<string, StockTaskItem>();
+            // RoadMachine2TaskQueue = new Dictionary<string, StockTaskItem>();
+            AgvScanTaskQueue = new Dictionary<string, StockTaskItem>();
             RoadMachine2TaskQueue = new Queue();
 
             TaskCenterForDisplayQueue = new List<StockTaskItem>();
@@ -1553,6 +1629,7 @@ namespace AGVCenterWPF
         private void ShutDownComponents()
         {
             this.StopTimers();
+            this.ShutDownUpdateStackTaskStateComponent();
             this.DisconnectOPCServer();
         }
 
@@ -1803,7 +1880,7 @@ namespace AGVCenterWPF
         /// 出库任务总队列
         /// </summary>
         Dictionary<string, List<StockTaskItem>> OutStockCenterQueue = new Dictionary<string, List<StockTaskItem>>();
-        Timer LoadOutStockTaskFromDbTimer;
+        System.Timers.Timer LoadOutStockTaskFromDbTimer;
 
 
         private void LoadOutStockTaskFromDbTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -1842,7 +1919,7 @@ namespace AGVCenterWPF
                             TrayNum = st.TrayNum.Value,
                             DeliveryItemNum = st.DeliveryItemNum.Value,
                             State = (StockTaskState)st.State,
-                            DbId = st.id,
+                            DbId = st.Id,
                             IsInProcessing = true
                         };
                         taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
@@ -2038,10 +2115,12 @@ namespace AGVCenterWPF
                 State = StockTaskState.RoadMachineStockBuffing,
                 BoxType = (byte)1
             };
+            taskItem.TaskStateChangeEvent+= new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
             UniqueItemService ui = new UniqueItemService(OPCConfig.DbString);
             if (ui.FindByCheckCode(taskItem.Barcode)==null)
             {
-                ui.Create(new UniqueItem() { Nr = ScanedBarCodeTB.Text, CheckCode = ScanedBarCodeTB.Text });
+                ui.Create(new UniqueItem() { Nr = ScanedBarCodeTB.Text,
+                    CheckCode = ScanedBarCodeTB.Text, BoxTypeId = 1 });
             }
 
             StockTaskService ts = new StockTaskService(OPCConfig.DbString);
@@ -2057,6 +2136,10 @@ namespace AGVCenterWPF
                 RoadMachine2TaskQueue.Enqueue(taskItem);
             }
             TaskCenterForDisplayQueue.Add(taskItem);
+            if (LipRoadMachineCheckBox.IsChecked.Value)
+            {
+                RoadMachineIndexTB.Text = RoadMachineIndexTB.Text == "1" ? "2" : "1";
+            }
             RefreshList();
         }
 

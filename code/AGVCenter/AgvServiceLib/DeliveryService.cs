@@ -74,5 +74,10 @@ namespace AgvServiceLib
         {
             return ds.SendDeliveryByNr(nr);
         }
+
+        public List<StockTaskModel> GetDeliveryOutStockTasks(string nr)
+        {
+            return StockTaskModel.Converts(ds.GetDeliveryOutStockTasks(nr));
+        }
     }
 }

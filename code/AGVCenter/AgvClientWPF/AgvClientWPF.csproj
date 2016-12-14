@@ -68,8 +68,8 @@
     <Compile Include="Delivery\CreateTrayWindow.xaml.cs">
       <DependentUpon>CreateTrayWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Delivery\DeliveryOutStockTaskMonitor.xaml.cs">
-      <DependentUpon>DeliveryOutStockTaskMonitor.xaml</DependentUpon>
+    <Compile Include="Delivery\DeliveryOutStockTaskMonitorWindow.xaml.cs">
+      <DependentUpon>DeliveryOutStockTaskMonitorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Delivery\SendDeliveryWindow.xaml.cs">
       <DependentUpon>SendDeliveryWindow.xaml</DependentUpon>
@@ -97,7 +97,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Delivery\DeliveryOutStockTaskMonitor.xaml">
+    <Page Include="Delivery\DeliveryOutStockTaskMonitorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,6 +145,7 @@
     </EmbeddedResource>
     <None Include="Properties\DataSources\AGVCenterLib.Model.Message.ResultMessage.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryStorageViewModel.datasource" />
+    <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StockTaskModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.UniqueItemModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

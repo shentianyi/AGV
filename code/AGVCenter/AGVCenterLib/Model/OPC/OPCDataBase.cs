@@ -18,8 +18,8 @@ namespace AGVCenterLib.Model.OPC
         #region 变量
         public int OPCItemCount = 2;
         public string OPCAddressKey;
-        public string[] OPCItemIDs;
-        public int[] ClientHandles;
+        public Array OPCItemIDs;
+        public Array ClientHandles;
         public Array ItemServerHandles;
         public Array AddItemServerErrors;
         #endregion
@@ -120,15 +120,15 @@ namespace AGVCenterLib.Model.OPC
             // 从1开始
             foreach (var kv in OPCAddressMap.GroupNameAddress[this.OPCAddressKey])
             {
-                this.OPCItemIDs[i] = kv.Value;
-                this.ClientHandles[i] = i;
+                this.OPCItemIDs.SetValue(  kv.Value, i);
+                this.ClientHandles.SetValue(i, i);
                 i++;
             }
 
             group.OPCItems.AddItems(
                 OPCItemCount,
-                  this.OPCItemIDs,
-                  this.ClientHandles,
+                 ref this.OPCItemIDs,
+              ref this.ClientHandles,
                  out this.ItemServerHandles,
                  out this.AddItemServerErrors);
 
@@ -216,9 +216,9 @@ namespace AGVCenterLib.Model.OPC
             return o == null ? string.Empty : o.ToString().Trim('\n').Trim('\r');
         }
 
-        public virtual string GetSimpleOpcKey(int index)
+        public virtual string GetSimpleOpcKey(int index, Array clientHandles)
         {
-            return this.OPCItemIDs[index].Replace(OPCAddressMap.INOUT_AddrPrefix, "");
+            return this.OPCItemIDs.GetValue(int.Parse(clientHandles.GetValue(index).ToString())).ToString().Replace(OPCAddressMap.INOUT_AddrPrefix, "");
         }
     }
 }

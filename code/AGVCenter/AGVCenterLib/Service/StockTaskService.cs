@@ -28,6 +28,7 @@ namespace AGVCenterLib.Service
             StockTask st = new StockTask()
             {
                 BoxType = task.BoxType,
+                RoadMachineIndex=task.RoadMachineIndex,
                 PositionFloor = task.PositionFloor,
                 PositionColumn = task.PositionColumn,
                 PositionRow = task.PositionRow,
@@ -42,28 +43,28 @@ namespace AGVCenterLib.Service
             IStockTaskRepository stRep = new StockTaskRepository(this.Context);
             stRep.Create(st);
             this.Context.SaveAll();
-            task.DbId = st.id;
+            task.DbId = st.Id;
             return true;
         }
 
         /// <summary>
         /// 更新任务状态
         /// </summary>
-        /// <param name="taskItem"></param>
+        /// <param name="taskStock"></param>
         /// <returns></returns>
-        public bool UpdateTaskState(StockTaskItem taskItem)
+        public bool UpdateTaskState(StockTask taskStock)
         {
             IStockTaskRepository stockTaskRep = new StockTaskRepository(this.Context);
-            StockTask t = stockTaskRep.FindById(taskItem.DbId);
+            StockTask t = stockTaskRep.FindById(taskStock.Id);
             if (t != null)
             {
-                t.State = (int)taskItem.State;
+                t.State = (int)taskStock.State;
 
-                t.RoadMachineIndex = taskItem.RoadMachineIndex;
-                t.PositionNr = taskItem.PositionNr;
-                t.PositionFloor = taskItem.PositionFloor;
-                t.PositionColumn = taskItem.PositionColumn;
-                t.PositionRow = taskItem.PositionRow;
+                t.RoadMachineIndex = taskStock.RoadMachineIndex;
+                t.PositionNr = taskStock.PositionNr;
+                t.PositionFloor = taskStock.PositionFloor;
+                t.PositionColumn = taskStock.PositionColumn;
+                t.PositionRow = taskStock.PositionRow;
                 t.UpdatedAt = DateTime.Now;
                 this.Context.SaveAll();
             }
@@ -183,7 +184,7 @@ namespace AGVCenterLib.Service
                 .Where(s => (!dispatchedBatchId.Contains(s.TrayBatchId))).ToList();
             if (tasks.Count > 0)
             {
-                stockTaskRep.UpdateTasksState(tasks.Select(s => s.id).ToList(),
+                stockTaskRep.UpdateTasksState(tasks.Select(s => s.Id).ToList(),
                     StockTaskState.RoadMachineWaitOutStock);
             }
             return tasks;
