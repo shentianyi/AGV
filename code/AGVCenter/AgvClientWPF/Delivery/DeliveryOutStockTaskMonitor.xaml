@@ -1,0 +1,36 @@
+﻿<Window x:Class="AgvClientWPF.Delivery.DeliveryOutStockTaskMonitor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AgvClientWPF.Delivery"
+        mc:Ignorable="d"
+        Title="DeliveryOutStockTaskMonitor"  Height="500" Width="600">
+    <Grid>
+        <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="29,63,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="deliveryNrTB" HorizontalAlignment="Left" Height="23" Margin="92,63,0,0" 
+                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="191"/>
+        <Button x:Name="loadOutStockTaskBtn" Content="加载出库任务" HorizontalAlignment="Left"
+                Margin="297,63,0,0" VerticalAlignment="Top" Width="92" Height="23"/>
+
+        <DataGrid x:Name="deliveryStorageDG" AutoGenerateColumns="False" CanUserAddRows="false" 
+                  HorizontalAlignment="Left" Margin="88,94,0,0" 
+                  VerticalAlignment="Top" Height="356" Width="482" 
+                  RenderTransformOrigin="0.499,0.316">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="产品唯一号" Binding="{Binding Path=UniqueItemNr}"/>
+                <DataGridTextColumn Header="巷道机号" Binding="{Binding Path=IsInStock}"/>
+                <DataGridTextColumn Header="库位号" Binding="{Binding Path=StoragePositionNr}"/>
+                <DataGridTextColumn Header="当前状态" Binding="{Binding Path=IsInStock}"/>
+                <DataGridTextColumn Header="创建时间" Binding="{Binding Path=UniqueItemCreatedAt}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label x:Name="outStockedNum" Content="0" HorizontalAlignment="Left" Margin="29,134,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+        <Label x:Name="label2" Content="-" HorizontalAlignment="Left" Margin="31,160,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+        <Label x:Name="totalDeliveryItemNum" Content="0" HorizontalAlignment="Left" Margin="29,191,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+        <Label x:Name="outStockedNum_Copy" Content="0" HorizontalAlignment="Left" Margin="29,271,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" Background="#FFFBFBFF" Foreground="#FF0D22F0"/>
+        <Label x:Name="totalDeliveryItemNum_Copy" Content="0" HorizontalAlignment="Left" Margin="29,333,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" RenderTransformOrigin="0.434,2.91" Background="#FFFBFBFF" Foreground="#FF0D22F0"/>
+        <Label x:Name="label2_Copy" Content="-" HorizontalAlignment="Left" Margin="32,303,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+
+    </Grid>
+</Window>

@@ -40,6 +40,7 @@
                 <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
@@ -54,11 +55,11 @@
                             <ColumnDefinition Width="120*"></ColumnDefinition>
                             <ColumnDefinition Width="120*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                     <Label x:Name="label3" Content="扫描的条码" Grid.Column="0"  HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label3" Content="扫描的条码" Grid.Column="0"  HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
 
                         <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left" 
                              Height="26" Margin="0,11,0,0" Grid.Column="1"
-                		TextWrapping="Wrap" Text="abcdefg123456ABCDEFG02" VerticalAlignment="Top" Width="205"/>
+                		TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="205"/>
 
                         <Button x:Name="WirteGetPisitionBarBtn" Grid.Column="2"
                             Content="扫码入库任务" HorizontalAlignment="Left"
@@ -66,21 +67,46 @@
 
                         <Button Content="设置条码可写" Height="27"  Grid.Column="3" HorizontalAlignment="Left" 
                                 Margin="3,11,0,0" Name="SetAgvBarcodeCheckWritableBtn" VerticalAlignment="Top" Width="81" Click="SetAgvBarcodeCheckWritableBtn_Click" />
-                       <Button Content="设置条码可读"  Grid.Column="4"
+                        <Button Content="设置条码可读"  Grid.Column="4"
                             Height="27" HorizontalAlignment="Left" Margin="0,11,0,0" 
                                 Name="SetAgvBarcodeCheckReadableBtn" VerticalAlignment="Top" Width="81" Click="SetAgvBarcodeCheckReadableBtn_Click" RenderTransformOrigin="0.432,0.407" />
-                        
+
                         <Button Content="设置机械手可写" Height="27"  Grid.Column="5"
                             HorizontalAlignment="Left" Margin="0,11,0,0" Name="SetInRobootWritableBtn" VerticalAlignment="Top" Width="97" Click="SetInRobootWritableBtn_Click" />
-<Button Content="设置机械手可读" Height="27"  Grid.Column="6"
+                        <Button Content="设置机械手可读" Height="27"  Grid.Column="6"
         HorizontalAlignment="Left" Margin="0,11,0,0" Name="SetInRobootReadableBtn" VerticalAlignment="Top" Width="97" Click="SetInRobootReadableBtn_Click" />
                         <Button Content="【清空任务】"  Grid.Column="7"
                                 Height="33" HorizontalAlignment="Left" Margin="0,9,0,0" 
                             Name="ClearTasksForTestBtn" VerticalAlignment="Top" 
                             Width="76" Click="ClearTasksForTestBtn_Click" />
-                    
+
                     </Grid>
                     <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+
+                            <ColumnDefinition Width="230*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="巷道机：" Grid.Column="0"/>
+                        <TextBox Grid.Column="0" Text="1" Margin="51,0,205,26" Name="RoadMachineIndexTB" Grid.ColumnSpan="2" />
+                        <Button x:Name="createInStockBtn" Grid.Column="1"
+                                Content="手动生成入库任务" 
+                                HorizontalAlignment="Left" Margin="10,10,0,0" 
+                                VerticalAlignment="Top" Width="104" Height="40" Click="createInStockBtn_Click"/>
+                        <CheckBox x:Name="IncreaseBarcodeCheckBox"
+                                  IsChecked="True"
+                                  Content="条码自增" Grid.Column="1" HorizontalAlignment="Left" Margin="119,24,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="81"/>
+
+
+                    </Grid>
+
+                    <Grid Grid.Row="2">
                         <Label x:Name="label4" Content="入库任务列表：" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Height="27" Width="138" FontWeight="Bold"/>
                         <ListBox x:Name="CenterInStockTaskLB"
                              HorizontalAlignment="Stretch"

@@ -68,6 +68,9 @@
     <Compile Include="Delivery\CreateTrayWindow.xaml.cs">
       <DependentUpon>CreateTrayWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Delivery\DeliveryOutStockTaskMonitor.xaml.cs">
+      <DependentUpon>DeliveryOutStockTaskMonitor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Delivery\SendDeliveryWindow.xaml.cs">
       <DependentUpon>SendDeliveryWindow.xaml</DependentUpon>
     </Compile>
@@ -91,6 +94,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Delivery\CreateTrayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Delivery\DeliveryOutStockTaskMonitor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,7 +8,7 @@ namespace AGVCenterLib.Enum
     public enum StockTaskActionFlag
     {
         //运行中
-        Excuting = 0,
+      //  Excuting = 0,
         //入库成功
         InSuccess = 1,
         //入库失败，目标库位存在货物
@@ -38,6 +38,13 @@ namespace AGVCenterLib.Enum
         //盘点匹配成功
         InventorySuccess = 10,
         //盘点匹配失败
-        InventoryFail = 11
+        InventoryFail = 11,
+
+        /// <summary>
+        /// 工作成功完成
+        /// </summary>
+        Excuting = 101,
+        Success = 104,
+        Fail=105
     }
 }

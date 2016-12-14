@@ -65,7 +65,10 @@ namespace AGVCenterLib.Enum
         ErrorUniqNotExsits = 21,
         ErrorUniqCannotInStock = 22,
         ErrorCreateDbTask = 23,
-        ErrorBarcodeReScan=24
+        ErrorBarcodeReScan=24,
+
+        ErrorInStock=99,
+        ErrorOutStock=199
     }
 
 
