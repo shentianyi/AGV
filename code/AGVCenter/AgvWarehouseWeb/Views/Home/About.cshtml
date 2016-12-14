@@ -1,7 +1,94 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "关于我们";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<div class="panel panel-default navbar-fixed-top" style="box-shadow: -2px 2px 4px #34313a;top:60px;">
+    <div class="panel-body">
+        <div class="col-md-12" style="text-align:center;">
+            <form action="/Mps/Search" method="get">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 filter-content">
+                        <span class="pull-right" id="basic-addon-filter"> <i class="glyphicon glyphicon-filter"></i> </span>
+                        <div class="filter-p"></div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6" style="margin-top:10px;">
+                        <a href="/Mps/Create" class="btn btn-success" style="width:150px;" type="button">Create</a>
+                    </div>
+
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6" style="margin-top:10px;">
+                        <button class="btn btn-primary import-mps-data" style="width:150px;" type="button">Import</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div style="display:none;">
+    <div id="extra-filter-content">
+        <div class="col-sm-12">
+            <div class="input-group filter-detail">
+                <span class="input-group-addon" id="basic-addon-partnr" style="background:#0088cc;color:white;">PartNr</span>
+                @*<input type="text" class="form-control" name="PartNr" id="PartNr" value="@ViewBag.Query.PartNr" placeholder="PartNr" aria-describedby="basic-addon-partnr">*@
+            </div>
+        </div>
+
+        <hr style="border:1px solid #eeeeee; margin:10px -10px;" />
+
+        <div class="col-sm-12">
+            <div class="input-group filter-detail">
+                <span class="input-group-addon" id="basic-addon-partnract">PartNrAct</span>
+                @*<input type="text" class="form-control" name="PartNrAct" id="PartNrAct" value="@ViewBag.Query.PartNrAct" placeholder="PartNrAct" aria-describedby="basic-addon-partnract">*@
+
+                <span class="input-group-addon" id="basic-addon-stat" style="width:80px;">Status</span>
+                @*@Html.DropDownList("Status", ViewData["statusList"] as IEnumerable<SelectListItem>, new { @class = "form-control", @style = "width:160px;" })*@
+            </div>
+        </div>
+
+        <hr style="margin:10px;" />
+
+        <div class="col-sm-12">
+            <div class="input-group filter-detail">
+                <span class="input-group-addon" id="basic-addon-ordered-date">OrderedDate</span>
+                @*<input type="text" class="form-control datetime-picker-from" autocomplete="off" name="OrderedDateFrom" id="OrderedDateFrom" value="@ViewBag.Query.OrderedDateFrom" placeholder="OrderedDate From" aria-describedby="basic-addon-ordered-date">*@
+                <span class="space-mark">~</span>
+                @*<input type="text" class="form-control datetime-picker-to" autocomplete="off" name="OrderedDateTo" id="OrderedDateTo" value="@ViewBag.Query.OrderedDateTo" placeholder="OrderedDate To" />*@
+            </div>
+        </div>
+
+        <hr style="margin:10px;" />
+
+        <div class="col-sm-12">
+            <div class="input-group filter-detail">
+                <span class="input-group-addon" id="basic-addon-required-date">RequiredDate</span>
+                @*<input type="text" class="form-control datetime-picker-from" autocomplete="off" name="RequiredDateFrom" id="RequiredDateFrom" value="@ViewBag.Query.RequiredDateFrom" placeholder="RequiredDate From" aria-describedby="basic-addon-required-date">*@
+                <span class="space-mark">~</span>
+                @*<input type="text" class="form-control datetime-picker-to" autocomplete="off" name="RequiredDateTo" id="RequiredDateTo" value="@ViewBag.Query.RequiredDateTo" placeholder="RequiredDate To" />*@
+            </div>
+        </div>
+
+        <div class="popModal_footer">
+            <input type="submit" value="Search" class="btn btn-success FilterSearchBtn" data-dialogModalBut="ok" />
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    Filter.click_filter();
+
+    //将搜索的数据 以各种方式 填充到 界面上，
+    var partnr = $('#PartNr').val();
+    var partnract = $('#PartNrAct').val();
+    var ordereddatefrom = $('#OrderedDateFrom').val();
+    var ordereddateto = $('#OrderedDateTo').val();
+    var requireddatefrom = $('#RequiredDateFrom').val();
+    var requireddateto = $('#RequiredDateTo').val();
+    var status = $("#Status").children("option:selected").html();
+
+    Filter.add_string_label_to_div(partnr, 'PartNr like ', '.filter-p');
+    Filter.add_string_label_to_div(partnract, 'PartNrAct = ', '.filter-p');
+    Filter.add_string_label_to_div(status, 'Status = ', '.filter-p');
+    Filter.add_range_label_to_div(ordereddatefrom + "~" + ordereddateto, 'OrderedDate ', '.filter-p');
+    Filter.add_range_label_to_div(requireddatefrom + "~" + requireddateto, 'RequiredDate ', '.filter-p');
+</script>

@@ -1,12 +1,16 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    min-width:1000px;
+    font-family:Arial,"微软雅黑","宋体",sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    margin-top:20px;
+    min-width:800px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -21,4 +25,42 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td{
+    text-align:center;
+}
+
+.table thead > tr{
+    background:#0088cc;
+    color:white;
+}
+
+.navbar{
+    min-width:800px;
+}
+
+.navbar-nav>li{
+    min-width:80px;
+    text-align:center;
+}
+
+.navbar-nav>li>a{
+    color:white!important;
+}
+
+.IconA{
+    text-align:center;
+    white-space:nowrap;
+    cursor:pointer;
+}
+
+.IconA>a{
+    margin-left:10px;
+    font-size:1.2em;
+}
+
+.nav-choosed>a{
+    background:steelblue!important; 
+    color:white!important;
 }

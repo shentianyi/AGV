@@ -21,11 +21,32 @@ namespace AgvWarehouseWeb
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/jquery.datetimepicker.full.js",
+                      "~/Scripts/bootstrap-typeahead.js",
                       "~/Scripts/respond.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/basic").Include(
+                   "~/Scripts/basics.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery-plug-in").Include(
+                     "~/Scripts/jquery-popModal.js",
+                     "~/Scripts/filter.js"
+                     ));
+
+            bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
+                      "~/Scripts/highcharts/highcharts.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/jquery.datetimepicker.css",
+                      "~/Content/font-awesome.css",
+                      "~/Content/filter.css",
+                      "~/Content/site.css",
+                      "~/Content/jquery-popModal.css"));
+
+            bundles.Add(new StyleBundle("~/Content/login").Include(
+                   "~/Content/login.css"));
+
         }
     }
 }
