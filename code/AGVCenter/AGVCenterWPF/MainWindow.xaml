@@ -109,6 +109,8 @@
                                   Content="1,2巷道机间隔" Grid.Column="1" 
                                   HorizontalAlignment="Left" Margin="117,34,0,0" 
                                   VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="95"/>
+                        <Button x:Name="createOutStockTaskBtn" Content="生成出库任务" 
+                                Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="89" Height="30"/>
 
                     </Grid>
 

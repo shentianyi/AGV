@@ -29,46 +29,9 @@
             <ul class="nav navbar-nav">
                 @* 命名规则： nav- Controller 小写  *@
 
-                <li class="nav-home">@Html.ActionLink("主页", "Index", "Home")</li>
-                <li class="nav-about">@Html.ActionLink("关于我们", "about", "Home")</li>
-
-                <li class="dropdown nav-basic-data">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        基础数据 <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" style="text-align:left;line-height:40px;">
-                        <li class="nav-part">
-                            <a href="/Parts/Index">
-                                <i class="fa fa-home"></i>
-                                &emsp;Part
-                            </a>
-                        </li>
-
-                        <li class="nav-bom">
-                            <a href="/Bom/Index">
-                                <i class="fa fa-moon-o"></i>
-                                &emsp;Bom
-                            </a>
-                        </li>
-
-                        <li class="nav-bom-item">
-                            <a href="/BomItem/Index">
-                                <i class="fa fa-amazon"></i>
-                                &emsp;Bom Item
-                            </a>
-                        </li>
-
-                        <li class="nav-batch-order-template">
-                            <a href="/BatchOrderTemplate/Index">
-                                <i class="fa fa-archive"></i>
-                                &emsp;BatchOrderTemplate
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li class="nav-undone-stock">@Html.ActionLink("UnDoneStock", "Index", "UnDoneStock")</li>
+                <li class="nav-home">@Html.ActionLink("主页", "Index", "Home")</li> 
+                     
+                <li class="nav-undone-stock">@Html.ActionLink("Storage", "Index", "Storage")</li>
             </ul>
 
             @*@Html.Partial("_LoginPartial")*@

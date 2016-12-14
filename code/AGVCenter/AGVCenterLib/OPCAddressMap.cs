@@ -139,9 +139,9 @@ namespace AGVCenterLib
                 "OPCOutRobootPick",
                  new Dictionary<string, string>()
                 {
-                    { "outrobot_pick_rw_flag",INOUT_AddrPrefix+"B1877.outrobot_pick_rw_flag"},
-                    { "outrobot_pick_box_type",INOUT_AddrPrefix+"B1878.outrobot_pick_box_type"},
-                    { "outrobot_pick_trayno",INOUT_AddrPrefix+"B1879.int.outrobot_pick_trayno"},
+                    { "outrobot_pick_rw_flag",INOUT_AddrPrefix+"B1878.outrobot_pick_rw_flag"},
+                    { "outrobot_pick_box_type",INOUT_AddrPrefix+"B1879.outrobot_pick_box_type"},
+                    { "outrobot_pick_trayno",INOUT_AddrPrefix+"B1880.int.outrobot_pick_trayno"},
                 }
             }
             #endregion

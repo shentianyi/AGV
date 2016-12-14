@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AGVCenterLib.Data.Repository.Interface;
 using AGVCenterLib.Model;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Implement
 {
@@ -43,5 +44,9 @@ namespace AGVCenterLib.Data.Repository.Implement
             return this.context.Storage.FirstOrDefault(s => s.PositionNr == positionNr || s.UniqItemNr==uniqNr);
         }
 
+        public IQueryable<StorageUniqueItemView> SearchDetail(StorageSearchModel searchModel)
+        {
+            return this.context.StorageUniqueItemView;
+        }
     }
 }

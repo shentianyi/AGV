@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,6 +22,8 @@ namespace AgvClientWPF.Delivery
     /// </summary>
     public partial class DeliveryOutStockTaskMonitorWindow : Window
     {
+        Timer loadTaskTimer;
+
         public DeliveryOutStockTaskMonitorWindow()
         {
             InitializeComponent();
@@ -31,13 +34,36 @@ namespace AgvClientWPF.Delivery
             if (!string.IsNullOrEmpty(deliveryNrTB.Text))
             {
                 this.LoadDeliveryOutStockTask(deliveryNrTB.Text);
+                if (loadTaskTimer != null)
+                {
+                    loadTaskTimer.Stop();
+                }
+                loadTaskTimer = new Timer();
+                loadTaskTimer.Interval = 2000;
+                loadTaskTimer.Enabled = true;
+                loadTaskTimer.Elapsed += LoadTaskTimer_Elapsed;
             }
         }
 
+        private void LoadTaskTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            loadTaskTimer.Stop();
 
+            this.Dispatcher.Invoke(new Action(()=> {
+
+                LoadDeliveryOutStockTask(deliveryNrTB.Text);
+
+            }));
+
+            loadTaskTimer.Start();
+        }
 
         private void LoadDeliveryOutStockTask(string deliveryNr)
         {
+            if (string.IsNullOrEmpty(deliveryNr))
+            {
+                return;
+            }
             DeliveryServiceClient dsc = new DeliveryServiceClient();
             List<StockTaskModel> stockTasks = dsc.GetDeliveryOutStockTasks(deliveryNr).ToList();
             deliveryStockTaskDG.ItemsSource = stockTasks;

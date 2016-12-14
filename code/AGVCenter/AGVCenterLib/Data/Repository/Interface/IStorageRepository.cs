@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
- 
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Interface
 {
@@ -15,5 +15,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         Storage FindByPositionNr(string positionNr);
         Storage FindByUniqNr(string uniqNr);
         Storage FindByPositionNrOrUniqNr(string positionNr, string uniqNr);
+
+        IQueryable<StorageUniqueItemView> SearchDetail(StorageSearchModel searchModel);
     }
 }

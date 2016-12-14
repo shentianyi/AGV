@@ -28,7 +28,8 @@ namespace AGVCenterLib.Service
             StockTask st = new StockTask()
             {
                 BoxType = task.BoxType,
-                RoadMachineIndex=task.RoadMachineIndex,
+                RoadMachineIndex = task.RoadMachineIndex,
+                PositionNr = task.PositionNr,
                 PositionFloor = task.PositionFloor,
                 PositionColumn = task.PositionColumn,
                 PositionRow = task.PositionRow,
@@ -110,9 +111,35 @@ namespace AGVCenterLib.Service
 
                 foreach (var boxType in boxTypes)
                 {
-                    List<DeliveryStorageView> deliveryStoragesByBoxType =
-                        deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id)
-                        .OrderBy(s => s.StoragePositionNr).ToList();
+                    //List<DeliveryStorageView> deliveryStoragesByBoxType =
+                    //    deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id)
+                    //    .OrderBy(s => s.StoragePositionNr).ToList();
+
+                    List<DeliveryStorageView> deliveryStoragesByBoxType = new List<DeliveryStorageView>();
+
+                    List<DeliveryStorageView> roadMachine1Tasks =
+                        deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id
+                        && s.PositionRoadMachineIndex == 1).OrderBy(s => s.StoragePositionNr).ToList();
+
+                    List<DeliveryStorageView> roadMachine2Tasks =
+                        deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id
+                        && s.PositionRoadMachineIndex == 2).OrderBy(s => s.StoragePositionNr).ToList();
+
+                    int count = roadMachine1Tasks.Count > roadMachine2Tasks.Count ? roadMachine1Tasks.Count : roadMachine2Tasks.Count;
+
+                    for(var i = 0; i < count; i++)
+                    {
+                        if (i < roadMachine1Tasks.Count)
+                        {
+                            deliveryStoragesByBoxType.Add(roadMachine1Tasks[i]);
+                        }
+
+                        if (i < roadMachine2Tasks.Count)
+                        {
+                            deliveryStoragesByBoxType.Add(roadMachine2Tasks[i]);
+                        }
+                    }
+
                     int totalItemCount = deliveryStoragesByBoxType.Count;
                     if (totalItemCount > 0)
                     {
@@ -138,7 +165,7 @@ namespace AGVCenterLib.Service
                                     RoadMachineIndex = position.RoadMachineIndex,
                                     BoxType=s.UniqueItemBoxTypeId,
                                     BarCode=s.UniqueItemCheckCode,
-                                    PositionNr = s.StoragePositionNr,
+                                    PositionNr = position.Nr,
                                     PositionFloor = position.Floor,
                                     PositionColumn = position.Column,
                                     PositionRow = position.Row,
@@ -189,5 +216,6 @@ namespace AGVCenterLib.Service
             }
             return tasks;
         }
+
     }
 }

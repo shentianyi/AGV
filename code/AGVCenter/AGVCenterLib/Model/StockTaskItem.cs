@@ -127,6 +127,13 @@ namespace AGVCenterLib.Model
             set;
         }
 
+        public  bool IsInBuffingState
+        {
+            get
+            {
+               return this.State == StockTaskState.RoadMachineStockBuffing || this.State == StockTaskState.RoadMachineWaitOutStock;
+            }
+        }
         /// <summary>
         /// DB id
         /// </summary>
@@ -135,7 +142,7 @@ namespace AGVCenterLib.Model
         
         public string ToDisplay()
         {
-            return string.Format(@"【任务类型：{0}-巷道机-**{10}**】\r\n条码：{1},库位：{2}-{3}-{4},箱型：{5},AGV放行标记:{6},Rest标记{7},状态：{8},DbId:{9}\r\n",
+            return string.Format("【任务类型：{0}-巷道机-**{10}**】\r\n条码：{1},库位：{2}-{3}-{4},箱型：{5},AGV放行标记:{6},Rest标记{7},状态：{8},DbId:{9}\r\n",
                 this.StockTaskType,
                 this.Barcode,
                 this.PositionFloor, this.PositionColumn, this.PositionRow,

@@ -7,6 +7,7 @@ using AGVCenterLib.Data.Repository.Implement;
 using AGVCenterLib.Data.Repository.Interface;
 using AGVCenterLib.Enum;
 using AGVCenterLib.Model.Message;
+using AGVCenterLib.Model.SearchModel;
 using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace AGVCenterLib.Service
@@ -120,6 +121,7 @@ namespace AGVCenterLib.Service
         /// <returns></returns>
         public ResultMessage OutStockByCheckCode(string checkCode)
         {
+            return null;
             ResultMessage message = new ResultMessage();
             IUniqueItemRepository itemRep = new UniqueItemRepository(this.Context);
             UniqueItem item = itemRep.FindByCheckCode(checkCode);
@@ -215,6 +217,16 @@ namespace AGVCenterLib.Service
                 message.MessageType = MessageType.Exception;
             }
             return message;
+        }
+
+        /// <summary>
+        /// 查找库存详细
+        /// </summary>
+        /// <param name="searchModel"></param>
+        /// <returns></returns>
+        public IQueryable<StorageUniqueItemView> SearchDetail(StorageSearchModel searchModel)
+        {
+            return new StorageRepository(this.Context).SearchDetail(searchModel);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace AGVCenterWPF
         public static string OPCAgvInStockPassOPCGroupName = "OPCAgvInStockPassOPCGroup";
         public static int OPCAgvInStockPassOPCGroupRate = 100;
         public static int OPCAgvInStockPassOPCGroupDeadBand = 0;
-        public static int SetOPCAgvInStockPassTimerInterval = 100;
+        public static int SetOPCAgvInStockPassTimerInterval = 300;
 
         /// <summary>
         /// OPCInRobootPickOPCGroup ，入库机械手抓取
@@ -46,7 +46,7 @@ namespace AGVCenterWPF
         public static string OPCInRobootPickOPCGroupName = "OPCInRobootPickOPCGroup";
         public static int OPCInRobootPickOPCGroupRate = 100;
         public static int OPCInRobootPickOPCGroupDeadBand = 0;
-        public static int SetOPCInRobootPickTimerInterval = 100;
+        public static int SetOPCInRobootPickTimerInterval = 300;
 
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace AGVCenterWPF
         /// <summary>
         /// 库存操作任务定时器Interval
         /// </summary>
-        public static int SetOPCStockTaskTimerInterval = 100;
+        public static int SetOPCStockTaskTimerInterval = 300;
 
         /// <summary>
         /// OPCTaskFeedRM1OPCGroup，库存操作反馈 巷道机1
@@ -88,14 +88,14 @@ namespace AGVCenterWPF
         public static string OPCOutRobootPickOPCGroupName = "OPCOutRobootPickOPCGroup";
         public static int OPCOutRobootPickOPCGroupRate = 100;
         public static int OPCOutRobootPickOPCGroupDeadBand = 0;
-        public static int DispatchTrayOutStockTaskTimerInterval = 100;
+        public static int DispatchTrayOutStockTaskTimerInterval = 300;
         #endregion
 
 
         /// <summary>
         /// 加载数据库出库任务定时器Interval
         /// </summary>
-        public static int LoadOutStockTaskFromDbTimerInterval = 100;
+        public static int LoadOutStockTaskFromDbTimerInterval = 300;
 
     }
 }

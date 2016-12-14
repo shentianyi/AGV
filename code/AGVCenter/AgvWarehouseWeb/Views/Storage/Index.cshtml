@@ -1,0 +1,150 @@
+﻿@using MvcPaging;
+
+@model IPagedList< AGVCenterLib.Data.StorageUniqueItemView>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            PositionNr
+        </th>
+        <th>
+            PartNr
+        </th>
+        <th>
+            FIFO
+        </th>
+        <th>
+            UniqItemNr
+        </th>
+        <th>
+            CreatedAt
+        </th>
+        <th>
+            UpdatedAt
+        </th>
+        <th>
+            UniqueItemNr
+        </th>
+        <th>
+            UniqueItemBoxTypeId
+        </th>
+        <th>
+            UniqueItemPartNr
+        </th>
+        <th>
+            UniqueItemKNr
+        </th>
+        <th>
+            UniqueItemKNrWithYear
+        </th>
+        <th>
+            UniqueItemCheckCode
+        </th>
+        <th>
+            UniqueItemKskNr
+        </th>
+        <th>
+            UniqueItemQR
+        </th>
+        <th>
+            UniqueItemState
+        </th>
+        <th>
+            UniqueItemCreatedAt
+        </th>
+        <th>
+            UniqueItemUpdatedAt
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PositionNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FIFO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqItemNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemBoxTypeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemPartNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemKNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemKNrWithYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemCheckCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemKskNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemQR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemCreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemUpdatedAt)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+
+<div class="col-sm-12" style="text-align:center;">
+    <div class="clearfix pagination">
+        <div class="pagination-inner">
+            @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("PositionNr", ViewBag.Query.PositionNr));
+                    @html
+                }
+                else
+                {
+                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                }
+            }
+        </div>
+    </div>
+</div>

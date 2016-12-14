@@ -30,7 +30,7 @@
 
         <DataGrid x:Name="deliveryStockTaskDG" AutoGenerateColumns="False" CanUserAddRows="false" 
                   HorizontalAlignment="Left" Margin="88,94,0,0" 
-                  VerticalAlignment="Top" Height="356" Width="482" 
+                  VerticalAlignment="Top" MinHeight="356" MinWidth="482" 
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="任务号" Binding="{Binding Path=Id}"/>

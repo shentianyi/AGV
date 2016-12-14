@@ -213,7 +213,23 @@ namespace AGVCenterLib.Model.OPC
         public string ParseBarcode(object o)
         {
 
-            return o == null ? string.Empty : o.ToString().Trim('\n').Trim('\r');
+            if (o == null)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                List<string> s = o.ToString().Trim('\n').Trim('\r').Split('\r').ToList();
+                List<string> ss = new List<string>();
+                foreach(var sss in s)
+                {
+                    if (!ss.Contains(sss.Trim('\n'))){
+                        ss.Add(sss.Trim('\n'));
+                    }
+                }
+                return ss.FirstOrDefault();
+            }
+            //return o == null ? string.Empty : o.ToString().Split('\r').Trim('\n').Trim('\r');
         }
 
         public virtual string GetSimpleOpcKey(int index, Array clientHandles)

@@ -374,8 +374,8 @@ namespace AGVCenterWPF
         private void SetOPCStockTaskTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             SetOPCStockTaskTimer.Stop();
-         
-            if (OPCSetStockTaskRoadMachine1Data.CanWrite)
+
+            if (OPCSetStockTaskRoadMachine1Data.CanWrite && RoadMachine1TaskQueue.Count>0 && (RoadMachine1TaskQueue.Peek() as StockTaskItem).IsInBuffingState)
             {
                 StockTaskItem taskItem = this.DequeueRoadMachineTaskQueueForStcok(1);
                 if (taskItem != null)
@@ -410,7 +410,7 @@ namespace AGVCenterWPF
                 }
             }
 
-            if (OPCSetStockTaskRoadMachine2Data.CanWrite)
+            if (OPCSetStockTaskRoadMachine2Data.CanWrite && RoadMachine2TaskQueue.Count>0 && (RoadMachine2TaskQueue.Peek() as StockTaskItem).IsInBuffingState)
             {
                 StockTaskItem taskItem = this.DequeueRoadMachineTaskQueueForStcok(2);
                 if (taskItem != null)
@@ -529,21 +529,7 @@ namespace AGVCenterWPF
             #endregion
         }
 
-        /// <summary>
-        /// 逐托分发出库任务
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DispatchTrayOutStockTaskTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            if (OPCOutRobootPickData.CanWrite)
-            {
-                if (this.DispatchOutStockTaskByTray())
-                {
-                    this.OPCOutRobootPickData.SyncWrite(this.OPCOutRobootPickOPCGroup);
-                }
-            }
-        }
+       
         /// <summary>
         /// 列出OPC服务
         /// </summary>
@@ -1483,7 +1469,7 @@ namespace AGVCenterWPF
                 return null;
             }
 
-            if (queue.ToArray().Count(s => (s as StockTaskItem).State == StockTaskState.RoadMachineStockBuffing) == 0)
+            if (queue.ToArray().Count(s => (s as StockTaskItem).IsInBuffingState) == 0)
             {
                 return null;
             }
@@ -1493,7 +1479,7 @@ namespace AGVCenterWPF
             //    return null;
             //}
             // StockTaskItem taskItem = queue.FirstOrDefault(s=>s.Value.State==StockTaskState.RoadMachineStockBuffing).Value;
-            StockTaskItem taskItem = queue.ToArray().FirstOrDefault(s => (s as StockTaskItem).State == StockTaskState.RoadMachineStockBuffing) as StockTaskItem;
+            StockTaskItem taskItem = queue.ToArray().FirstOrDefault(s => (s as StockTaskItem).IsInBuffingState) as StockTaskItem;
             if (taskItem.StockTaskType == StockTaskType.IN)
             {
                 /// 计算库位
@@ -1888,63 +1874,93 @@ namespace AGVCenterWPF
             LoadOutStockTaskFromDbTimer.Stop();
            
             LoadOutStockTaskFromDb();
+
             LoadOutStockTaskFromDbTimer.Start();
         }
 
         /// <summary>
         /// 从数据库加载出库任务，定时器来做此事
         /// </summary>
+        bool isLoadingDbTask = false;
+        static object LoadOutStockTaskFromDbLocker = new object();
         private void LoadOutStockTaskFromDb()
         {
-            try
+            lock (LoadOutStockTaskFromDbLocker)
             {
-                List<StockTask> stockTasks = new StockTaskService(OPCConfig.DbString)
-                    .GetInitOutStockTasksAndUpdateState(this.OutStockCenterQueue.Keys.ToList());
-                if (stockTasks.Count > 0)
+                isLoadingDbTask = true;
+                try
                 {
-                    foreach (var st in stockTasks)
+                    List<StockTask> stockTasks = new StockTaskService(OPCConfig.DbString)
+                        .GetInitOutStockTasksAndUpdateState(this.OutStockCenterQueue.Keys.ToList());
+                    if (stockTasks.Count > 0)
                     {
-
-                        StockTaskItem taskItem = new StockTaskItem()
+                        foreach (var st in stockTasks)
                         {
-                            StockTaskType = StockTaskType.OUT,
-                            Barcode = st.BarCode,
-                            BoxType = (byte)st.BoxType,
-                            PositionFloor = (byte)st.PositionFloor,
-                            PositionColumn = (byte)st.PositionColumn,
-                            PositionRow = (byte)st.PositionRow,
-                            RoadMachineIndex = st.RoadMachineIndex.Value,
 
-                            TrayReverseNo = st.TrayReverseNo.Value,
-                            TrayNum = st.TrayNum.Value,
-                            DeliveryItemNum = st.DeliveryItemNum.Value,
-                            State = (StockTaskState)st.State,
-                            DbId = st.Id,
-                            IsInProcessing = true
-                        };
-                        taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
+                            StockTaskItem taskItem = new StockTaskItem()
+                            {
+                                StockTaskType = StockTaskType.OUT,
+                                Barcode = st.BarCode,
+                                BoxType = (byte)st.BoxType,
+                                PositionNr = st.PositionNr,
+                                PositionFloor = (byte)st.PositionFloor,
+                                PositionColumn = (byte)st.PositionColumn,
+                                PositionRow = (byte)st.PositionRow,
+                                RoadMachineIndex = st.RoadMachineIndex.Value,
 
-                        ///
-                        if (!OutStockCenterQueue.Keys.Contains(st.TrayBatchId))
-                        {
-                            OutStockCenterQueue.Add(st.TrayBatchId, new List<StockTaskItem>() { taskItem });
+                                TrayReverseNo = st.TrayReverseNo.Value,
+                                TrayNum = st.TrayNum.Value,
+                                DeliveryItemNum = st.DeliveryItemNum.Value,
+                                State = (StockTaskState)st.State,
+                                DbId = st.Id,
+                                IsInProcessing = true
+                            };
+                            taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
+
+                            taskItem.State = StockTaskState.RoadMachineWaitOutStock;
+                            ///
+                            if (!OutStockCenterQueue.Keys.Contains(st.TrayBatchId))
+                            {
+                                OutStockCenterQueue.Add(st.TrayBatchId, new List<StockTaskItem>() { taskItem });
+                            }
+                            else
+                            {
+                                OutStockCenterQueue[st.TrayBatchId].Add(taskItem);
+                            }
+
                         }
-                        else
-                        {
-                            OutStockCenterQueue[st.TrayBatchId].Add(taskItem);
-                        }
-
-                        taskItem.State = StockTaskState.RoadMachineWaitOutStock;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                LogUtil.Logger.Error(ex.Message,ex);
+                catch (Exception ex)
+                {
+                    LogUtil.Logger.Error(ex.Message, ex);
+                }
+                isLoadingDbTask = false;
             }
 
         }
 
+
+
+        /// <summary>
+        /// 逐托分发出库任务
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DispatchTrayOutStockTaskTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            DispatchTrayOutStockTaskTimer.Stop();
+
+            if (OPCOutRobootPickData.CanWrite)
+            {
+                if (this.DispatchOutStockTaskByTray())
+                {
+                    this.OPCOutRobootPickData.SyncWrite(this.OPCOutRobootPickOPCGroup);
+                }
+            }
+
+            DispatchTrayOutStockTaskTimer.Start();
+        }
         /// <summary>
         /// 逐托分发任务
         /// </summary>
@@ -1952,11 +1968,17 @@ namespace AGVCenterWPF
         {
             lock (DispatchTrayOutStockTaskLocker)
             {
+                if (isLoadingDbTask)
+                {
+                    return false;
+                }
                 if (OutStockCenterQueue.Count == 0)
                 {
                     return false;
                 }
                 var f= OutStockCenterQueue.FirstOrDefault();
+                this.OPCOutRobootPickData.BoxType = f.Value.FirstOrDefault().BoxType;
+                this.OPCOutRobootPickData.TrayNum = f.Value.Count();
                 foreach (var taskItem in f.Value)
                 {
                     if (taskItem.RoadMachineIndex == 1)
@@ -1969,6 +1991,8 @@ namespace AGVCenterWPF
                         //    RoadMachine2TaskQueue.Add(taskItem.Barcode, taskItem);
                         RoadMachine2TaskQueue.Enqueue(taskItem);
                     }
+
+                    TaskCenterForDisplayQueue.Add(taskItem);
                 }
                 OutStockCenterQueue.Remove(f.Key);
                 return true;
