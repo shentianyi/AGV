@@ -121,7 +121,7 @@ namespace AGVCenterLib.Service
         /// <returns></returns>
         public ResultMessage OutStockByCheckCode(string checkCode)
         {
-            return null;
+          //  return null;
             ResultMessage message = new ResultMessage();
             IUniqueItemRepository itemRep = new UniqueItemRepository(this.Context);
             UniqueItem item = itemRep.FindByCheckCode(checkCode);

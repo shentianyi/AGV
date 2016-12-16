@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AGVCenterWPF.Config;
 using AGVCenterWPF.Properties;
 
 namespace AGVCenterWPF
 {
    public class OPCConfig
     {
+        #region 基本设置
         /// <summary>
         /// 数据库连接
         /// </summary>
-        public static string DbString = Settings.Default.dbString;
+        public static string DbString =BaseConfig.ConnectString;//Settings.Default.dbString;
         /// <summary>
         /// OPC 服务器列表
         /// </summary>
@@ -97,5 +99,15 @@ namespace AGVCenterWPF
         /// </summary>
         public static int LoadOutStockTaskFromDbTimerInterval = 300;
 
+        #endregion
+
+
+        //#region 测试配置
+        ///// <summary>
+        ///// 出库任务完成是否删除库存，如果删除就无法重新出库，必须重新入库，即，生成库存
+        ///// 不删除的话，出库任务只要重新都置为等待出库状态(7),就可以重新出库了
+        ///// </summary>
+        //public static bool TEST_OutStockTaskDelStorage = Settings.Default.TEST_OUTSTOCK_NOT_DEL_STOTAGE;
+        //#endregion
     }
 }

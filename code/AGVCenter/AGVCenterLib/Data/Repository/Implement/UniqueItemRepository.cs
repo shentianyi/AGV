@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AGVCenterLib.Model;
 using AGVCenterLib.Data.Repository.Interface;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Implement
 {
@@ -52,6 +53,11 @@ namespace AGVCenterLib.Data.Repository.Implement
                     join d in context.DeliveryItem on i.Nr equals d.UniqItemNr
                     where d.DeliveryNr == deliveryNr
                     select i).ToList();
+        }
+
+        public IQueryable<UniqueItem> Search(UniqueItemSearchModel searchModel)
+        {
+            return this.context.UniqueItem;
         }
     }
 }

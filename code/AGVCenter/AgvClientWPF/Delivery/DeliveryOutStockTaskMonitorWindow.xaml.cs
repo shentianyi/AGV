@@ -49,7 +49,8 @@ namespace AgvClientWPF.Delivery
         {
             loadTaskTimer.Stop();
 
-            this.Dispatcher.Invoke(new Action(()=> {
+            this.Dispatcher.Invoke(new Action(() =>
+            {
 
                 LoadDeliveryOutStockTask(deliveryNrTB.Text);
 
@@ -64,25 +65,32 @@ namespace AgvClientWPF.Delivery
             {
                 return;
             }
-            DeliveryServiceClient dsc = new DeliveryServiceClient();
-            List<StockTaskModel> stockTasks = dsc.GetDeliveryOutStockTasks(deliveryNr).ToList();
-            deliveryStockTaskDG.ItemsSource = stockTasks;
-
-            outStockedNumLab.Content = stockTasks.Count(s => s.State ==(int) StockTaskState.OutStocked);
-            totalDeliveryItemNumLab.Content = stockTasks.Count();
-
-            outStockedTotalTrayNumLab.Content = stockTasks.Select(s => s.TrayBatchId).Distinct().Count();
-
-            int finishTrayNum = 0;
-            foreach(var i in stockTasks.Select(s => s.TrayBatchId).Distinct())
+            try
             {
-                if(stockTasks.Count(s=>s.TrayBatchId==i)==stockTasks.Count(s=>s.TrayBatchId==i && s.State== (int)StockTaskState.OutStocked))
-                {
-                    finishTrayNum++;
-                }
-            }
+                DeliveryServiceClient dsc = new DeliveryServiceClient();
+                List<StockTaskModel> stockTasks = dsc.GetDeliveryOutStockTasks(deliveryNr).ToList();
+                deliveryStockTaskDG.ItemsSource = stockTasks;
 
-            outStockedTrayNumLab.Content = finishTrayNum;
+                outStockedNumLab.Content = stockTasks.Count(s => s.State == (int)StockTaskState.OutStocked);
+                totalDeliveryItemNumLab.Content = stockTasks.Count();
+
+                outStockedTotalTrayNumLab.Content = stockTasks.Select(s => s.TrayBatchId).Distinct().Count();
+
+                int finishTrayNum = 0;
+                foreach (var i in stockTasks.Select(s => s.TrayBatchId).Distinct())
+                {
+                    if (stockTasks.Count(s => s.TrayBatchId == i) == stockTasks.Count(s => s.TrayBatchId == i && s.State == (int)StockTaskState.OutStocked))
+                    {
+                        finishTrayNum++;
+                    }
+                }
+
+                outStockedTrayNumLab.Content = finishTrayNum;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

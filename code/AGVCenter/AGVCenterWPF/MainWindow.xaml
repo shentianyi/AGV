@@ -14,7 +14,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TabControl x:Name="tabControl"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <TabItem Header="OPC 服务配置">
+            <TabItem Header="OPC 服务配置" Height="23" VerticalAlignment="Bottom">
                 <Grid Background="#FFE5E5E5"  VerticalAlignment="Stretch">
                     <Label x:Name="label" Content="OPC服务列表:" HorizontalAlignment="Left" Margin="26,49,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="OPCListServerBtn" Content="寻找可用OPC服务" HorizontalAlignment="Left" Margin="25,17,0,0" VerticalAlignment="Top" Width="129" Height="27" Click="ListOPCServerBtn_Click"/>
@@ -31,9 +31,37 @@
             </TabItem>
             <TabItem Header="总库存操作列表">
                 <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch">
-                    <ListBox x:Name="CenterStockTaskDisplayLB" 
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button   Name="RestAllDataAndCleanBtn" Grid.Column="0"
+                                Content="重置所有数据" Margin="5"   ToolTip="删除所有出入库任务、库存、运单，但保持唯一码、库位" Click="RestAllDataAndCleanBtn_Click"></Button>
+
+                        <Button   Name="RestAllTaskAndCleanBtn" Grid.Column="1"
+                                Content="重置所有任务" Margin="5" 
+                                  Click="RestAllTaskAndCleanBtn_Click" ToolTip="删除所有的任务、库存，但保持唯一码和运单信息"></Button>
+                        
+                        <Button   Name="RestOutTaskAndCleanBtn" Grid.Column="2"
+                                Content="重置出库任务" Margin="5" 
+                                  Click="RestOutTaskAndCleanBtn_Click" ToolTip="改变完成的出库任务状态，可重新加载使用，不需要其它操作"></Button>
+                    </Grid>
+                    <ListBox x:Name="CenterStockTaskDisplayLB"  Grid.Row="2"
                          HorizontalAlignment="Stretch"  Margin="10,6,0,-4" 
                              VerticalAlignment="Stretch"/>
+
                 </Grid>
             </TabItem>
             <TabItem Header="扫描条码入库任务">
@@ -125,14 +153,61 @@
             </TabItem>
             <TabItem Header="出库任务" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="61">
                 <Grid Background="#FFE5E5E5">
-                    <Label x:Name="label5" Content="待出库任务列表：" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top"/>
+                    <!--<Label x:Name="label5" Content="待出库任务列表：" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top"/>
                     <ListBox x:Name="WaitOutStockTaskLB" HorizontalAlignment="Left" 
-                              Margin="24,41,0,0" VerticalAlignment="Stretch" Width="203"/>
-                    <Button x:Name="CreateOutStockTaskBtn" Content="出库 >" HorizontalAlignment="Left" Margin="234,176,0,0" VerticalAlignment="Top" Width="48" Height="295" FontWeight="Bold" Click="CreateOutStockTaskBtn_Click"/>
+                              Margin="24,41,0,0" VerticalAlignment="Stretch" Width="203"/>-->
+                    <!--<Button x:Name="CreateOutStockTaskBtn" Content="出库 >" HorizontalAlignment="Left" Margin="234,176,0,0" VerticalAlignment="Top" Width="48" Height="295" FontWeight="Bold" Click="CreateOutStockTaskBtn_Click"/>-->
                     <ListBox x:Name="CenterOutStockTaskLB" HorizontalAlignment="Stretch" 
-                               Margin="294,42,0,0" VerticalAlignment="Stretch" />
-                    <Label x:Name="label5_Copy" Content="出库任务列表：" HorizontalAlignment="Left" Margin="294,10,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="LoadOutStockTaskBtn" Content="加载出库" HorizontalAlignment="Left" Margin="232,42,0,0" VerticalAlignment="Top" Width="55" Height="48" Click="LoadOutStockTaskBtn_Click"/>
+                               Margin="10,42,0,0" VerticalAlignment="Stretch" />
+                    <Label x:Name="label5_Copy" Content="出库任务列表：" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <!--<Button x:Name="LoadOutStockTaskBtn" Content="加载出库" HorizontalAlignment="Left" Margin="232,42,0,0" VerticalAlignment="Top" Width="55" Height="48" Click="LoadOutStockTaskBtn_Click"/>-->
+                </Grid>
+            </TabItem>
+            <TabItem Header="基本设置" x:Name="SettingTabItem" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="61" Loaded="SettingTabItem_Loaded">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox x:Name="autoConnectOPCCB" Grid.Row="0" Grid.Column="0" Content="自动连接OPC" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
+                              Click="SettingOPCCB_Checked"/>
+
+
+                    <CheckBox x:Name="roadMacine1EnabledCB" Grid.Row="1" Grid.Column="0" Content="巷道机1可用"   HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
+                               Click="SettingOPCCB_Checked"/>
+                    <CheckBox x:Name="roadMacine2EnabledCB" Grid.Row="1" Grid.Column="1" Content="巷道机2可用" 
+                              HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                                Click="SettingOPCCB_Checked"/>
+
+
+                    <CheckBox x:Name="inStockCreateStorageCB" Grid.Row="2" Grid.Column="0" Content="入库动作生成库存" ToolTip="在空跑巷道机测试且不需要动态库位时，可以不生成库位。\n 如只是给巷道机一个入库动作，无其它操作时。\n一旦生成库存，库位就被占用了，条码状态也变为已入库，此刻可以进行出库。" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                                Click="SettingOPCCB_Checked"/>
+                    
+                    <CheckBox x:Name="outStockTaskDelStorageCB" Grid.Row="2" Grid.Column="1" Content="出库动作删除库存" ToolTip="在反复巷道机测试出库码垛时，可以不删除库存。\n一旦删除库存，条码就变成已出库状态，且不可以再次重新运行，需要重置条码状态，然后再入库才可以再出库" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                                Click="SettingOPCCB_Checked"/>
+                    <CheckBox x:Name="showRescanErrorBarcodeCB" Grid.Row="2" Grid.Column="2" Content="显示重复扫描错误" ToolTip="是否显示重复扫描错，因为重复扫描可能很多次，都加入显示的话不利于观察 但是利于分析数据接收情况" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                                Click="SettingOPCCB_Checked"/>
+
                 </Grid>
             </TabItem>
         </TabControl>

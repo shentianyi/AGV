@@ -97,16 +97,19 @@ namespace AgvClientWPF.Delivery
                         if (item != null)
                         {
                             deliveryItemDG.Items.Add(item);
+                            uniqItemNrTB.Text = string.Empty;
                         }
                     }
                     else
                     {
                         MessageBox.Show(message.Content);
+                        uniqItemNrTB.Text = string.Empty;
                     }
                 }
                 else
                 {
                     MessageBox.Show("运单项不可重复加入此运单");
+                    uniqItemNrTB.Text = string.Empty;
                 }
             }
         }

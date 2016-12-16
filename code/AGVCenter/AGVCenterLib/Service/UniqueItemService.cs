@@ -8,14 +8,15 @@ using Brilliantech.Framwork.Utils.LogUtil;
 using AGVCenterLib.Data.Repository.Interface;
 using AGVCenterLib.Data.Repository.Implement;
 using AGVCenterLib.Enum;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Service
 {
-    public class UniqueItemService: ServiceBase
+    public class UniqueItemService : ServiceBase
     {
 
-        public UniqueItemService(string dbString):base(dbString)
-        { 
+        public UniqueItemService(string dbString) : base(dbString)
+        {
         }
 
         /// <summary>
@@ -96,6 +97,12 @@ namespace AGVCenterLib.Service
             IUniqueItemRepository rep = new UniqueItemRepository(this.Context);
 
             return rep.FindByCheckCode(checkCode);
+        }
+
+
+        public IQueryable<UniqueItem> Search(UniqueItemSearchModel searchModel)
+        {
+            return new UniqueItemRepository(this.Context).Search(searchModel);
         }
     }
 }

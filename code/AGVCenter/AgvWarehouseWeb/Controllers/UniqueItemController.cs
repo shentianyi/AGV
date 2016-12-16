@@ -12,38 +12,39 @@ using MvcPaging;
 
 namespace AgvWarehouseWeb.Controllers
 {
-    public class StorageController : Controller
+    public class UniqueItemController : Controller
     {
-        // GET: Storage
+        // GET: UniqueItem
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
-            
-            StorageService ps = new StorageService(Settings.Default.db);
-            var q = new StorageSearchModel();
-            IPagedList<StorageUniqueItemView> items = 
-                ps.SearchDetail(q)
+
+            UniqueItemService ps = new UniqueItemService(Settings.Default.db);
+            var q = new UniqueItemSearchModel();
+
+            IPagedList<UniqueItem> items =
+                ps.Search(q)
                 .ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            ViewBag.Query = q; 
+            ViewBag.Query = q;
 
             return View(items);
         }
 
 
-        // GET: Storage/Details/5
+        // GET: UniqueItem/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Storage/Create
+        // GET: UniqueItem/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Storage/Create
+        // POST: UniqueItem/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -59,13 +60,13 @@ namespace AgvWarehouseWeb.Controllers
             }
         }
 
-        // GET: Storage/Edit/5
+        // GET: UniqueItem/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Storage/Edit/5
+        // POST: UniqueItem/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -81,13 +82,13 @@ namespace AgvWarehouseWeb.Controllers
             }
         }
 
-        // GET: Storage/Delete/5
+        // GET: UniqueItem/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Storage/Delete/5
+        // POST: UniqueItem/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

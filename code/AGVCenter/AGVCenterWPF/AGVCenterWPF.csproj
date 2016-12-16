@@ -80,8 +80,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Config\BaseConfig.cs" />
+    <Compile Include="Config\TestConfig.cs" />
     <Compile Include="DemoData.cs" />
+    <Compile Include="Helper\SqlHelper.cs" />
+    <Compile Include="MainWindowPartial\MainWindowOPC.cs" />
     <Compile Include="OPCConfig.cs" />
+    <Compile Include="MainWindowPartial\MainWindowRestTask.cs" />
+    <Compile Include="MainWindowPartial\MainWindowTestConfig.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -115,6 +121,12 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="CodeMapImportant.dgml" />
+    <None Include="Config\base.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\test.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="log4.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

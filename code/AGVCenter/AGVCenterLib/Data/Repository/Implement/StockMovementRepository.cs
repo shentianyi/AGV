@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Implement
 {
@@ -20,6 +21,11 @@ namespace AGVCenterLib.Data.Repository.Implement
         public void Create(StockMovement entity)
         {
             this.context.StockMovement.InsertOnSubmit(entity);
+        }
+
+        public IQueryable<StockMovement> Search(StockMovementSearchModel searchModel)
+        {
+            return this.context.StockMovement;
         }
     }
 }

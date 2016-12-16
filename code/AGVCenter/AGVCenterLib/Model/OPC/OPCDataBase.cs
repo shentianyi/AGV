@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Brilliantech.Framwork.Utils.LogUtil;
 using OPCAutomation;
 
 namespace AGVCenterLib.Model.OPC
@@ -219,6 +220,7 @@ namespace AGVCenterLib.Model.OPC
             }
             else
             {
+                LogUtil.Logger.InfoFormat("【扫描条码内容】{0}", o.ToString());
                 List<string> s = o.ToString().Trim('\n').Trim('\r').Split('\r').ToList();
                 List<string> ss = new List<string>();
                 foreach(var sss in s)
@@ -227,7 +229,7 @@ namespace AGVCenterLib.Model.OPC
                         ss.Add(sss.Trim('\n'));
                     }
                 }
-                return ss.FirstOrDefault();
+                return ss.LastOrDefault();
             }
             //return o == null ? string.Empty : o.ToString().Split('\r').Trim('\n').Trim('\r');
         }

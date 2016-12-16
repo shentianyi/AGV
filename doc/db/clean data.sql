@@ -15,13 +15,14 @@ delete from Position;
   
 
 
-
+/**
   delete from StockTask;
-  delete from [AgvWarehoueDb].[dbo].[Storage];
+ delete from [AgvWarehoueDb].[dbo].[Storage];
   update [AgvWarehoueDb].[dbo].UniqueItem set State=100;
   
+  **/
   
-  delete from StockTask where [type]=2;
+ -- delete from StockTask where [type]=2;
   
   
-  update StockTask set State=7 where [type]=1;
+ -- update StockTask set State=7 where [type]=1;

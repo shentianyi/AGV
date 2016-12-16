@@ -123,7 +123,9 @@
     <Compile Include="Model\OPC\OPCDataBase.cs" />
     <Compile Include="Model\OPC\OPCRoadMachineTaskFeed.cs" />
     <Compile Include="Model\OPC\OPCSetStockTask.cs" />
+    <Compile Include="Model\SearchModel\StockMovementSearchModel.cs" />
     <Compile Include="Model\SearchModel\StorageSearchModel.cs" />
+    <Compile Include="Model\SearchModel\UniqueItemSearchModel.cs" />
     <Compile Include="Model\StockTaskItem.cs" />
     <Compile Include="Model\ViewModel\DeliveryStorageViewModel.cs" />
     <Compile Include="Model\ViewModel\StockTaskModel.cs" />
@@ -135,6 +137,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\StockMovementService.cs" />
     <Compile Include="Service\StorageService.cs" />
     <Compile Include="Service\TrayService.cs" />
     <Compile Include="Service\TrayItemService.cs" />

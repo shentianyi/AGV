@@ -51,7 +51,6 @@ namespace AgvClientWPF.Product
 
                     ProductServiceClient ps = new ProductServiceClient();
                     message = ps.CreateUniqItem(item);
-
                 }
             }
             catch (Exception ex)
@@ -60,6 +59,16 @@ namespace AgvClientWPF.Product
                 message.MessageType = MessageType.Exception;
             }
             MessageBox.Show(message.Content);
+            this.RestInput();
+        }
+
+        private void RestInput()
+        {
+            QrTB.Text = string.Empty;
+            KnrTB.Text = string.Empty;
+            KNrWithYearTB.Text = string.Empty;
+            CheckCodeTB.Text = string.Empty;
+            KskNrTB.Text = string.Empty;
         }
     
 
