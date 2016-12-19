@@ -30,19 +30,21 @@ namespace AgvClientWPF.Delivery
         {
             LoadDeliveryList();
         }
-
+      
         private void LoadDeliveryList()
         {
-            try {
+            try
+            {
                 DeliveryServiceClient dsc = new DeliveryServiceClient();
 
-            var deliveries=    dsc.SearchList(new DeliverySearchModel() {
+                List<DeliveryModel> deliveries = dsc.SearchList(new DeliverySearchModel()
+                {
                     Nr = deliveryNrTB.Text
-                }, 50);
+                }, 50).ToList();
 
                 deliveryDG.ItemsSource = deliveries;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -82,5 +84,6 @@ namespace AgvClientWPF.Delivery
                 new DeliveryOutStockTaskMonitorWindow(d.Nr).Show();
             }
         }
+         
     }
 }

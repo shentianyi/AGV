@@ -1,13 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using AGVCenterLib.Enum;
 
 namespace AGVCenterLib.Model
 {
-    public class StockTaskItem
+    public class StockTaskItem : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, e);
+            }
+        }
         public StockTaskItem()
         {
             this.State = StockTaskState.Init;
@@ -24,75 +33,205 @@ namespace AGVCenterLib.Model
         /// 状态改变事件
         /// </summary>
         public event TaskStateChangeEventHandler TaskStateChangeEvent;
-         
+
         #endregion
 
         /// <summary>
         /// 任务类型
         /// </summary>
-        public StockTaskType StockTaskType { get; set; }
-        
+        public StockTaskType stockTaskType;
+        public StockTaskType StockTaskType
+        {
+            get
+            {
+                return this.stockTaskType;
+            }
+            set
+            {
+                this.stockTaskType = value;
+
+                OnPropertyChanged(new PropertyChangedEventArgs("StockTaskType"));
+            }
+        }
+
         /// <summary>
         /// 巷道机序号，从1开始，目前使用1号或2号巷道机，
         /// 和库存中的库位AreaIndex对应，相当于1或2的分区
         /// </summary>
-        public int RoadMachineIndex { get; set; }
+        private int roadMachineIndex;
+        public int RoadMachineIndex
+        {
+            get { return this.roadMachineIndex; }
+            set
+            {
+                this.roadMachineIndex = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("RoadMachineIndex"));
+            }
+        }
 
         /// <summary>
         /// 库位编号
         /// </summary>
-        public string PositionNr { get; set; }
+        private string positionNr;
+        public string PositionNr
+        {
+            get { return this.positionNr; }
+            set
+            {
+                this.positionNr = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("PositionNr"));
+            }
+        }
 
         /// <summary>
         /// 库位，层，2
         /// </summary>
-        public int PositionFloor { get; set; }
+        private int positionFloor;
+        public int PositionFloor
+        {
+            get { return this.positionFloor; }
+            set
+            {
+                this.positionFloor = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("PositionFloor"));
+            }
+        }
 
         /// <summary>
         /// 库位，列，3
         /// </summary>
-        public int PositionColumn { get; set; }
+        private int positionColumn;
+        public int PositionColumn
+        {
+            get
+            {
+                return this.positionColumn;
+            }
+            set
+            {
+                this.positionColumn = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("PositionColumn"));
+            }
+        }
 
         /// <summary>
         /// 库位，排，4
         /// </summary>
-        public int PositionRow { get; set; }
+        private int positionRow;
+        public int PositionRow
+        {
+            get { return this.positionRow; }
+            set
+            {
+                this.positionRow = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("PositionRow"));
+            }
+        }
 
         /// <summary>
         /// 箱型，5
         /// </summary>
-        public byte BoxType { get; set; }
+        private byte boxType;
+        public byte BoxType
+        {
+            get { return this.boxType; }
+            set
+            {
+                this.boxType = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("BoxType"));
+            }
+        }
 
         /// <summary>
         /// AGV 放行标记，6
         /// </summary>
-        public byte AgvPassFlag { get; set; }
+        private byte agvPassFlag;
+        public byte AgvPassFlag
+        {
+            get { return this.agvPassFlag; }
+            set
+            {
+                this.agvPassFlag = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("AgvPassFlag"));
+            }
+        }
 
         /// <summary>
         /// 重置库位标记，7
         /// </summary>
-        public byte RestPositionFlag { get; set; }
+        private byte restPositionFlag;
+        public byte RestPositionFlag
+        {
+            get
+            {
+                return this.restPositionFlag;
+            }
+            set
+            {
+                this.restPositionFlag = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("RestPositionFlag"));
+            }
+        }
 
 
         /// <summary>
         /// 托的剩余第几箱，从n...1
         /// </summary>
-        public int TrayReverseNo { get; set; }
+        private int trayReverseNo;
+        public int TrayReverseNo
+        {
+            get
+            {
+                return this.trayReverseNo;
+            }
+            set
+            {
+                this.trayReverseNo = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("TrayReverseNo"));
+            }
+        }
 
         /// <summary>
         /// 运单中托的个数
         /// </summary>
-        public int TrayNum { get; set; }
+        private int trayNum;
+        public int TrayNum
+        {
+            get { return this.trayNum; }
+            set
+            {
+                this.trayNum = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("TrayNum"));
+            }
+        }
 
         /// <summary>
         /// 运单项的个数
         /// </summary>
-        public int DeliveryItemNum { get; set; }
+        private int deliveryItemNum;
+        public int DeliveryItemNum
+        {
+            get { return this.deliveryItemNum; }
+            set
+            {
+                this.deliveryItemNum = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("DeliveryItemNum"));
+            }
+        }
 
         /// <summary>
         /// 条码
         /// </summary>
-        public string Barcode { get; set; }
+        public string barCode;
+        public string Barcode
+        {
+            get { return this.barCode; }
+            set
+            {
+                this.barCode = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("Barcode"));
+            }
+        }
 
         /// <summary>
         /// 状态，不写入OPC
@@ -101,7 +240,11 @@ namespace AGVCenterLib.Model
         public StockTaskState StateWas
         {
             get { return stateWas; }
-            private set { stateWas = value; }
+            private set
+            {
+                stateWas = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("StateWas"));
+            }
         }
         private StockTaskState state;
         public StockTaskState State
@@ -111,6 +254,7 @@ namespace AGVCenterLib.Model
             {
                 stateWas = state;
                 state = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("State"));
                 if (stateWas != state)
                 {
                     if (this.TaskStateChangeEvent != null)
@@ -118,28 +262,42 @@ namespace AGVCenterLib.Model
                         this.TaskStateChangeEvent(this, value);
                     }
                 }
+
+            }
+        }
+        private bool isInProcessing;
+        public bool IsInProcessing
+        {
+            get { return this.isInProcessing; }
+            set
+            {
+                this.isInProcessing = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("IsInProcessing"));
             }
         }
 
-        public bool IsInProcessing
-        {
-            get;
-            set;
-        }
-
-        public  bool IsInBuffingState
+        public bool IsInBuffingState
         {
             get
             {
-               return this.State == StockTaskState.RoadMachineStockBuffing || this.State == StockTaskState.RoadMachineWaitOutStock;
+                return this.State == StockTaskState.RoadMachineStockBuffing || this.State == StockTaskState.RoadMachineWaitOutStock;
             }
         }
         /// <summary>
         /// DB id
         /// </summary>
-        public int DbId { get; set; }
-         
-        
+        private int dbId;
+        public int DbId
+        {
+            get { return this.dbId; }
+            set
+            {
+                this.dbId = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("DbId"));
+            }
+        }
+
+
         public string ToDisplay()
         {
             return string.Format("【任务类型：{0}-巷道机-**{10}**】\r\n条码：{1},库位：{2}-{3}-{4},箱型：{5},AGV放行标记:{6},Rest标记{7},状态：{8},DbId:{9}\r\n",

@@ -64,6 +64,11 @@ namespace AGVCenterLib.Enum
         RoadMachineOutStocking = 110,
         OutStocked = 120,
 
+        /// <summary>
+        /// 取消
+        /// </summary>
+        Canceled=800,
+
         // Error
         ErrorNoPositoin = 930,
         ErrorUniqNotExsits = 940,

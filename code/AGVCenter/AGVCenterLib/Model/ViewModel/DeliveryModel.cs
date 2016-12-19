@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -9,10 +10,27 @@ namespace AGVCenterLib.Model.ViewModel
 {
 
     [DataContract]
-    public class DeliveryModel
+    public class DeliveryModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, e);
+            }
+        }
+        private string nr;
         [DataMember]
-        public string Nr { get; set; }
+        public string Nr
+        {
+            get { return this.nr; }
+            set
+            {
+                this.nr = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("Nr"));
+            }
+        }
 
         [DataMember]
         public int? State { get; set; }
@@ -26,7 +44,7 @@ namespace AGVCenterLib.Model.ViewModel
         [DataMember]
         public DateTime? UpdatedAt { get; set; }
 
-
+       
         public static List<DeliveryModel> Converts(List<Delivery> items)
         {
             List<DeliveryModel> itemModels = new List<DeliveryModel>();

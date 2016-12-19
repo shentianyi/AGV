@@ -9,14 +9,10 @@
 
     <Window.Resources>
         <Style TargetType="DataGridCell">
-            <!--<Setter Property="Background" Value="Red"/>-->
             <Style.Triggers>
                 <DataTrigger Binding="{Binding State}" Value="10">
                     <Setter Property="Background" Value="Red"/>
                 </DataTrigger>
-                <!--<DataTrigger Binding="{Binding weight_valid}" Value="True">
-                                                <Setter Property="Background" Value="White"/>
-                                            </DataTrigger>-->
             </Style.Triggers>
         </Style>
     </Window.Resources>
@@ -34,7 +30,7 @@
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="任务号" Binding="{Binding Path=Id}"/>
-                <DataGridTextColumn Header="产品验证码" Binding="{Binding Path=BarCode}"/>
+                <DataGridTextColumn Header="产品KSK" Binding="{Binding Path=BarCode}"/>
                 <DataGridTextColumn Header="巷道机号" Binding="{Binding Path=RoadMachineIndex}"/>
                 <DataGridTextColumn Header="库位号" Binding="{Binding Path=PositionNr}"/>
                 <DataGridTextColumn Header="当前状态" Binding="{Binding Path=State}"/>
