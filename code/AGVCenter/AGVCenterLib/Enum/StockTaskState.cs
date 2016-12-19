@@ -32,43 +32,47 @@ namespace AGVCenterLib.Enum
         /// 初始
         /// </summary>
         Init = 0,
+
+        AgvPassFail = 10,
+
+        AgvWaitPassing = 20,
         /// <summary>
         /// AGV 入库中
         /// </summary>
-        AgvInStcoking = 1,
+        AgvInStcoking = 30,
         /// <summary>
         /// 机械手入库中
         /// </summary>
-        RobootInStocking = 2,
+        RobootInStocking = 40,
 
         /// <summary>
         /// 巷道机入库缓冲区中
         /// </summary>
-        RoadMachineStockBuffing = 3,
+        RoadMachineStockBuffing = 50,
 
         /// <summary>
         /// 巷道机入库中
         /// </summary>
-        RoadMachineInStocking = 4,
+        RoadMachineInStocking = 60,
         /// <summary>
         /// 入库成功
         /// </summary>
-        InStocked = 5,
-        InCanceled = 6,
-        RoadMachineOutStockInit=7,
-        RoadMachineWaitOutStock = 8,
-        RoadMachineOutStocking = 9,
-        OutStocked = 10,
+        InStocked = 70,
+        InCanceled = 80,
+        RoadMachineOutStockInit = 90,
+        RoadMachineWaitOutStock = 100,
+        RoadMachineOutStocking = 110,
+        OutStocked = 120,
 
         // Error
-        ErrorNoPositoin = 20,
-        ErrorUniqNotExsits = 21,
-        ErrorUniqCannotInStock = 22,
-        ErrorCreateDbTask = 23,
-        ErrorBarcodeReScan=24,
+        ErrorNoPositoin = 930,
+        ErrorUniqNotExsits = 940,
+        ErrorUniqCannotInStock = 950,
+        ErrorCreateDbTask = 960,
+        ErrorBarcodeReScan = 970,
 
-        ErrorInStock=99,
-        ErrorOutStock=199
+        ErrorInStock = 980,
+        ErrorOutStock = 990
     }
 
 

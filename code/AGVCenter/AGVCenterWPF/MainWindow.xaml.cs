@@ -1378,7 +1378,7 @@ namespace AGVCenterWPF
                     {
                         passTaskItem.IsInProcessing = true;
 
-                        passTaskItem.State = StockTaskState.AgvInStcoking;
+                        passTaskItem.State = StockTaskState.AgvWaitPassing;
                         // 进入agv放行
                         AgvInStockPassQueue.Enqueue(passTaskItem);
                     }

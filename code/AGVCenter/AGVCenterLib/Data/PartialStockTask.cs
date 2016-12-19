@@ -10,6 +10,7 @@ namespace AGVCenterLib.Data
     { 
         public static List<StockTaskState> CannotInStockStates = new List<StockTaskState>()
         {
+            StockTaskState.AgvWaitPassing,
             StockTaskState.AgvInStcoking,
             StockTaskState.RobootInStocking,
             StockTaskState.RoadMachineStockBuffing,
