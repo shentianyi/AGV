@@ -13,6 +13,7 @@ namespace AGVCenterWPF
         private void SettingTabItem_Loaded(object sender, RoutedEventArgs e)
         {
             this.autoConnectOPCCB.IsChecked = BaseConfig.AutoConnectOPC;
+            this.autoLoadDbTaskOnStartCB.IsChecked = BaseConfig.AutoLoadDbTaskOnStart;
 
             this.roadMacine1EnabledCB.IsChecked = BaseConfig.RoadMachine1Enabled;
             this.roadMacine2EnabledCB.IsChecked = BaseConfig.RoadMachine2Enabled;
@@ -29,6 +30,9 @@ namespace AGVCenterWPF
             switch(cb.Name) {
                 case "autoConnectOPCCB":
                     BaseConfig.AutoConnectOPC = this.autoConnectOPCCB.IsChecked.Value;
+                    break;
+                case "autoLoadDbTaskOnStartCB":
+                    BaseConfig.AutoLoadDbTaskOnStart = this.autoLoadDbTaskOnStartCB.IsChecked.Value;
                     break;
                 case "roadMacine1EnabledCB":
                     BaseConfig.RoadMachine1Enabled = this.roadMacine1EnabledCB.IsChecked.Value;

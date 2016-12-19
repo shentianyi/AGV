@@ -279,7 +279,10 @@
                     <CheckBox x:Name="autoConnectOPCCB" Grid.Row="0" Grid.Column="0" Content="自动连接OPC" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
                               Click="SettingOPCCB_Checked"/>
 
+                    <CheckBox x:Name="autoLoadDbTaskOnStartCB" Grid.Row="0" Grid.Column="1" Content="启动加载数据库任务" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
+                              Click="SettingOPCCB_Checked"/>
 
+                    
                     <CheckBox x:Name="roadMacine1EnabledCB" Grid.Row="1" Grid.Column="0" Content="巷道机1可用"   HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
                                Click="SettingOPCCB_Checked"/>
                     <CheckBox x:Name="roadMacine2EnabledCB" Grid.Row="1" Grid.Column="1" Content="巷道机2可用" 

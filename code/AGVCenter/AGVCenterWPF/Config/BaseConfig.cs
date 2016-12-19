@@ -16,6 +16,7 @@ namespace AGVCenterWPF.Config
         private static bool roadMachine2Enabled = true;
         private static int maxMonitorTaskNum = 300;
         private static int keepMonitorTaskNum = 200;
+        private static bool autoLoadDbTaskOnStart = true;
         static BaseConfig()
         {
             try
@@ -28,7 +29,7 @@ namespace AGVCenterWPF.Config
                 roadMachine2Enabled = bool.Parse(config.Get("roadMachine2Enabled"));
                 maxMonitorTaskNum = int.Parse(config.Get("maxMonitorTaskNum"));
                 keepMonitorTaskNum = int.Parse(config.Get("keepMonitorTaskNum"));
-
+                autoLoadDbTaskOnStart = bool.Parse(config.Get("autoLoadDbTaskOnStart"));
             }
             catch (Exception ex)
             {
@@ -108,6 +109,21 @@ namespace AGVCenterWPF.Config
                 config.Set("keepMonitorTaskNum", value);
                 config.Save();
 
+            }
+        }
+
+        public static bool AutoLoadDbTaskOnStart
+        {
+            get
+            {
+                return autoLoadDbTaskOnStart;
+            }
+
+            set
+            {
+                autoLoadDbTaskOnStart = value;
+                config.Set("autoLoadDbTaskOnStart", value);
+                config.Save();
             }
         }
     }
