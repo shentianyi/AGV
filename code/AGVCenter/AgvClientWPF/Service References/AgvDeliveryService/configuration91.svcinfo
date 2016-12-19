@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="PViDvmDZEUNVSqSHAFikxRmzggM=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="W9njW+fbNw7JMdNVNis8HYIXmnQ=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="deliveryservice">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="deliveryservice" contract="AgvDeliveryService.IDeliveryService" bindingType="basicHttpBinding" address="http://localhost:9000/AgvService/DeliveryService/" bindingConfiguration="deliveryservice">
+    <endpoint name="deliveryservice" contract="AgvDeliveryService.IDeliveryService" bindingType="basicHttpBinding" address="http://localhost:9001/AgvService/DeliveryService/" bindingConfiguration="deliveryservice">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:9000/AgvService/DeliveryService/</serializedValue>
+          <serializedValue>http://localhost:9001/AgvService/DeliveryService/</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

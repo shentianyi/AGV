@@ -1258,7 +1258,8 @@ namespace AGVCenterWPF
 
                     #region 入库
                     UniqueItemService uniqItemService = new UniqueItemService(OPCConfig.DbString);
-                    UniqueItem item = uniqItemService.FindByCheckCode(barcode);
+                    // UniqueItem item = uniqItemService.FindByCheckCode(barcode);
+                    UniqueItem item = uniqItemService.FindByNr(barcode);
                     if (item != null)
                     {
                         //// 是否是重复扫描

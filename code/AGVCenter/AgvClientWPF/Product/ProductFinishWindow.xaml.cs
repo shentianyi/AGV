@@ -61,7 +61,10 @@ namespace AgvClientWPF.Product
                 message.Content = ex.Message;
                 message.MessageType = MessageType.Exception;
             }
-            MessageBox.Show(message.Content);
+            if (!string.IsNullOrEmpty(message.Content))
+            {
+                MessageBox.Show(message.Content);
+            }
             this.RestInput();
             QrTB.Focus();
         }

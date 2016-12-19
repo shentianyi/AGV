@@ -71,6 +71,9 @@
     <Compile Include="Delivery\CreateTrayWindow.xaml.cs">
       <DependentUpon>CreateTrayWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Delivery\DeliveryListWindow.xaml.cs">
+      <DependentUpon>DeliveryListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Delivery\DeliveryOutStockTaskMonitorWindow.xaml.cs">
       <DependentUpon>DeliveryOutStockTaskMonitorWindow.xaml</DependentUpon>
     </Compile>
@@ -97,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Delivery\CreateTrayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Delivery\DeliveryListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,6 +153,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App - 复制.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\AGVCenterLib.Model.Message.ResultMessage.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StockTaskModel.datasource" />
@@ -155,33 +165,33 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\AgvDeliveryService\AGVCenterLib.Model.Message.xsd">
+    <None Include="Service References\AgvDeliveryService\AGVCenterLib.Model.Message1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AgvDeliveryService\AGVCenterLib.Model.ViewModel.xsd">
+    <None Include="Service References\AgvDeliveryService\AGVCenterLib.Model.ViewModel1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AgvDeliveryService\Arrays.xsd">
+    <None Include="Service References\AgvDeliveryService\Arrays1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AgvDeliveryService\service.wsdl" />
-    <None Include="Service References\AgvDeliveryService\service.xsd">
+    <None Include="Service References\AgvDeliveryService\service1.wsdl" />
+    <None Include="Service References\AgvDeliveryService\service2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AgvDeliveryService\service1.xsd">
+    <None Include="Service References\AgvDeliveryService\service21.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AgvProductService\AGVCenterLib.Model.Message.xsd">
+    <None Include="Service References\AgvProductService\AGVCenterLib.Model.Message1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AgvProductService\AGVCenterLib.Model.ViewModel.xsd">
+    <None Include="Service References\AgvProductService\AGVCenterLib.Model.ViewModel1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AgvProductService\service.wsdl" />
-    <None Include="Service References\AgvProductService\service.xsd">
+    <None Include="Service References\AgvProductService\service1.wsdl" />
+    <None Include="Service References\AgvProductService\service2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AgvProductService\service1.xsd">
+    <None Include="Service References\AgvProductService\service21.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

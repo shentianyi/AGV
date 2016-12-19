@@ -25,8 +25,8 @@ namespace AgvServiceLib
         [OperationContract]
         UniqueItemModel FindUniqItemByNr(string nr);
 
-        [OperationContract]
-        UniqueItemModel FindUniqItemByCheckCode(string checkCode);
+        //[OperationContract]
+        //UniqueItemModel FindUniqItemByCheckCode(string checkCode);
     }
 
     

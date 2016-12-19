@@ -18,15 +18,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:9000/AgvService/DeliveryService/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="http://localhost:9001/AgvService/DeliveryService/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="7156e934-faaa-4f21-bc41-af1918b01c9a" SourceId="1" SourceUrl="http://localhost:9000/AgvService/DeliveryService/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="fde9a444-f652-4828-97be-da5d5bee7950" SourceId="1" SourceUrl="http://localhost:9000/AgvService/DeliveryService/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="53727c01-dd0e-48ac-bf05-fe4378eccbd6" SourceId="1" SourceUrl="http://localhost:9000/AgvService/DeliveryService/mex" />
-    <MetadataFile FileName="AGVCenterLib.Model.Message.xsd" MetadataType="Schema" ID="ae78c3d5-f832-42cf-b91f-4f65639703dc" SourceId="1" SourceUrl="http://localhost:9000/AgvService/DeliveryService/mex" />
-    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="fc9f4e35-c0f0-4e28-9837-b56eef46f98e" SourceId="1" SourceUrl="http://localhost:9000/AgvService/DeliveryService/mex" />
-    <MetadataFile FileName="AGVCenterLib.Model.ViewModel.xsd" MetadataType="Schema" ID="a6df140d-73c2-41c9-93a9-64adc4c60aa0" SourceId="1" SourceUrl="http://localhost:9000/AgvService/DeliveryService/mex" />
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="37d151cd-549b-45fa-9bbe-12b37c2bda13" SourceId="1" SourceUrl="http://localhost:9001/AgvService/DeliveryService/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="c2895c12-01e5-46aa-81d1-4fce250338ec" SourceId="1" SourceUrl="http://localhost:9001/AgvService/DeliveryService/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="c830f692-dfda-4eaf-adcd-5fc826b02748" SourceId="1" SourceUrl="http://localhost:9001/AgvService/DeliveryService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.Message1.xsd" MetadataType="Schema" ID="36a7913d-3ce2-4d83-9448-6d5e5efce20e" SourceId="1" SourceUrl="http://localhost:9001/AgvService/DeliveryService/mex" />
+    <MetadataFile FileName="Arrays1.xsd" MetadataType="Schema" ID="88406f91-10bc-4533-9ec2-e52ad0194a9a" SourceId="1" SourceUrl="http://localhost:9001/AgvService/DeliveryService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.ViewModel1.xsd" MetadataType="Schema" ID="760fae12-d8cf-4ac3-9f83-8bdab65f697a" SourceId="1" SourceUrl="http://localhost:9001/AgvService/DeliveryService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen">
     <Grid>
         <Button x:Name="productOffLineBtn" Content="生产下线" 
                 HorizontalAlignment="Left" Margin="35,39,0,0" VerticalAlignment="Top" Width="74" Height="42" Click="productOffLineBtn_Click"/>

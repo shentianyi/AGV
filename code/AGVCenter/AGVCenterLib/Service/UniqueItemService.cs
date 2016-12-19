@@ -92,12 +92,12 @@ namespace AGVCenterLib.Service
             return rep.FindByNr(nr);
         }
 
-        public UniqueItem FindByCheckCode(string checkCode)
-        {
-            IUniqueItemRepository rep = new UniqueItemRepository(this.Context);
+        //public UniqueItem FindByCheckCode(string checkCode)
+        //{
+        //    IUniqueItemRepository rep = new UniqueItemRepository(this.Context);
 
-            return rep.FindByCheckCode(checkCode);
-        }
+        //    return rep.FindByCheckCode(checkCode);
+        //}
 
 
         public IQueryable<UniqueItem> Search(UniqueItemSearchModel searchModel)

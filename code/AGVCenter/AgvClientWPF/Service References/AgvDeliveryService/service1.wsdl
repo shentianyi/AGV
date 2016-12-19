@@ -233,7 +233,7 @@
   </wsdl:binding>
   <wsdl:service name="DeliveryService">
     <wsdl:port name="deliveryservice" binding="tns:deliveryservice">
-      <soap:address location="http://localhost:9000/AgvService/DeliveryService/" />
+      <soap:address location="http://localhost:9001/AgvService/DeliveryService/" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

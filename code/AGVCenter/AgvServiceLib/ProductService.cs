@@ -34,12 +34,12 @@ namespace AgvServiceLib
             return message;
         }
 
-        public UniqueItemModel FindUniqItemByCheckCode(string checkCode)
-        {
-            UniqueItemService service = new UniqueItemService(SqlHelper.ConnectStr);
-            UniqueItem item = service.FindByCheckCode(checkCode);
-            return UniqueItemModel.Convert(item);
-        }
+        //public UniqueItemModel FindUniqItemByCheckCode(string checkCode)
+        //{
+        //    UniqueItemService service = new UniqueItemService(SqlHelper.ConnectStr);
+        //    UniqueItem item = service.FindByCheckCode(checkCode);
+        //    return UniqueItemModel.Convert(item);
+        //}
 
         public UniqueItemModel FindUniqItemByNr(string nr)
         {

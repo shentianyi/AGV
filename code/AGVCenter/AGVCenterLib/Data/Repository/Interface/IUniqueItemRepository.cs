@@ -11,7 +11,9 @@ namespace AGVCenterLib.Data.Repository.Interface
     public interface IUniqueItemRepository
     {
         UniqueItem FindByCheckCode(string checkCode);
+        
         UniqueItem FindByNr(string nr);
+
         void Create(UniqueItem entity);
 
         void Delete(UniqueItem entity);

@@ -20,9 +20,6 @@ namespace AgvClientWPF.AgvProductService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductService/FindUniqItemByNr", ReplyAction="http://tempuri.org/IProductService/FindUniqItemByNrResponse")]
         AGVCenterLib.Model.ViewModel.UniqueItemModel FindUniqItemByNr(string nr);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductService/FindUniqItemByCheckCode", ReplyAction="http://tempuri.org/IProductService/FindUniqItemByCheckCodeResponse")]
-        AGVCenterLib.Model.ViewModel.UniqueItemModel FindUniqItemByCheckCode(string checkCode);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -58,10 +55,6 @@ namespace AgvClientWPF.AgvProductService {
         
         public AGVCenterLib.Model.ViewModel.UniqueItemModel FindUniqItemByNr(string nr) {
             return base.Channel.FindUniqItemByNr(nr);
-        }
-        
-        public AGVCenterLib.Model.ViewModel.UniqueItemModel FindUniqItemByCheckCode(string checkCode) {
-            return base.Channel.FindUniqItemByCheckCode(checkCode);
         }
     }
 }

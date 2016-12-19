@@ -18,14 +18,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:9000/AgvService/ProductService/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="http://localhost:9001/AgvService/ProductService/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="a8bb40e7-813f-44af-92d6-cfc6dfd4307b" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="3ff18fe5-b941-4a20-9529-18cf390a4019" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="77b88779-e675-49d3-8f32-faf8406d1e73" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
-    <MetadataFile FileName="AGVCenterLib.Model.ViewModel.xsd" MetadataType="Schema" ID="0f5ef492-cbd7-452d-80dc-8494616000f2" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
-    <MetadataFile FileName="AGVCenterLib.Model.Message.xsd" MetadataType="Schema" ID="7f0840ec-3157-4bcb-b4c2-02ef0f5bf4e4" SourceId="1" SourceUrl="http://localhost:9000/AgvService/ProductService/mex" />
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="82698bf3-62d9-4286-8ef5-3bbaa846e8ba" SourceId="1" SourceUrl="http://localhost:9001/AgvService/ProductService/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="7b3b55bb-e8f3-4c61-b2ce-9fc0636934de" SourceId="1" SourceUrl="http://localhost:9001/AgvService/ProductService/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="0e33fdce-5bd4-42e2-a246-4d34370eeea1" SourceId="1" SourceUrl="http://localhost:9001/AgvService/ProductService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.ViewModel1.xsd" MetadataType="Schema" ID="5958c09b-6374-4ce6-a865-6bbdbcde53b2" SourceId="1" SourceUrl="http://localhost:9001/AgvService/ProductService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.Message1.xsd" MetadataType="Schema" ID="ed6a2efc-62d3-4899-bd0a-d480035c753d" SourceId="1" SourceUrl="http://localhost:9001/AgvService/ProductService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

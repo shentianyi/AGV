@@ -242,7 +242,8 @@ namespace AGVCenterWPF
             };
             taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
             UniqueItemService ui = new UniqueItemService(OPCConfig.DbString);
-            if (ui.FindByCheckCode(taskItem.Barcode) == null)
+            //if (ui.FindByCheckCode(taskItem.Barcode) == null)
+            if (ui.FindByNr(taskItem.Barcode) == null)
             {
                 ui.Create(new UniqueItem()
                 {
