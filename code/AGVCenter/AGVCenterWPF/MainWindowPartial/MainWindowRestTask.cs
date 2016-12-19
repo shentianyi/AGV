@@ -227,10 +227,10 @@ namespace AGVCenterWPF
                 TaskCenterForDisplayQueue.Clear();
             }
 
-            RefreshList();
+            //# RefreshList();
         }
 
-       
+
 
         /// <summary>
         /// 手动创建入库任务
@@ -281,7 +281,7 @@ namespace AGVCenterWPF
             {
                 RoadMachineIndexTB.Text = RoadMachineIndexTB.Text == "1" ? "2" : "1";
             }
-            RefreshList();
+            //# RefreshList();
         }
 
 

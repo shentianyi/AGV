@@ -25,16 +25,6 @@ namespace AGVCenterWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Charlot-PC\\MSSQLSERVER20082;Initial Catalog=AgvWarehoueDb;Persist Sec" +
-            "urity Info=True;User ID=sa;Password=123456@")]
-        public string dbString {
-            get {
-                return ((string)(this["dbString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.105")]
         public string OPCNodeName {
             get {
@@ -48,6 +38,16 @@ namespace AGVCenterWPF.Properties {
         public string OPCServerName {
             get {
                 return ((string)(this["OPCServerName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Charlot-PC\\MSSQLSERVER20082;Initial Catalog=AgvWarehouseDb;Persist Se" +
+            "curity Info=True;User ID=sa;Password=123456@")]
+        public string dbString {
+            get {
+                return ((string)(this["dbString"]));
             }
         }
     }

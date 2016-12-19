@@ -236,7 +236,7 @@ namespace AGVCenterWPF
                     {
                         AgvInStockPassQueue.Dequeue();
                     }
-                    RefreshList();
+                   //# RefreshList();
                 }
             }
             SetOPCAgvPassTimer.Start();
@@ -356,7 +356,7 @@ namespace AGVCenterWPF
                 if (OPCInRobootPickData.SyncWrite(OPCInRobootPickOPCGroup))
                 {
                     InRobootPickQueue.Dequeue();
-                    RefreshList();
+                    //# RefreshList();
                 }
             }
             SetOPCInRobootPickTimer.Start();
@@ -442,6 +442,8 @@ namespace AGVCenterWPF
                 }
             }
 
+            // 刷新列表
+            //#  RefreshList();
             SetOPCStockTaskTimer.Start();
 
             #region 巷道机1是否空闲
@@ -521,8 +523,6 @@ namespace AGVCenterWPF
             //        }
             //    }
             //}
-            // 刷新列表
-            RefreshList();
             #endregion
         }
 
@@ -1268,7 +1268,9 @@ namespace AGVCenterWPF
                             taskItem.State = StockTaskState.ErrorBarcodeReScan;
                             if (TestConfig.ShowRescanErrorBarcode)
                             {
-                                TaskCenterForDisplayQueue.Add(taskItem);
+
+                                this.AddItemToTaskDisplay(taskItem);
+                                // TaskCenterForDisplayQueue.Add(taskItem);
                             }
                             return true;
                         }
@@ -1284,7 +1286,8 @@ namespace AGVCenterWPF
                                 taskItem.State = StockTaskState.ErrorBarcodeReScan;
                                 if (TestConfig.ShowRescanErrorBarcode)
                                 {
-                                    TaskCenterForDisplayQueue.Add(taskItem);
+                                    this.AddItemToTaskDisplay(taskItem);
+                                    // TaskCenterForDisplayQueue.Add(taskItem);
                                 }
                                 return true;
                             }
@@ -1367,7 +1370,10 @@ namespace AGVCenterWPF
                 {
                     AgvScanTaskQueue.Add(taskItem.Barcode, taskItem);
                 }
-                TaskCenterForDisplayQueue.Add(taskItem);
+
+                this.AddItemToTaskDisplay(taskItem);
+
+                //  TaskCenterForDisplayQueue.Add(taskItem);
                 if (taskItem.StockTaskType == StockTaskType.IN)
                 {
                     // 立刻加入到放行队列
@@ -1384,7 +1390,7 @@ namespace AGVCenterWPF
                     }
                 }
                 // 刷新界面列表
-                RefreshList();
+                //# RefreshList();
             }
         }
         #endregion
@@ -1588,6 +1594,9 @@ namespace AGVCenterWPF
             RoadMachine2TaskQueue = new Queue();
 
             TaskCenterForDisplayQueue = new List<StockTaskItem>();
+
+            /// 设置显示
+            CenterStockTaskDisplayDG.ItemsSource = TaskCenterForDisplayQueue;
         }
 
 
@@ -1738,39 +1747,41 @@ namespace AGVCenterWPF
         {
             this.Dispatcher.Invoke(new Action(() =>
             {
+                CenterStockTaskDisplayDG.Items.Refresh();
+
                 // AGV扫描任务列表
-                CenterStockTaskDisplayLB.Items.Clear();
-                if (TaskCenterForDisplayQueue != null)
-                {
-                    foreach (var t in TaskCenterForDisplayQueue)
-                    {
-                        CenterStockTaskDisplayLB.Items.Add(t.ToDisplay());
-                    }
-                }
-                // 入库任务列表
-                CenterInStockTaskLB.Items.Clear();
-                if (AgvScanTaskQueue != null)
-                {
-                    foreach (var t in TaskCenterForDisplayQueue)
-                    {
-                        if (t.StockTaskType == StockTaskType.IN)
-                        {
-                            CenterInStockTaskLB.Items.Add(t.ToDisplay());
-                        }
-                    }
-                }
-                // 出库任务列表
-                CenterOutStockTaskLB.Items.Clear();
-                if (AgvScanTaskQueue != null)
-                {
-                    foreach (var t in TaskCenterForDisplayQueue)
-                    {
-                        if (t.StockTaskType == StockTaskType.OUT)
-                        {
-                            CenterOutStockTaskLB.Items.Add(t.ToDisplay());
-                        }
-                    }
-                }
+                //  CenterStockTaskDisplayLB.Items.Clear();
+                //if (TaskCenterForDisplayQueue != null)
+                //{
+                //    foreach (var t in TaskCenterForDisplayQueue)
+                //    {
+                //        CenterStockTaskDisplayLB.Items.Add(t.ToDisplay());
+                //    }
+                //}
+                //// 入库任务列表
+                //CenterInStockTaskLB.Items.Clear();
+                //if (AgvScanTaskQueue != null)
+                //{
+                //    foreach (var t in TaskCenterForDisplayQueue)
+                //    {
+                //        if (t.StockTaskType == StockTaskType.IN)
+                //        {
+                //            CenterInStockTaskLB.Items.Add(t.ToDisplay());
+                //        }
+                //    }
+                //}
+                //// 出库任务列表
+                //CenterOutStockTaskLB.Items.Clear();
+                //if (AgvScanTaskQueue != null)
+                //{
+                //    foreach (var t in TaskCenterForDisplayQueue)
+                //    {
+                //        if (t.StockTaskType == StockTaskType.OUT)
+                //        {
+                //            CenterOutStockTaskLB.Items.Add(t.ToDisplay());
+                //        }
+                //    }
+                //}
             }));
         }
 
@@ -1982,14 +1993,23 @@ namespace AGVCenterWPF
                         //    RoadMachine2TaskQueue.Add(taskItem.Barcode, taskItem);
                         RoadMachine2TaskQueue.Enqueue(taskItem);
                     }
-
-                    TaskCenterForDisplayQueue.Add(taskItem);
+                    this.AddItemToTaskDisplay(taskItem);
                 }
                 OutStockCenterQueue.Remove(f.Key);
                 return true;
             }
         }
 
+
+        /// <summary>
+        /// 将任务放入显示列表
+        /// </summary>
+        /// <param name="taskItem"></param>
+        private void AddItemToTaskDisplay(StockTaskItem taskItem)
+        {
+            TaskCenterForDisplayQueue.Add(taskItem);
+            RefreshList();
+        }
 
 
 

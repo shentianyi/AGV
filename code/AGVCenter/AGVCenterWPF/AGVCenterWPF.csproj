@@ -51,7 +51,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>opc.ico</ApplicationIcon>
+    <ApplicationIcon>opc-1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.OPCAutomation">
@@ -175,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="opc.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="opc-1.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

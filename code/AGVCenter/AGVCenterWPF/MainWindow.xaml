@@ -87,9 +87,35 @@
 
                     </Grid>
 
-                    <ListBox x:Name="CenterStockTaskDisplayLB"  Grid.Row="2"
+                    <!--<ListBox x:Name="CenterStockTaskDisplayLB"  Grid.Row="2"
                          HorizontalAlignment="Stretch"  Margin="10,6,0,-4" 
-                             VerticalAlignment="Stretch"/>
+                             VerticalAlignment="Stretch"/>-->
+
+
+                    <DataGrid x:Name="CenterStockTaskDisplayDG" CanUserSortColumns="False"
+                      AutoGenerateColumns="False" CanUserAddRows="false"  
+                    Grid.Row="2"
+                         HorizontalAlignment="Stretch"  Margin="10,6,0,-4" 
+                             VerticalAlignment="Stretch"  MinHeight="487" MinWidth="482" 
+                  RenderTransformOrigin="0.499,0.316">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="时间" Binding="{Binding Path=CreatedAtStr}"/>
+                            <DataGridTextColumn Header="任务类型" Binding="{Binding Path=StockTaskTypeStr}"/>
+                            <DataGridTextColumn Header="条码" Binding="{Binding Path=Barcode}"/>
+                            <DataGridTextColumn Header="箱型" Binding="{Binding Path=BoxType}"/>
+                            <DataGridTextColumn Header="巷道机" Binding="{Binding Path=RoadMachineIndex}"/>
+                            <DataGridTextColumn Header="库位" Binding="{Binding Path=PositionNr}"/>
+                            <DataGridTextColumn Header="层" Binding="{Binding Path=PositionFloor}"/>
+                            <DataGridTextColumn Header="列" Binding="{Binding Path=PositionColumn}"/>
+                            <DataGridTextColumn Header="排" Binding="{Binding Path=PositionRow}"/>
+                            <DataGridTextColumn Header="AGV放行结果" Binding="{Binding Path=AgvPassFlag}"/>
+                            <DataGridTextColumn Header="托量倒数" Binding="{Binding Path=TrayReverseNo}"/>
+                            <DataGridTextColumn Header="托量" Binding="{Binding Path=TrayNum}"/>
+                            <DataGridTextColumn Header="单量" Binding="{Binding Path=DeliveryItemNum}"/>
+                            <DataGridTextColumn Header="状态" Binding="{Binding Path=StateStr}"/>
+                            <DataGridTextColumn Header="数据库Id" Binding="{Binding Path=DbId}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="扫描条码入库任务">
@@ -172,15 +198,15 @@
                     </Grid>
 
                     <Grid Grid.Row="2">
-                        <Label x:Name="label4" Content="入库任务列表：" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Height="27" Width="138" FontWeight="Bold"/>
+                        <!--<Label x:Name="label4" Content="入库任务列表：" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Height="27" Width="138" FontWeight="Bold"/>
                         <ListBox x:Name="CenterInStockTaskLB"
                              HorizontalAlignment="Stretch"
                              Margin="10,35,0,0"
-                             VerticalAlignment="Stretch"/>
+                             VerticalAlignment="Stretch"/>-->
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="出库任务" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="61">
+            <TabItem Header="出库任务" Visibility="Collapsed" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="61">
                 <Grid Background="#FFE5E5E5">
                     <!--<Label x:Name="label5" Content="待出库任务列表：" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top"/>
                     <ListBox x:Name="WaitOutStockTaskLB" HorizontalAlignment="Left" 
