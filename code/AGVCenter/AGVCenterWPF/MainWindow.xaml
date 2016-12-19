@@ -51,17 +51,45 @@
                                 Content="重置所有数据" Margin="5"   ToolTip="删除所有出入库任务、库存、运单，但保持唯一码、库位" Click="RestAllDataAndCleanBtn_Click"></Button>
 
                         <Button   Name="RestAllTaskAndCleanBtn" Grid.Column="1"
-                                Content="重置所有任务" Margin="5" 
+                                Content="重置出入库任务" Margin="5" 
                                   Click="RestAllTaskAndCleanBtn_Click" ToolTip="删除所有的任务、库存，但保持唯一码和运单信息"></Button>
-                        
+
                         <Button   Name="RestOutTaskAndCleanBtn" Grid.Column="2"
                                 Content="重置出库任务" Margin="5" 
                                   Click="RestOutTaskAndCleanBtn_Click" ToolTip="改变完成的出库任务状态，可重新加载使用，不需要其它操作"></Button>
+
                     </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="label5" Content="条码号" Grid.Column="0" HorizontalAlignment="Right" 
+                               Margin="0,10,0,0" VerticalAlignment="Top"/>
+
+                        <TextBox x:Name="lbBoxTypeTB" Grid.Column="1"
+                                 HorizontalAlignment="Left" 
+                                 Height="23" Margin="9,10,0,0" TextWrapping="Wrap" 
+                                 Text="" VerticalAlignment="Top" Width="150"/>
+                        <Button x:Name="setBigBoxTypeButton" Content="设置大箱" 
+                                Width="60" Click="SetBoxTypeBtn_Click"
+                                Grid.Column="2" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
+                        <Button x:Name="setSmallBoxTypeButton" Content="设置小箱" 
+                                Width="60" Click="SetBoxTypeBtn_Click"
+                                Grid.Column="2" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top"/>
+
+
+                    </Grid>
+
                     <ListBox x:Name="CenterStockTaskDisplayLB"  Grid.Row="2"
                          HorizontalAlignment="Stretch"  Margin="10,6,0,-4" 
                              VerticalAlignment="Stretch"/>
-
                 </Grid>
             </TabItem>
             <TabItem Header="扫描条码入库任务">
@@ -138,7 +166,8 @@
                                   HorizontalAlignment="Left" Margin="117,34,0,0" 
                                   VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="95"/>
                         <Button x:Name="createOutStockTaskBtn" Content="生成出库任务" 
-                                Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="89" Height="30"/>
+                                Grid.Column="2" HorizontalAlignment="Left" Visibility="Hidden"
+                                Margin="10,10,0,0" VerticalAlignment="Top" Width="89" Height="30"/>
 
                     </Grid>
 
@@ -202,7 +231,7 @@
 
                     <CheckBox x:Name="inStockCreateStorageCB" Grid.Row="2" Grid.Column="0" Content="入库动作生成库存" ToolTip="在空跑巷道机测试且不需要动态库位时，可以不生成库位。\n 如只是给巷道机一个入库动作，无其它操作时。\n一旦生成库存，库位就被占用了，条码状态也变为已入库，此刻可以进行出库。" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
                                 Click="SettingOPCCB_Checked"/>
-                    
+
                     <CheckBox x:Name="outStockTaskDelStorageCB" Grid.Row="2" Grid.Column="1" Content="出库动作删除库存" ToolTip="在反复巷道机测试出库码垛时，可以不删除库存。\n一旦删除库存，条码就变成已出库状态，且不可以再次重新运行，需要重置条码状态，然后再入库才可以再出库" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
                                 Click="SettingOPCCB_Checked"/>
                     <CheckBox x:Name="showRescanErrorBarcodeCB" Grid.Row="2" Grid.Column="2" Content="显示重复扫描错误" ToolTip="是否显示重复扫描错，因为重复扫描可能很多次，都加入显示的话不利于观察 但是利于分析数据接收情况" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"

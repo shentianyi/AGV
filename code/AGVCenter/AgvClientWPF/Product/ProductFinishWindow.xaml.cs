@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AgvClientWPF.Properties;
 
 namespace AgvClientWPF.Product
 {
@@ -31,7 +32,7 @@ namespace AgvClientWPF.Product
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
-            ResultMessage message=new ResultMessage();
+            ResultMessage message = new ResultMessage();
             try
             {
                 if (CrossCheck())
@@ -39,18 +40,20 @@ namespace AgvClientWPF.Product
 
                     UniqueItemModel item = new UniqueItemModel()
                     {
-                        Nr = QrTB.Text,
-                        QR=QrTB.Text,
+                        Nr = KskNrTB.Text, //QrTB.Text,
+                        QR = QrTB.Text,
                         KNr = KnrTB.Text,
                         KNrWithYear = KNrWithYearTB.Text,
                         CheckCode = CheckCodeTB.Text,
                         KskNr = KskNrTB.Text,
-                        BoxTypeId = BoxTypeLRB.IsChecked == true ?
-                        (int)AGVCenterLib.Enum.BoxType.Big : (int)AGVCenterLib.Enum.BoxType.Small
+                        BoxTypeId = GetBoxTypeId()
                     };
+                    if (item.BoxTypeId != 0)
+                    {
+                        ProductServiceClient ps = new ProductServiceClient();
+                        message = ps.CreateUniqItem(item);
 
-                    ProductServiceClient ps = new ProductServiceClient();
-                    message = ps.CreateUniqItem(item);
+                    }
                 }
             }
             catch (Exception ex)
@@ -60,6 +63,7 @@ namespace AgvClientWPF.Product
             }
             MessageBox.Show(message.Content);
             this.RestInput();
+            QrTB.Focus();
         }
 
         private void RestInput()
@@ -70,7 +74,24 @@ namespace AgvClientWPF.Product
             CheckCodeTB.Text = string.Empty;
             KskNrTB.Text = string.Empty;
         }
-    
+
+        private int GetBoxTypeId()
+        {
+
+            if (BoxTypeLRB.IsChecked.Value)
+            {
+                return (int)AGVCenterLib.Enum.BoxType.Big;
+            }
+            else if (BoxTypeSRB.IsChecked.Value)
+            {
+                return (int)AGVCenterLib.Enum.BoxType.Small;
+            }
+            else
+            {
+                MessageBox.Show("大小箱设置错误！请设置,\n 1为大箱，2为小箱");
+                return 0;
+            }
+        }
 
         /// <summary>
         /// cross check 电测标签上的二维码和外箱标签上的验证码
@@ -78,7 +99,65 @@ namespace AgvClientWPF.Product
         /// <returns></returns>
         private bool CrossCheck()
         {
-            return true;
+            if (("1" + QrTB.Text) == CheckCodeTB.Text)
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("未能通过CrossCheck!");
+                RestInput();
+                return false;
+            }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Settings.Default.BoxType == "1")
+            {
+                BoxTypeLRB.IsChecked = true;
+            }
+            else if (Settings.Default.BoxType == "2")
+            {
+                BoxTypeSRB.IsChecked = true;
+            }
+            else
+            {
+                BoxTypeLRB.IsChecked = false;
+                BoxTypeSRB.IsChecked = false;
+                MessageBox.Show("大小箱设置错误！请设置,\n 1为大箱，2为小箱");
+            }
+        }
+
+
+
+        private void AutoChangeFocusTB_KeyUp(object sender, KeyEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (e.Key == Key.Enter)
+            {
+                switch (tb.Name)
+                {
+                    case "QrTB":
+                        KnrTB.Focus();
+                        break;
+                    case "KnrTB":
+                        KNrWithYearTB.Focus();
+                        break;
+                    case "KNrWithYearTB":
+                        CheckCodeTB.Focus();
+                        break;
+                    case "CheckCodeTB":
+                        KskNrTB.Focus();
+                        break;
+                    case "KskNrTB":
+                        QrTB.Focus();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

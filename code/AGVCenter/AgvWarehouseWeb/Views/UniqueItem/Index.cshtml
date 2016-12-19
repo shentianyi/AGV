@@ -106,7 +106,7 @@
                 if (ViewBag.Query != null)
                 {
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.PositionNr));
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr));
                     @html
                 }
                 else

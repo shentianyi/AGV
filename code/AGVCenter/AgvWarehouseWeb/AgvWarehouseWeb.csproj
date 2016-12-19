@@ -313,10 +313,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Storage\Index.cshtml" />
     <Content Include="Views\UniqueItem\Index.cshtml" />
+    <Content Include="Views\StockMovement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\StockMovement\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

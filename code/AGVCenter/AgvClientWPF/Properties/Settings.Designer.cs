@@ -22,5 +22,14 @@ namespace AgvClientWPF.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string BoxType {
+            get {
+                return ((string)(this["BoxType"]));
+            }
+        }
     }
 }

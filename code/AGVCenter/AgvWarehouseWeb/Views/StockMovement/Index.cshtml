@@ -1,0 +1,90 @@
+﻿@using MvcPaging;
+
+@model IPagedList<AGVCenterLib.Data.StockMovement>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            UniqItemNr
+        </th>
+        <th>
+            SourcePosition
+        </th>
+        <th>
+            AimedPosition
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Operator
+        </th>
+        <th>
+            Time
+        </th>
+        <th>
+            CreatedAt
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqItemNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SourcePosition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AimedPosition)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Operator)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+<div class="col-sm-12" style="text-align:center;">
+    <div class="clearfix pagination">
+        <div class="pagination-inner">
+            @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("PositionNr", ViewBag.Query.PositionNr));
+                    @html
+                }
+                else
+                {
+                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                }
+            }
+        </div>
+    </div>
+</div>

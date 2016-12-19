@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF"
         mc:Ignorable="d"
-        Title="ProductFinishWindow" Height="309.128" Width="409.533">
-    <Grid >
+        Title="ProductFinishWindow" Height="600" Width="800" Loaded="Window_Loaded">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -17,30 +17,30 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label Content="大小箱:" Width="104"></Label>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="大小箱:" Width="104" VerticalContentAlignment="Center"></Label>
             <RadioButton GroupName="BoxTypeRB" Name="BoxTypeLRB" Content="大箱" Width="53" IsChecked="True"/>
             <RadioButton GroupName="BoxTypeRB" Name="BoxTypeSRB" Content="小箱" Width="53"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Label Content="电测二维码:" Width="104"></Label>
-            <TextBox  Name="QrTB" Width="200"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="电测二维码:" Width="104" VerticalContentAlignment="Center"></Label>
+            <TextBox  Name="QrTB" Width="300" Height="40" VerticalContentAlignment="Center" KeyUp="AutoChangeFocusTB_KeyUp"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Label Content="大众生产号/KNR:" Width="104"></Label>
-            <TextBox  Name="KnrTB" Width="200"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="大众生产号/KNR:" Width="104" VerticalContentAlignment="Center"></Label>
+            <TextBox  Name="KnrTB"  Width="300" Height="40" VerticalContentAlignment="Center" KeyUp="AutoChangeFocusTB_KeyUp"/>
         </StackPanel>
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
-            <Label Content="前缀大众生产号:" Width="104"></Label>
-            <TextBox  Name="KNrWithYearTB" Width="200"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="前缀大众生产号:" Width="104" VerticalContentAlignment="Center"></Label>
+            <TextBox  Name="KNrWithYearTB"  Width="300" Height="40" VerticalContentAlignment="Center" KeyUp="AutoChangeFocusTB_KeyUp"/>
         </StackPanel>
-        <StackPanel Grid.Row="4" Orientation="Horizontal">
-            <Label Content="验证码:" Width="104"></Label>
-            <TextBox  Name="CheckCodeTB" Width="200"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="验证码:" Width="104" VerticalContentAlignment="Center"></Label>
+            <TextBox  Name="CheckCodeTB"  Width="300" Height="40" VerticalContentAlignment="Center" KeyUp="AutoChangeFocusTB_KeyUp"/>
         </StackPanel>
-        <StackPanel Grid.Row="5" Orientation="Horizontal">
-            <Label Content="KSK号:" Width="104"></Label>
-            <TextBox  Name="KskNrTB" Width="200"/>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="KSK号:" Width="104" VerticalContentAlignment="Center"></Label>
+            <TextBox  Name="KskNrTB"  Width="300" Height="40" VerticalContentAlignment="Center" KeyUp="AutoChangeFocusTB_KeyUp"/>
         </StackPanel>
         <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="确 认" Width="145" Name="ConfirmBtn" Click="ConfirmBtn_Click">

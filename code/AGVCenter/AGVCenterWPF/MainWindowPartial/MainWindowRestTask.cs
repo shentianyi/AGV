@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using AGVCenterLib.Data;
 using AGVCenterLib.Enum;
 using AGVCenterLib.Model;
@@ -55,6 +57,7 @@ namespace AGVCenterWPF
             {
                 LogUtil.Logger.Info("【执行-重置所有数据】");
                 SqlHelper.ExecuteNonQuery(OPCConfig.DbString, CommandType.StoredProcedure, "TASK_RestAllData");
+                this.ClearTaskQueue();
             }
             catch (Exception ex)
             {
@@ -117,16 +120,36 @@ namespace AGVCenterWPF
                 LogUtil.Logger.Error(ex.Message, ex);
             }
         }
+        /// <summary>
+        /// 设置箱型
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetBoxTypeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                LogUtil.Logger.Info("【执行-修改箱型】");
+                string boxTypeId = (sender as Button).Name == "setBigBoxTypeButton" ? "1" : "2";
+                SqlHelper.ExecuteNonQuery(OPCConfig.DbString, CommandType.StoredProcedure,
+                    "SetUniqueItemBoxType", new SqlParameter("@boxTypeId", boxTypeId),
+                    new SqlParameter("@nr", lbBoxTypeTB.Text));
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+            }
+        }
         #endregion
 
 
 
-        #region DEMO
-        /// <summary>
-        /// 设置OPC条码可以写
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+            #region DEMO
+            /// <summary>
+            /// 设置OPC条码可以写
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
         private void SetAgvBarcodeCheckWritableBtn_Click(object sender, RoutedEventArgs e)
         {
             OPCCheckInStockBarcodeData.SyncSetWriteableFlag(OPCCheckInstockBarcodeOPCGroup);
