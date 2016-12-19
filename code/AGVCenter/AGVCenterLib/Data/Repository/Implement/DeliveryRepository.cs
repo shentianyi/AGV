@@ -30,7 +30,9 @@ namespace AGVCenterLib.Data.Repository.Implement
         public List<DeliveryStorageView> GetStorageList(string nr, bool all = false)
         {
             var q = this.context.DeliveryStorageView.Where(s => s.Nr == nr);
-            return all ? q.ToList() : q.Where(s => s.StorageId != null).ToList();
+            q= all ? q  : q.Where(s => s.StorageId != null);
+
+            return q.ToList();
         }
 
         public IQueryable<Delivery> Search(DeliverySearchModel searchModel)

@@ -77,6 +77,9 @@
     <Compile Include="Delivery\DeliveryOutStockTaskMonitorWindow.xaml.cs">
       <DependentUpon>DeliveryOutStockTaskMonitorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Delivery\DeliveryItemListWindow.xaml.cs">
+      <DependentUpon>DeliveryItemListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Delivery\SendDeliveryWindow.xaml.cs">
       <DependentUpon>SendDeliveryWindow.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,10 @@
     <Page Include="Delivery\DeliveryOutStockTaskMonitorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Delivery\DeliveryItemListWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Delivery\SendDeliveryWindow.xaml">
       <SubType>Designer</SubType>

@@ -7,24 +7,45 @@
         mc:Ignorable="d"
         Title="DeliveryListWindow" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="29,63,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="deliveryNrTB" HorizontalAlignment="Left" Height="23" Margin="92,63,0,0" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="90*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+         
+            <Grid Grid.Row="0">
+        <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="29,33,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="deliveryNrTB" HorizontalAlignment="Left" Height="23" Margin="92,33,0,0" 
                  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="191"/>
         <Button x:Name="loadStorageBtn" Content="加载运单项" HorizontalAlignment="Left"
-                Margin="297,63,0,0" VerticalAlignment="Top" Width="75" Click="loadStorageBtn_Click"/>
-
-        <DataGrid x:Name="deliveryDG" AutoGenerateColumns="False" CanUserAddRows="false" 
-                  HorizontalAlignment="Left" Margin="29,94,0,0" 
-                  VerticalAlignment="Top" Height="295" Width="498" 
+                Margin="297,33,0,0" VerticalAlignment="Top" Width="75" Click="loadStorageBtn_Click"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70*"></ColumnDefinition>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+            <DataGrid x:Name="deliveryDG"
+                      AutoGenerateColumns="False" CanUserAddRows="false"  
+                    Grid.Column="0"
+                  HorizontalAlignment="Left" Margin="29,10,0,0" 
+                  VerticalAlignment="Top" MinHeight="487" MinWidth="482" 
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="运单号" Binding="{Binding Path=UniqueItemNr}"/>
-                <DataGridTextColumn Header="状态" Binding="{Binding Path=StoragePositionNr}"/>
-                <DataGridTextColumn Header="创建时间" Binding="{Binding Path=UniqueItemCreatedAt}"/>
+                <DataGridTextColumn Header="运单号" Binding="{Binding Path=Nr}"/>
+                <DataGridTextColumn Header="状态" Binding="{Binding Path=StateStr}"/>
+                <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
 
             </DataGrid.Columns>
         </DataGrid>
-         
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                <Button x:Name="deliveryItemListBtn" Content="运单项列表" Width="100" Height="40" Click="deliveryItemListBtn_Click"/>
+                <Button x:Name="deliveryStockTaskMonitorBtn" Content="出库监控" Width="100" Height="40" Click="deliveryStockTaskMonitorBtn_Click"/>
+
+            </StackPanel>
+            </Grid>
+       
     </Grid>
 
 </Window>

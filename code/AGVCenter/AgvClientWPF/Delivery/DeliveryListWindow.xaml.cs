@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AGVCenterLib.Model.SearchModel;
+using AGVCenterLib.Model.ViewModel;
 using AgvClientWPF.AgvDeliveryService;
 
 namespace AgvClientWPF.Delivery
@@ -32,16 +33,54 @@ namespace AgvClientWPF.Delivery
 
         private void LoadDeliveryList()
         {
-            DeliveryServiceClient dsc = new DeliveryServiceClient();
+            try {
+                DeliveryServiceClient dsc = new DeliveryServiceClient();
 
-            dsc.SearchList(new DeliverySearchModel() {
-                Nr=deliveryNrTB.Text
-            }, 50);
+            var deliveries=    dsc.SearchList(new DeliverySearchModel() {
+                    Nr = deliveryNrTB.Text
+                }, 50);
+
+                deliveryDG.ItemsSource = deliveries;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadDeliveryList();
+        }
+
+        private void deliveryItemListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var d = GetDeliveryModelItem();
+            if (d != null)
+            {
+                new DeliveryItemListWindow(d.Nr).Show();
+            }
+        }
+
+        private DeliveryModel GetDeliveryModelItem()
+        {
+            if (this.deliveryDG.SelectedIndex > -1)
+            {
+                return this.deliveryDG.SelectedItem as DeliveryModel;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private void deliveryStockTaskMonitorBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var d = GetDeliveryModelItem();
+            if (d != null)
+            {
+                new DeliveryOutStockTaskMonitorWindow(d.Nr).Show();
+            }
         }
     }
 }

@@ -19,26 +19,37 @@ namespace AgvClientWPF.Delivery
     /// <summary>
     /// SendDeliveryWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class SendDeliveryWindow : Window
+    public partial class DeliveryItemListWindow : Window
     {
-        public SendDeliveryWindow()
+        public DeliveryItemListWindow()
         {
             InitializeComponent();
+        }
+        public DeliveryItemListWindow(string deliveryNr)
+        {
+            InitializeComponent();
+            deliveryNrTB.Text = deliveryNr;
+            LoadDeliveryStorage(deliveryNr);
         }
 
         private void loadStorageBtn_Click(object sender, RoutedEventArgs e)
         {
             if (deliveryNrTB.Text.Length > 0)
             {
-                this.LoadDeliveryStorage();
+                this.LoadDeliveryStorage(deliveryNrTB.Text);
             }
         }
 
-        private void LoadDeliveryStorage()
+        private void LoadDeliveryStorage(string deliveryNr)
         {
-            DeliveryServiceClient dsc = new DeliveryServiceClient();
-            List<DeliveryStorageViewModel> models = dsc.GetDeliveryStorageByNr(deliveryNrTB.Text).ToList();
-            deliveryStorageDG.ItemsSource = models;
+            try {
+                DeliveryServiceClient dsc = new DeliveryServiceClient();
+                List<DeliveryStorageViewModel> models = dsc.GetDeliveryStorageByNr(deliveryNr).ToList();
+                deliveryStorageDG.ItemsSource = models;
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 

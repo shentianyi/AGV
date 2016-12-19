@@ -22,7 +22,7 @@ namespace AGVCenterLib.Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="AgvWarehoueDb")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="AgvWarehouseDb")]
 	public partial class AgvWarehouseDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -72,7 +72,7 @@ namespace AGVCenterLib.Data
     #endregion
 		
 		public AgvWarehouseDataContext() : 
-				base(global::AGVCenterLib.Properties.Settings.Default.AgvWarehoueDbConnectionString, mappingSource)
+				base(global::AGVCenterLib.Properties.Settings.Default.AgvWarehouseDbConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -4679,11 +4679,11 @@ namespace AGVCenterLib.Data
 		
 		private string _PositionWarehouseNr;
 		
-		private int _PositionFloor;
+		private System.Nullable<int> _PositionFloor;
 		
-		private int _PositionColumn;
+		private System.Nullable<int> _PositionColumn;
 		
-		private int _PositionRow;
+		private System.Nullable<int> _PositionRow;
 		
 		private System.Nullable<int> _PositionState;
 		
@@ -5141,7 +5141,7 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionWarehouseNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionWarehouseNr", DbType="VarChar(50)")]
 		public string PositionWarehouseNr
 		{
 			get
@@ -5157,8 +5157,8 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionFloor", DbType="Int NOT NULL")]
-		public int PositionFloor
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionFloor", DbType="Int")]
+		public System.Nullable<int> PositionFloor
 		{
 			get
 			{
@@ -5173,8 +5173,8 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionColumn", DbType="Int NOT NULL")]
-		public int PositionColumn
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionColumn", DbType="Int")]
+		public System.Nullable<int> PositionColumn
 		{
 			get
 			{
@@ -5189,8 +5189,8 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRow", DbType="Int NOT NULL")]
-		public int PositionRow
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRow", DbType="Int")]
+		public System.Nullable<int> PositionRow
 		{
 			get
 			{

@@ -81,7 +81,7 @@ namespace AgvServiceLib
             return StockTaskModel.Converts(ds.GetDeliveryOutStockTasks(nr));
         }
 
-        public List<DeliveryModel> SearchList(DeliverySearchModel searchModel, int limit = 50)
+        public List<DeliveryModel> SearchList(DeliverySearchModel searchModel, int limit)
         {
             return DeliveryModel.Converts(ds.SearchList(searchModel, limit));
         }

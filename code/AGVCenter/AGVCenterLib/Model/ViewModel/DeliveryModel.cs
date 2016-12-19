@@ -12,10 +12,13 @@ namespace AGVCenterLib.Model.ViewModel
     public class DeliveryModel
     {
         [DataMember]
-        public int Nr { get; set; }
+        public string Nr { get; set; }
 
         [DataMember]
         public int? State { get; set; }
+
+        [DataMember]
+        public string StateStr { get; set; }
 
         [DataMember]
         public DateTime? CreatedAt { get; set; }

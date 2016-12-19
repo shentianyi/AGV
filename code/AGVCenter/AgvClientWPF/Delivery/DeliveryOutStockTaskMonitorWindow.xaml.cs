@@ -29,20 +29,32 @@ namespace AgvClientWPF.Delivery
             InitializeComponent();
         }
 
+        public DeliveryOutStockTaskMonitorWindow(string deliveryNr)
+        {
+            InitializeComponent();
+            this.deliveryNrTB.Text = deliveryNr;
+            InitLoadTask();
+        }
+
         private void loadOutStockTaskBtn_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(deliveryNrTB.Text))
             {
-                this.LoadDeliveryOutStockTask(deliveryNrTB.Text);
-                if (loadTaskTimer != null)
-                {
-                    loadTaskTimer.Stop();
-                }
-                loadTaskTimer = new Timer();
-                loadTaskTimer.Interval = 2000;
-                loadTaskTimer.Enabled = true;
-                loadTaskTimer.Elapsed += LoadTaskTimer_Elapsed;
+                InitLoadTask();
             }
+        }
+
+        private void InitLoadTask()
+        {
+            this.LoadDeliveryOutStockTask(deliveryNrTB.Text);
+            if (loadTaskTimer != null)
+            {
+                loadTaskTimer.Stop();
+            }
+            loadTaskTimer = new Timer();
+            loadTaskTimer.Interval = 2000;
+            loadTaskTimer.Enabled = true;
+            loadTaskTimer.Elapsed += LoadTaskTimer_Elapsed;
         }
 
         private void LoadTaskTimer_Elapsed(object sender, ElapsedEventArgs e)

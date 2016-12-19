@@ -46,6 +46,6 @@ namespace AgvServiceLib
         List<StockTaskModel> GetDeliveryOutStockTasks(string nr);
 
         [OperationContract]
-        List<DeliveryModel> SearchList(DeliverySearchModel searchModel, int limit = 50);
+        List<DeliveryModel> SearchList(DeliverySearchModel searchModel, int limit);
     }
 }

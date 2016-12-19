@@ -129,11 +129,22 @@ namespace AGVCenterWPF
         {
             try
             {
-                LogUtil.Logger.Info("【执行-修改箱型】");
+                //for (var i = 0; i < 100; i++)
+                //{
+                    LogUtil.Logger.Info("【执行-修改箱型】");
                 string boxTypeId = (sender as Button).Name == "setBigBoxTypeButton" ? "1" : "2";
                 SqlHelper.ExecuteNonQuery(OPCConfig.DbString, CommandType.StoredProcedure,
                     "SetUniqueItemBoxType", new SqlParameter("@boxTypeId", boxTypeId),
                     new SqlParameter("@nr", lbBoxTypeTB.Text));
+
+   //             string boxTypeId = i % 2 == 0 ? "1" : "2";
+                    
+   //SqlHelper.ExecuteNonQuery(OPCConfig.DbString, CommandType.StoredProcedure,
+   //                    "SetUniqueItemBoxType", new SqlParameter("@boxTypeId", boxTypeId),
+   //                     new SqlParameter("@nr", i.ToString()));
+
+
+                //}
             }
             catch (Exception ex)
             {
