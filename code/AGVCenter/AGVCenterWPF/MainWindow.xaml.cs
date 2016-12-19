@@ -143,11 +143,11 @@ namespace AGVCenterWPF
             this.InitAndStartTimers();
             this.InitAndStartUpdateStackTaskStateComponent();
 
-            // 自动连接OPC
-            if (BaseConfig.AutoConnectOPC)
-            {
-                this.ConnectOPC();
-            }
+            //// 自动连接OPC
+            //if (BaseConfig.AutoConnectOPC)
+            //{
+            //    this.ConnectOPC();
+            //}
         }
 
 
@@ -215,7 +215,15 @@ namespace AGVCenterWPF
             {
                 StockTaskItem taskItem = AgvInStockPassQueue.Peek() as StockTaskItem;
                 OPCAgvInStockPassData.AgvPassFlag = taskItem.AgvPassFlag;
-                taskItem.State = StockTaskState.AgvInStcoking;
+                if (taskItem.AgvPassFlag == (byte)AgvPassFlag.Pass)
+                {
+                    taskItem.State = StockTaskState.AgvInStcoking;
+                }
+                else
+                {
+                    taskItem.State = StockTaskState.AgvPassFail;
+                }
+
                 if (OPCAgvInStockPassData.SyncWrite(OPCAgvInStockPassOPCGroup))
                 {
                     // 进入机械手抓取
@@ -2008,13 +2016,17 @@ namespace AGVCenterWPF
         private void AddItemToTaskDisplay(StockTaskItem taskItem)
         {
             TaskCenterForDisplayQueue.Add(taskItem);
+            if(TaskCenterForDisplayQueue.Count> BaseConfig.MaxMonitorTaskNum)
+            {
+                TaskCenterForDisplayQueue.RemoveRange(0, TaskCenterForDisplayQueue.Count - BaseConfig.KeepMonitorTaskNum);
+            }
             RefreshList();
         }
 
 
 
+
         #endregion
 
-      
     }
 }

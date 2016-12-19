@@ -58,6 +58,33 @@
                                 Content="重置出库任务" Margin="5" 
                                   Click="RestOutTaskAndCleanBtn_Click" ToolTip="改变完成的出库任务状态，可重新加载使用，不需要其它操作"></Button>
 
+
+                        <Label x:Name="label3" Content="条码" Grid.Column="3"  HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
+
+                        <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left" 
+                             Height="26" Margin="45,11,0,0" Grid.Column="3"
+                		TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="95"/>
+
+                        <Label Content="巷道机：" Grid.Column="4"/>
+                        <TextBox Grid.Column="4" Text="1" Margin="51,0,205,26" Name="RoadMachineIndexTB" Grid.ColumnSpan="2" />
+                        <Button x:Name="createInStockBtn" Grid.Column="5"
+                                Content="手动生成入库任务" 
+                                HorizontalAlignment="Left" Margin="10,10,0,0" 
+                                VerticalAlignment="Top" Width="104" Height="40" Click="createInStockBtn_Click"/>
+                        <CheckBox x:Name="IncreaseBarcodeCheckBox"
+                                  IsChecked="True"
+                                  Content="条码自增" Grid.Column="6" HorizontalAlignment="Left" 
+                                  Margin="1,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="81"/>
+
+                        <CheckBox x:Name="LipRoadMachineCheckBox"
+                                  IsChecked="True"
+                                  Content="1,2巷道机间隔" Grid.Column="6" 
+                                  HorizontalAlignment="Left" Margin="1,34,0,0" 
+                                  VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="95"/>
+                        <Button x:Name="createOutStockTaskBtn" Content="生成出库任务" 
+                                Grid.Column="5" HorizontalAlignment="Left" Visibility="Hidden"
+                                Margin="10,10,0,0" VerticalAlignment="Top" Width="89" Height="30"/>
+
                     </Grid>
 
                     <Grid Grid.Row="1">
@@ -70,6 +97,8 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
+                        
+                        
                         <Label x:Name="label5" Content="条码号" Grid.Column="0" HorizontalAlignment="Right" 
                                Margin="0,10,0,0" VerticalAlignment="Top"/>
 
@@ -84,6 +113,9 @@
                                 Width="60" Click="SetBoxTypeBtn_Click"
                                 Grid.Column="2" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top"/>
 
+                        <Button x:Name="CancelTaskBtn" Content="取消任务" 
+                                Width="60" Click="CancelTaskBtn_Click"
+                                Grid.Column="5" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top"/>
 
                     </Grid>
 
@@ -118,7 +150,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem Header="扫描条码入库任务">
+            <TabItem Header="扫描条码入库任务" Visibility="Collapsed">
                 <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
@@ -137,13 +169,13 @@
                             <ColumnDefinition Width="120*"></ColumnDefinition>
                             <ColumnDefinition Width="120*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="label3" Content="扫描的条码" Grid.Column="0"  HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
+                        <!--<Label x:Name="label3" Content="扫描的条码" Grid.Column="0"  HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
 
                         <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left" 
                              Height="26" Margin="0,11,0,0" Grid.Column="1"
-                		TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="205"/>
+                		TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="205"/>-->
 
-                        <Button x:Name="WirteGetPisitionBarBtn" Grid.Column="2"
+                        <!--<Button x:Name="WirteGetPisitionBarBtn" Grid.Column="2"
                             Content="扫码入库任务" HorizontalAlignment="Left"
                             Margin="0,10,0,0" VerticalAlignment="Top" Width="92" Height="27" Click="WirteGetPisitionBarBtn_Click"/>
 
@@ -160,7 +192,7 @@
                         <Button Content="【清空任务】"  Grid.Column="7"
                                 Height="33" HorizontalAlignment="Left" Margin="0,9,0,0" 
                             Name="ClearTasksForTestBtn" VerticalAlignment="Top" 
-                            Width="76" Click="ClearTasksForTestBtn_Click" />
+                            Width="76" Click="ClearTasksForTestBtn_Click" />-->
 
                     </Grid>
                     <Grid Grid.Row="1">
@@ -175,7 +207,7 @@
                             <ColumnDefinition Width="120*"></ColumnDefinition>
                             <ColumnDefinition Width="120*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Content="巷道机：" Grid.Column="0"/>
+                        <!--<Label Content="巷道机：" Grid.Column="0"/>
                         <TextBox Grid.Column="0" Text="1" Margin="51,0,205,26" Name="RoadMachineIndexTB" Grid.ColumnSpan="2" />
                         <Button x:Name="createInStockBtn" Grid.Column="1"
                                 Content="手动生成入库任务" 
@@ -193,7 +225,7 @@
                                   VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="95"/>
                         <Button x:Name="createOutStockTaskBtn" Content="生成出库任务" 
                                 Grid.Column="2" HorizontalAlignment="Left" Visibility="Hidden"
-                                Margin="10,10,0,0" VerticalAlignment="Top" Width="89" Height="30"/>
+                                Margin="10,10,0,0" VerticalAlignment="Top" Width="89" Height="30"/>-->
 
                     </Grid>
 

@@ -14,6 +14,8 @@ namespace AGVCenterWPF.Config
     //    private static string connectString = string.Empty;
         private static bool roadMachine1Enabled = true;
         private static bool roadMachine2Enabled = true;
+        private static int maxMonitorTaskNum = 300;
+        private static int keepMonitorTaskNum = 200;
         static BaseConfig()
         {
             try
@@ -24,6 +26,9 @@ namespace AGVCenterWPF.Config
 
                 roadMachine1Enabled = bool.Parse(config.Get("roadMachine1Enabled"));
                 roadMachine2Enabled = bool.Parse(config.Get("roadMachine2Enabled"));
+                maxMonitorTaskNum = int.Parse(config.Get("maxMonitorTaskNum"));
+                keepMonitorTaskNum = int.Parse(config.Get("keepMonitorTaskNum"));
+
             }
             catch (Exception ex)
             {
@@ -45,21 +50,7 @@ namespace AGVCenterWPF.Config
                 config.Save();
             }
         }
-
-        //public static string ConnectString
-        //{
-        //    get
-        //    {
-        //        return connectString;
-        //    }
-
-        //    set
-        //    {
-        //        connectString = value;
-        //        config.Set("connectString", value);
-        //        config.Save();
-        //    }
-        //}
+         
 
         public static bool RoadMachine1Enabled
         {
@@ -88,6 +79,35 @@ namespace AGVCenterWPF.Config
                 roadMachine2Enabled = value;
                 config.Set("roadMachine2Enabled", value);
                 config.Save();
+            }
+        }
+
+        public static int MaxMonitorTaskNum
+        {
+            get
+            {
+                return maxMonitorTaskNum;
+            }
+            set
+            {
+                maxMonitorTaskNum = value;
+                config.Set("maxMonitorTaskNum", value);
+                config.Save();
+            }
+        }
+
+        public static int KeepMonitorTaskNum
+        {
+            get
+            {
+                return keepMonitorTaskNum;
+            }
+            set
+            {
+                keepMonitorTaskNum = value;
+                config.Set("keepMonitorTaskNum", value);
+                config.Save();
+
             }
         }
     }

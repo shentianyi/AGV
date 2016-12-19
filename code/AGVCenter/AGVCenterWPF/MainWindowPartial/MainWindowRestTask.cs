@@ -27,7 +27,7 @@ namespace AGVCenterWPF
         private void AGVRestBtn_Click(object sender, RoutedEventArgs e)
         {
             try
-            { 
+            {
                 // OPCAgvInStockPassData.SyncWrite(OPCAgvInStockPassOPCGroup);
             }
             catch (Exception ex)
@@ -73,7 +73,7 @@ namespace AGVCenterWPF
             this.RestAllTaskAndStorage();
             this.ClearTaskQueue();
         }
-      
+
         /// <summary>
         /// 重置出库任务状态
         /// </summary>
@@ -86,7 +86,7 @@ namespace AGVCenterWPF
         }
 
 
-      
+
 
         /// <summary>
         /// 重置入库出库操作，重新开始
@@ -131,17 +131,17 @@ namespace AGVCenterWPF
             {
                 //for (var i = 0; i < 100; i++)
                 //{
-                    LogUtil.Logger.Info("【执行-修改箱型】");
+                LogUtil.Logger.Info("【执行-修改箱型】");
                 string boxTypeId = (sender as Button).Name == "setBigBoxTypeButton" ? "1" : "2";
                 SqlHelper.ExecuteNonQuery(OPCConfig.DbString, CommandType.StoredProcedure,
                     "SetUniqueItemBoxType", new SqlParameter("@boxTypeId", boxTypeId),
                     new SqlParameter("@nr", lbBoxTypeTB.Text));
 
-   //             string boxTypeId = i % 2 == 0 ? "1" : "2";
-                    
-   //SqlHelper.ExecuteNonQuery(OPCConfig.DbString, CommandType.StoredProcedure,
-   //                    "SetUniqueItemBoxType", new SqlParameter("@boxTypeId", boxTypeId),
-   //                     new SqlParameter("@nr", i.ToString()));
+                //             string boxTypeId = i % 2 == 0 ? "1" : "2";
+
+                //SqlHelper.ExecuteNonQuery(OPCConfig.DbString, CommandType.StoredProcedure,
+                //                    "SetUniqueItemBoxType", new SqlParameter("@boxTypeId", boxTypeId),
+                //                     new SqlParameter("@nr", i.ToString()));
 
 
                 //}
@@ -151,16 +151,36 @@ namespace AGVCenterWPF
                 LogUtil.Logger.Error(ex.Message, ex);
             }
         }
+
+
+        /// <summary>
+        /// 取消任务
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CancelTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (CenterStockTaskDisplayDG.SelectedIndex > -1)
+            {
+                StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
+
+                if (taskItem.IsCanCancel)
+                {
+                    taskItem.State = StockTaskState.Canceled;
+                }
+
+            }
+        }
         #endregion
 
 
 
-            #region DEMO
-            /// <summary>
-            /// 设置OPC条码可以写
-            /// </summary>
-            /// <param name="sender"></param>
-            /// <param name="e"></param>
+        #region DEMO
+        /// <summary>
+        /// 设置OPC条码可以写
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SetAgvBarcodeCheckWritableBtn_Click(object sender, RoutedEventArgs e)
         {
             OPCCheckInStockBarcodeData.SyncSetWriteableFlag(OPCCheckInstockBarcodeOPCGroup);
@@ -189,7 +209,7 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void ClearTasksForTestBtn_Click(object sender, RoutedEventArgs e)
         {
-            ClearTaskQueue();  
+            ClearTaskQueue();
         }
 
         private void ClearTaskQueue()
@@ -227,7 +247,7 @@ namespace AGVCenterWPF
                 TaskCenterForDisplayQueue.Clear();
             }
 
-            //# RefreshList();
+            RefreshList();
         }
 
 
@@ -276,7 +296,10 @@ namespace AGVCenterWPF
                 // RoadMachine2TaskQueue.Add(taskItem.Barcode, taskItem);
                 RoadMachine2TaskQueue.Enqueue(taskItem);
             }
-            TaskCenterForDisplayQueue.Add(taskItem);
+            //  TaskCenterForDisplayQueue.Add(taskItem);
+
+            AddItemToTaskDisplay(taskItem);
+
             if (LipRoadMachineCheckBox.IsChecked.Value)
             {
                 RoadMachineIndexTB.Text = RoadMachineIndexTB.Text == "1" ? "2" : "1";
