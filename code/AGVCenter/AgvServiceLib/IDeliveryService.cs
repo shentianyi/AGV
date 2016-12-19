@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AgvServiceLib
 {
@@ -43,5 +44,8 @@ namespace AgvServiceLib
 
         [OperationContract]
         List<StockTaskModel> GetDeliveryOutStockTasks(string nr);
+
+        [OperationContract]
+        List<DeliveryModel> SearchList(DeliverySearchModel searchModel, int limit = 50);
     }
 }

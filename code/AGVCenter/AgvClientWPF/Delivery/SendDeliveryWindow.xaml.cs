@@ -54,5 +54,10 @@ namespace AgvClientWPF.Delivery
                 MessageBox.Show(message.Content);
             }
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

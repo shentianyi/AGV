@@ -90,4 +90,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="StockTaskModel" nillable="true" type="tns:StockTaskModel" />
+  <xs:complexType name="ArrayOfDeliveryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DeliveryModel" nillable="true" type="tns:DeliveryModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDeliveryModel" nillable="true" type="tns:ArrayOfDeliveryModel" />
+  <xs:complexType name="DeliveryModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Nr" type="xs:int" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DeliveryModel" nillable="true" type="tns:DeliveryModel" />
 </xs:schema>

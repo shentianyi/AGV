@@ -123,11 +123,13 @@
     <Compile Include="Model\OPC\OPCDataBase.cs" />
     <Compile Include="Model\OPC\OPCRoadMachineTaskFeed.cs" />
     <Compile Include="Model\OPC\OPCSetStockTask.cs" />
+    <Compile Include="Model\SearchModel\DeliverySearchModel.cs" />
     <Compile Include="Model\SearchModel\StockMovementSearchModel.cs" />
     <Compile Include="Model\SearchModel\StorageSearchModel.cs" />
     <Compile Include="Model\SearchModel\UniqueItemSearchModel.cs" />
     <Compile Include="Model\StockTaskItem.cs" />
     <Compile Include="Model\ViewModel\DeliveryStorageViewModel.cs" />
+    <Compile Include="Model\ViewModel\DeliveryModel.cs" />
     <Compile Include="Model\ViewModel\StockTaskModel.cs" />
     <Compile Include="Model\ViewModel\UniqueItemModel.cs" />
     <Compile Include="OPCAddressMap.cs" />

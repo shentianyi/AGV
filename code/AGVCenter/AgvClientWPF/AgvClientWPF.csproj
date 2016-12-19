@@ -157,6 +157,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\AGVCenterLib.Model.Message.ResultMessage.datasource" />
+    <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StockTaskModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.UniqueItemModel.datasource" />
@@ -166,6 +167,9 @@
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="Service References\AgvDeliveryService\AGVCenterLib.Model.Message1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvDeliveryService\AGVCenterLib.Model.SearchModel.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AgvDeliveryService\AGVCenterLib.Model.ViewModel1.xsd">

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Implement
 {
@@ -30,6 +31,23 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             var q = this.context.DeliveryStorageView.Where(s => s.Nr == nr);
             return all ? q.ToList() : q.Where(s => s.StorageId != null).ToList();
+        }
+
+        public IQueryable<Delivery> Search(DeliverySearchModel searchModel)
+        {
+            var q = this.context.Delivery as IQueryable<Delivery>;
+            if (!string.IsNullOrEmpty(searchModel.Nr))
+            {
+                q = q.Where(s => s.Nr.Contains(searchModel.Nr));
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.NrAct))
+            {
+                q = q.Where(s => s.Nr == searchModel.NrAct);
+            }
+
+
+            return q;
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Brilliantech.Framwork.Utils.LogUtil;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Service
 {
@@ -184,6 +185,13 @@ namespace AGVCenterLib.Service
         public List<StockTask> GetDeliveryOutStockTasks(string nr)
         {
             return new StockTaskRepository(this.Context).GetOutStockTaskByDelivery(nr);
+        }
+
+        public List<Delivery> SearchList(DeliverySearchModel searchModel,int limit=50)
+        {
+            IDeliveryRepository deliveryRep = new DeliveryRepository(this.Context);
+
+            return deliveryRep.Search(searchModel).OrderByDescending(s => s.CreatedAt).Take(limit).ToList();
         }
     }
 }

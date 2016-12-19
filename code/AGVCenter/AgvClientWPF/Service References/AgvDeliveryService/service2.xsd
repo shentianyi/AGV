@@ -3,6 +3,7 @@
   <xs:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" />
   <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.SearchModel" />
   <xs:element name="DeliveryExists">
     <xs:complexType>
       <xs:sequence>
@@ -158,6 +159,21 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" minOccurs="0" name="GetDeliveryOutStockTasksResult" nillable="true" type="q12:ArrayOfStockTaskModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.SearchModel" minOccurs="0" name="searchModel" nillable="true" type="q13:DeliverySearchModel" />
+        <xs:element minOccurs="0" name="limit" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" minOccurs="0" name="SearchListResult" nillable="true" type="q14:ArrayOfDeliveryModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

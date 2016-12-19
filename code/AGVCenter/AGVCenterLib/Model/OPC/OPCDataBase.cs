@@ -229,7 +229,7 @@ namespace AGVCenterLib.Model.OPC
                         ss.Add(sss.Trim('\n'));
                     }
                 }
-                return ss.LastOrDefault();
+                return ss.FirstOrDefault();
             }
             //return o == null ? string.Empty : o.ToString().Split('\r').Trim('\n').Trim('\r');
         }

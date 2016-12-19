@@ -10,6 +10,9 @@ namespace AGVCenterLib.Data.Repository.Interface
 {
     public interface IStockTaskRepository
     {
+
+        StockTask FindLastByNr(string nr);
+
         StockTask FindLastByCheckCode(string checkCode);
 
         StockTask FindById(int id);

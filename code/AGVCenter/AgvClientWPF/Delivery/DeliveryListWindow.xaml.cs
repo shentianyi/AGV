@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AGVCenterLib.Model.SearchModel;
+using AgvClientWPF.AgvDeliveryService;
 
 namespace AgvClientWPF.Delivery
 {
@@ -21,6 +23,25 @@ namespace AgvClientWPF.Delivery
         public DeliveryListWindow()
         {
             InitializeComponent();
+        }
+
+        private void loadStorageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LoadDeliveryList();
+        }
+
+        private void LoadDeliveryList()
+        {
+            DeliveryServiceClient dsc = new DeliveryServiceClient();
+
+            dsc.SearchList(new DeliverySearchModel() {
+                Nr=deliveryNrTB.Text
+            }, 50);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadDeliveryList();
         }
     }
 }

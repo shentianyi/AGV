@@ -47,6 +47,9 @@ namespace AgvClientWPF.AgvDeliveryService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/GetDeliveryOutStockTasks", ReplyAction="http://tempuri.org/IDeliveryService/GetDeliveryOutStockTasksResponse")]
         AGVCenterLib.Model.ViewModel.StockTaskModel[] GetDeliveryOutStockTasks(string nr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/SearchList", ReplyAction="http://tempuri.org/IDeliveryService/SearchListResponse")]
+        AGVCenterLib.Model.ViewModel.DeliveryModel[] SearchList(AGVCenterLib.Model.SearchModel.DeliverySearchModel searchModel, int limit);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -118,6 +121,10 @@ namespace AgvClientWPF.AgvDeliveryService {
         
         public AGVCenterLib.Model.ViewModel.StockTaskModel[] GetDeliveryOutStockTasks(string nr) {
             return base.Channel.GetDeliveryOutStockTasks(nr);
+        }
+        
+        public AGVCenterLib.Model.ViewModel.DeliveryModel[] SearchList(AGVCenterLib.Model.SearchModel.DeliverySearchModel searchModel, int limit) {
+            return base.Channel.SearchList(searchModel, limit);
         }
     }
 }

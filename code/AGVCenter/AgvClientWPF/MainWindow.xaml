@@ -13,7 +13,8 @@
         <Button x:Name="createTrayBtn" Content="创建托盘" HorizontalAlignment="Left" Margin="141,165,0,0" VerticalAlignment="Top" Width="78" Height="42" Click="createTrayBtn_Click"/>
         <Button x:Name="createDeliveryOutStockTaskBtn" Content="创建出库任务" HorizontalAlignment="Left" Margin="243,87,0,0" VerticalAlignment="Top" Width="78" Height="42" Click="createDeliveryOutStockTaskBtn_Click"/>
         <Button x:Name="sendDeliveryBtn" Content="发送运单" HorizontalAlignment="Left" Margin="243,164,0,0" VerticalAlignment="Top" Width="78" Height="43" Click="sendDeliveryBtn_Click"/>
-        <Button x:Name="deliveryTaskMonitorBtn" Content="运单任务监控" HorizontalAlignment="Left" Margin="348,86,0,0" VerticalAlignment="Top" Width="89" Height="43" Click="deliveryTaskMonitorBtn_Click"/>
+        <Button x:Name="deliveryTaskMonitorBtn" Content="运单任务监控" HorizontalAlignment="Left" Margin="348,86,0,0" VerticalAlignment="Top" Width="78" Height="43" Click="deliveryTaskMonitorBtn_Click"/>
+        <Button x:Name="deliveryListBtn" Content="运单列表" HorizontalAlignment="Left" Margin="348,164,0,0" VerticalAlignment="Top" Width="78" Height="43" Click="deliveryListBtn_Click"/>
 
     </Grid>
 </Window>

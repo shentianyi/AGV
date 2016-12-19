@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AGVCenterLib.Model;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Interface
 {
@@ -20,5 +21,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         /// <param name="all">默认false，带有库存的；true，全部</param>
         /// <returns></returns>
         List<DeliveryStorageView> GetStorageList(string nr, bool all = false);
+
+        IQueryable<Delivery> Search(DeliverySearchModel searchModel);
     }
 }

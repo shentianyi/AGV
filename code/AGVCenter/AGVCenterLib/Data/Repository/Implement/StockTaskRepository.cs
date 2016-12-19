@@ -58,5 +58,10 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             return this.context.StockTask.Where(s => s.DeliveryBatchId == deliveryNr).ToList();
         }
+
+        public StockTask FindLastByNr(string nr)
+        {
+            return this.context.StockTask.OrderByDescending(s => s.Id).FirstOrDefault(s => s.BarCode == nr);
+        }
     }
 }

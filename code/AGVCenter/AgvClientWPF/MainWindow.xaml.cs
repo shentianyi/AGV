@@ -57,5 +57,10 @@ namespace AgvClientWPF
         {
             new DeliveryOutStockTaskMonitorWindow().Show();
         }
+
+        private void deliveryListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new DeliveryListWindow().Show();
+        }
     }
 }

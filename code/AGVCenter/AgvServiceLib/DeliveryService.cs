@@ -7,6 +7,7 @@ using AGVCenterLib.Model.Message;
 using AGVCenterLib.Service;
 using AGVCenterLib.Data;
 using AGVCenterLib.Model.ViewModel;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AgvServiceLib
 {
@@ -78,6 +79,11 @@ namespace AgvServiceLib
         public List<StockTaskModel> GetDeliveryOutStockTasks(string nr)
         {
             return StockTaskModel.Converts(ds.GetDeliveryOutStockTasks(nr));
+        }
+
+        public List<DeliveryModel> SearchList(DeliverySearchModel searchModel, int limit = 50)
+        {
+            return DeliveryModel.Converts(ds.SearchList(searchModel, limit));
         }
     }
 }
