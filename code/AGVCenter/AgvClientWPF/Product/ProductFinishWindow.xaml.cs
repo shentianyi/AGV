@@ -150,6 +150,10 @@ namespace AgvClientWPF.Product
                 QrTB.IsEnabled = false;
                 KnrTB.Focus();
             }
+            else
+            {
+                QrTB.Focus();
+            }
         }
 
 

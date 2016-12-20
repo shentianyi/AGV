@@ -46,7 +46,16 @@ namespace AgvClientWPF.Delivery
                 DeliveryServiceClient dsc = new DeliveryServiceClient();
                 List<DeliveryStorageViewModel> models = dsc.GetDeliveryStorageByNr(deliveryNr).ToList();
                 deliveryStorageDG.ItemsSource = models;
-            }catch(Exception ex)
+                if (dsc.CanDeliverySend(deliveryNrTB.Text).Success)
+                {
+                    sendDeliveryBtn.IsEnabled = true;
+                }
+                else
+                {
+                    sendDeliveryBtn.IsEnabled = false;
+                }
+            }
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -71,7 +80,7 @@ namespace AgvClientWPF.Delivery
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            sendDeliveryBtn.IsEnabled = false;
         }
     }
 }

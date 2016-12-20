@@ -9,13 +9,16 @@
 
 <h2>Index</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>
-           BoxTypeId
+            Nr
+        </th>
+        <th>
+           BoxType
         </th>
         <th>
            PartNr
@@ -41,19 +44,15 @@
         <th>
            CreatedAt
         </th>
-        <th>
-           UpdatedAt
-        </th>
-        <th>
-           IsCanInStockState
-        </th>
-        <th></th>
+          
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr><td>
+    @Html.DisplayFor(modelItem => item.Nr)
+</td>
         <td>
-            @Html.DisplayFor(modelItem => item.BoxTypeId)
+            @Html.DisplayFor(modelItem => item.BoxTypeStr)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PartNr)
@@ -79,17 +78,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedAt)
-        </td>
-        <td>
+         
+        @*<td>
             @Html.DisplayFor(modelItem => item.IsCanInStockState)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Nr }) |
             @Html.ActionLink("Details", "Details", new { id=item.Nr }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Nr })
-        </td>
+        </td>*@
     </tr>
 }
 

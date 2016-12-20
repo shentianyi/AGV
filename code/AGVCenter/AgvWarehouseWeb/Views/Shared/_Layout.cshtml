@@ -23,16 +23,19 @@
                 <span class="icon-bar"></span>
             </button>
             @*@Html.ActionLink("CuttingMrp", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-            <h3 style="color: #eeeeee;margin:10px 20px 10px 10px;">AGV</h3>
+            <h3 style="color: #eeeeee;margin:10px 20px 10px 10px;">PWS</h3>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 @* 命名规则： nav- Controller 小写  *@
 
-                <li class="nav-home">@Html.ActionLink("主页", "Index", "Home")</li> 
+                <li class="nav-home">@Html.ActionLink("Home", "Index", "Home")</li> 
                 <li class="nav-undone-stock">@Html.ActionLink("UniqueItem", "Index", "UniqueItem")</li>
                 <li class="nav-undone-stock">@Html.ActionLink("Storage", "Index", "Storage")</li>
                 <li class="nav-undone-stock">@Html.ActionLink("StockMovement", "Index", "StockMovement")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("Delivery", "Index", "Delivery")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("DeliveryItem", "Index", "DeliveryItem")</li>
+
             </ul>
 
             @*@Html.Partial("_LoginPartial")*@

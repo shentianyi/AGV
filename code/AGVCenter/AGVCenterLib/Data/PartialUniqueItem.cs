@@ -22,5 +22,14 @@ namespace AGVCenterLib.Data
              return CanInStockStates.Contains((UniqueItemState)this.State);
             }
         }
+
+        public string BoxTypeStr
+        {
+            get
+            {
+                return BoxType.GetStr(this.BoxTypeId);
+            }
+        }
+
     }
 }

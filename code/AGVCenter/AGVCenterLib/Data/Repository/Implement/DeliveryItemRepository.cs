@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Implement
 {
@@ -29,6 +30,23 @@ namespace AGVCenterLib.Data.Repository.Implement
         public DeliveryItem FindByUniqNr(string uniqNr, string deliveryNr)
         {
             return this.context.DeliveryItem.FirstOrDefault(s => s.UniqItemNr == uniqNr && s.DeliveryNr==deliveryNr);
+        }
+
+        public IQueryable<DeliveryItemStorageView> SearchDetail(DeliveryItemSearchModel searchModel)
+        {
+            var q = this.context.DeliveryItemStorageView as IQueryable<DeliveryItemStorageView>;
+            if (!string.IsNullOrEmpty(searchModel.DeliveryNr))
+            {
+                q = q.Where(s => s.DeliveryNr.Contains(searchModel.DeliveryNr));
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.TrayNr))
+            {
+                q = q.Where(s => s.TrayItemTrayNr.Contains(searchModel.TrayNr));
+            }
+
+
+            return q;
         }
     }
 }

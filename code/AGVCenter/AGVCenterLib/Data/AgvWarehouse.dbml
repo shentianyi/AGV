@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AgvWarehouseDb" Class="AgvWarehouseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa" SettingsObjectName="AGVCenterLib.Properties.Settings" SettingsPropertyName="AgvWarehouseDbConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa" SettingsObjectName="AGVCenterLib.Properties.Settings" SettingsPropertyName="AgvWarehouseDbConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BoxType" Member="BoxType">
     <Type Name="BoxType">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -155,34 +155,6 @@
       <Association Name="UniqueItem_DeliveryItem" Member="UniqueItem" ThisKey="UniqItemNr" OtherKey="Nr" Type="UniqueItem" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.DeliveryItemStorageView" Member="DeliveryItemStorageView">
-    <Type Name="DeliveryItemStorageView">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="DeliveryNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UniqueItemNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="UniqueItemBoxTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UniqueItemPartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemKNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemKNrWithYear" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemCheckCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemKskNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemQR" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemState" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UniqueItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UniqueItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="StorageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoragePositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="StoragePartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="StorageFIFO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="StorageUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="StorageCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="StorageUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.StockTask" Member="StockTask">
     <Type Name="StockTask">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -287,6 +259,40 @@
       <Column Name="DeliveryState" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DeliveryCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="DeliveryUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DeliveryItemStorageView" Member="DeliveryItemStorageView">
+    <Type Name="DeliveryItemStorageView">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DeliveryNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UniqueItemNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UniqueItemBoxTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UniqueItemPartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemKNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemKNrWithYear" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemCheckCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemKskNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemQR" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UniqueItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UniqueItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StorageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoragePositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StoragePartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StorageFIFO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StorageUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StorageCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StorageUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TrayItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrayItemUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TrayItemTrayNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TrayItemState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrayItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TrayItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

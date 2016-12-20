@@ -74,8 +74,11 @@
       <DependentUpon>AgvWarehouse.dbml</DependentUpon>
     </Compile>
     <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\PartialBoxType.cs" />
     <Compile Include="Data\PartialDelivery.cs" />
     <Compile Include="Data\IDataContextFactory.cs" />
+    <Compile Include="Data\PartialStorageUniqueItemView.cs" />
+    <Compile Include="Data\PartialDeliveryItemStorageView.cs" />
     <Compile Include="Data\PartialDeliveryStorageView.cs" />
     <Compile Include="Data\PartialStockTask.cs" />
     <Compile Include="Data\PartialTrayDeliveryView.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Model\OPC\OPCDataBase.cs" />
     <Compile Include="Model\OPC\OPCRoadMachineTaskFeed.cs" />
     <Compile Include="Model\OPC\OPCSetStockTask.cs" />
+    <Compile Include="Model\SearchModel\DeliveryItemSearchModel.cs" />
     <Compile Include="Model\SearchModel\DeliverySearchModel.cs" />
     <Compile Include="Model\SearchModel\StockMovementSearchModel.cs" />
     <Compile Include="Model\SearchModel\StorageSearchModel.cs" />

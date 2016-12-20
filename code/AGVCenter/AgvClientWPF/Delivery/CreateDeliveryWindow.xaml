@@ -21,7 +21,7 @@
                   VerticalAlignment="Top" Height="244" Width="421" 
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="产品唯一号" Binding="{Binding Path=Nr}"/>
+                <DataGridTextColumn Header="产品KSK号" Binding="{Binding Path=Nr}"/>
                 <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
             </DataGrid.Columns>
         </DataGrid>

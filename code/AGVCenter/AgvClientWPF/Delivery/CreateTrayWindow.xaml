@@ -16,7 +16,7 @@
         <Button x:Name="refreshTrayNrBtn" Content="刷新" HorizontalAlignment="Left" Margin="325,49,0,0" VerticalAlignment="Top" Width="38" Height="23" Click="refreshTrayNrBtn_Click"/>
         <TextBox x:Name="checkCodeTB" HorizontalAlignment="Left" Height="23" Margin="85,77,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"
                  Width="225" IsEnabled="False" KeyUp="checkCodeText_KeyUp"/>
-        <Label x:Name="label2" Content="验证码：" HorizontalAlignment="Left" Margin="22,76,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label2" Content="KSK号：" HorizontalAlignment="Left" Margin="22,76,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label3" Content="托盘项：" HorizontalAlignment="Left" Margin="22,107,0,0" VerticalAlignment="Top"/>
 
         <DataGrid x:Name="trayItemDG"  IsReadOnly="True"
@@ -24,12 +24,12 @@
                   VerticalAlignment="Top" Height="268" Width="438" 
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="产品唯一号" Binding="{Binding Path=Nr}"/>
+                <DataGridTextColumn Header="产品KSK号" Binding="{Binding Path=Nr}"/>
                 <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="createTrayBtn" Content="创 建" HorizontalAlignment="Left" Margin="385,406,0,0" 
+        <Button x:Name="createTrayBtn" Content="创 建" HorizontalAlignment="Left" Margin="297,406,0,0" 
                 VerticalAlignment="Top"  Width="49" Height="24" Click="createTrayBtn_Click"/>
-        <Button x:Name="removeTrayItemBtn" Content="移除项" HorizontalAlignment="Left" Margin="314,406,0,0" VerticalAlignment="Top" Width="49" Height="24" Click="removeTrayItemBtn_Click"/>
+        <Button x:Name="removeTrayItemBtn" Content="移除项" HorizontalAlignment="Left" Margin="226,406,0,0" VerticalAlignment="Top" Width="49" Height="24" Click="removeTrayItemBtn_Click"/>
     </Grid>
 </Window>

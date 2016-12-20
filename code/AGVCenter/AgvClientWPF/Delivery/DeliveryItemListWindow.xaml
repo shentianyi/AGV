@@ -17,7 +17,7 @@
                   VerticalAlignment="Top" Height="295" Width="498"
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="产品唯一号" Binding="{Binding Path=UniqueItemNr}"/>
+                <DataGridTextColumn Header="产品KSK号" Binding="{Binding Path=UniqueItemNr}"/>
                 <DataGridTextColumn Header="创建时间" Binding="{Binding Path=UniqueItemCreatedAt}"/>
                 <DataGridTextColumn Header="库位号" Binding="{Binding Path=StoragePositionNr}"/>
                 <DataGridTextColumn Header="是否在库存中" Binding="{Binding Path=IsInStock}"/>
@@ -27,6 +27,11 @@
         <Button x:Name="sendDeliveryBtn" Content="确定发运" 
                 HorizontalAlignment="Left" Margin="402,413,0,0"
                 VerticalAlignment="Top" Width="91" Click="sendDeliveryBtn_Click" Height="28"/>
+
+
+        <Button x:Name="printDeliveryBtn" Content="打印运单" 
+                HorizontalAlignment="Left" Margin="297,413,0,0"
+                VerticalAlignment="Top" Width="91" Height="28"/>
 
     </Grid>
 </Window>

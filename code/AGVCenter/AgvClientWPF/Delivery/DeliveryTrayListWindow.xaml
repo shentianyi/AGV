@@ -14,7 +14,7 @@
 
         <DataGrid x:Name="deliveryTrayDG" AutoGenerateColumns="False" CanUserAddRows="false" 
                   HorizontalAlignment="Left" Margin="29,94,0,0" IsReadOnly="True"
-                  VerticalAlignment="Top" Height="295" Width="498"
+                  VerticalAlignment="Top" Height="314" Width="517"
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="托盘号" Binding="{Binding Path=Nr}"/>
@@ -22,6 +22,7 @@
                 <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Button x:Name="printTrayBtn" Content="打印托单" HorizontalAlignment="Left" Margin="352,423,0,0" VerticalAlignment="Top" Width="88" Height="36"/>
 
     </Grid>
 </Window>

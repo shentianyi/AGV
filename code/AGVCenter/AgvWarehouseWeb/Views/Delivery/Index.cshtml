@@ -1,6 +1,6 @@
 ﻿@using MvcPaging;
 
-@model IPagedList<AGVCenterLib.Data.StorageUniqueItemView>
+@model IPagedList<AGVCenterLib.Data.Delivery>
 
 @{
     ViewBag.Title = "Index";
@@ -8,57 +8,54 @@
 
 <h2>Index</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
-            PositionNr
-        </th>
-        
-       
-      
-        <th>
-            UniqueItemNr
+            Nr
         </th>
         <th>
-          BoxType
+            CanSend
         </th>
         <th>
-            FIFO
-        </th>
-       
+           StateStr
+        </th><th>
+     CreatedAt
+</th>
+<th>
+     UpdatedAt
+</th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.PositionNr)
+            @Html.DisplayFor(modelItem => item.Nr)
         </td>
-        
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.UniqueItemNr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BoxTypeStr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FIFO)
-        </td>
-
       
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.CanSend)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StateStr)
+        </td><td>
+    @Html.DisplayFor(modelItem => item.CreatedAt)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.UpdatedAt)
+</td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Nr }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Nr }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Nr })
         </td>
     </tr>
 }
 
 </table>
-
-
-
 <div class="col-sm-12" style="text-align:center;">
     <div class="clearfix pagination">
         <div class="pagination-inner">
@@ -67,7 +64,7 @@
                 if (ViewBag.Query != null)
                 {
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("PositionNr", ViewBag.Query.PositionNr));
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr));
                     @html
                 }
                 else

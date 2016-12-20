@@ -193,5 +193,10 @@ namespace AGVCenterLib.Service
 
             return deliveryRep.Search(searchModel).OrderByDescending(s => s.CreatedAt).Take(limit).ToList();
         }
+
+        public IQueryable<Delivery> Search(DeliverySearchModel searchModel)
+        {
+            return new DeliveryRepository(this.Context).Search(searchModel);
+        }
     }
 }

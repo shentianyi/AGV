@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF"
         mc:Ignorable="d"
-        Title="ProductFinishWindow" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="ProductFinishWindow" Height="600" Width="600" Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="70,20,0,0">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -17,6 +18,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
             <Label Content="大小箱:" Width="104" VerticalContentAlignment="Center"></Label>
             <RadioButton GroupName="BoxTypeRB" Name="BoxTypeLRB" Content="大箱" Width="53" IsChecked="True"/>
@@ -43,7 +45,7 @@
             <TextBox  Name="KskNrTB"  Width="300" Height="40" VerticalContentAlignment="Center" KeyUp="AutoChangeFocusTB_KeyUp"/>
         </StackPanel>
         <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="确 认" Width="145" Name="ConfirmBtn" Click="ConfirmBtn_Click">
+            <Button Content="确 认" Width="103" FontSize="15" Name="ConfirmBtn" Click="ConfirmBtn_Click" Margin="0,0,0,34">
             </Button>
         </StackPanel>
     </Grid>

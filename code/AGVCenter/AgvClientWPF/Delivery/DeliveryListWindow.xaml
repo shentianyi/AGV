@@ -17,7 +17,7 @@
         <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="29,33,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="deliveryNrTB" HorizontalAlignment="Left" Height="23" Margin="92,33,0,0" 
                  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="191"/>
-        <Button x:Name="loadStorageBtn" Content="加载运单项" HorizontalAlignment="Left"
+        <Button x:Name="loadStorageBtn" Content="加载运单" HorizontalAlignment="Left"
                 Margin="297,33,0,0" VerticalAlignment="Top" Width="75" Click="loadStorageBtn_Click"/>
             </Grid>
             <Grid Grid.Row="1">
@@ -40,11 +40,18 @@
             </DataGrid.Columns>
         </DataGrid>
                 <StackPanel Grid.Row="0" Grid.Column="1">
-                <Button x:Name="deliveryItemListBtn" Content="运单项列表" Width="100" Height="40" Click="deliveryItemListBtn_Click"/>
-                <Button x:Name="deliveryCreateStockTaskBtn" Content="运单出库" Width="100" Height="40" Click="deliveryCreateStockTaskBtn_Click" />
-                <Button x:Name="deliveryStockTaskMonitorBtn" Content="出库监控" Width="100" Height="40" Click="deliveryStockTaskMonitorBtn_Click"/>
-                <Button x:Name="deliveryCreateTrayBtn" Content="创建托盘" Width="100" Height="40" Click="deliveryCreateTrayBtn_Click"/>
-                <Button x:Name="deliveryTrayListBtn" Content="托盘列表" Width="100" Height="40" Click="deliveryTrayListBtn_Click"/>
+                <Button x:Name="deliveryItemListBtn" Content="运单项列表"  Margin="0,10,0,0"
+                        Width="100" Height="40" Click="deliveryItemListBtn_Click"/>
+                <Button x:Name="deliveryCreateStockTaskBtn" Content="运单出库"  Margin="0,10,0,0"
+                        Width="100" Height="40" Click="deliveryCreateStockTaskBtn_Click" />
+                <Button x:Name="deliveryStockTaskMonitorBtn" Content="出库监控" Width="100"  Margin="0,10,0,0"
+                        Height="40" Click="deliveryStockTaskMonitorBtn_Click"/>
+                <Button x:Name="deliveryCreateTrayBtn" Content="创建托盘" Width="100" Height="40"
+                         Margin="0,10,0,0"
+                        Click="deliveryCreateTrayBtn_Click"/>
+                <Button x:Name="deliveryTrayListBtn" Content="托盘列表" 
+                         Margin="0,10,0,0"
+                        Width="100" Height="40" Click="deliveryTrayListBtn_Click"/>
             </StackPanel>
             </Grid>
        

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Service
 {
@@ -56,6 +57,10 @@ namespace AGVCenterLib.Service
             return message;
         }
 
-     
+
+        public IQueryable<DeliveryItemStorageView> SearchDetail(DeliveryItemSearchModel searchModel)
+        {
+            return new DeliveryItemRepository(this.Context).SearchDetail(searchModel);
+        }
     }
 }
