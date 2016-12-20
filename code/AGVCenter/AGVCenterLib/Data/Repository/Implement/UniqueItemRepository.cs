@@ -57,7 +57,20 @@ namespace AGVCenterLib.Data.Repository.Implement
 
         public IQueryable<UniqueItem> Search(UniqueItemSearchModel searchModel)
         {
-            return this.context.UniqueItem;
+            var q= this.context.UniqueItem as IQueryable<UniqueItem>;
+
+            if (!string.IsNullOrEmpty(searchModel.Nr))
+            {
+                q = q.Where(s => s.Nr.Contains(searchModel.Nr));
+            }
+
+
+            if (!string.IsNullOrEmpty(searchModel.KNr))
+            {
+                q = q.Where(s => s.KNr.Contains(searchModel.KNr));
+            }
+
+            return q;
         }
     }
 }

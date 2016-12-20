@@ -8,5 +8,6 @@ namespace AGVCenterLib.Model.SearchModel
     public class UniqueItemSearchModel
     {
         public string Nr { get; set; }
+        public string KNr { get; set; }
     }
 }

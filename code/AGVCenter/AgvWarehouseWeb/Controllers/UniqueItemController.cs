@@ -31,6 +31,22 @@ namespace AgvWarehouseWeb.Controllers
             return View(items);
         }
 
+        public ActionResult Search([Bind(Include = "Nr,KNr")]  UniqueItemSearchModel q)
+        {
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            UniqueItemService ps = new UniqueItemService(Settings.Default.db);
+           
+            IPagedList<UniqueItem> items =
+                ps.Search(q)
+                .ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            return View("Index", items);
+        }
 
         // GET: UniqueItem/Details/5
         public ActionResult Details(int id)
