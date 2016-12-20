@@ -125,7 +125,7 @@
 
 
                     <DataGrid x:Name="CenterStockTaskDisplayDG" CanUserSortColumns="False"
-                      AutoGenerateColumns="False" CanUserAddRows="false"  
+                      AutoGenerateColumns="False" CanUserAddRows="false"  IsReadOnly="True"
                     Grid.Row="2"
                          HorizontalAlignment="Stretch"  Margin="10,6,0,-4" 
                              VerticalAlignment="Stretch"  MinHeight="487" MinWidth="482" 

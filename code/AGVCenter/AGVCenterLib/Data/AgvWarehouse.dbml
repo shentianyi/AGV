@@ -272,4 +272,21 @@
       <Column Name="TrayItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.TrayDeliveryView" Member="TrayDeliveryView">
+    <Type Name="TrayDeliveryView">
+      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeliveryTrayId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DeliveryTrayDeliveryNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DeliveryTrayTrayNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DeliveryTrayCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeliveryTrayUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeliveryNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DeliveryState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeliveryCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeliveryUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

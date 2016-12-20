@@ -5,5 +5,8 @@
     <Setting Name="BoxType" Type="System.String" Scope="Application">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="TestModel" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

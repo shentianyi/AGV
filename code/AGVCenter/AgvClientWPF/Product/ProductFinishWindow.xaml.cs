@@ -32,6 +32,11 @@ namespace AgvClientWPF.Product
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
+            ProductOffLine();
+        }
+
+        private void ProductOffLine()
+        {
             ResultMessage message = new ResultMessage();
             try
             {
@@ -66,9 +71,7 @@ namespace AgvClientWPF.Product
                 MessageBox.Show(message.Content);
             }
             this.RestInput();
-            QrTB.Focus();
         }
-
         private void RestInput()
         {
             QrTB.Text = string.Empty;
@@ -76,6 +79,14 @@ namespace AgvClientWPF.Product
             KNrWithYearTB.Text = string.Empty;
             CheckCodeTB.Text = string.Empty;
             KskNrTB.Text = string.Empty;
+            if (Settings.Default.TestModel)
+            {
+                KnrTB.Focus();
+            }
+            else
+            {
+                QrTB.Focus();
+            }
         }
 
         private int GetBoxTypeId()
@@ -102,6 +113,10 @@ namespace AgvClientWPF.Product
         /// <returns></returns>
         private bool CrossCheck()
         {
+            if (Settings.Default.TestModel)
+            {
+                return true;
+            }
             if (("1" + QrTB.Text) == CheckCodeTB.Text)
             {
                 return true;
@@ -130,6 +145,11 @@ namespace AgvClientWPF.Product
                 BoxTypeSRB.IsChecked = false;
                 MessageBox.Show("大小箱设置错误！请设置,\n 1为大箱，2为小箱");
             }
+            if (Settings.Default.TestModel)
+            {
+                QrTB.IsEnabled = false;
+                KnrTB.Focus();
+            }
         }
 
 
@@ -155,7 +175,12 @@ namespace AgvClientWPF.Product
                         KskNrTB.Focus();
                         break;
                     case "KskNrTB":
-                        QrTB.Focus();
+                        //QrTB.Focus();
+                        //if (Settings.Default.TestModel)
+                        //{
+                        //    KnrTB.Focus();
+                        //}
+                        this.ProductOffLine();
                         break;
                     default:
                         break;

@@ -236,6 +236,14 @@ namespace AGVCenterLib.Data
 				return this.GetTable<DeliveryStorageView>();
 			}
 		}
+		
+		public System.Data.Linq.Table<TrayDeliveryView> TrayDeliveryView
+		{
+			get
+			{
+				return this.GetTable<TrayDeliveryView>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BoxType")]
@@ -5341,6 +5349,249 @@ namespace AGVCenterLib.Data
 				if ((this._TrayItemUpdatedAt != value))
 				{
 					this._TrayItemUpdatedAt = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TrayDeliveryView")]
+	public partial class TrayDeliveryView
+	{
+		
+		private string _Nr;
+		
+		private System.Nullable<int> _State;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private System.Nullable<System.DateTime> _UpdatedAt;
+		
+		private int _DeliveryTrayId;
+		
+		private string _DeliveryTrayDeliveryNr;
+		
+		private string _DeliveryTrayTrayNr;
+		
+		private System.Nullable<System.DateTime> _DeliveryTrayCreatedAt;
+		
+		private System.Nullable<System.DateTime> _DeliveryTrayUpdatedAt;
+		
+		private string _DeliveryNr;
+		
+		private System.Nullable<int> _DeliveryState;
+		
+		private System.Nullable<System.DateTime> _DeliveryCreatedAt;
+		
+		private System.Nullable<System.DateTime> _DeliveryUpdatedAt;
+		
+		public TrayDeliveryView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nr
+		{
+			get
+			{
+				return this._Nr;
+			}
+			set
+			{
+				if ((this._Nr != value))
+				{
+					this._Nr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
+		public System.Nullable<int> State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this._State = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this._CreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedAt
+		{
+			get
+			{
+				return this._UpdatedAt;
+			}
+			set
+			{
+				if ((this._UpdatedAt != value))
+				{
+					this._UpdatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryTrayId", DbType="Int NOT NULL")]
+		public int DeliveryTrayId
+		{
+			get
+			{
+				return this._DeliveryTrayId;
+			}
+			set
+			{
+				if ((this._DeliveryTrayId != value))
+				{
+					this._DeliveryTrayId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryTrayDeliveryNr", DbType="VarChar(50)")]
+		public string DeliveryTrayDeliveryNr
+		{
+			get
+			{
+				return this._DeliveryTrayDeliveryNr;
+			}
+			set
+			{
+				if ((this._DeliveryTrayDeliveryNr != value))
+				{
+					this._DeliveryTrayDeliveryNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryTrayTrayNr", DbType="VarChar(50)")]
+		public string DeliveryTrayTrayNr
+		{
+			get
+			{
+				return this._DeliveryTrayTrayNr;
+			}
+			set
+			{
+				if ((this._DeliveryTrayTrayNr != value))
+				{
+					this._DeliveryTrayTrayNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryTrayCreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DeliveryTrayCreatedAt
+		{
+			get
+			{
+				return this._DeliveryTrayCreatedAt;
+			}
+			set
+			{
+				if ((this._DeliveryTrayCreatedAt != value))
+				{
+					this._DeliveryTrayCreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryTrayUpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DeliveryTrayUpdatedAt
+		{
+			get
+			{
+				return this._DeliveryTrayUpdatedAt;
+			}
+			set
+			{
+				if ((this._DeliveryTrayUpdatedAt != value))
+				{
+					this._DeliveryTrayUpdatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string DeliveryNr
+		{
+			get
+			{
+				return this._DeliveryNr;
+			}
+			set
+			{
+				if ((this._DeliveryNr != value))
+				{
+					this._DeliveryNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryState", DbType="Int")]
+		public System.Nullable<int> DeliveryState
+		{
+			get
+			{
+				return this._DeliveryState;
+			}
+			set
+			{
+				if ((this._DeliveryState != value))
+				{
+					this._DeliveryState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryCreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DeliveryCreatedAt
+		{
+			get
+			{
+				return this._DeliveryCreatedAt;
+			}
+			set
+			{
+				if ((this._DeliveryCreatedAt != value))
+				{
+					this._DeliveryCreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeliveryUpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DeliveryUpdatedAt
+		{
+			get
+			{
+				return this._DeliveryUpdatedAt;
+			}
+			set
+			{
+				if ((this._DeliveryUpdatedAt != value))
+				{
+					this._DeliveryUpdatedAt = value;
 				}
 			}
 		}

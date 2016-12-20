@@ -31,5 +31,14 @@ namespace AgvClientWPF.Properties {
                 return ((string)(this["BoxType"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TestModel {
+            get {
+                return ((bool)(this["TestModel"]));
+            }
+        }
     }
 }
