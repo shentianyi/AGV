@@ -38,6 +38,7 @@ namespace AGVCenterLib.Data.Repository.Implement
         public IQueryable<Delivery> Search(DeliverySearchModel searchModel)
         {
             var q = this.context.Delivery as IQueryable<Delivery>;
+
             if (!string.IsNullOrEmpty(searchModel.Nr))
             {
                 q = q.Where(s => s.Nr.Contains(searchModel.Nr));

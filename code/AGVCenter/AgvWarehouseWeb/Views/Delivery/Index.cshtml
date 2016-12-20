@@ -6,11 +6,25 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row" style="margin:0;">
+    <div class="col-md-12">
+        <form action="/Delivery/Search" method="get">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>运单号</span>
+                    <input type="text" name="Nr" id="Nr" placeholder="运单号" value="@ViewBag.Query.Nr" />
+               
+
+                    <button type="submit" class="marco-btn-success" style="margin-left:0;">
+                        <i class="glyphicon glyphicon-search"></i>
+                        搜索
+                    </button>
+                 </div>
+            </div>
+        </form>
+    </div>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -27,7 +41,7 @@
 <th>
      UpdatedAt
 </th>
-        <th></th>
+        @*<th></th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -47,11 +61,11 @@
 <td>
     @Html.DisplayFor(modelItem => item.UpdatedAt)
 </td>
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Nr }) |
             @Html.ActionLink("Details", "Details", new { id=item.Nr }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Nr })
-        </td>
+        </td>*@
     </tr>
 }
 

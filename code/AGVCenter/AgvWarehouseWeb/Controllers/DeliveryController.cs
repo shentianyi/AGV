@@ -25,9 +25,26 @@ namespace AgvWarehouseWeb.Controllers
                 ps.Search(q)
                 .ToPagedList(pageIndex, Settings.Default.pageSize);
 
+            ViewBag.Query = q;   
+            return View(items);
+        }
+
+
+        public ActionResult Search([Bind(Include = "Nr")]  DeliverySearchModel q)
+        {
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            DeliveryService ps = new DeliveryService(Settings.Default.db);
+          
+            IPagedList<Delivery> items =
+                ps.Search(q)
+                .ToPagedList(pageIndex, Settings.Default.pageSize);
+
             ViewBag.Query = q;
 
-            return View(items);
+            return View("Index", items);
         }
 
         // GET: Delivery/Details/5
