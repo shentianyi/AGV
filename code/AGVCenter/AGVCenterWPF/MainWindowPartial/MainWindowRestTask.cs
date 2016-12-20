@@ -113,7 +113,8 @@ namespace AGVCenterWPF
             try
             {
                 LogUtil.Logger.Info("【执行-重置出库任务状态】");
-                SqlHelper.ExecuteNonQuery(OPCConfig.DbString, CommandType.StoredProcedure, "TASK_RestAllOutTaskToWaitingState");
+                SqlHelper.ExecuteNonQuery(OPCConfig.DbString,
+                    CommandType.StoredProcedure, "TASK_RestAllOutTaskToWaitingState",new SqlParameter("@toState",(int)StockTaskState.RoadMachineWaitOutStock));
             }
             catch (Exception ex)
             {
