@@ -145,11 +145,11 @@ namespace AGVCenterWPF
 
             Thread.Sleep(2000);
 
-            //// 自动连接OPC
-            //if (BaseConfig.AutoConnectOPC)
-            //{
-            //    this.ConnectOPC();
-            //}
+            // 自动连接OPC
+            if (BaseConfig.AutoConnectOPC)
+            {
+                this.ConnectOPC();
+            }
 
             this.InitAndStartTimers();
 
@@ -879,7 +879,7 @@ namespace AGVCenterWPF
                 }
                 catch (Exception eex)
                 {
-                    LogUtil.Logger.Error(ex.Message, ex);
+                    LogUtil.Logger.Error(eex.Message, eex);
                 }
                 //MessageBox.Show(ex.Message);
             }
@@ -1164,9 +1164,9 @@ namespace AGVCenterWPF
                         }
                         else if (taskItem.StockTaskType == StockTaskType.OUT)
                         {
+                            taskItem.State = StockTaskState.OutStocked;
                             if (TestConfig.OutStockTaskDelStorage)
                             {
-                                taskItem.State = StockTaskState.OutStocked;
                                 new StorageService(OPCConfig.DbString).OutStockByCheckCode(taskItem.Barcode);
                             }
                             dicQ.Dequeue();
@@ -1618,7 +1618,8 @@ namespace AGVCenterWPF
             TaskCenterForDisplayQueue = new List<StockTaskItem>();
 
 
-            List<StockTask> tasks = new StockTaskService(OPCConfig.DbString).GetTaskByStates(StockTaskItem.ShouldLoadFromDbStates);
+            List<StockTask> tasks = new StockTaskService(OPCConfig.DbString)
+                .GetTaskByStates(StockTaskItem.ShouldLoadFromDbStates);
             foreach (var task in tasks)
             {
                 StockTaskItem item = new StockTaskItem()

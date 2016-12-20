@@ -217,5 +217,14 @@ namespace AGVCenterLib.Service
             return tasks;
         }
 
+        /// <summary>
+        /// 根据状态获取任务
+        /// </summary>
+        /// <param name="states"></param>
+        /// <returns></returns>
+        public List<StockTask> GetTaskByStates(List<StockTaskState> states)
+        {
+            return new StockTaskRepository(this.Context).GetByStates(states);
+        }
     }
 }

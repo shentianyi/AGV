@@ -264,6 +264,12 @@
       <Column Name="PositionRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PositionState" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PositionRoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrayItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrayItemUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TrayItemTrayNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TrayItemState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrayItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TrayItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

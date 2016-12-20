@@ -30,14 +30,14 @@ namespace AgvClientWPF.Delivery
         {
             LoadDeliveryList();
         }
-      
+        List<DeliveryModel> deliveries;
         private void LoadDeliveryList()
         {
             try
             {
                 DeliveryServiceClient dsc = new DeliveryServiceClient();
 
-                List<DeliveryModel> deliveries = dsc.SearchList(new DeliverySearchModel()
+                deliveries = dsc.SearchList(new DeliverySearchModel()
                 {
                     Nr = deliveryNrTB.Text
                 }, 50).ToList();
@@ -84,6 +84,30 @@ namespace AgvClientWPF.Delivery
                 new DeliveryOutStockTaskMonitorWindow(d.Nr).Show();
             }
         }
-         
+        private void deliveryCreateStockTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var d = GetDeliveryModelItem();
+            if (d != null)
+            {
+                new CreateDeliveryOutStockTaskWindow(d.Nr).Show();
+            }
+        }
+
+        private void deliveryCreateTrayBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var d = GetDeliveryModelItem();
+            if (d != null)
+            {
+                new CreateTrayWindow(d.Nr).Show();
+            }
+        }
+        //private void button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    deliveries.LastOrDefault().Nr = "sdfff";
+        //    var d = new DeliveryModel() { Nr = "ssssss" };
+        //    deliveries.Add(d);
+        //    deliveryDG.Items.Refresh();
+        //}
+
     }
 }

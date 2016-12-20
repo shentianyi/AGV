@@ -5,16 +5,112 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="400" Width="670" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="productOffLineBtn" Content="生产下线" 
-                HorizontalAlignment="Left" Margin="35,39,0,0" VerticalAlignment="Top" Width="74" Height="42" Click="productOffLineBtn_Click"/>
-        <Button x:Name="createDevlieryBtn" Content="创建运单" HorizontalAlignment="Left" Margin="141,87,0,0" VerticalAlignment="Top" Width="78" Height="42" Click="createDevlieryBtn_Click"/>
-        <Button x:Name="createTrayBtn" Content="创建托盘" HorizontalAlignment="Left" Margin="141,165,0,0" VerticalAlignment="Top" Width="78" Height="42" Click="createTrayBtn_Click"/>
-        <Button x:Name="createDeliveryOutStockTaskBtn" Content="创建出库任务" HorizontalAlignment="Left" Margin="243,87,0,0" VerticalAlignment="Top" Width="78" Height="42" Click="createDeliveryOutStockTaskBtn_Click"/>
-        <Button x:Name="sendDeliveryBtn" Content="发送运单" HorizontalAlignment="Left" Margin="243,164,0,0" VerticalAlignment="Top" Width="78" Height="43" Click="sendDeliveryBtn_Click"/>
-        <Button x:Name="deliveryTaskMonitorBtn" Content="运单任务监控" HorizontalAlignment="Left" Margin="348,86,0,0" VerticalAlignment="Top" Width="78" Height="43" Click="deliveryTaskMonitorBtn_Click"/>
-        <Button x:Name="deliveryListBtn" Content="运单列表" HorizontalAlignment="Left" Margin="348,164,0,0" VerticalAlignment="Top" Width="78" Height="43" Click="deliveryListBtn_Click"/>
+        <Button x:Name="productOffLineBtn" Content="生产下线"  
+                HorizontalAlignment="Left" Margin="35,39,0,0" VerticalAlignment="Top"
+                Width="100" Foreground="White" FontSize="20"
+                Height="60" Click="productOffLineBtn_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF0F6408" Offset="0"/>
+                    <GradientStop Color="#FF42B802" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.Effect>
+
+                <DropShadowEffect Opacity="0.295"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="createDevlieryBtn" Content="创建运单"
+                HorizontalAlignment="Left" Margin="170,120,0,0" 
+                VerticalAlignment="Top"   Width="100" Foreground="White" FontSize="20"
+                Height="60"  Click="createDevlieryBtn_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF0F6408" Offset="0"/>
+                    <GradientStop Color="#FF42B802" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.Effect>
+
+                <DropShadowEffect Opacity="0.295"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="createTrayBtn" Content="创建托盘"
+                HorizontalAlignment="Left" Margin="170,200,0,0"  VerticalAlignment="Top"   Width="100" Foreground="White" FontSize="20"
+                Height="60"  Click="createTrayBtn_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF0F6408" Offset="0"/>
+                    <GradientStop Color="#FF42B802" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.Effect>
+
+                <DropShadowEffect Opacity="0.295"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="createDeliveryOutStockTaskBtn" Content="创建出库任务" 
+                HorizontalAlignment="Left" Margin="290,120,0,0"  VerticalAlignment="Top"
+                  Width="140" Foreground="White" FontSize="20"
+                Height="60"  Click="createDeliveryOutStockTaskBtn_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF0F6408" Offset="0"/>
+                    <GradientStop Color="#FF42B802" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.Effect>
+
+                <DropShadowEffect Opacity="0.295"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="sendDeliveryBtn" Content="发送运单" 
+                HorizontalAlignment="Left" Margin="290,200,0,0" 
+                VerticalAlignment="Top"   Width="100" Foreground="White" FontSize="20"
+                Height="60"  Click="sendDeliveryBtn_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF0F6408" Offset="0"/>
+                    <GradientStop Color="#FF42B802" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.Effect>
+
+                <DropShadowEffect Opacity="0.295"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="deliveryTaskMonitorBtn" Content="运单出库监控"
+                HorizontalAlignment="Left" Margin="450,120,0,0"  VerticalAlignment="Top"
+                  Width="130" Foreground="White" FontSize="20"
+                Height="60"  Click="deliveryTaskMonitorBtn_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF0F6408" Offset="0"/>
+                    <GradientStop Color="#FF42B802" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.Effect>
+
+                <DropShadowEffect Opacity="0.295"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="deliveryListBtn" Content="运单列表" 
+                HorizontalAlignment="Left" Margin="450,200,0,0"  VerticalAlignment="Top"
+                  Width="100" Foreground="White" FontSize="20"
+                Height="60"  Click="deliveryListBtn_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF0F6408" Offset="0"/>
+                    <GradientStop Color="#FF42B802" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.Effect>
+
+                <DropShadowEffect Opacity="0.295"/>
+            </Button.Effect>
+        </Button>
 
     </Grid>
 </Window>

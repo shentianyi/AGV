@@ -63,5 +63,10 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             return this.context.StockTask.OrderByDescending(s => s.Id).FirstOrDefault(s => s.BarCode == nr);
         }
+
+        public List<StockTask> GetByStates(List<StockTaskState> states)
+        {
+            return this.context.StockTask.Where(s => states.Contains((StockTaskState)s.State)).ToList();
+        }
     }
 }

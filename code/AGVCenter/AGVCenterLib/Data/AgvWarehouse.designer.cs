@@ -4689,6 +4689,18 @@ namespace AGVCenterLib.Data
 		
 		private System.Nullable<int> _PositionRoadMachineIndex;
 		
+		private System.Nullable<int> _TrayItemId;
+		
+		private string _TrayItemUniqItemNr;
+		
+		private string _TrayItemTrayNr;
+		
+		private System.Nullable<int> _TrayItemState;
+		
+		private System.Nullable<System.DateTime> _TrayItemCreatedAt;
+		
+		private System.Nullable<System.DateTime> _TrayItemUpdatedAt;
+		
 		public DeliveryStorageView()
 		{
 		}
@@ -5233,6 +5245,102 @@ namespace AGVCenterLib.Data
 				if ((this._PositionRoadMachineIndex != value))
 				{
 					this._PositionRoadMachineIndex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayItemId", DbType="Int")]
+		public System.Nullable<int> TrayItemId
+		{
+			get
+			{
+				return this._TrayItemId;
+			}
+			set
+			{
+				if ((this._TrayItemId != value))
+				{
+					this._TrayItemId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayItemUniqItemNr", DbType="VarChar(50)")]
+		public string TrayItemUniqItemNr
+		{
+			get
+			{
+				return this._TrayItemUniqItemNr;
+			}
+			set
+			{
+				if ((this._TrayItemUniqItemNr != value))
+				{
+					this._TrayItemUniqItemNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayItemTrayNr", DbType="VarChar(50)")]
+		public string TrayItemTrayNr
+		{
+			get
+			{
+				return this._TrayItemTrayNr;
+			}
+			set
+			{
+				if ((this._TrayItemTrayNr != value))
+				{
+					this._TrayItemTrayNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayItemState", DbType="Int")]
+		public System.Nullable<int> TrayItemState
+		{
+			get
+			{
+				return this._TrayItemState;
+			}
+			set
+			{
+				if ((this._TrayItemState != value))
+				{
+					this._TrayItemState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayItemCreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TrayItemCreatedAt
+		{
+			get
+			{
+				return this._TrayItemCreatedAt;
+			}
+			set
+			{
+				if ((this._TrayItemCreatedAt != value))
+				{
+					this._TrayItemCreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayItemUpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TrayItemUpdatedAt
+		{
+			get
+			{
+				return this._TrayItemUpdatedAt;
+			}
+			set
+			{
+				if ((this._TrayItemUpdatedAt != value))
+				{
+					this._TrayItemUpdatedAt = value;
 				}
 			}
 		}

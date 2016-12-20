@@ -28,6 +28,15 @@ namespace AgvClientWPF.Delivery
             InitializeComponent();
         }
 
+        public CreateTrayWindow(string deliveryNr)
+        {
+            InitializeComponent();
+            this.deliveryNrTB.Text = deliveryNr;
+
+            CheckAndLoadDelivery();
+        }
+
+
         private void refreshTrayNrBtn_Click(object sender, RoutedEventArgs e)
         {
             trayNrTB.Text = UniqueHelper.GenerateUniqString();

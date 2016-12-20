@@ -26,5 +26,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         void UpdateTasksState(List<int> taskIds, StockTaskState state);
 
         List<StockTask> GetOutStockTaskByDelivery(string deliveryNr);
+
+        List<StockTask> GetByStates(List<StockTaskState> states);
     }
 }

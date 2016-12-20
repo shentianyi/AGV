@@ -99,6 +99,27 @@ namespace AGVCenterLib.Model.ViewModel
             set { isInStock = value; }
         }
 
+
+        [DataMember]
+        public int? TrayItemId { get; set; }
+
+        [DataMember]
+        public string TrayItemUniqItemNr { get; set; }
+
+        [DataMember]
+        public string TrayItemTrayNr { get; set; }
+
+        [DataMember]
+        public int? TrayItemState { get; set; }
+
+       
+        [DataMember]
+        public DateTime? TrayItemCreatedAt { get; set; }
+
+        [DataMember]
+        public DateTime? TrayItemUpdatedAt { get; set; }
+
+
         public static List<DeliveryStorageViewModel> Converts(List<DeliveryStorageView> storageViews)
         {
             List<DeliveryStorageViewModel> itemModels = new List<DeliveryStorageViewModel>();

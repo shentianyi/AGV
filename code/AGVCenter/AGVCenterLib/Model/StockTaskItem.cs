@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using AGVCenterLib.Enum;
+using Brilliantech.Framwork.Utils.EnumUtil;
 
 namespace AGVCenterLib.Model
 {
@@ -17,10 +18,27 @@ namespace AGVCenterLib.Model
                 PropertyChanged(this, e);
             }
         }
+
+        public static List<StockTaskState> CanCancelStates = new List<StockTaskState>()
+        {
+            StockTaskState.Init,
+            StockTaskState.AgvWaitPassing,
+            StockTaskState.RoadMachineOutStockInit,
+            StockTaskState.RoadMachineWaitOutStock
+        };
+
+        public static List<StockTaskState> ShouldLoadFromDbStates = new List<StockTaskState>()
+        {
+            StockTaskState.AgvInStcoking,
+            StockTaskState.RoadMachineStockBuffing,
+            StockTaskState.RoadMachineWaitOutStock
+        };
+
         public StockTaskItem()
         {
             this.State = StockTaskState.Init;
             this.IsInProcessing = false;
+            this.CreatedAt = DateTime.Now;
         }
         #region 状态改变事件
         /// <summary>
@@ -39,7 +57,7 @@ namespace AGVCenterLib.Model
         /// <summary>
         /// 任务类型
         /// </summary>
-        public StockTaskType stockTaskType;
+        private StockTaskType stockTaskType;
         public StockTaskType StockTaskType
         {
             get
@@ -49,11 +67,19 @@ namespace AGVCenterLib.Model
             set
             {
                 this.stockTaskType = value;
-
                 OnPropertyChanged(new PropertyChangedEventArgs("StockTaskType"));
+                OnPropertyChanged(new PropertyChangedEventArgs("StockTaskTypeStr"));
             }
         }
 
+        public string StockTaskTypeStr
+        {
+            get
+            {
+                return EnumUtil.GetDescription((StockTaskType)this.StockTaskType);
+            }
+        }
+        
         /// <summary>
         /// 巷道机序号，从1开始，目前使用1号或2号巷道机，
         /// 和库存中的库位AreaIndex对应，相当于1或2的分区
@@ -222,7 +248,7 @@ namespace AGVCenterLib.Model
         /// <summary>
         /// 条码
         /// </summary>
-        public string barCode;
+        private string barCode;
         public string Barcode
         {
             get { return this.barCode; }
@@ -255,6 +281,7 @@ namespace AGVCenterLib.Model
                 stateWas = state;
                 state = value;
                 OnPropertyChanged(new PropertyChangedEventArgs("State"));
+                OnPropertyChanged(new PropertyChangedEventArgs("StateStr"));
                 if (stateWas != state)
                 {
                     if (this.TaskStateChangeEvent != null)
@@ -265,6 +292,16 @@ namespace AGVCenterLib.Model
 
             }
         }
+        public string StateStr
+        {
+            get
+            {
+                return EnumUtil.GetDescription((StockTaskState)this.State);
+            }
+        }
+
+
+
         private bool isInProcessing;
         public bool IsInProcessing
         {
@@ -280,9 +317,28 @@ namespace AGVCenterLib.Model
         {
             get
             {
-                return this.State == StockTaskState.RoadMachineStockBuffing || this.State == StockTaskState.RoadMachineWaitOutStock;
+                return this.State == StockTaskState.RoadMachineStockBuffing
+                    || this.State == StockTaskState.RoadMachineWaitOutStock;
             }
         }
+
+
+        public bool IsCanCancel
+        {
+            get
+            {
+                return CanCancelStates.Contains(this.State);
+            }
+        }
+
+        public bool IsCanceled
+        {
+            get
+            {
+                return this.State==StockTaskState.Canceled;
+            }
+        }
+
         /// <summary>
         /// DB id
         /// </summary>
@@ -297,6 +353,25 @@ namespace AGVCenterLib.Model
             }
         }
 
+        private DateTime createdAt;
+        public DateTime CreatedAt
+        {
+            get { return this.createdAt; }
+            set
+            {
+                this.createdAt = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("CreatedAt"));
+                OnPropertyChanged(new PropertyChangedEventArgs("CreatedAtStr"));
+            }
+        }
+
+        public string CreatedAtStr
+        {
+            get
+            {
+                return this.createdAt.ToString("yy-MM-dd HH:mm:sss");
+            }
+        }
 
         public string ToDisplay()
         {

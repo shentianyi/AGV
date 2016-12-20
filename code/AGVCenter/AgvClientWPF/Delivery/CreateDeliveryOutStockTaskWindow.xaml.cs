@@ -25,6 +25,13 @@ namespace AgvClientWPF.Delivery
         {
             InitializeComponent();
         }
+        public CreateDeliveryOutStockTaskWindow(string deliveryNr)
+        {
+            InitializeComponent();
+            this.deliveryNrTB.Text = deliveryNr;
+
+            this.LoadDeliveryStorage();
+        }
 
         private void loadStorageBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -36,21 +43,35 @@ namespace AgvClientWPF.Delivery
 
         private void LoadDeliveryStorage()
         {
-            DeliveryServiceClient dsc = new DeliveryServiceClient();
-            List<DeliveryStorageViewModel> models = dsc.GetDeliveryStorageByNr(deliveryNrTB.Text).ToList();
-            deliveryStorageDG.ItemsSource=models;
+            try
+            {
+                DeliveryServiceClient dsc = new DeliveryServiceClient();
+                List<DeliveryStorageViewModel> models = dsc.GetDeliveryStorageByNr(deliveryNrTB.Text).ToList();
+                deliveryStorageDG.ItemsSource = models;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void createOutStockTaskBtn_Click(object sender, RoutedEventArgs e)
         {
-            ResultMessage message = new DeliveryServiceClient().CreateOutStockTaskByNr(this.deliveryNrTB.Text);
-            if (message.Success)
+            try
             {
-                MessageBox.Show("出库已开始，请等待...");
+                ResultMessage message = new DeliveryServiceClient().CreateOutStockTaskByNr(this.deliveryNrTB.Text);
+                if (message.Success)
+                {
+                    MessageBox.Show("出库已开始，请等待...");
+                }
+                else
+                {
+                    MessageBox.Show(message.Content);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show(message.Content);
+                MessageBox.Show(ex.Message);
             }
         }
     }
