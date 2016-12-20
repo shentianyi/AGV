@@ -19,13 +19,13 @@ namespace AGVCenterLib.Service
 
         }
 
-       /// <summary>
-       /// 入库
-       /// </summary>
-       /// <param name="positionNr">库位号</param>
-       /// <param name="checkCode">验证码</param>
-       /// <returns></returns>
-        public ResultMessage InStockByCheckCode(string positionNr, string checkCode)
+        /// <summary>
+        /// 入库
+        /// </summary>
+        /// <param name="positionNr">库位号</param>
+        /// <param name="barCode">产品标签码</param>
+        /// <returns></returns>
+        public ResultMessage InStockByCheckCode(string positionNr, string barCode)
         {
             ResultMessage message = new ResultMessage();
             IPositionRepository posiRep = new PositionRepository(this.Context);
@@ -37,11 +37,11 @@ namespace AGVCenterLib.Service
             }
 
             IUniqueItemRepository itemRep = new UniqueItemRepository(this.Context);
-            UniqueItem item = itemRep.FindByCheckCode(checkCode);
-
+            //  UniqueItem item = itemRep.FindByCheckCode(barCode);
+            UniqueItem item = itemRep.FindByNr(barCode);
             if (item == null)
             {
-                message.Content = string.Format("产品{0}不存在", checkCode);
+                message.Content = string.Format("产品{0}不存在", barCode);
                 return message;
             }
             message = this.InStock(posi, item);
@@ -115,20 +115,20 @@ namespace AGVCenterLib.Service
         }
 
         /// <summary>
-        /// 根据验证码出库
+        /// 根据产品标签码出库
         /// </summary>
-        /// <param name="checkCode">验证码</param>
+        /// <param name="barcode">产品标签码</param>
         /// <returns></returns>
-        public ResultMessage OutStockByCheckCode(string checkCode)
+        public ResultMessage OutStockByBarCode(string barcode)
         {
           //  return null;
             ResultMessage message = new ResultMessage();
             IUniqueItemRepository itemRep = new UniqueItemRepository(this.Context);
-            UniqueItem item = itemRep.FindByCheckCode(checkCode);
+            UniqueItem item = itemRep.FindByCheckCode(barcode);
 
             if (item == null)
             {
-                message.Content = string.Format("产品{0}不存在", checkCode);
+                message.Content = string.Format("产品{0}不存在", barcode);
                 return message;
             }
 
@@ -136,7 +136,7 @@ namespace AGVCenterLib.Service
             Storage storage = storageRep.FindByUniqNr(item.Nr);
             if (storage == null)
             {
-                message.Content = string.Format("产品{0}未入库，不可出库", checkCode);
+                message.Content = string.Format("产品{0}未入库，不可出库", barcode);
                 return message;
             }
 

@@ -212,7 +212,7 @@ namespace AGVCenterLib.Service
             if (tasks.Count > 0)
             {
                 stockTaskRep.UpdateTasksState(tasks.Select(s => s.Id).ToList(),
-                    StockTaskState.RoadMachineWaitOutStock);
+                    StockTaskState.RoadMachineWaitOutStockDispatch);
             }
             return tasks;
         }

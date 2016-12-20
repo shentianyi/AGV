@@ -79,6 +79,9 @@ namespace AGVCenterLib.Enum
         [Description("巷道机出库初始")]
         RoadMachineOutStockInit = 90,
 
+        [Description("巷道机出库分发")]
+        RoadMachineWaitOutStockDispatch = 95,
+
         [Description("巷道机出库等待")]
         RoadMachineWaitOutStock = 100,
 
