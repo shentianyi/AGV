@@ -46,7 +46,24 @@ namespace AGVCenterLib.Data.Repository.Implement
 
         public IQueryable<StorageUniqueItemView> SearchDetail(StorageSearchModel searchModel)
         {
-            return this.context.StorageUniqueItemView;
+            var q = this.context.StorageUniqueItemView as IQueryable<StorageUniqueItemView>;
+
+            if (!string.IsNullOrEmpty(searchModel.Nr))
+            {
+                q = q.Where(s => s.UniqItemNr.Contains(searchModel.Nr));
+            }
+
+
+            if (!string.IsNullOrEmpty(searchModel.KNr))
+            {
+                q = q.Where(s => s.UniqueItemKNr.Contains(searchModel.KNr));
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.PositionNr))
+            {
+                q = q.Where(s => s.PositionNr.Contains(searchModel.PositionNr));
+            }
+            return q;
         }
     }
 }

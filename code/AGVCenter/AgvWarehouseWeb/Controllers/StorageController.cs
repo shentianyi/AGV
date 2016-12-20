@@ -30,7 +30,22 @@ namespace AgvWarehouseWeb.Controllers
             return View(items);
         }
 
+        public ActionResult Search([Bind(Include = "Nr,KNr,PositionNr")]  StorageSearchModel q)
+        {
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
+            StorageService ps = new StorageService(Settings.Default.db);
+             
+            IPagedList<StorageUniqueItemView> items =
+                ps.SearchDetail(q)
+                .ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            return View("Index", items);
+        }
         // GET: Storage/Details/5
         public ActionResult Details(int id)
         {

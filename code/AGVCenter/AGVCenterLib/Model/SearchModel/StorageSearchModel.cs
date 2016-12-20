@@ -7,6 +7,8 @@ namespace AGVCenterLib.Model.SearchModel
 {
     public class StorageSearchModel
     {
+        public string Nr { get; set; }
+        public string KNr { get; set; }
         public string PositionNr { get; set; }
     }
 }
