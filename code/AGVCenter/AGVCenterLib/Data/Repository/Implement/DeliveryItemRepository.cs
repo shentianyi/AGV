@@ -35,6 +35,24 @@ namespace AGVCenterLib.Data.Repository.Implement
         public IQueryable<DeliveryItemStorageView> SearchDetail(DeliveryItemSearchModel searchModel)
         {
             var q = this.context.DeliveryItemStorageView as IQueryable<DeliveryItemStorageView>;
+
+
+            if (!string.IsNullOrEmpty(searchModel.Nr))
+            {
+                q = q.Where(s => s.UniqItemNr.Contains(searchModel.Nr));
+            }
+
+
+            if (!string.IsNullOrEmpty(searchModel.KNr))
+            {
+                q = q.Where(s => s.UniqueItemKNr.Contains(searchModel.KNr));
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.PositionNr))
+            {
+                q = q.Where(s => s.StoragePositionNr.Contains(searchModel.PositionNr));
+            }
+
             if (!string.IsNullOrEmpty(searchModel.DeliveryNr))
             {
                 q = q.Where(s => s.DeliveryNr.Contains(searchModel.DeliveryNr));

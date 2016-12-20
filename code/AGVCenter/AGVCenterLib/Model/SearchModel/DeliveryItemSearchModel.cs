@@ -10,10 +10,23 @@ namespace AGVCenterLib.Model.SearchModel
     public class DeliveryItemSearchModel
     {
         [DataMember]
+        public string Nr { get; set; }
+
+        [DataMember]
+        public string KNr { get; set; }
+
+        [DataMember]
+        public string PositionNr { get; set; }
+
+
+        [DataMember]
         public string DeliveryNr { get; set; }
 
 
         [DataMember]
         public string TrayNr { get; set; }
+
+
+
     }
 }

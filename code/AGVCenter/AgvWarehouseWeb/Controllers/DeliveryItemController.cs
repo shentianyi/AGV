@@ -30,6 +30,25 @@ namespace AgvWarehouseWeb.Controllers
             return View(items);
         }
 
+
+        public ActionResult Search([Bind(Include = "Nr,KNr,PositionNr,DeliveryNr,TrayNr")]  DeliveryItemSearchModel q)
+        {
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            DeliveryItemService ps = new DeliveryItemService(Settings.Default.db);
+             
+            IPagedList<DeliveryItemStorageView> items =
+                ps.SearchDetail(q)
+                .ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+
+            return View("Index", items);
+        }
+
         // GET: DeliveryItem/Details/5
         public ActionResult Details(int id)
         {

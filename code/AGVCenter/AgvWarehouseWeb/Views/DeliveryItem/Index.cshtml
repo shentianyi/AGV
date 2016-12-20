@@ -7,44 +7,80 @@
 }
 
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row" style="margin:0;">
+    <div class="col-md-12">
+        <form action="/DeliveryItem/Search" method="get">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>KSK 号</span>
+                    <input type="text" name="Nr" id="Nr" placeholder="KSK 号" value="@ViewBag.Query.Nr" />
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>大众KNr</span>
+                    <input type="text" name="KNr" id="KNr" placeholder="大众KNr" value="@ViewBag.Query.KNr" />
+                </div>
+            </div>
+                
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>库位号</span>
+                    <input type="text" name="PositionNr" id="PositionNr" placeholder="库位号" value="@ViewBag.Query.PositionNr" />
+                    
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>托盘号</span>
+                    <input type="text" name="TrayNr" id="KNr" placeholder="" value="@ViewBag.Query.TrayNr" />
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>运单号</span>
+                    <input type="text" name="DeliveryNr" id="DeliveryNr" placeholder="" value="@ViewBag.Query.DeliveryNr" />
+                    <button type="submit" class="marco-btn-success" style="margin-left:0;">
+                        <i class="glyphicon glyphicon-search"></i>
+                        搜索
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <tr>
         <th>
            DeliveryNr
         </th>
         <th>
-           UniqItemNr
+           KSK
         </th>
-        
+        <th>
+            KNr
+        </th>
         <th>
            CreatedAt
         </th>
-       
-        
         <th>
            BoxType
         </th>
-  
-        
         <th>
            StoragePositionNr
         </th>
-        
         <th>
            StorageFIFO
         </th>
-     
-        
         <th>
            TrayItemTrayNr
         </th>
         
-        <th></th>
+        @*<th></th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -55,12 +91,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.UniqItemNr)
         </td>
-        
+        <td>
+            @Html.DisplayFor(modelItem => item.UniqueItemKNr)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
         </td>
-        
-       
         <td>
             @Html.DisplayFor(modelItem => item.BoxTypeStr)
         </td>
@@ -79,11 +115,11 @@
             @Html.DisplayFor(modelItem => item.TrayItemTrayNr)
         </td>
          
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
+        </td>*@
     </tr>
 }
 
@@ -97,7 +133,11 @@
                 if (ViewBag.Query != null)
                 {
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("DeliveryNr", ViewBag.Query.DeliveryNr));
+                        .Options(o => o.AddRouteValue("PositionNr", ViewBag.Query.PositionNr))
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
+                         .Options(o => o.AddRouteValue("KNr", ViewBag.Query.KNr))
+                        .Options(o => o.AddRouteValue("DeliveryNr", ViewBag.Query.DeliveryNr))
+                        .Options(o => o.AddRouteValue("TrayNr", ViewBag.Query.TrayNr));
                     @html
                 }
                 else
