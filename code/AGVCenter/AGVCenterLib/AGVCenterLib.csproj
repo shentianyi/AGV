@@ -78,6 +78,7 @@
     <Compile Include="Data\IDataContextFactory.cs" />
     <Compile Include="Data\PartialDeliveryStorageView.cs" />
     <Compile Include="Data\PartialStockTask.cs" />
+    <Compile Include="Data\PartialTrayDeliveryView.cs" />
     <Compile Include="Data\PartialUniqueItem.cs" />
     <Compile Include="Data\Repository\Implement\DeliveryTrayRepository.cs" />
     <Compile Include="Data\Repository\Implement\TrayRepository.cs" />

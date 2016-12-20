@@ -25,8 +25,8 @@
                     <ColumnDefinition Width="70*"></ColumnDefinition>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                
-            <DataGrid x:Name="deliveryDG"
+
+            <DataGrid x:Name="deliveryDG"  IsReadOnly="True"
                       AutoGenerateColumns="False" CanUserAddRows="false"  
                     Grid.Column="0"
                   HorizontalAlignment="Left" Margin="29,10,0,0" 
@@ -44,6 +44,7 @@
                 <Button x:Name="deliveryCreateStockTaskBtn" Content="运单出库" Width="100" Height="40" Click="deliveryCreateStockTaskBtn_Click" />
                 <Button x:Name="deliveryStockTaskMonitorBtn" Content="出库监控" Width="100" Height="40" Click="deliveryStockTaskMonitorBtn_Click"/>
                 <Button x:Name="deliveryCreateTrayBtn" Content="创建托盘" Width="100" Height="40" Click="deliveryCreateTrayBtn_Click"/>
+                <Button x:Name="deliveryTrayListBtn" Content="托盘列表" Width="100" Height="40" Click="deliveryTrayListBtn_Click"/>
             </StackPanel>
             </Grid>
        

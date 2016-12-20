@@ -57,7 +57,7 @@ namespace AgvServiceLib
 
         public ResultMessage CreateTray(string delieryNr, string trayNr, List<string> uniqItemsNrs)
         {
-            TrayService ts = new TrayService(SqlHelper.ConnectStr);
+            AGVCenterLib.Service.TrayService ts = new AGVCenterLib.Service.TrayService(SqlHelper.ConnectStr);
             return ts.CreateTray(delieryNr, trayNr, uniqItemsNrs);
         }
 

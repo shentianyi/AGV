@@ -25,5 +25,10 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             return this.context.Tray.FirstOrDefault(s => s.Nr==nr);
         }
+
+        public List<TrayDeliveryView> GetTrayListByDeliveryNr(string deliveryNr)
+        {
+            return this.context.TrayDeliveryView.Where(s => s.DeliveryNr == deliveryNr).ToList();
+        }
     }
 }

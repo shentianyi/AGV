@@ -53,6 +53,8 @@
     <Compile Include="Helper\SqlHelper.cs" />
     <Compile Include="IDeliveryService.cs" />
     <Compile Include="IProductService.cs" />
+    <Compile Include="TrayService.cs" />
+    <Compile Include="ITrayService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

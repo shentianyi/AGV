@@ -12,5 +12,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         void Create(Tray entity);
 
         Tray FindByNr(string nr);
+
+        List<TrayDeliveryView> GetTrayListByDeliveryNr(string deliveryNr);
     }
 }

@@ -91,5 +91,10 @@ namespace AGVCenterLib.Service
             }
             return message;
         }
+
+        public List<TrayDeliveryView> GetTrayListByDeliveryNr(string deliveryNr)
+        {
+            return new TrayRepository(this.Context).GetTrayListByDeliveryNr(deliveryNr);
+        }
     }
 }

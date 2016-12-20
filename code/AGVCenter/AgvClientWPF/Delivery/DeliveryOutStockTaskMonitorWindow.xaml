@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Delivery"
         mc:Ignorable="d"
-        Title="DeliveryOutStockTaskMonitor"  Height="500" Width="600">
+        Title="DeliveryOutStockTaskMonitor"  Height="500" Width="600"  WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style TargetType="DataGridCell">
@@ -25,7 +25,7 @@
                 Margin="297,63,0,0" VerticalAlignment="Top" Width="92" Height="23" Click="loadOutStockTaskBtn_Click"/>
 
         <DataGrid x:Name="deliveryStockTaskDG" AutoGenerateColumns="False" CanUserAddRows="false" 
-                  HorizontalAlignment="Left" Margin="88,94,0,0" 
+                  HorizontalAlignment="Left" Margin="88,94,0,0"  IsReadOnly="True"
                   VerticalAlignment="Top" MinHeight="356" MinWidth="482" 
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>

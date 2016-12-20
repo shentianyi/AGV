@@ -71,6 +71,9 @@
     <Compile Include="Delivery\CreateTrayWindow.xaml.cs">
       <DependentUpon>CreateTrayWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Delivery\DeliveryTrayListWindow.xaml.cs">
+      <DependentUpon>DeliveryTrayListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Delivery\DeliveryListWindow.xaml.cs">
       <DependentUpon>DeliveryListWindow.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\AgvTrayService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Page Include="Delivery\CreateDeliveryOutStockTaskWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -105,6 +113,10 @@
     <Page Include="Delivery\CreateTrayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Delivery\DeliveryTrayListWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Delivery\DeliveryListWindow.xaml">
       <SubType>Designer</SubType>
@@ -167,6 +179,7 @@
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StockTaskModel.datasource" />
+    <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.TrayDeliveryViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.UniqueItemModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -205,6 +218,16 @@
     <None Include="Service References\AgvProductService\service21.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\AgvTrayService\AGVCenterLib.Model.ViewModel.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvTrayService\service.wsdl" />
+    <None Include="Service References\AgvTrayService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvTrayService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -217,6 +240,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AgvDeliveryService\" />
     <WCFMetadataStorage Include="Service References\AgvProductService\" />
+    <WCFMetadataStorage Include="Service References\AgvTrayService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\AgvProductService\configuration91.svcinfo" />
@@ -257,6 +281,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="client-1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AgvTrayService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AgvTrayService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AgvTrayService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

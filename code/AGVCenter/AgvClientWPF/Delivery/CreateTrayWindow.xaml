@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Delivery"
         mc:Ignorable="d"
-        Title="CreateTrayWindow" Height="466.192" Width="510.209">
+        Title="CreateTrayWindow" Height="466.192" Width="510.209"  WindowStartupLocation="CenterScreen">
     <Grid>
         <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="22,18,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="deliveryNrTB" HorizontalAlignment="Left" Height="26" Margin="85,18,0,0" TextWrapping="Wrap"
@@ -19,7 +19,7 @@
         <Label x:Name="label2" Content="验证码：" HorizontalAlignment="Left" Margin="22,76,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label3" Content="托盘项：" HorizontalAlignment="Left" Margin="22,107,0,0" VerticalAlignment="Top"/>
 
-        <DataGrid x:Name="trayItemDG"
+        <DataGrid x:Name="trayItemDG"  IsReadOnly="True"
                   HorizontalAlignment="Left" Margin="22,133,0,0" 
                   VerticalAlignment="Top" Height="268" Width="438" 
                   RenderTransformOrigin="0.499,0.316">

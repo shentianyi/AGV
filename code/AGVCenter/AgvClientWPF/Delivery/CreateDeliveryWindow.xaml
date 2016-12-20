@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Delivery"
         mc:Ignorable="d"
-        Title="CreateDelivery" Height="424.647" Width="502.234">
+        Title="CreateDelivery" Height="424.647" Width="502.234"  WindowStartupLocation="CenterScreen">
     <Grid>
         <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="deliveryNrTB" HorizontalAlignment="Left" Height="26" Margin="78,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="197" KeyUp="deliveryNrTB_KeyUp"/>
@@ -16,7 +16,7 @@
         <Button x:Name="addDeliveryItemBtn" Content="添加" HorizontalAlignment="Left" Margin="288,43,0,0" VerticalAlignment="Top" Width="52" Height="24" Click="addDeliveryItemBtn_Click"/>
         <Button x:Name="removeDeliveryItemBtn" Content="移除项" HorizontalAlignment="Left" Margin="206,340,0,0" VerticalAlignment="Top" Width="52" Height="24" Click="removeDeliveryItemBtn_Click"/>
 
-        <DataGrid x:Name="deliveryItemDG"
+        <DataGrid x:Name="deliveryItemDG"  IsReadOnly="True"
                   HorizontalAlignment="Left" Margin="26,72,0,0" 
                   VerticalAlignment="Top" Height="244" Width="421" 
                   RenderTransformOrigin="0.499,0.316">

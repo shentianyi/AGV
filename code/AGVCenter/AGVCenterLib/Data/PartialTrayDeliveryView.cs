@@ -7,13 +7,8 @@ using Brilliantech.Framwork.Utils.EnumUtil;
 
 namespace AGVCenterLib.Data
 {
-   public partial class  DeliveryStorageView
+  public partial  class  TrayDeliveryView
     {
-        public bool IsInStock
-        {
-            get { return this.StorageId != null; }
-        }
-
         public string StateStr
         {
             get

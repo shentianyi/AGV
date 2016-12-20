@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Delivery"
         mc:Ignorable="d"
-        Title="DeliveryItemListWindow" Height="500" Width="600">
+        Title="DeliveryItemListWindow" Height="500" Width="600"  WindowStartupLocation="CenterScreen">
     <Grid>
         <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="29,63,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="deliveryNrTB" HorizontalAlignment="Left" Height="23" Margin="92,63,0,0" 
@@ -13,7 +13,7 @@
         <Button x:Name="loadStorageBtn" Content="加载运单项" HorizontalAlignment="Left" Margin="297,63,0,0" VerticalAlignment="Top" Width="75" Click="loadStorageBtn_Click"/>
 
         <DataGrid x:Name="deliveryStorageDG" AutoGenerateColumns="False" CanUserAddRows="false" 
-                  HorizontalAlignment="Left" Margin="29,94,0,0"
+                  HorizontalAlignment="Left" Margin="29,94,0,0"  IsReadOnly="True"
                   VerticalAlignment="Top" Height="295" Width="498"
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>

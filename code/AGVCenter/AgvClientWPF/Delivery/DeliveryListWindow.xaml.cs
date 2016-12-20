@@ -101,6 +101,15 @@ namespace AgvClientWPF.Delivery
                 new CreateTrayWindow(d.Nr).Show();
             }
         }
+
+        private void deliveryTrayListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var d = GetDeliveryModelItem();
+            if (d != null)
+            {
+                new DeliveryTrayListWindow(d.Nr).Show();
+            }
+        }
         //private void button_Click(object sender, RoutedEventArgs e)
         //{
         //    deliveries.LastOrDefault().Nr = "sdfff";
