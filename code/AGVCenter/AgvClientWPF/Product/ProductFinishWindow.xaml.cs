@@ -164,6 +164,10 @@ namespace AgvClientWPF.Product
 
             if (e.Key == Key.Enter)
             {
+                if (tb.Text.Length == 0)
+                {
+                    return;
+                }
                 switch (tb.Name)
                 {
                     case "QrTB":

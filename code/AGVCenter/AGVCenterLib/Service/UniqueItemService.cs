@@ -102,7 +102,7 @@ namespace AGVCenterLib.Service
 
         public IQueryable<UniqueItem> Search(UniqueItemSearchModel searchModel)
         {
-            return new UniqueItemRepository(this.Context).Search(searchModel);
+            return new UniqueItemRepository(this.Context).Search(searchModel).OrderBy(s=>s.CreatedAt);
         }
     }
 }

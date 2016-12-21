@@ -39,7 +39,8 @@ namespace TestWPF
 
             int startFloor = int.Parse(floorNumStartTB.Text);
             int endFloor = int.Parse(floorNumEndTB.Text);
-            for (int i = startRow; i <= endRow; i++)
+            string[] p = new string[5] { "","A", "B", "C", "D" };
+            for (int i = 1; i <= 4; i++)
             {
                 for (int j = startColumn; j <= endColumn; j++)
                 {
@@ -47,13 +48,13 @@ namespace TestWPF
                     {
                         Position position = new Position()
                         {
-                            Nr = string.Format("P {0} {1} {2} {3}", 
-                            roadMachineIndex.ToString().PadLeft(2, '0'), i.ToString().PadLeft(2, '0'), j.ToString().PadLeft(2, '0'), k.ToString().PadLeft(2, '0')),
+                            Nr = string.Format("{0} {1} {2}",p[i],
+                             k.ToString().PadLeft(2, '0'), j.ToString().PadLeft(2, '0')),
                             WarehouseNr = warehouseNr,
                             Row = i,
                             Column = j,
                             Floor = k,
-                            RoadMachineIndex = roadMachineIndex,
+                            RoadMachineIndex = i<=2 ? 1: 2,
                         };
                         ps.CreatePosition(position);
                         

@@ -6,7 +6,7 @@ delete from DeliveryTray;
 delete from Tray;
 delete from DeliveryItem;
 delete from Delivery;
-delete from UniqueItem;
+delete from UniqueItem   where createdat <'2016-12-21 09:00';
 
 
 
