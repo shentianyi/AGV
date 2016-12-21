@@ -47,5 +47,9 @@ namespace AgvServiceLib
 
         [OperationContract]
         List<DeliveryModel> SearchList(DeliverySearchModel searchModel, int limit);
+
+        [OperationContract]
+        List<DeliveryItemStorageViewModel> GetDeliveryItemDetails(string deliveryNr);
+       
     }
 }

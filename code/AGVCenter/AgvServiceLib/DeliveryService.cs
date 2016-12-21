@@ -85,5 +85,11 @@ namespace AgvServiceLib
         {
             return DeliveryModel.Converts(ds.SearchList(searchModel, limit));
         }
+
+        public List<DeliveryItemStorageViewModel> GetDeliveryItemDetails(string deliveryNr)
+        {
+            return DeliveryItemStorageViewModel.Converts(new DeliveryItemService(SqlHelper.ConnectStr).SearchDetail(
+                new DeliveryItemSearchModel() { DeliveryNrAct = deliveryNr }).ToList());
+        }
     }
 }

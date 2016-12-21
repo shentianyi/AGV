@@ -12,7 +12,7 @@ namespace AgvClientWPF.Helper
         {
             lock (locker)
             {
-                return DateTime.Now.ToString("yyyyMMddHHmmsss");
+                return DateTime.Now.ToString("yyMMddHHmmsss");
             }
         }
     }

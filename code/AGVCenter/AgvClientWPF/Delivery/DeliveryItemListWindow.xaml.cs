@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using AGVCenterLib.Model.Message;
 using AGVCenterLib.Model.ViewModel;
 using AgvClientWPF.AgvDeliveryService;
+using AgvClientWPF.Helper;
 
 namespace AgvClientWPF.Delivery
 {
@@ -81,6 +82,14 @@ namespace AgvClientWPF.Delivery
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             sendDeliveryBtn.IsEnabled = false;
+        }
+
+        private void printDeliveryBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(deliveryNrTB.Text))
+            {
+                PrintHelper.PrintDelivery(deliveryNrTB.Text);
+            }
         }
     }
 }

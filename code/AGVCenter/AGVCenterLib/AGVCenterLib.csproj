@@ -134,6 +134,7 @@
     <Compile Include="Model\SearchModel\StorageSearchModel.cs" />
     <Compile Include="Model\SearchModel\UniqueItemSearchModel.cs" />
     <Compile Include="Model\StockTaskItem.cs" />
+    <Compile Include="Model\ViewModel\DeliveryItemStorageViewModel.cs" />
     <Compile Include="Model\ViewModel\StorageModel.cs" />
     <Compile Include="Model\ViewModel\TrayDeliveryViewModel.cs" />
     <Compile Include="Model\ViewModel\DeliveryStorageViewModel.cs" />

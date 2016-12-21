@@ -52,7 +52,10 @@ namespace AGVCenterLib.Data.Repository.Implement
             {
                 q = q.Where(s => s.StoragePositionNr.Contains(searchModel.PositionNr));
             }
-
+            if (!string.IsNullOrEmpty(searchModel.DeliveryNrAct))
+            {
+                q = q.Where(s => s.DeliveryNr==searchModel.DeliveryNrAct);
+            }
             if (!string.IsNullOrEmpty(searchModel.DeliveryNr))
             {
                 q = q.Where(s => s.DeliveryNr.Contains(searchModel.DeliveryNr));

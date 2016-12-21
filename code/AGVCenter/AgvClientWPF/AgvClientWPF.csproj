@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
@@ -53,6 +54,10 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="TECIT.TFORMer, Version=6.0.3.0, Culture=neutral, PublicKeyToken=1b5f4306b234b83d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThridPart\TECIT.TFORMer.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -62,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Config\PrinterConfig.cs" />
     <Compile Include="Delivery\CreateDeliveryOutStockTaskWindow.xaml.cs">
       <DependentUpon>CreateDeliveryOutStockTaskWindow.xaml</DependentUpon>
     </Compile>
@@ -86,7 +92,9 @@
     <Compile Include="Delivery\SendDeliveryWindow.xaml.cs">
       <DependentUpon>SendDeliveryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\PrintHelper.cs" />
     <Compile Include="Helper\UniqueHelper.cs" />
+    <Compile Include="Model\Printer.cs" />
     <Compile Include="Service References\AgvDeliveryService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -187,7 +195,11 @@
     <None Include="App - 复制.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Config\printers.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\DataSources\AGVCenterLib.Model.Message.ResultMessage.datasource" />
+    <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryItemStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StockTaskModel.datasource" />
@@ -251,6 +263,12 @@
     <None Include="Service References\AgvTrayService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Template\bbac发运单.tff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Template\成品发运托清单.tff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -282,6 +300,10 @@
     <ProjectReference Include="..\..\..\Brilliantech.Framwork\Brilliantech.Framwork.csproj">
       <Project>{9b5f850a-5136-4095-8955-6c4f7747c48a}</Project>
       <Name>Brilliantech.Framwork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Brilliantech.ReportGenConnector\Brilliantech.ReportGenConnector.csproj">
+      <Project>{de39bcc6-ccda-459d-b0f1-301bd1c009b3}</Project>
+      <Name>Brilliantech.ReportGenConnector</Name>
     </ProjectReference>
     <ProjectReference Include="..\AGVCenterLib\AGVCenterLib.csproj">
       <Project>{7c1b913a-0c42-4535-8032-24a86c7f24d1}</Project>

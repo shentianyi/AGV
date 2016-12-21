@@ -24,6 +24,9 @@ namespace AGVCenterLib.Model.SearchModel
 
 
         [DataMember]
+        public string DeliveryNrAct { get; set; }
+
+        [DataMember]
         public string TrayNr { get; set; }
 
 

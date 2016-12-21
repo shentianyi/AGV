@@ -45,6 +45,12 @@
       <xs:element minOccurs="0" name="StoragePositionNr" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="StorageUniqItemNr" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="StorageUpdatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TrayItemCreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TrayItemId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TrayItemState" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TrayItemTrayNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrayItemUniqItemNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrayItemUpdatedAt" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="UniqueItemBoxTypeId" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="UniqueItemCheckCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UniqueItemCreatedAt" nillable="true" type="xs:dateTime" />
@@ -99,10 +105,53 @@
   <xs:complexType name="DeliveryModel">
     <xs:sequence>
       <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Nr" type="xs:int" />
+      <xs:element minOccurs="0" name="Nr" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StateStr" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DeliveryModel" nillable="true" type="tns:DeliveryModel" />
+  <xs:complexType name="ArrayOfDeliveryItemStorageViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DeliveryItemStorageViewModel" nillable="true" type="tns:DeliveryItemStorageViewModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDeliveryItemStorageViewModel" nillable="true" type="tns:ArrayOfDeliveryItemStorageViewModel" />
+  <xs:complexType name="DeliveryItemStorageViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DeliveryNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsInStock" type="xs:boolean" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StorageCreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="StorageFIFO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="StorageId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StoragePartNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StoragePositionNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StorageUniqItemNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StorageUpdatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TrayItemCreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TrayItemId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TrayItemState" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TrayItemTrayNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrayItemUniqItemNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrayItemUpdatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UniqItemNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemBoxTypeId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UniqueItemCheckCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemCreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UniqueItemKNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemKNrWithYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemKskNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemPartNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemQR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemState" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UniqueItemUpdatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DeliveryItemStorageViewModel" nillable="true" type="tns:DeliveryItemStorageViewModel" />
 </xs:schema>
