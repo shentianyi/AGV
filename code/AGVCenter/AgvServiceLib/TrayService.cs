@@ -21,5 +21,14 @@ namespace AgvServiceLib
         {
             return TrayDeliveryViewModel.Converts(ts.GetTrayListByDeliveryNr(deliveryNr));
         }
+
+        public List<DeliveryItemStorageViewModel> GetTrayItemDetails(string trayNr)
+        {
+            return DeliveryItemStorageViewModel.Converts(
+                new AGVCenterLib.Service.DeliveryItemService(SqlHelper.ConnectStr).SearchDetail(new AGVCenterLib.Model.SearchModel.DeliveryItemSearchModel()
+                {
+                    TrayNrAct = trayNr
+                }).ToList());
+        }
     }
 }

@@ -29,7 +29,8 @@ namespace AGVCenterLib.Model.SearchModel
         [DataMember]
         public string TrayNr { get; set; }
 
-
+        [DataMember]
+        public string TrayNrAct { get; set; }
 
     }
 }

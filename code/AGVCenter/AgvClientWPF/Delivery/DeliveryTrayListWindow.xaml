@@ -22,7 +22,7 @@
                 <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="printTrayBtn" Content="打印托单" HorizontalAlignment="Left" Margin="352,423,0,0" VerticalAlignment="Top" Width="88" Height="36"/>
+        <Button x:Name="printTrayBtn" Content="打印托单" HorizontalAlignment="Left" Margin="352,423,0,0" VerticalAlignment="Top" Width="88" Height="36" Click="printTrayBtn_Click"/>
 
     </Grid>
 </Window>

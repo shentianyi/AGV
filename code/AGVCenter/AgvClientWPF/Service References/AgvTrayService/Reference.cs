@@ -17,6 +17,9 @@ namespace AgvClientWPF.AgvTrayService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITrayService/GetTrayListByDeliveryNr", ReplyAction="http://tempuri.org/ITrayService/GetTrayListByDeliveryNrResponse")]
         AGVCenterLib.Model.ViewModel.TrayDeliveryViewModel[] GetTrayListByDeliveryNr(string deliveryNr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITrayService/GetTrayItemDetails", ReplyAction="http://tempuri.org/ITrayService/GetTrayItemDetailsResponse")]
+        AGVCenterLib.Model.ViewModel.DeliveryItemStorageViewModel[] GetTrayItemDetails(string trayNr);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -48,6 +51,10 @@ namespace AgvClientWPF.AgvTrayService {
         
         public AGVCenterLib.Model.ViewModel.TrayDeliveryViewModel[] GetTrayListByDeliveryNr(string deliveryNr) {
             return base.Channel.GetTrayListByDeliveryNr(deliveryNr);
+        }
+        
+        public AGVCenterLib.Model.ViewModel.DeliveryItemStorageViewModel[] GetTrayItemDetails(string trayNr) {
+            return base.Channel.GetTrayItemDetails(trayNr);
         }
     }
 }

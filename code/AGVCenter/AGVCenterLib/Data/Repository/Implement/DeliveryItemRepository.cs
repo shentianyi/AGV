@@ -66,6 +66,10 @@ namespace AGVCenterLib.Data.Repository.Implement
                 q = q.Where(s => s.TrayItemTrayNr.Contains(searchModel.TrayNr));
             }
 
+            if (!string.IsNullOrEmpty(searchModel.TrayNrAct))
+            {
+                q = q.Where(s => s.TrayItemTrayNr == searchModel.TrayNrAct);
+            }
 
             return q;
         }

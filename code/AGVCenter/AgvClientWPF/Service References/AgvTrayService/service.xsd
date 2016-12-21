@@ -15,4 +15,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetTrayItemDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="trayNr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTrayItemDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" minOccurs="0" name="GetTrayItemDetailsResult" nillable="true" type="q2:ArrayOfDeliveryItemStorageViewModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -14,6 +14,7 @@ using AGVCenterLib.Model.Message;
 using AGVCenterLib.Model.ViewModel;
 using AgvClientWPF.AgvDeliveryService;
 using AgvClientWPF.AgvTrayService;
+using AgvClientWPF.Helper;
 
 namespace AgvClientWPF.Delivery
 {
@@ -61,6 +62,22 @@ namespace AgvClientWPF.Delivery
 
         }
 
-     
+        private void printTrayBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TrayDeliveryViewModel item = this.GetTray();
+            if (item != null)
+            {
+                PrintHelper.PrintTray(item.Nr);
+            }
+        }
+
+        private TrayDeliveryViewModel GetTray()
+        {
+            if (deliveryTrayDG.SelectedIndex > -1)
+            {
+                return deliveryTrayDG.SelectedValue as TrayDeliveryViewModel;
+            }
+            return null;
+        }
     }
 }

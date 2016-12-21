@@ -20,10 +20,20 @@
   <wsdl:message name="ITrayService_GetTrayListByDeliveryNr_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTrayListByDeliveryNrResponse" />
   </wsdl:message>
+  <wsdl:message name="ITrayService_GetTrayItemDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrayItemDetails" />
+  </wsdl:message>
+  <wsdl:message name="ITrayService_GetTrayItemDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTrayItemDetailsResponse" />
+  </wsdl:message>
   <wsdl:portType name="ITrayService">
     <wsdl:operation name="GetTrayListByDeliveryNr">
       <wsdl:input wsaw:Action="http://tempuri.org/ITrayService/GetTrayListByDeliveryNr" message="tns:ITrayService_GetTrayListByDeliveryNr_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITrayService/GetTrayListByDeliveryNrResponse" message="tns:ITrayService_GetTrayListByDeliveryNr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrayItemDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITrayService/GetTrayItemDetails" message="tns:ITrayService_GetTrayItemDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITrayService/GetTrayItemDetailsResponse" message="tns:ITrayService_GetTrayItemDetails_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="trayservice" type="tns:ITrayService">
@@ -31,6 +41,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetTrayListByDeliveryNr">
       <soap:operation soapAction="http://tempuri.org/ITrayService/GetTrayListByDeliveryNr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrayItemDetails">
+      <soap:operation soapAction="http://tempuri.org/ITrayService/GetTrayItemDetails" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

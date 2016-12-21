@@ -12,5 +12,8 @@ namespace AgvServiceLib
     {
         [OperationContract]
         List<TrayDeliveryViewModel> GetTrayListByDeliveryNr(string deliveryNr);
+
+        [OperationContract]
+        List<DeliveryItemStorageViewModel> GetTrayItemDetails(string trayNr);
     }
 }
