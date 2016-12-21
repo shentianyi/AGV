@@ -13,7 +13,7 @@ namespace TestCon
         public static void Test()
         {
             UniqueItemService uis = new UniqueItemService(Settings.Default.db);
-            for (int i = 9; i < 1000; i++)
+            for (int i = 1; i < 1000; i++)
             {
                 Console.WriteLine(i);
                 var iss = i.ToString();
@@ -25,7 +25,7 @@ namespace TestCon
                     KNrWithYear = iss,
                     CheckCode = iss,
                     KskNr = iss,
-                    BoxTypeId = i % 3 == 0 ?
+                    BoxTypeId = i % 2 == 0 ?
                         (int)AGVCenterLib.Enum.BoxType.Big : (int)AGVCenterLib.Enum.BoxType.Small
 
                 });

@@ -65,5 +65,10 @@ namespace AGVCenterLib.Data.Repository.Implement
             }
             return q;
         }
+
+        public List<Storage> All()
+        {
+            return this.context.Storage.ToList();
+        }
     }
 }

@@ -49,12 +49,12 @@ namespace TestCon
             //}
             //Console.WriteLine("1".PadLeft(2, '0'));
 
-            //TestCreateProduct.Test();
+            TestCreateProduct.Test();
             //TestGetInStockPosition.Test(true);
             //var l = DeliveryStorageViewModel.Converts(new DeliveryService(Settings.Default.db).GetDeliveryStorageByNr("20161211180345"));
 
             // var d = new DeliveryService(Settings.Default.db).SearchList(new AGVCenterLib.Model.SearchModel.DeliverySearchModel(), 50);
-            var d = new DeliveryService(Settings.Default.db).GetDeliveryStorageByNr("20161219134802");
+           // var d = new DeliveryService(Settings.Default.db).GetDeliveryStorageByNr("20161219134802");
             Console.Read();
         }
 

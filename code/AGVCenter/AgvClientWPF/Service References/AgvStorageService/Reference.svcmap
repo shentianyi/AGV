@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="961e5b28-a386-4c9c-be6c-28282370e6e7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:9001/AgvService/StorageService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="c99e411f-1611-430d-aec2-1978b0e17f39" SourceId="1" SourceUrl="http://localhost:9001/AgvService/StorageService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="be29cbbb-fc8a-40b7-95d0-e43f1562c17a" SourceId="1" SourceUrl="http://localhost:9001/AgvService/StorageService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="89b8898b-765b-428f-b137-032c80b5422e" SourceId="1" SourceUrl="http://localhost:9001/AgvService/StorageService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.ViewModel.xsd" MetadataType="Schema" ID="6aecf984-339e-4b30-a1e9-b29bc1065d8d" SourceId="1" SourceUrl="http://localhost:9001/AgvService/StorageService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

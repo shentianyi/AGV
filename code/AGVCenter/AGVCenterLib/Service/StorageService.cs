@@ -228,5 +228,10 @@ namespace AGVCenterLib.Service
         {
             return new StorageRepository(this.Context).SearchDetail(searchModel);
         }
+
+        public List<Storage> All()
+        {
+            return new StorageRepository(this.Context).All();
+        }
     }
 }

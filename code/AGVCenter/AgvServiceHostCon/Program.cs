@@ -15,15 +15,20 @@ namespace AgvServiceHostCon
             ServiceHost productSercice = null;
             ServiceHost deliveryService = null;
             ServiceHost trayService = null;
+            ServiceHost storageService = null;
+
             try
             {
                 productSercice = new ServiceHost(typeof(ProductService));
                 deliveryService = new ServiceHost(typeof(DeliveryService));
                 trayService = new ServiceHost(typeof(TrayService));
+                storageService = new ServiceHost(typeof(StorageService));
 
                 productSercice.Open();
                 deliveryService.Open();
                 trayService.Open();
+                storageService.Open();
+
 
                 Console.WriteLine("生产服务已启动");
             }

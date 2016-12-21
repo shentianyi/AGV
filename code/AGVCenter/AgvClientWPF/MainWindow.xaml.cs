@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AgvClientWPF.Delivery;
 using AGVCenterLib.Model;
+using AgvClientWPF.Storage;
 
 namespace AgvClientWPF
 {
@@ -61,6 +62,11 @@ namespace AgvClientWPF
         private void deliveryListBtn_Click(object sender, RoutedEventArgs e)
         {
             new DeliveryListWindow().Show();
+        }
+
+        private void storageListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new StorageListWindow().Show();
         }
     }
 }

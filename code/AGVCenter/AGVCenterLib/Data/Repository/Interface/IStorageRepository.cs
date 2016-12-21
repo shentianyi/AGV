@@ -17,5 +17,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         Storage FindByPositionNrOrUniqNr(string positionNr, string uniqNr);
 
         IQueryable<StorageUniqueItemView> SearchDetail(StorageSearchModel searchModel);
+
+        List<Storage> All();
     }
 }

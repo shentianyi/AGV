@@ -28,6 +28,16 @@ namespace AgvClientWPF.Delivery
             InitializeComponent();
         }
 
+        public CreateDeliveryWindow(List<string> uniqNrs)
+        {
+            InitializeComponent();
+            this.deliveryNrTB.Text = UniqueHelper.GenerateUniqString();
+            foreach(var s in uniqNrs)
+            {
+                AddItemToDelivery(s);
+            }
+        }
+
         private void createDeliveryBtn_Click(object sender, RoutedEventArgs e)
         {
             string nr = deliveryNrTB.Text;
@@ -78,22 +88,22 @@ namespace AgvClientWPF.Delivery
 
         private void addDeliveryItemBtn_Click(object sender, RoutedEventArgs e)
         {
-            AddItemToDelivery();
+            AddItemToDelivery(uniqItemNrTB.Text);
         }
         
-        private void AddItemToDelivery()
+        private void AddItemToDelivery(string uniqItemNr)
         {
-            if(!string.IsNullOrEmpty(uniqItemNrTB.Text))
+            if(!string.IsNullOrEmpty(uniqItemNr))
             {
-                if (GetCurrentUniqItem(uniqItemNrTB.Text) == null)
+                if (GetCurrentUniqItem(uniqItemNr) == null)
                 {
                     DeliveryServiceClient dsClient = new DeliveryServiceClient();
                     ProductServiceClient psClient = new ProductServiceClient();
 
-                    ResultMessage message = dsClient.CanItemAddToDelivery(uniqItemNrTB.Text);
+                    ResultMessage message = dsClient.CanItemAddToDelivery(uniqItemNr);
                     if (message.Success)
                     {
-                         UniqueItemModel item = psClient.FindUniqItemByNr(uniqItemNrTB.Text);
+                         UniqueItemModel item = psClient.FindUniqItemByNr(uniqItemNr);
                         if (item != null)
                         {
                             deliveryItemDG.Items.Add(item);
@@ -146,7 +156,7 @@ namespace AgvClientWPF.Delivery
         {
             if(e.Key==Key.Enter && !string.IsNullOrEmpty(uniqItemNrTB.Text))
             {
-                this.AddItemToDelivery();
+                this.AddItemToDelivery(uniqItemNrTB.Text);
             }
         }
 
