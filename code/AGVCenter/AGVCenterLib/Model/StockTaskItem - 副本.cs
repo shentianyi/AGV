@@ -8,16 +8,16 @@ using Brilliantech.Framwork.Utils.EnumUtil;
 
 namespace AGVCenterLib.Model
 {
-    public class StockTaskItem// : INotifyPropertyChanged
+    public class StockTaskItem : INotifyPropertyChanged
     {
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //public void OnPropertyChanged(PropertyChangedEventArgs e)
-        //{
-        //    if (PropertyChanged != null)
-        //    {
-        //        PropertyChanged(this, e);
-        //    }
-        //}
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, e);
+            }
+        }
 
         public static List<StockTaskState> CanCancelStates = new List<StockTaskState>()
         {
@@ -70,8 +70,8 @@ namespace AGVCenterLib.Model
             set
             {
                 this.stockTaskType = value;
-                //OnPropertyChanged(new PropertyChangedEventArgs("StockTaskType"));
-                //OnPropertyChanged(new PropertyChangedEventArgs("StockTaskTypeStr"));
+                OnPropertyChanged(new PropertyChangedEventArgs("StockTaskType"));
+                OnPropertyChanged(new PropertyChangedEventArgs("StockTaskTypeStr"));
             }
         }
 
@@ -94,7 +94,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.roadMachineIndex = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("RoadMachineIndex"));
+                OnPropertyChanged(new PropertyChangedEventArgs("RoadMachineIndex"));
             }
         }
 
@@ -108,7 +108,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.positionNr = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("PositionNr"));
+                OnPropertyChanged(new PropertyChangedEventArgs("PositionNr"));
             }
         }
 
@@ -122,7 +122,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.positionFloor = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("PositionFloor"));
+                OnPropertyChanged(new PropertyChangedEventArgs("PositionFloor"));
             }
         }
 
@@ -139,7 +139,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.positionColumn = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("PositionColumn"));
+                OnPropertyChanged(new PropertyChangedEventArgs("PositionColumn"));
             }
         }
 
@@ -153,7 +153,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.positionRow = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("PositionRow"));
+                OnPropertyChanged(new PropertyChangedEventArgs("PositionRow"));
             }
         }
 
@@ -167,7 +167,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.boxType = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("BoxType"));
+                OnPropertyChanged(new PropertyChangedEventArgs("BoxType"));
             }
         }
 
@@ -181,7 +181,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.agvPassFlag = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("AgvPassFlag"));
+                OnPropertyChanged(new PropertyChangedEventArgs("AgvPassFlag"));
             }
         }
 
@@ -198,7 +198,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.restPositionFlag = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("RestPositionFlag"));
+                OnPropertyChanged(new PropertyChangedEventArgs("RestPositionFlag"));
             }
         }
 
@@ -216,7 +216,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.trayReverseNo = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("TrayReverseNo"));
+                OnPropertyChanged(new PropertyChangedEventArgs("TrayReverseNo"));
             }
         }
 
@@ -230,7 +230,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.trayNum = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("TrayNum"));
+                OnPropertyChanged(new PropertyChangedEventArgs("TrayNum"));
             }
         }
 
@@ -244,7 +244,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.deliveryItemNum = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("DeliveryItemNum"));
+                OnPropertyChanged(new PropertyChangedEventArgs("DeliveryItemNum"));
             }
         }
 
@@ -258,7 +258,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.barCode = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("Barcode"));
+                OnPropertyChanged(new PropertyChangedEventArgs("Barcode"));
             }
         }
 
@@ -272,7 +272,7 @@ namespace AGVCenterLib.Model
             private set
             {
                 stateWas = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("StateWas"));
+                OnPropertyChanged(new PropertyChangedEventArgs("StateWas"));
             }
         }
         private StockTaskState state;
@@ -283,8 +283,8 @@ namespace AGVCenterLib.Model
             {
                 stateWas = state;
                 state = value;
-                //OnPropertyChanged(new PropertyChangedEventArgs("State"));
-                //OnPropertyChanged(new PropertyChangedEventArgs("StateStr"));
+                OnPropertyChanged(new PropertyChangedEventArgs("State"));
+                OnPropertyChanged(new PropertyChangedEventArgs("StateStr"));
                 if (stateWas != state)
                 {
                     if (this.TaskStateChangeEvent != null)
@@ -312,7 +312,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.isInProcessing = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("IsInProcessing"));
+                OnPropertyChanged(new PropertyChangedEventArgs("IsInProcessing"));
             }
         }
 
@@ -352,7 +352,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.dbId = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("DbId"));
+                OnPropertyChanged(new PropertyChangedEventArgs("DbId"));
             }
         }
 
@@ -363,8 +363,8 @@ namespace AGVCenterLib.Model
             set
             {
                 this.createdAt = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("CreatedAt"));
-               // OnPropertyChanged(new PropertyChangedEventArgs("CreatedAtStr"));
+                OnPropertyChanged(new PropertyChangedEventArgs("CreatedAt"));
+                OnPropertyChanged(new PropertyChangedEventArgs("CreatedAtStr"));
             }
         }
 

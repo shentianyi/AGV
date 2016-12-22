@@ -30,10 +30,11 @@
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="任务号" Binding="{Binding Path=Id}"/>
+                <DataGridTextColumn Header="箱型" Binding="{Binding Path=BoxType}"/>
                 <DataGridTextColumn Header="产品KSK" Binding="{Binding Path=BarCode}"/>
                 <DataGridTextColumn Header="巷道机号" Binding="{Binding Path=RoadMachineIndex}"/>
                 <DataGridTextColumn Header="库位号" Binding="{Binding Path=PositionNr}"/>
-                <DataGridTextColumn Header="当前状态" Binding="{Binding Path=State}"/>
+                <DataGridTextColumn Header="当前状态" Binding="{Binding Path=StateStr}"/>
                 <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
                 <DataGridTextColumn Header="任务批次号" Binding="{Binding Path=TrayBatchId}"/>
             </DataGrid.Columns>

@@ -91,5 +91,10 @@ namespace AgvServiceLib
             return DeliveryItemStorageViewModel.Converts(new DeliveryItemService(SqlHelper.ConnectStr).SearchDetail(
                 new DeliveryItemSearchModel() { DeliveryNrAct = deliveryNr }).ToList());
         }
+
+        public void DeleteDeliveryForTest(string deliveryNr)
+        {
+            ds.DeleteDeliveryForTest(deliveryNr);
+        }
     }
 }

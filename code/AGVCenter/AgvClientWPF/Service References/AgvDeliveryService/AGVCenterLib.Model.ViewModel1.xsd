@@ -88,6 +88,7 @@
       <xs:element minOccurs="0" name="RestPositionFlag" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="RoadMachineIndex" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StateStr" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TrayBatchId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TrayNum" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="TrayReverseNo" nillable="true" type="xs:int" />

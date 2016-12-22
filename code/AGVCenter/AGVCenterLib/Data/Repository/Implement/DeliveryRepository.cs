@@ -22,6 +22,12 @@ namespace AGVCenterLib.Data.Repository.Implement
             this.context.Delivery.InsertOnSubmit(entity);
         }
 
+        public void DeleteDeliveryForTest(string deliveryNr)
+        {
+            string cmd = string.Format("delete from DeliveryItem where DeliveryNr='{0}';delete from Delivery where nr = '{1}'; ", deliveryNr, deliveryNr);
+            this.context.ExecuteCommand(cmd);
+        }
+
         public Delivery FindByNr(string nr)
         {
             return this.context.Delivery.FirstOrDefault(s => s.Nr==nr);

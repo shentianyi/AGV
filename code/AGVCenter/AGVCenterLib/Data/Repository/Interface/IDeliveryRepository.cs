@@ -23,5 +23,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         List<DeliveryStorageView> GetStorageList(string nr, bool all = false);
 
         IQueryable<Delivery> Search(DeliverySearchModel searchModel);
+
+        void DeleteDeliveryForTest(string deliveryNr);
     }
 }

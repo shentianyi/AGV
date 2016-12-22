@@ -168,8 +168,91 @@ namespace AGVCenterWPF
                 if (taskItem.IsCanCancel)
                 {
                     taskItem.State = StockTaskState.Canceled;
+                    //if (taskItem.RoadMachineIndex == 1)
+                    //{
+                    //    RoadMachine1TaskQueue.Dequeue();
+                    //}
+                    //else if (taskItem.RoadMachineIndex == 2)
+                    //{
+                    //    RoadMachine2TaskQueue.Dequeue();
+                    //}
                 }
 
+            }
+        }
+
+
+        private void manInButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CenterStockTaskDisplayDG.SelectedIndex > -1)
+            {
+                StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
+
+                if (taskItem.IsCanCancel)
+                {
+                    this.prevScanedBarcode = string.Empty;
+                    taskItem.State = StockTaskState.Canceled;
+                    if (taskItem.RoadMachineIndex == 1)
+                    {
+                        RoadMachine1TaskQueue.Dequeue();
+                    }
+                    //else if (taskItem.RoadMachineIndex == 2)
+                    //{
+                    //    RoadMachine2TaskQueue.Dequeue();
+                    //}
+                }
+
+            }
+        }
+
+
+
+        private void manOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CenterStockTaskDisplayDG.SelectedIndex > -1)
+            {
+                StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
+
+                if (taskItem.IsCanCancel)
+                {
+                    taskItem.State = StockTaskState.OutStocked;
+                    //if (taskItem.RoadMachineIndex == 1)
+                    //{
+                    //    RoadMachine1TaskQueue.Dequeue();
+                    //}
+                    if (taskItem.RoadMachineIndex == 2)
+                    {
+                        RoadMachine2TaskQueue.Dequeue();
+                        OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
+                    }
+                }
+
+            }
+        }
+        /// <summary>
+        /// 重置入库平台1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResetBuff1InStockBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes)
+            {
+                OPCDataResetData.RestXdj1PaltformIsBuff(OPCDataResetOPCGroup);
+            }
+        }
+
+
+        /// <summary>
+        /// 重置入库平台2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResetBuff2InStockBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                OPCDataResetData.RestXdj2PaltformIsBuff(OPCDataResetOPCGroup);
             }
         }
         #endregion

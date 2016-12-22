@@ -89,33 +89,59 @@
 
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="139*"></ColumnDefinition>
+                            <ColumnDefinition Width="139*"></ColumnDefinition>
+                            <ColumnDefinition Width="139*"></ColumnDefinition>
+                            <ColumnDefinition Width="140*"></ColumnDefinition>
+                            <ColumnDefinition Width="187*"></ColumnDefinition>
+                            <ColumnDefinition Width="92*"></ColumnDefinition>
+                            <ColumnDefinition Width="139*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        
-                        
+
+
                         <Label x:Name="label5" Content="条码号" Grid.Column="0" HorizontalAlignment="Right" 
-                               Margin="0,10,0,0" VerticalAlignment="Top"/>
+                               Margin="0,10,0,0" VerticalAlignment="Top" Height="26" Width="46"/>
 
                         <TextBox x:Name="lbBoxTypeTB" Grid.Column="1"
                                  HorizontalAlignment="Left" 
                                  Height="23" Margin="9,10,0,0" TextWrapping="Wrap" 
-                                 Text="" VerticalAlignment="Top" Width="150"/>
+                                 Text="" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2"/>
+
                         <Button x:Name="setBigBoxTypeButton" Content="设置大箱" 
                                 Width="60" Click="SetBoxTypeBtn_Click"
-                                Grid.Column="2" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
+                                Grid.Column="2" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="22"/>
                         <Button x:Name="setSmallBoxTypeButton" Content="设置小箱" 
                                 Width="60" Click="SetBoxTypeBtn_Click"
-                                Grid.Column="2" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top"/>
+                                Grid.Column="2" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top" Height="22"/>
+
+                        <Button x:Name="manInButton" Content="重新入库" 
+                                Width="60"  
+                                Grid.Column="3" HorizontalAlignment="Left" Margin="0,10,0,0" 
+                                VerticalAlignment="Top" Height="22" Click="manInButton_Click"/>
+                     
+                        <Button x:Name="manOutButton" Content="手动出库" 
+                                Width="60" 
+                                Grid.Column="3" HorizontalAlignment="Left"
+                                Margin="75,10,0,0" VerticalAlignment="Top" Height="22" Click="manOutButton_Click"/>
 
                         <Button x:Name="CancelTaskBtn" Content="取消任务" 
                                 Width="60" Click="CancelTaskBtn_Click"
-                                Grid.Column="5" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top"/>
+                                Grid.Column="5" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="22"/>
+
+                        <!--<Button x:Name="ReAGVInStockBtn" Content="重新AGV入库" 
+                                Width="90"  
+                                Grid.Column="3" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="22"/>-->
+
+                        <Button x:Name="ResetBuff1InStockBtn" Content="重置平台1" 
+                                Width="70"  
+                                Grid.Column="4" HorizontalAlignment="Left" Margin="0,10,0,0" 
+                                VerticalAlignment="Top" Height="22" Click="ResetBuff1InStockBtn_Click"/>
+
+                        <Button x:Name="ResetBuff2InStockBtn" Content="重置平台2" 
+                                Width="70"  
+                                Grid.Column="4" HorizontalAlignment="Left" Margin="75,10,0,0" 
+                                VerticalAlignment="Top" Height="22"  Click="ResetBuff2InStockBtn_Click"/>
+
 
                     </Grid>
 
@@ -126,7 +152,7 @@
 
                     <DataGrid x:Name="CenterStockTaskDisplayDG" CanUserSortColumns="False"
                       AutoGenerateColumns="False" CanUserAddRows="false"  IsReadOnly="True"
-                    Grid.Row="2"
+                    Grid.Row="2" 
                          HorizontalAlignment="Stretch"  Margin="10,6,0,-4" 
                              VerticalAlignment="Stretch"  MinHeight="487" MinWidth="482" 
                   RenderTransformOrigin="0.499,0.316">
@@ -282,7 +308,7 @@
                     <CheckBox x:Name="autoLoadDbTaskOnStartCB" Grid.Row="0" Grid.Column="1" Content="启动加载数据库任务" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
                               Click="SettingOPCCB_Checked"/>
 
-                    
+
                     <CheckBox x:Name="roadMacine1EnabledCB" Grid.Row="1" Grid.Column="0" Content="巷道机1可用"   HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
                                Click="SettingOPCCB_Checked"/>
                     <CheckBox x:Name="roadMacine2EnabledCB" Grid.Row="1" Grid.Column="1" Content="巷道机2可用" 

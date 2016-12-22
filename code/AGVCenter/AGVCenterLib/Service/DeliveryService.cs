@@ -198,5 +198,9 @@ namespace AGVCenterLib.Service
         {
             return new DeliveryRepository(this.Context).Search(searchModel);
         }
+
+        public void DeleteDeliveryForTest(string deliveryNr){
+              new DeliveryRepository(this.Context).DeleteDeliveryForTest(deliveryNr);
+        }
     }
 }

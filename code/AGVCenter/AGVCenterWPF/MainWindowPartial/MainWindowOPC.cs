@@ -58,6 +58,10 @@ namespace AGVCenterWPF
             //出库机械手
             OPCOutRobootPickData = new OPCOutRobootPick();
             OPCOutRobootPickData.RwFlagChangedEvent += new OPCOutRobootPick.RwFlagChangedEventHandler(OPCOutRobootPickData_RwFlagChangedEvent);
+
+            // 设置OPC值
+            OPCDataResetData = new OPCDataReset();
+
             #endregion
         }
         /// <summary>

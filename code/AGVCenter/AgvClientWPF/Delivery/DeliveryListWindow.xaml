@@ -52,6 +52,9 @@
                 <Button x:Name="deliveryTrayListBtn" Content="托盘列表" 
                          Margin="0,10,0,0"
                         Width="100" Height="40" Click="deliveryTrayListBtn_Click"/>
+
+                <Button x:Name="deliveryDeleteBtn" Content="【运单删除-测试用】" 
+                         Margin="69,130,51,0" Height="40" Click="deliveryDeleteBtn_Click"/>
             </StackPanel>
             </Grid>
        

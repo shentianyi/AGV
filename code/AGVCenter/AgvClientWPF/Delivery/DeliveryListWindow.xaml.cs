@@ -110,6 +110,18 @@ namespace AgvClientWPF.Delivery
                 new DeliveryTrayListWindow(d.Nr).Show();
             }
         }
+
+        private void deliveryDeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var d = GetDeliveryModelItem();
+            if (d != null)
+            {
+                if (MessageBox.Show("确定？", "确定？", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes) {
+                    DeliveryServiceClient dsc = new DeliveryServiceClient();
+                    dsc.DeleteDeliveryForTest(d.Nr);
+                } 
+            }
+        }
         //private void button_Click(object sender, RoutedEventArgs e)
         //{
         //    deliveries.LastOrDefault().Nr = "sdfff";

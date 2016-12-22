@@ -8,17 +8,16 @@ delete from DeliveryItem;
 delete from Delivery;
 delete from UniqueItem   where createdat <'2016-12-21 09:00';
 
-
-
-
 delete from Position;
+
+
+
+  update [AgvWarehouseDb].[dbo].[UniqueItem] set State=100;
   
-
-
 /**
   delete from StockTask;
- delete from [AgvWarehoueDb].[dbo].[Storage];
-  update [AgvWarehoueDb].[dbo].UniqueItem set State=100;
+ delete from [AgvWarehouseDb].[dbo].[Storage];
+  update [AgvWarehouseDb].[dbo].UniqueItem set State=100;
   
   **/
   

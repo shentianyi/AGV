@@ -143,9 +143,22 @@ namespace AGVCenterLib
                     { "outrobot_pick_box_type",INOUT_AddrPrefix+"B1879.outrobot_pick_box_type"},
                     { "outrobot_pick_trayno",INOUT_AddrPrefix+"B1880.int.outrobot_pick_trayno"},
                 }
-            }
+            },
             #endregion
 
+
+            
+            #region OPC 数值设置
+            {
+                "OPCDataReset",
+                 new Dictionary<string, string>()
+                {
+                    { "outroot_pick_count","S7:[S7 connection_1]DB68,W18.outroot_pick_count"},
+                    { "xdj1_paltform_is_buff","S7:[S7 connection_1]DB68,X10.0.xdj1_paltform_is_buff"},
+                    { "xdj2_paltform_is_buff","S7:[S7 connection_1]DB68,X10.1.xdj2_platform_is_buff"},
+                }
+            }
+            #endregion
         };
     }
 }

@@ -60,11 +60,11 @@ namespace AGVCenterLib.Service
             ResultMessage message = new ResultMessage();
             try
             {
-                if (!item.IsCanInStockState)
-                {
-                    message.Content = "当前状态不可入库！";
-                    return message;
-                }
+                //if (!item.IsCanInStockState)
+                //{
+                //    message.Content = "当前状态不可入库！";
+                //    return message;
+                //}
 
                 IStorageRepository storageRep = new StorageRepository(this.Context);
                 Storage storage = storageRep.FindByPositionNr(position.Nr);
@@ -182,7 +182,8 @@ namespace AGVCenterLib.Service
         public ResultMessage OutStock(Storage storage)
         {
             ResultMessage message = new ResultMessage();
-            try {
+            try
+            {
                 IStorageRepository storageRep = new StorageRepository(this.Context);
 
                 IStockMovementRepository smRep = new StockMovementRepository(this.Context);
@@ -195,7 +196,7 @@ namespace AGVCenterLib.Service
                 #region 
                 StockMovement movement = new StockMovement()
                 {
-                    UniqItemNr=item.Nr,
+                    UniqItemNr = item.Nr,
                     SourcePosition = storage.PositionNr,
                     Type = (int)StockMovementType.Out,
                     Time = DateTime.Now,
@@ -210,7 +211,8 @@ namespace AGVCenterLib.Service
                 this.Context.SaveAll();
                 message.Success = true;
                 message.MessageType = MessageType.OK;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
                 message.Content = ex.Message;

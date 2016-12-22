@@ -109,5 +109,14 @@ namespace AGVCenterWPF
         ///// </summary>
         //public static bool TEST_OutStockTaskDelStorage = Settings.Default.TEST_OUTSTOCK_NOT_DEL_STOTAGE;
         //#endregion
+
+
+        /// <summary>
+        /// OPCDataResetOPCGroup , 设置OPC值
+        /// </summary>
+        public static string OPCDataResetOPCGroupName = "OPCDataResetOPCGroup";
+        public static int OPCDataResetOPCGroupRate = 100;
+        public static int OPCDataResetOPCGroupDeadBand = 0;
+
     }
 }

@@ -61,7 +61,7 @@ namespace AGVCenterLib.Service
         /// <returns></returns>
         public bool CanUniqInStock(string nr)
         {
-
+            return true;
             // 是否有正在入库的任务
             IStockTaskRepository stockTaskRep = new StockTaskRepository(this.Context);
 

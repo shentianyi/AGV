@@ -50,6 +50,9 @@ namespace AgvServiceLib
 
         [OperationContract]
         List<DeliveryItemStorageViewModel> GetDeliveryItemDetails(string deliveryNr);
-       
+
+        [OperationContract]
+        void DeleteDeliveryForTest(string deliveryNr);
+
     }
 }

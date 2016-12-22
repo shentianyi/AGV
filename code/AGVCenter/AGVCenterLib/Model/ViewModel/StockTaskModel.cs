@@ -54,7 +54,10 @@ namespace AGVCenterLib.Model.ViewModel
         public DateTime? CreatedAt { get; set; }
         [DataMember]
         public DateTime? UpdatedAt { get; set; }
+         
 
+        [DataMember]
+        public string StateStr { get; set; }
 
         public static List<StockTaskModel> Converts(List<StockTask> stockTasks)
         {

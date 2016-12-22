@@ -53,6 +53,9 @@ namespace AgvClientWPF.AgvDeliveryService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/GetDeliveryItemDetails", ReplyAction="http://tempuri.org/IDeliveryService/GetDeliveryItemDetailsResponse")]
         AGVCenterLib.Model.ViewModel.DeliveryItemStorageViewModel[] GetDeliveryItemDetails(string deliveryNr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDeliveryService/DeleteDeliveryForTest", ReplyAction="http://tempuri.org/IDeliveryService/DeleteDeliveryForTestResponse")]
+        void DeleteDeliveryForTest(string deliveryNr);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -132,6 +135,10 @@ namespace AgvClientWPF.AgvDeliveryService {
         
         public AGVCenterLib.Model.ViewModel.DeliveryItemStorageViewModel[] GetDeliveryItemDetails(string deliveryNr) {
             return base.Channel.GetDeliveryItemDetails(deliveryNr);
+        }
+        
+        public void DeleteDeliveryForTest(string deliveryNr) {
+            base.Channel.DeleteDeliveryForTest(deliveryNr);
         }
     }
 }

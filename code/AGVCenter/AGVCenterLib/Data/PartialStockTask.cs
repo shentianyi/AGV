@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AGVCenterLib.Enum;
+using Brilliantech.Framwork.Utils.EnumUtil;
 
 namespace AGVCenterLib.Data
 {
@@ -23,6 +24,14 @@ namespace AGVCenterLib.Data
         public bool IsCannotInStockState
         {
             get { return CannotInStockStates.Contains((StockTaskState)this.State); }
+        }
+
+        public string StateStr
+        {
+            get
+            {
+                return EnumUtil.GetDescription((StockTaskState)this.State);
+            }
         }
     }
 }

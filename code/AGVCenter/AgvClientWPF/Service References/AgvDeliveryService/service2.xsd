@@ -191,4 +191,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeleteDeliveryForTest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="deliveryNr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteDeliveryForTestResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

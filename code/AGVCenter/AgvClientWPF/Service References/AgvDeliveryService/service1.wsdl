@@ -95,6 +95,12 @@
   <wsdl:message name="IDeliveryService_GetDeliveryItemDetails_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDeliveryItemDetailsResponse" />
   </wsdl:message>
+  <wsdl:message name="IDeliveryService_DeleteDeliveryForTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteDeliveryForTest" />
+  </wsdl:message>
+  <wsdl:message name="IDeliveryService_DeleteDeliveryForTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteDeliveryForTestResponse" />
+  </wsdl:message>
   <wsdl:portType name="IDeliveryService">
     <wsdl:operation name="DeliveryExists">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/DeliveryExists" message="tns:IDeliveryService_DeliveryExists_InputMessage" />
@@ -147,6 +153,10 @@
     <wsdl:operation name="GetDeliveryItemDetails">
       <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/GetDeliveryItemDetails" message="tns:IDeliveryService_GetDeliveryItemDetails_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/GetDeliveryItemDetailsResponse" message="tns:IDeliveryService_GetDeliveryItemDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDeliveryForTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDeliveryService/DeleteDeliveryForTest" message="tns:IDeliveryService_DeleteDeliveryForTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDeliveryService/DeleteDeliveryForTestResponse" message="tns:IDeliveryService_DeleteDeliveryForTest_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="deliveryservice" type="tns:IDeliveryService">
@@ -262,6 +272,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetDeliveryItemDetails">
       <soap:operation soapAction="http://tempuri.org/IDeliveryService/GetDeliveryItemDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDeliveryForTest">
+      <soap:operation soapAction="http://tempuri.org/IDeliveryService/DeleteDeliveryForTest" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
