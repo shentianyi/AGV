@@ -248,5 +248,6 @@ namespace AGVCenterLib.Service
         {
             return new StockTaskRepository(this.Context).GetByStates(states);
         }
+
     }
 }
