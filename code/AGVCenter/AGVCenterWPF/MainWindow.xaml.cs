@@ -479,6 +479,11 @@ namespace AGVCenterWPF
                             }
                             else if (taskItem.StockTaskType == StockTaskType.OUT)
                             {
+                                /// 写入包装箱的变量给机器手
+                                // this.OPCOutRobootPickData.BoxType = taskItem.BoxType;
+                                //this.OPCOutRobootPickData.TrayNum = taskItem.TrayNum;
+                              //  this.OPCOutRobootPickData.SyncWrite(this.OPCOutRobootPickOPCGroup, false);
+
                                 taskItem.State = StockTaskState.RoadMachineOutStocking;
                             }
                         }
@@ -522,7 +527,18 @@ namespace AGVCenterWPF
                             }
                             else if (taskItem.StockTaskType == StockTaskType.OUT)
                             {
+                              /// 写入包装箱的变量给机器手
+                              //  this.OPCOutRobootPickData.BoxType = taskItem.BoxType;
+                              //  this.OPCOutRobootPickData.TrayNum = taskItem.TrayNum;
+                              //  this.OPCOutRobootPickData.SyncWrite(this.OPCOutRobootPickOPCGroup,false);
+
+
                                 taskItem.State = StockTaskState.RoadMachineOutStocking;
+                                //this.OPCOutRobootPickData.BoxType = taskItem.BoxType;
+                                //this.OPCOutRobootPickData.TrayNum = taskItem.TrayNum;
+                                //this.OPCOutRobootPickData.SyncWrite(this.OPCOutRobootPickOPCGroup);
+
+
                             }
                         }
                     }
@@ -2113,7 +2129,7 @@ namespace AGVCenterWPF
                 }
                 var f = OutStockCenterQueue.FirstOrDefault();
                 this.OPCOutRobootPickData.BoxType = f.Value.FirstOrDefault().BoxType;
-                this.OPCOutRobootPickData.TrayNum = f.Value.Count();
+                this.OPCOutRobootPickData.TrayNum = f.Value.FirstOrDefault().TrayNum;//f.Value.Count();
                 foreach (var taskItem in f.Value)
                 {
                     taskItem.State = StockTaskState.RoadMachineWaitOutStock;

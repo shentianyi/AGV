@@ -35,7 +35,7 @@ namespace AGVCenterLib.Model.OPC
         /// 写入值
         /// </summary>
         /// <param name="group"></param>
-        public override bool SyncWrite(OPCGroup group)
+        public override bool SyncWrite(OPCGroup group,bool resetReadableFlag=true)
         {
             /// 写入箱型信息
             int[] SyncItemServerHandles = new int[3];
@@ -52,9 +52,12 @@ namespace AGVCenterLib.Model.OPC
 
             if (SyncItemServerErrors != null && ((int)SyncItemServerErrors.GetValue(1) == 0))
             {
-                if (this.SyncSetReadableFlag(group))
+                if (resetReadableFlag)
                 {
-                    return true;
+                    if (this.SyncSetReadableFlag(group))
+                    {
+                        return true;
+                    }
                 }
             }
             return false;

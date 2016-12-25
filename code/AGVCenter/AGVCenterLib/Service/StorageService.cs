@@ -191,13 +191,14 @@ namespace AGVCenterLib.Service
             try
             {
                 IStorageRepository storageRep = new StorageRepository(this.Context);
-
                 IStockMovementRepository smRep = new StockMovementRepository(this.Context);
+
                 UniqueItem item = storage.UniqueItem;
+                Position position = storage.Position;
 
                 item.State = (int)UniqueItemState.OutStocked;
                 item.UpdatedAt = DateTime.Now;
-
+                position.isLocked = false;
 
                 #region 
                 StockMovement movement = new StockMovement()

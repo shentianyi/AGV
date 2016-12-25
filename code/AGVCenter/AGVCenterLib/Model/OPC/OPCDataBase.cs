@@ -141,7 +141,7 @@ namespace AGVCenterLib.Model.OPC
         /// 写入值
         /// </summary>
         /// <param name="group"></param>
-        public virtual bool SyncWrite(OPCGroup group)
+        public virtual bool SyncWrite(OPCGroup group, bool resetReadableFlag = true)
         {
             return false;
         }

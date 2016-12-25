@@ -27,7 +27,7 @@ namespace AGVCenterLib.Model.OPC
         /// 写入值
         /// </summary>
         /// <param name="group"></param>
-        public override bool SyncWrite(OPCGroup group)
+        public override bool SyncWrite(OPCGroup group, bool resetReadableFlag = true)
         {
             /// 写入条码信息
             int[] SyncItemServerHandles = new int[2];
