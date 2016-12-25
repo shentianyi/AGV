@@ -17,6 +17,7 @@ namespace AGVCenterWPF.Config
         private static int maxMonitorTaskNum = 300;
         private static int keepMonitorTaskNum = 200;
         private static bool autoLoadDbTaskOnStart = true;
+        private static string preScanBar = string.Empty;
         static BaseConfig()
         {
             try
@@ -30,6 +31,7 @@ namespace AGVCenterWPF.Config
                 maxMonitorTaskNum = int.Parse(config.Get("maxMonitorTaskNum"));
                 keepMonitorTaskNum = int.Parse(config.Get("keepMonitorTaskNum"));
                 autoLoadDbTaskOnStart = bool.Parse(config.Get("autoLoadDbTaskOnStart"));
+                preScanBar = config.Get("preScanBar");
             }
             catch (Exception ex)
             {
@@ -123,6 +125,21 @@ namespace AGVCenterWPF.Config
             {
                 autoLoadDbTaskOnStart = value;
                 config.Set("autoLoadDbTaskOnStart", value);
+                config.Save();
+            }
+        }
+
+        public static string PreScanBar
+        {
+            get
+            {
+                return preScanBar;
+            }
+
+            set
+            {
+                preScanBar = value;
+                config.Set("preScanBar", value);
                 config.Save();
             }
         }

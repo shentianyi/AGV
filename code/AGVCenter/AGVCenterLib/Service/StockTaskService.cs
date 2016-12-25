@@ -19,6 +19,7 @@ namespace AGVCenterLib.Service
         public StockTaskService(string dbString) : base(dbString)
         {
         }
+         
         /// <summary>
         /// 创建入库任务
         /// </summary>
@@ -67,6 +68,12 @@ namespace AGVCenterLib.Service
                 t.PositionColumn = taskStock.PositionColumn;
                 t.PositionRow = taskStock.PositionRow;
                 t.UpdatedAt = DateTime.Now;
+                if (t.Type.Value == (int)StockTaskType.OUT 
+                    && t.State.HasValue 
+                    && t.State.Value == (int)StockTaskState.ManOutStocked)
+                {
+                    new StorageService(this.Context).OutStockByBarCode(t.BarCode);
+                }
                 this.Context.SaveAll();
             }
 

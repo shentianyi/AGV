@@ -91,6 +91,9 @@ namespace AGVCenterLib.Enum
         [Description("出库成功")]
         OutStocked = 120,
 
+        [Description("手动出库成功")]
+        ManOutStocked=121,
+
         /// <summary>
         /// 取消
         /// </summary>

@@ -97,20 +97,23 @@
                             <ColumnDefinition Width="92*"></ColumnDefinition>
                             <ColumnDefinition Width="139*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
+                        <Button x:Name="restRescanButton" Content="重置前一个扫描码" 
+                                Width="129"  
+                                Grid.Column="0" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="23" Click="restRescanButton_Click"/>
 
 
-                        <Label x:Name="label5" Content="条码号" Grid.Column="0" HorizontalAlignment="Right" 
+                        <Label x:Name="label5" Content="条码号" Visibility="Collapsed" Grid.Column="0" HorizontalAlignment="Right" 
                                Margin="0,10,0,0" VerticalAlignment="Top" Height="26" Width="46"/>
 
                         <TextBox x:Name="lbBoxTypeTB" Grid.Column="1"
-                                 HorizontalAlignment="Left" 
+                                 HorizontalAlignment="Left"  Visibility="Collapsed" 
                                  Height="23" Margin="9,10,0,0" TextWrapping="Wrap" 
                                  Text="" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2"/>
 
                         <Button x:Name="setBigBoxTypeButton" Content="设置大箱" 
-                                Width="60" Click="SetBoxTypeBtn_Click"
+                                Width="60" Click="SetBoxTypeBtn_Click" Visibility="Collapsed" 
                                 Grid.Column="2" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="22"/>
-                        <Button x:Name="setSmallBoxTypeButton" Content="设置小箱" 
+                        <Button x:Name="setSmallBoxTypeButton" Content="设置小箱"   Visibility="Collapsed" 
                                 Width="60" Click="SetBoxTypeBtn_Click"
                                 Grid.Column="2" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top" Height="22"/>
 
@@ -118,13 +121,13 @@
                                 Width="60"  
                                 Grid.Column="3" HorizontalAlignment="Left" Margin="0,10,0,0" 
                                 VerticalAlignment="Top" Height="22" Click="manInButton_Click"/>
-                     
+
                         <Button x:Name="manOutButton" Content="手动出库" 
                                 Width="60" 
                                 Grid.Column="3" HorizontalAlignment="Left"
                                 Margin="75,10,0,0" VerticalAlignment="Top" Height="22" Click="manOutButton_Click"/>
 
-                        <Button x:Name="CancelTaskBtn" Content="取消任务" 
+                        <Button x:Name="CancelTaskBtn" Content="取消任务"
                                 Width="60" Click="CancelTaskBtn_Click"
                                 Grid.Column="5" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="22"/>
 
@@ -323,6 +326,7 @@
                                 Click="SettingOPCCB_Checked"/>
                     <CheckBox x:Name="showRescanErrorBarcodeCB" Grid.Row="2" Grid.Column="2" Content="显示重复扫描错误" ToolTip="是否显示重复扫描错，因为重复扫描可能很多次，都加入显示的话不利于观察 但是利于分析数据接收情况" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
                                 Click="SettingOPCCB_Checked"/>
+
 
                 </Grid>
             </TabItem>

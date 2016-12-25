@@ -35,11 +35,14 @@ namespace AGVCenterLib.Service
         /// </summary>
         /// <param name="roadMachineIndex"></param>
         /// <param name="dispatchedPositions"></param>
+        /// <param name="lockPosition">是否锁定返回的库位，默认为false</param>
         /// <returns></returns>
-        public Position FindInStockPosition(int roadMachineIndex, List<string> dispatchedPositions)
+        public Position FindInStockPosition(int roadMachineIndex, 
+            List<string> dispatchedPositions,
+            bool lockPosition = false)
         {
             IPositionRepository posiRep = new PositionRepository(this.Context);
-            return posiRep.FindByRoadMachineAndSort(roadMachineIndex, dispatchedPositions);
+            return posiRep.FindByRoadMachineAndSort(roadMachineIndex, dispatchedPositions,lockPosition);
         }
 
         /// <summary>

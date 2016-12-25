@@ -39,15 +39,25 @@ namespace AGVCenterLib.Data.Repository.Implement
             return this.context.Position.FirstOrDefault(s => s.Nr == nr);
         }
 
-        public Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs)
+        public Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs, bool lockPosition = false)
         {
             PositionStorageView ps = this.context.PositionStorageView
                 .Where(s => (!exceptsNrs.Contains(s.Nr))
                 && s.RoadMachineIndex==roadMachineIndex
-                && s.StorageId==null)
+                && s.StorageId==null && s.isLocked==false)
                 .OrderBy(s => s.Row).ThenBy(s => s.Column).ThenBy(s => s.Floor).FirstOrDefault();
             if (ps != null)
             {
+
+                if (lockPosition)
+                {
+                    Position p = this.context.Position.FirstOrDefault(s => s.Nr == ps.Nr);
+                    if (p != null)
+                    {
+                        p.isLocked = true;
+                        this.context.SubmitChanges();
+                    }
+                }
                 return new Position()
                 {
                     Nr = ps.Nr,
@@ -56,7 +66,8 @@ namespace AGVCenterLib.Data.Repository.Implement
                     Row = ps.Row,
                     RoadMachineIndex = ps.RoadMachineIndex,
                     State = ps.State,
-                    WarehouseNr = ps.WarehouseNr
+                    WarehouseNr = ps.WarehouseNr,
+                    isLocked=ps.isLocked
                 };
             }
             else

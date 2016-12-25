@@ -3,48 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using AGVCenterLib.Enum;
 using Brilliantech.Framwork.Utils.EnumUtil;
 
 namespace AGVCenterLib.Model
 {
-    public abstract class StockTaskItemBase : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged; 
-
-        protected Action<string> OnPropertyChanged;
-        SynchronizationContext context;
-        public StockTaskItemBase(SynchronizationContext _context)
-        {
-            context = _context;
-            OnPropertyChanged = propertyName =>
-            {
-                PropertyChangedEventHandler handler = this.PropertyChanged;
-                if (handler != null)
-                {
-                    context.Post(t => handler(this, new PropertyChangedEventArgs((string)t)), propertyName);
-                }
-            };
-        }
-
-
-        public StockTaskItemBase()
-        {
-            OnPropertyChanged = propertyName =>
-            {
-                PropertyChangedEventHandler handler = this.PropertyChanged;
-                if (handler != null)
-                {
-                    handler(this, new PropertyChangedEventArgs(propertyName));
-                }
-            };
-        }
-    
-
-    }
-
-    public class StockTaskItem:StockTaskItemBase //: INotifyPropertyChanged
+    public class StockTaskItem// : INotifyPropertyChanged
     {
         //public event PropertyChangedEventHandler PropertyChanged;
         //public void OnPropertyChanged(PropertyChangedEventArgs e)
@@ -59,7 +23,6 @@ namespace AGVCenterLib.Model
         {
             StockTaskState.Init,
             StockTaskState.AgvWaitPassing,
-            StockTaskState.AgvInStcoking,
             StockTaskState.RoadMachineStockBuffing,
             StockTaskState.RoadMachineInStocking,
             StockTaskState.RoadMachineOutStockInit,
@@ -107,10 +70,8 @@ namespace AGVCenterLib.Model
             set
             {
                 this.stockTaskType = value;
-                OnPropertyChanged("StockTaskType");
-                OnPropertyChanged("StockTaskTypeStr");
-                //  OnPropertyChanged(new PropertyChangedEventArgs("StockTaskType"));
-                // OnPropertyChanged(new PropertyChangedEventArgs("StockTaskTypeStr"));
+                //OnPropertyChanged(new PropertyChangedEventArgs("StockTaskType"));
+                //OnPropertyChanged(new PropertyChangedEventArgs("StockTaskTypeStr"));
             }
         }
 
@@ -121,7 +82,7 @@ namespace AGVCenterLib.Model
                 return EnumUtil.GetDescription((StockTaskType)this.StockTaskType);
             }
         }
-
+        
         /// <summary>
         /// 巷道机序号，从1开始，目前使用1号或2号巷道机，
         /// 和库存中的库位AreaIndex对应，相当于1或2的分区
@@ -133,9 +94,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.roadMachineIndex = value;
-                // OnPropertyChanged(new PropertyChangedEventArgs("RoadMachineIndex"));
-                OnPropertyChanged( "RoadMachineIndex");
-
+               // OnPropertyChanged(new PropertyChangedEventArgs("RoadMachineIndex"));
             }
         }
 
@@ -149,8 +108,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.positionNr = value;
-             //   OnPropertyChanged(new PropertyChangedEventArgs("PositionNr"));
-                OnPropertyChanged("PositionNr");
+               // OnPropertyChanged(new PropertyChangedEventArgs("PositionNr"));
             }
         }
 
@@ -164,8 +122,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.positionFloor = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("PositionFloor"));
-                OnPropertyChanged("PositionFloor");
+              //  OnPropertyChanged(new PropertyChangedEventArgs("PositionFloor"));
             }
         }
 
@@ -182,8 +139,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.positionColumn = value;
-             //   OnPropertyChanged(new PropertyChangedEventArgs("PositionColumn"));
-                OnPropertyChanged("PositionColumn");
+              //  OnPropertyChanged(new PropertyChangedEventArgs("PositionColumn"));
             }
         }
 
@@ -197,8 +153,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.positionRow = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("PositionRow"));
-                OnPropertyChanged("PositionRow");
+              //  OnPropertyChanged(new PropertyChangedEventArgs("PositionRow"));
             }
         }
 
@@ -212,8 +167,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.boxType = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("BoxType"));
-                OnPropertyChanged("BoxType");
+               // OnPropertyChanged(new PropertyChangedEventArgs("BoxType"));
             }
         }
 
@@ -227,8 +181,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.agvPassFlag = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("AgvPassFlag"));
-                OnPropertyChanged("AgvPassFlag");
+               // OnPropertyChanged(new PropertyChangedEventArgs("AgvPassFlag"));
             }
         }
 
@@ -245,8 +198,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.restPositionFlag = value;
-             //   OnPropertyChanged(new PropertyChangedEventArgs("RestPositionFlag"));
-                OnPropertyChanged("RestPositionFlag");
+              //  OnPropertyChanged(new PropertyChangedEventArgs("RestPositionFlag"));
             }
         }
 
@@ -264,8 +216,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.trayReverseNo = value;
-             //   OnPropertyChanged(new PropertyChangedEventArgs("TrayReverseNo"));
-                OnPropertyChanged("TrayReverseNo");
+               // OnPropertyChanged(new PropertyChangedEventArgs("TrayReverseNo"));
             }
         }
 
@@ -279,8 +230,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.trayNum = value;
-             //   OnPropertyChanged(new PropertyChangedEventArgs("TrayNum"));
-                OnPropertyChanged("TrayNum");
+              //  OnPropertyChanged(new PropertyChangedEventArgs("TrayNum"));
             }
         }
 
@@ -294,8 +244,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.deliveryItemNum = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("DeliveryItemNum"));
-                OnPropertyChanged("DeliveryItemNum");
+               // OnPropertyChanged(new PropertyChangedEventArgs("DeliveryItemNum"));
             }
         }
 
@@ -310,7 +259,6 @@ namespace AGVCenterLib.Model
             {
                 this.barCode = value;
                // OnPropertyChanged(new PropertyChangedEventArgs("Barcode"));
-                OnPropertyChanged("Barcode");
             }
         }
 
@@ -324,8 +272,7 @@ namespace AGVCenterLib.Model
             private set
             {
                 stateWas = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("StateWas"));
-                OnPropertyChanged("StateWas");
+               // OnPropertyChanged(new PropertyChangedEventArgs("StateWas"));
             }
         }
         private StockTaskState state;
@@ -336,10 +283,8 @@ namespace AGVCenterLib.Model
             {
                 stateWas = state;
                 state = value;
-               // OnPropertyChanged(new PropertyChangedEventArgs("State"));
-                OnPropertyChanged("State");
-              //  OnPropertyChanged(new PropertyChangedEventArgs("StateStr"));
-                OnPropertyChanged("StateStr");
+                //OnPropertyChanged(new PropertyChangedEventArgs("State"));
+                //OnPropertyChanged(new PropertyChangedEventArgs("StateStr"));
                 if (stateWas != state)
                 {
                     if (this.TaskStateChangeEvent != null)
@@ -367,8 +312,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.isInProcessing = value;
-              //  OnPropertyChanged(new PropertyChangedEventArgs("IsInProcessing"));
-                OnPropertyChanged("IsInProcessing");
+               // OnPropertyChanged(new PropertyChangedEventArgs("IsInProcessing"));
             }
         }
 
@@ -394,7 +338,7 @@ namespace AGVCenterLib.Model
         {
             get
             {
-                return this.State == StockTaskState.Canceled;
+                return this.State==StockTaskState.Canceled;
             }
         }
 
@@ -408,8 +352,7 @@ namespace AGVCenterLib.Model
             set
             {
                 this.dbId = value;
-           //     OnPropertyChanged(new PropertyChangedEventArgs("DbId"));
-                OnPropertyChanged("DbId");
+              //  OnPropertyChanged(new PropertyChangedEventArgs("DbId"));
             }
         }
 
@@ -420,10 +363,8 @@ namespace AGVCenterLib.Model
             set
             {
                 this.createdAt = value;
-                //  OnPropertyChanged(new PropertyChangedEventArgs("CreatedAt"));
-                //  OnPropertyChanged(new PropertyChangedEventArgs("CreatedAtStr"));
-                OnPropertyChanged("CreatedAt");
-                OnPropertyChanged("CreatedAtStr");
+               // OnPropertyChanged(new PropertyChangedEventArgs("CreatedAt"));
+               // OnPropertyChanged(new PropertyChangedEventArgs("CreatedAtStr"));
             }
         }
 

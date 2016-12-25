@@ -27,6 +27,11 @@ namespace AGVCenterLib.Service
             this.dbString = dbString;
         }
 
+        public ServiceBase(DataContext context)
+        {
+            this.context = context;
+        }
+
 
         public DataContext Context
         {

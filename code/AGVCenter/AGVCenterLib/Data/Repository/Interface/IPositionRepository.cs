@@ -14,8 +14,9 @@ namespace AGVCenterLib.Data.Repository.Interface
         /// </summary>
         /// <param name="roadMachineIndex"></param>
         /// <param name="exceptsNrs">不包含的库位号列表</param>
+        /// <param name="lockPosition">是否锁定返回的库位，默认为false</param>
         /// <returns></returns>
-        Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs);
+        Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs,bool lockPosition=false);
 
         Position FindByNr(string nr);
 

@@ -10,6 +10,7 @@ using AGVCenterLib.Data;
 using AGVCenterLib.Enum;
 using AGVCenterLib.Model;
 using AGVCenterLib.Service;
+using AGVCenterWPF.Config;
 using AGVCenterWPF.Helper;
 using Brilliantech.Framwork.Utils.LogUtil;
 
@@ -161,21 +162,72 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void CancelTaskBtn_Click(object sender, RoutedEventArgs e)
         {
+            //prevScanedBarcode = string.Empty;
             if (CenterStockTaskDisplayDG.SelectedIndex > -1)
             {
                 StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
-
+                AgvScanTaskQueue.Remove(taskItem.Barcode);
                 if (taskItem.IsCanCancel)
                 {
+
+
+                    if (taskItem.State == StockTaskState.AgvWaitPassing)
+                    {
+                        //var t1 = AgvInStockPassQueue.Peek() as StockTaskItem;
+                        var t1 =    AgvInStockPassQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                        if (t1 != null)
+                        {
+                            (t1 as StockTaskItem).State= StockTaskState.Canceled;
+                        }
+                        //if (t1.DbId == taskItem.DbId)
+                        //{
+                        //    AgvInStockPassQueue.Dequeue();
+                        //}
+                    } else if (taskItem.State == StockTaskState.AgvInStcoking)
+                    {
+                        var t1 = InRobootPickQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                        if (t1 != null)
+                        {
+                            (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                        }
+                        //var t1 = InRobootPickQueue.Peek() as StockTaskItem;
+                        //if (t1.DbId == taskItem.DbId)
+                        //{
+                        //    InRobootPickQueue.Dequeue();
+                        //}
+
+                    }
+                    else
+                    {
+                        if (taskItem.RoadMachineIndex == 1)
+                        {
+                            var t1 = RoadMachine1TaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                            if (t1 != null)
+                            {
+                                (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                            }
+
+                            //var t1 = RoadMachine1TaskQueue.Peek() as StockTaskItem;
+                            //if (t1.DbId == taskItem.DbId)
+                            //{
+                            //    RoadMachine1TaskQueue.Dequeue();
+                            //}
+                        }
+                        else if (taskItem.RoadMachineIndex == 2)
+                        {
+                            var t1 = RoadMachine2TaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                            if (t1 != null)
+                            {
+                                (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                            }
+                            //var t2 = RoadMachine2TaskQueue.Peek() as StockTaskItem;
+                            //if (t2.DbId == taskItem.DbId)
+                            //{
+                            //    RoadMachine2TaskQueue.Dequeue();
+                            //}
+                        }
+                    }
                     taskItem.State = StockTaskState.Canceled;
-                    //if (taskItem.RoadMachineIndex == 1)
-                    //{
-                    //    RoadMachine1TaskQueue.Dequeue();
-                    //}
-                    //else if (taskItem.RoadMachineIndex == 2)
-                    //{
-                    //    RoadMachine2TaskQueue.Dequeue();
-                    //}
                 }
 
             }
@@ -190,7 +242,7 @@ namespace AGVCenterWPF
 
                 if (taskItem.IsCanCancel)
                 {
-                    this.prevScanedBarcode = string.Empty;
+                   // this.prevScanedBarcode = string.Empty;
                     taskItem.State = StockTaskState.Canceled;
                     if (taskItem.RoadMachineIndex == 1)
                     {
@@ -215,14 +267,17 @@ namespace AGVCenterWPF
 
                 if (taskItem.IsCanCancel)
                 {
-                    taskItem.State = StockTaskState.OutStocked;
-                    //if (taskItem.RoadMachineIndex == 1)
-                    //{
-                    //    RoadMachine1TaskQueue.Dequeue();
-                    //}
-                    if (taskItem.RoadMachineIndex == 2)
+                    taskItem.State = StockTaskState.ManOutStocked;
+                    if (taskItem.RoadMachineIndex == 1)
+                    {
+                        RoadMachine1TaskQueue.Dequeue();
+
+                        OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
+                    }
+                    else if (taskItem.RoadMachineIndex == 2)
                     {
                         RoadMachine2TaskQueue.Dequeue();
+
                         OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
                     }
                 }
@@ -298,7 +353,7 @@ namespace AGVCenterWPF
 
         private void ClearTaskQueue()
         {
-            prevScanedBarcode = string.Empty;
+          //  prevScanedBarcode = string.Empty;
             if (AgvInStockPassQueue != null)
             {
                 AgvInStockPassQueue.Clear();
@@ -392,6 +447,23 @@ namespace AGVCenterWPF
         }
 
 
+        /// <summary>
+        /// 重置前一个扫描记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void restRescanButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AgvScanTaskQueue.Remove(BaseConfig.PreScanBar);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            BaseConfig.PreScanBar = string.Empty;
+        }
         #endregion
     }
 }

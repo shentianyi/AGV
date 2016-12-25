@@ -19,6 +19,12 @@ namespace AGVCenterLib.Service
 
         }
 
+
+        public StorageService(DataContext context) : base(context)
+        {
+
+        }
+
         /// <summary>
         /// 入库
         /// </summary>
