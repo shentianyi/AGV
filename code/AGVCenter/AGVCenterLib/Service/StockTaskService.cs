@@ -212,14 +212,29 @@ namespace AGVCenterLib.Service
         /// <returns></returns>
         public List<StockTask> GetInitOutStockTasksAndUpdateState(List<string> dispatchedBatchId)
         {
-            IStockTaskRepository stockTaskRep=new  StockTaskRepository(this.Context);
-            List<StockTask> tasks = stockTaskRep
-                .GetByState(StockTaskState.RoadMachineOutStockInit)
-                .Where(s => (!dispatchedBatchId.Contains(s.TrayBatchId))).ToList();
-            if (tasks.Count > 0)
+            IStockTaskRepository stockTaskRep = new StockTaskRepository(this.Context);
+            List<StockTask> tasks = new List<StockTask>();
+            List<StockTask> waitTasks = stockTaskRep.GetByState(StockTaskState.RoadMachineWaitOutStock);
+            List<StockTask> waitDispatchTasks = stockTaskRep.GetByState(StockTaskState.RoadMachineWaitOutStockDispatch);
+            List<StockTask> outingTasks = stockTaskRep.GetByState(StockTaskState.RoadMachineOutStocking);
+
+            if (waitTasks.Count == 0 && waitDispatchTasks.Count == 0 && outingTasks.Count==0)
             {
-                stockTaskRep.UpdateTasksState(tasks.Select(s => s.Id).ToList(),
-                    StockTaskState.RoadMachineWaitOutStockDispatch);
+               tasks = stockTaskRep
+                    .GetByState(StockTaskState.RoadMachineOutStockInit)
+                    .Where(s => (!dispatchedBatchId.Contains(s.TrayBatchId)))
+                    .OrderBy(s => s.DeliveryBatchId).ThenBy(s => s.DeliveryBatchId).ToList();
+
+                StockTask st = tasks.FirstOrDefault();
+                if (st != null)
+                {
+                    tasks = tasks.Where(s => s.DeliveryBatchId == st.DeliveryBatchId).ToList();
+                }
+                if (tasks.Count > 0)
+                {
+                    stockTaskRep.UpdateTasksState(tasks.Select(s => s.Id).ToList(),
+                        StockTaskState.RoadMachineWaitOutStockDispatch);
+                }
             }
             return tasks;
         }

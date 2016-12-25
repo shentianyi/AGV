@@ -182,10 +182,10 @@ namespace AGVCenterWPF
 
 
             // 从数据库加载出库任务定时器
-            LoadOutStockTaskFromDbTimer = new System.Timers.Timer();
-            LoadOutStockTaskFromDbTimer.Interval = OPCConfig.LoadOutStockTaskFromDbTimerInterval;
-            LoadOutStockTaskFromDbTimer.Enabled = true;
-            LoadOutStockTaskFromDbTimer.Elapsed += LoadOutStockTaskFromDbTimer_Elapsed;
+             LoadOutStockTaskFromDbTimer = new System.Timers.Timer();
+           // LoadOutStockTaskFromDbTimer.Interval = OPCConfig.LoadOutStockTaskFromDbTimerInterval;
+           // LoadOutStockTaskFromDbTimer.Enabled = true;
+           // LoadOutStockTaskFromDbTimer.Elapsed += LoadOutStockTaskFromDbTimer_Elapsed;
 
             // 逐托分发出库任务定时器，查看是可以分发
             DispatchTrayOutStockTaskTimer = new System.Timers.Timer();
@@ -1925,11 +1925,11 @@ namespace AGVCenterWPF
 
         private void LoadOutStockTaskFromDbTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            LoadOutStockTaskFromDbTimer.Stop();
+            //LoadOutStockTaskFromDbTimer.Stop();
 
-            LoadOutStockTaskFromDb();
+            //LoadOutStockTaskFromDb();
 
-            LoadOutStockTaskFromDbTimer.Start();
+            //LoadOutStockTaskFromDbTimer.Start();
         }
 
         /// <summary>
@@ -1947,7 +1947,7 @@ namespace AGVCenterWPF
                     List<StockTask> stockTasks = new List<StockTask>();
                     if (states == null)
                     {
-                        stockTasks=  new StockTaskService(OPCConfig.DbString)
+                        stockTasks= new StockTaskService(OPCConfig.DbString)
                             .GetInitOutStockTasksAndUpdateState(this.OutStockCenterQueue.Keys.ToList());
                     }
                     else
@@ -2104,6 +2104,8 @@ namespace AGVCenterWPF
 
             if (OPCOutRobootPickData.CanWrite)
             {
+                LoadOutStockTaskFromDb();
+
                 if (this.DispatchOutStockTaskByTray())
                 {
                     this.OPCOutRobootPickData.SyncWrite(this.OPCOutRobootPickOPCGroup);
