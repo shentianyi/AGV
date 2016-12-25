@@ -1530,11 +1530,7 @@ namespace AGVCenterWPF
         {
             this.Dispatcher.Invoke(new Action(() =>
             {
-                //   CenterStockTaskDisplayDG.ItemsSource = null;
-                //   CenterStockTaskDisplayDG.Items.Refresh();
-                ////   CenterStockTaskDisplayDG.Items.Clear();
-                //   CenterStockTaskDisplayDG.ItemsSource = this.TaskCenterForDisplayQueue;
-                //   CenterStockTaskDisplayDG.Items.Refresh();
+
                 CenterStockTaskDisplayDG.Items.Refresh();
 
             }));
@@ -1553,11 +1549,7 @@ namespace AGVCenterWPF
 
 
 
-
-
-
         #region 从数据库加载出库任务
-        
 
 
         /// <summary>
