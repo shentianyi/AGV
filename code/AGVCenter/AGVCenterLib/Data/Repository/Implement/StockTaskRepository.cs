@@ -68,5 +68,18 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             return this.context.StockTask.Where(s => states.Contains((StockTaskState)s.State)).ToList();
         }
+
+
+
+        public StockTask GetByState(StockTaskState state,int? roadMachineIndex=null)
+        {
+            var q= this.context.StockTask.Where(s => ((StockTaskState)s.State)==state);
+            if (roadMachineIndex.HasValue)
+            {
+                q = q.Where(s => s.RoadMachineIndex == roadMachineIndex.Value);
+            }
+
+            return q.FirstOrDefault();
+        }
     }
 }
