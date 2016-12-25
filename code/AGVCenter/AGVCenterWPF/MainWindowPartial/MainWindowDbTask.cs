@@ -19,7 +19,7 @@ namespace AGVCenterWPF
         {
             lock (this.createDbTaskLocker)
             {
-                StockTaskItem item = this.GetDbTask(StockTaskState.AgvInStcoking);
+                StockTaskItem item = this.GetDbTask(StockTaskItem.InPickRobotGetDbStates);
                 if (item.Barcode == taskItem.Barcode && taskItem.AgvPassFlag == (byte)AgvPassFlag.Pass)
                 {
                     // 不重复创建放行任务
@@ -72,11 +72,12 @@ namespace AGVCenterWPF
         }
 
         private object getDbTaskLocker = new object();
-        private StockTaskItem GetDbTask(StockTaskState state, int? roadMachineIndex=null)
+        private StockTaskItem GetDbTask(List<StockTaskState> states, int? roadMachineIndex=null)
         {
             lock (this.getDbTaskLocker)
             {
-                StockTask st = new StockTaskService(Settings.Default.dbString).GetTaskByStateAndRoadMachine(state, roadMachineIndex);
+                StockTask st = new StockTaskService(Settings.Default.dbString)
+                    .GetTaskByStatesAndRoadMachine(states, roadMachineIndex);
                 if (st != null)
                 {
                     StockTaskItem taskItem = new StockTaskItem()

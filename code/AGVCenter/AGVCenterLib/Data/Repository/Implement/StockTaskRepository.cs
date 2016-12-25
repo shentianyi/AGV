@@ -71,9 +71,9 @@ namespace AGVCenterLib.Data.Repository.Implement
 
 
 
-        public StockTask GetByState(StockTaskState state,int? roadMachineIndex=null)
+        public StockTask GetByStatesAndRoadMachine(List<StockTaskState> states, int? roadMachineIndex=null)
         {
-            var q= this.context.StockTask.Where(s => ((StockTaskState)s.State)==state);
+            var q= this.context.StockTask.Where(s => states.Contains((StockTaskState)s.State) );
             if (roadMachineIndex.HasValue)
             {
                 q = q.Where(s => s.RoadMachineIndex == roadMachineIndex.Value);

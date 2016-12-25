@@ -154,8 +154,8 @@ namespace AGVCenterLib
                  new Dictionary<string, string>()
                 {
                     { "outroot_pick_count","S7:[S7 connection_1]DB68,W18.outroot_pick_count"},
-                    { "xdj1_paltform_is_buff","S7:[S7 connection_1]DB68,X10.0.xdj1_paltform_is_buff"},
-                    { "xdj2_paltform_is_buff","S7:[S7 connection_1]DB68,X10.1.xdj2_platform_is_buff"},
+                    { "xdj1_in_paltform_is_buff","S7:[S7 connection_1]DB68,X10.0.xdj1_in_platform_is_buff"},
+                    { "xdj2_in_paltform_is_buff","S7:[S7 connection_1]DB68,X10.1.xdj2_in_platform_is_buff"},
                 }
             }
             #endregion

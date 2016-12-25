@@ -46,6 +46,16 @@ namespace AGVCenterLib.Model
 
     public class StockTaskItem:StockTaskItemBase //: INotifyPropertyChanged
     {
+        public static List<StockTaskState> InPickRobotGetDbStates = new List<StockTaskState>() {
+            StockTaskState.AgvInStcoking
+        };
+        public static List<StockTaskState> RoadMachineTaskGetDbStates = new List<StockTaskState>()
+        {
+            StockTaskState.RoadMachineStockBuffing,
+            StockTaskState.RoadMachineOutStockInit
+        };
+
+    
         //public event PropertyChangedEventHandler PropertyChanged;
         //public void OnPropertyChanged(PropertyChangedEventArgs e)
         //{

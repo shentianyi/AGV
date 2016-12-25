@@ -28,6 +28,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         List<StockTask> GetOutStockTaskByDelivery(string deliveryNr);
 
         List<StockTask> GetByStates(List<StockTaskState> states);
-        StockTask GetByState(StockTaskState state, int? roadMachineIndex = null);
+
+        StockTask GetByStatesAndRoadMachine(List<StockTaskState> states, int? roadMachineIndex = null);
     }
 }

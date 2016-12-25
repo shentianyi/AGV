@@ -17,8 +17,8 @@ namespace AGVCenterLib.Model.OPC
         }
          
         public int OutrootPickCount { get; set; }
-        public bool Xdj1PaltformIsBuff { get; set; }
-        public bool Xdj2PaltformIsBuff { get; set; }
+        public bool Xdj1InPaltformIsBuff { get; set; }
+        public bool Xdj2InPaltformIsBuff { get; set; }
 
         #region 写入值
         /// <summary>
@@ -103,10 +103,10 @@ namespace AGVCenterLib.Model.OPC
                         this.OutrootPickCount = (int)ItemValues.GetValue(i);
                         break;
                     case 2:
-                        this.Xdj1PaltformIsBuff = (bool)ItemValues.GetValue(i);
+                        this.Xdj1InPaltformIsBuff = (bool)ItemValues.GetValue(i);
                         break;
                     case 3:
-                        this.Xdj2PaltformIsBuff = (bool)ItemValues.GetValue(i);
+                        this.Xdj2InPaltformIsBuff = (bool)ItemValues.GetValue(i);
                         break;
                     default:
                         break;

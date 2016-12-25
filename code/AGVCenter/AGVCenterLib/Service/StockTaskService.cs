@@ -249,9 +249,9 @@ namespace AGVCenterLib.Service
             return new StockTaskRepository(this.Context).GetByStates(states);
         }
 
-        public StockTask GetTaskByStateAndRoadMachine(StockTaskState state,int? roadMachineIndex = null)
+        public StockTask GetTaskByStatesAndRoadMachine(List<StockTaskState> states,int? roadMachineIndex = null)
         {
-            return new StockTaskRepository(this.Context).GetByState(state, roadMachineIndex);
+            return new StockTaskRepository(this.Context).GetByStatesAndRoadMachine(states, roadMachineIndex);
         }
 
     }
