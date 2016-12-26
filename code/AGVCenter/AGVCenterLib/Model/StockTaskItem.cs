@@ -54,8 +54,12 @@ namespace AGVCenterLib.Model
             StockTaskState.RoadMachineStockBuffing,
             StockTaskState.RoadMachineOutStockInit
         };
+        public static List<StockTaskState> ShouldDequeueStockTaskStates = new List<StockTaskState>() {
+            StockTaskState.IsCanceled,
+            StockTaskState.ManInStocked,
+            StockTaskState.ManOutStocked
+        };
 
-    
         //public event PropertyChangedEventHandler PropertyChanged;
         //public void OnPropertyChanged(PropertyChangedEventArgs e)
         //{
@@ -405,6 +409,13 @@ namespace AGVCenterLib.Model
             get
             {
                 return this.State == StockTaskState.Canceled;
+            }
+        }
+
+        public bool ShouldDequeueStockTask {
+            get
+            {
+                return ShouldDequeueStockTaskStates.Contains(this.state);
             }
         }
 

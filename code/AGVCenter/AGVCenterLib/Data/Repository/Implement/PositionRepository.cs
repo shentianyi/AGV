@@ -44,11 +44,10 @@ namespace AGVCenterLib.Data.Repository.Implement
             PositionStorageView ps = this.context.PositionStorageView
                 .Where(s => (!exceptsNrs.Contains(s.Nr))
                 && s.RoadMachineIndex==roadMachineIndex
-                && s.StorageId==null && s.isLocked==false)
+                && (s.StorageId==null && s.isLocked==false))
                 .OrderBy(s => s.Row).ThenBy(s => s.Column).ThenBy(s => s.Floor).FirstOrDefault();
             if (ps != null)
             {
-
                 if (lockPosition)
                 {
                     Position p = this.context.Position.FirstOrDefault(s => s.Nr == ps.Nr);

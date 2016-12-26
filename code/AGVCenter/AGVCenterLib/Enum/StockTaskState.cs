@@ -73,8 +73,11 @@ namespace AGVCenterLib.Enum
         [Description("入库成功")]
         InStocked = 70,
 
+        [Description("手动入库成功")]
+        ManInStocked = 71,
+
         [Description("入库取消")]
-        InCanceled = 80,
+        IsCanceled = 80,
 
         [Description("巷道机出库初始")]
         RoadMachineOutStockInit = 90,

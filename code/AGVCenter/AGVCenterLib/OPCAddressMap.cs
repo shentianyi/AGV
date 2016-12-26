@@ -153,10 +153,33 @@ namespace AGVCenterLib
                 "OPCDataReset",
                  new Dictionary<string, string>()
                 {
-                    { "outroot_pick_count","S7:[S7 connection_1]DB68,W18.outroot_pick_count"},
-                    { "xdj1_in_paltform_is_buff","S7:[S7 connection_1]DB68,X10.0.xdj1_in_platform_is_buff"},
+                   { "xdj1_in_paltform_is_buff","S7:[S7 connection_1]DB68,X10.0.xdj1_in_platform_is_buff"},
                     { "xdj2_in_paltform_is_buff","S7:[S7 connection_1]DB68,X10.1.xdj2_in_platform_is_buff"},
-                }
+
+                     { "xdj1_out_platform_is_buff_big","S7:[S7 connection_1]DB10,X24.0.xdj1_out_platform_is_buff_big"},
+                     { "xdj1_out_platform_is_buff_small","S7:[S7 connection_1]DB10,X24.1.xdj1_out_platform_is_buff_small"},
+
+                     { "xdj2_out_platform_is_buff_big","S7:[S7 connection_1]DB10,X24.2.xdj2_out_platform_is_buff_big"},
+                     { "xdj2_out_platform_is_buff_small","S7:[S7 connection_1]DB10,X24.3.xdj2_out_platform_is_buff_small"},
+
+
+                     { "outrobot_pick_trayno","S7:[S7 connection_1]DB68,W16.outrobot_pick_trayno"},
+                     { "outroot_pick_count","S7:[S7 connection_1]DB68,W18.outroot_pick_count"},
+
+
+
+                     { "xdj1_current_state","S7:[S7 connection_1]DB117,DWORD0.xdj1_current_state"},
+                     { "xdj1.current_error","S7:[S7 connection_1]DB117,DWORD4.xdj1.current_error"},
+                     { "xdj1_current_floor","S7:[S7 connection_1]DB117,W8.xdj1_current_floor"},
+                     { "xdj1_current_column","S7:[S7 connection_1]DB117,W10.xdj1_current_column"},
+                     { "xdj1_pickup_or_out_state","S7:[S7 connection_1]DB117,W12.xdj1_pickup_or_out_state"},
+
+                     { "xdj2_current_state","S7:[S7 connection_1]DB118,DWORD0.xdj2_current_state"},
+                     { "xdj2.current_error","S7:[S7 connection_1]DB118,DWORD4.xdj2.current_error"},
+                     { "xdj2_current_floor","S7:[S7 connection_1]DB118,W8.xdj2_current_floor"},
+                     { "xdj2_current_column","S7:[S7 connection_1]DB118,W10.xdj2_current_column"},
+                     { "xdj2_pickup_or_out_state","S7:[S7 connection_1]DB118,W12.xdj2_pickup_or_out_state"}
+                 }
             }
             #endregion
         };

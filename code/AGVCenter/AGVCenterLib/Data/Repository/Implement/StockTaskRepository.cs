@@ -81,5 +81,10 @@ namespace AGVCenterLib.Data.Repository.Implement
 
             return q.FirstOrDefault();
         }
+
+        public List<StockTask> GetLast(int take = 300)
+        {
+            return this.context.StockTask.OrderByDescending(s => s.Id).Take(take).ToList();
+        }
     }
 }

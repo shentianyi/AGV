@@ -162,6 +162,7 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void CancelTaskBtn_Click(object sender, RoutedEventArgs e)
         {
+
             //prevScanedBarcode = string.Empty;
             if (CenterStockTaskDisplayDG.SelectedIndex > -1)
             {
@@ -174,22 +175,24 @@ namespace AGVCenterWPF
                     if (taskItem.State == StockTaskState.AgvWaitPassing)
                     {
                         //var t1 = AgvInStockPassQueue.Peek() as StockTaskItem;
-                        var t1 =    AgvInStockPassQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                        var t1 = AgvInStockPassQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
                         if (t1 != null)
                         {
-                            (t1 as StockTaskItem).State= StockTaskState.Canceled;
+                            (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                            //if (t1.DbId == taskItem.DbId)
+                            //{
+                            //    AgvInStockPassQueue.Dequeue();
+                            //}
                         }
-                        //if (t1.DbId == taskItem.DbId)
-                        //{
-                        //    AgvInStockPassQueue.Dequeue();
-                        //}
-                    } else if (taskItem.State == StockTaskState.AgvInStcoking)
+
+                    }
+                    else if (taskItem.State == StockTaskState.AgvInStcoking)
                     {
-                        //var t1 = InRobootPickQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                        //if (t1 != null)
-                        //{
-                        //    (t1 as StockTaskItem).State = StockTaskState.Canceled;
-                        //}
+                        var t1 = InRobootPickQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                        if (t1 != null)
+                        {
+                            (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                        }
                         //var t1 = InRobootPickQueue.Peek() as StockTaskItem;
                         //if (t1.DbId == taskItem.DbId)
                         //{
@@ -201,11 +204,11 @@ namespace AGVCenterWPF
                     {
                         if (taskItem.RoadMachineIndex == 1)
                         {
-                            //var t1 = RoadMachine1TaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                            //if (t1 != null)
-                            //{
-                            //    (t1 as StockTaskItem).State = StockTaskState.Canceled;
-                            //}
+                            var t1 = RoadMachine1TaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                            if (t1 != null)
+                            {
+                                (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                            }
 
                             //var t1 = RoadMachine1TaskQueue.Peek() as StockTaskItem;
                             //if (t1.DbId == taskItem.DbId)
@@ -215,11 +218,11 @@ namespace AGVCenterWPF
                         }
                         else if (taskItem.RoadMachineIndex == 2)
                         {
-                            //var t1 = RoadMachine2TaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                            //if (t1 != null)
-                            //{
-                            //    (t1 as StockTaskItem).State = StockTaskState.Canceled;
-                            //}
+                            var t1 = RoadMachine2TaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                            if (t1 != null)
+                            {
+                                (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                            }
                             //var t2 = RoadMachine2TaskQueue.Peek() as StockTaskItem;
                             //if (t2.DbId == taskItem.DbId)
                             //{
@@ -227,12 +230,83 @@ namespace AGVCenterWPF
                             //}
                         }
                     }
-                    taskItem.State = StockTaskState.Canceled;
-                }
+                    //taskItem.State = StockTaskState.Canceled;
+                    //this.UpdateDbTask(taskItem);
+                    #region db
+                    ////prevScanedBarcode = string.Empty;
+                    //if (CenterStockTaskDisplayDG.SelectedIndex > -1)
+                    //{
+                    //    StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
+                    //    AgvScanTaskQueue.Remove(taskItem.Barcode);
+                    //    if (taskItem.IsCanCancel)
+                    //    {
 
+
+                    //        if (taskItem.State == StockTaskState.AgvWaitPassing)
+                    //        {
+                    //            //var t1 = AgvInStockPassQueue.Peek() as StockTaskItem;
+                    //            var t1 =    AgvInStockPassQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                    //            if (t1 != null)
+                    //            {
+                    //                (t1 as StockTaskItem).State= StockTaskState.Canceled;
+                    //            }
+                    //            //if (t1.DbId == taskItem.DbId)
+                    //            //{
+                    //            //    AgvInStockPassQueue.Dequeue();
+                    //            //}
+                    //        } else if (taskItem.State == StockTaskState.AgvInStcoking)
+                    //        {
+                    //            //var t1 = InRobootPickQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                    //            //if (t1 != null)
+                    //            //{
+                    //            //    (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                    //            //}
+                    //            //var t1 = InRobootPickQueue.Peek() as StockTaskItem;
+                    //            //if (t1.DbId == taskItem.DbId)
+                    //            //{
+                    //            //    InRobootPickQueue.Dequeue();
+                    //            //}
+
+                    //        }
+                    //        else
+                    //        {
+                    //            if (taskItem.RoadMachineIndex == 1)
+                    //            {
+                    //                //var t1 = RoadMachine1TaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                    //                //if (t1 != null)
+                    //                //{
+                    //                //    (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                    //                //}
+
+                    //                //var t1 = RoadMachine1TaskQueue.Peek() as StockTaskItem;
+                    //                //if (t1.DbId == taskItem.DbId)
+                    //                //{
+                    //                //    RoadMachine1TaskQueue.Dequeue();
+                    //                //}
+                    //            }
+                    //            else if (taskItem.RoadMachineIndex == 2)
+                    //            {
+                    //                //var t1 = RoadMachine2TaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                    //                //if (t1 != null)
+                    //                //{
+                    //                //    (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                    //                //}
+                    //                //var t2 = RoadMachine2TaskQueue.Peek() as StockTaskItem;
+                    //                //if (t2.DbId == taskItem.DbId)
+                    //                //{
+                    //                //    RoadMachine2TaskQueue.Dequeue();
+                    //                //}
+                    //            }
+                    //        }
+                    //        taskItem.State = StockTaskState.Canceled;
+                    //        this.UpdateDbTask(taskItem);
+                    //    }
+
+                    // }
+                    #endregion
+                }
             }
         }
-
 
         private void manInButton_Click(object sender, RoutedEventArgs e)
         {
@@ -243,8 +317,8 @@ namespace AGVCenterWPF
                 if (taskItem.IsCanCancel)
                 {
                    // this.prevScanedBarcode = string.Empty;
-                    taskItem.State = StockTaskState.Canceled;
-                    this.UpdateDbTask(taskItem);
+                    taskItem.State = StockTaskState.ManInStocked;
+                  //  this.UpdateDbTask(taskItem);
                     if (taskItem.RoadMachineIndex == 1)
                     {
                        // RoadMachine1TaskQueue.Dequeue();
@@ -269,7 +343,7 @@ namespace AGVCenterWPF
                 if (taskItem.IsCanCancel)
                 {
                     taskItem.State = StockTaskState.ManOutStocked;
-                    this.UpdateDbTask(taskItem);
+                   // this.UpdateDbTask(taskItem);
 
                     if (taskItem.RoadMachineIndex == 1)
                     {
@@ -296,7 +370,7 @@ namespace AGVCenterWPF
         {
             if(MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes)
             {
-                OPCDataResetData.RestXdj1PaltformIsBuff(OPCDataResetOPCGroup);
+                OPCDataResetData.RestXdj1InPaltformIsBuff(OPCDataResetOPCGroup);
             }
         }
 
@@ -310,7 +384,7 @@ namespace AGVCenterWPF
         {
             if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                OPCDataResetData.RestXdj2PaltformIsBuff(OPCDataResetOPCGroup);
+                OPCDataResetData.RestXdj2InPaltformIsBuff(OPCDataResetOPCGroup);
             }
         }
         #endregion
@@ -425,9 +499,10 @@ namespace AGVCenterWPF
                 // RoadMachine2TaskQueue.Add(taskItem.Barcode, taskItem);
             //    RoadMachine2TaskQueue.Enqueue(taskItem);
             }
-            //  TaskCenterForDisplayQueue.Add(taskItem);
 
-            AddItemToTaskDisplay(taskItem);
+            TaskCenterForDisplayQueue.Add(taskItem);
+
+          //  AddOrUpdateItemToTaskDisplay(taskItem);
 
             if (LipRoadMachineCheckBox.IsChecked.Value)
             {

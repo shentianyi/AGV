@@ -68,11 +68,15 @@ namespace AGVCenterLib.Service
                 t.PositionColumn = taskStock.PositionColumn;
                 t.PositionRow = taskStock.PositionRow;
                 t.UpdatedAt = DateTime.Now;
-                if (t.Type.Value == (int)StockTaskType.OUT 
-                    && t.State.HasValue 
+                if (t.Type.Value == (int)StockTaskType.OUT
+                    && t.State.HasValue
                     && t.State.Value == (int)StockTaskState.ManOutStocked)
                 {
                     new StorageService(this.Context).OutStockByBarCode(t.BarCode);
+                }
+                else if (t.Type.Value == (int)StockTaskType.IN && t.State.HasValue && t.State.Value == (int)StockTaskState.ManInStocked)
+                {
+                    new StorageService(this.Context).InStockByCheckCode(taskStock.PositionNr, t.BarCode);
                 }
                 this.Context.SaveAll();
             }
@@ -206,7 +210,7 @@ namespace AGVCenterLib.Service
         }
 
         /// <summary>
-        /// 获取新创建的出库任务
+        /// 获取新创建的出库任务，每次只加载一托
         /// </summary>
         /// <param name="dispatchedBatchId"></param>
         /// <returns></returns>
@@ -214,8 +218,11 @@ namespace AGVCenterLib.Service
         {
             IStockTaskRepository stockTaskRep = new StockTaskRepository(this.Context);
             List<StockTask> tasks = new List<StockTask>();
+            // 等待执行的任务
             List<StockTask> waitTasks = stockTaskRep.GetByState(StockTaskState.RoadMachineWaitOutStock);
+            // 等待分配的任务
             List<StockTask> waitDispatchTasks = stockTaskRep.GetByState(StockTaskState.RoadMachineWaitOutStockDispatch);
+            // 执行中的任务
             List<StockTask> outingTasks = stockTaskRep.GetByState(StockTaskState.RoadMachineOutStocking);
 
             if (waitTasks.Count == 0 && waitDispatchTasks.Count == 0 && outingTasks.Count==0)
@@ -228,7 +235,7 @@ namespace AGVCenterLib.Service
                 StockTask st = tasks.FirstOrDefault();
                 if (st != null)
                 {
-                    tasks = tasks.Where(s => s.DeliveryBatchId == st.DeliveryBatchId).ToList();
+                    tasks = tasks.Where(s => s.TrayBatchId == st.TrayBatchId).ToList();
                 }
                 if (tasks.Count > 0)
                 {
@@ -254,5 +261,9 @@ namespace AGVCenterLib.Service
             return new StockTaskRepository(this.Context).GetByStatesAndRoadMachine(states, roadMachineIndex);
         }
 
+        public List<StockTask> GetLastTasks(int take = 300)
+        {
+            return new StockTaskRepository(this.Context).GetLast(take);
+        }
     }
 }

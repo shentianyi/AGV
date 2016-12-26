@@ -30,5 +30,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         List<StockTask> GetByStates(List<StockTaskState> states);
 
         StockTask GetByStatesAndRoadMachine(List<StockTaskState> states, int? roadMachineIndex = null);
+
+        List<StockTask> GetLast(int take = 300);
     }
 }

@@ -7,24 +7,26 @@ using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace AGVCenterWPF.Config
 {
- public   class BaseConfig
+    public class BaseConfig
     {
         private static ConfigUtil config;
         private static bool autoConnectOPC = true;
-    //    private static string connectString = string.Empty;
+        //    private static string connectString = string.Empty;
         private static bool roadMachine1Enabled = true;
         private static bool roadMachine2Enabled = true;
         private static int maxMonitorTaskNum = 300;
         private static int keepMonitorTaskNum = 200;
         private static bool autoLoadDbTaskOnStart = true;
         private static string preScanBar = string.Empty;
+        private static bool isOPCConnector = true;
+
         static BaseConfig()
         {
             try
             {
                 config = new ConfigUtil("BASE", "Config/base.ini");
                 autoConnectOPC = bool.Parse(config.Get("autoConnectOPC"));
-            //    connectString = config.Get("connectString");
+                //    connectString = config.Get("connectString");
 
                 roadMachine1Enabled = bool.Parse(config.Get("roadMachine1Enabled"));
                 roadMachine2Enabled = bool.Parse(config.Get("roadMachine2Enabled"));
@@ -32,6 +34,8 @@ namespace AGVCenterWPF.Config
                 keepMonitorTaskNum = int.Parse(config.Get("keepMonitorTaskNum"));
                 autoLoadDbTaskOnStart = bool.Parse(config.Get("autoLoadDbTaskOnStart"));
                 preScanBar = config.Get("preScanBar");
+                isOPCConnector = bool.Parse(config.Get("isOPCConnector"));
+
             }
             catch (Exception ex)
             {
@@ -53,7 +57,7 @@ namespace AGVCenterWPF.Config
                 config.Save();
             }
         }
-         
+
 
         public static bool RoadMachine1Enabled
         {
@@ -140,6 +144,22 @@ namespace AGVCenterWPF.Config
             {
                 preScanBar = value;
                 config.Set("preScanBar", value);
+                config.Save();
+            }
+        }
+
+
+        public static bool IsOPCConnector
+        {
+            get
+            {
+                return isOPCConnector;
+            }
+
+            set
+            {
+                isOPCConnector = value;
+                config.Set("isOPCConnector", value);
                 config.Save();
             }
         }

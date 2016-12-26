@@ -6,6 +6,7 @@ using AGVCenterLib.Data;
 using AGVCenterLib.Enum;
 using AGVCenterLib.Model;
 using AGVCenterLib.Service;
+using AGVCenterWPF.Config;
 using AGVCenterWPF.Properties;
 using Brilliantech.Framwork.Utils.LogUtil;
 
@@ -20,7 +21,7 @@ namespace AGVCenterWPF
             lock (this.createDbTaskLocker)
             {
                 StockTaskItem item = this.GetDbTask(StockTaskItem.InPickRobotGetDbStates);
-                if (item.Barcode == taskItem.Barcode && taskItem.AgvPassFlag == (byte)AgvPassFlag.Pass)
+                if (item!=null && item.Barcode == taskItem.Barcode && taskItem.AgvPassFlag == (byte)AgvPassFlag.Pass)
                 {
                     // 不重复创建放行任务
                     return true;
@@ -68,6 +69,9 @@ namespace AGVCenterWPF
                     sts.UpdateTaskState(updatedStockTask);
                 }
 
+               // AddOrUpdateItemToTaskDisplay(taskItem);
+
+
             }
         }
 
@@ -76,29 +80,33 @@ namespace AGVCenterWPF
         {
             lock (this.getDbTaskLocker)
             {
-                StockTask st = new StockTaskService(Settings.Default.dbString)
+                StockTask task = new StockTaskService(Settings.Default.dbString)
                     .GetTaskByStatesAndRoadMachine(states, roadMachineIndex);
-                if (st != null)
+                if (task != null)
                 {
                     StockTaskItem taskItem = new StockTaskItem()
                     {
-                        StockTaskType = StockTaskType.OUT,
-                        Barcode = st.BarCode,
-                        BoxType = (byte)st.BoxType,
-                        PositionNr = st.PositionNr,
-                        PositionFloor = (byte)st.PositionFloor,
-                        PositionColumn = (byte)st.PositionColumn,
-                        PositionRow = (byte)st.PositionRow,
-                        RoadMachineIndex = st.RoadMachineIndex.Value,
-
-                        TrayReverseNo = st.TrayReverseNo.HasValue ? st.TrayReverseNo.Value : 0,
-                        TrayNum = st.TrayNum.HasValue ? st.TrayNum.Value : 0,
-                        DeliveryItemNum = st.DeliveryItemNum.HasValue ? st.DeliveryItemNum.Value : 0,
-                        State = (StockTaskState)st.State,
-                        DbId = st.Id,
+                        RoadMachineIndex = task.RoadMachineIndex.HasValue ? task.RoadMachineIndex.Value : 0,
+                        BoxType = task.BoxType.HasValue ? (byte)task.BoxType.Value : (byte)0,
+                        PositionNr = task.PositionNr,
+                        PositionFloor = task.PositionRow.HasValue ? task.PositionFloor.Value : 0,
+                        PositionColumn = task.PositionColumn.HasValue ? task.PositionColumn.Value : 0,
+                        PositionRow = task.PositionRow.HasValue ? task.PositionRow.Value : 0,
+                        AgvPassFlag = task.AgvPassFlag.HasValue ? (byte)task.AgvPassFlag.Value : (byte)0,
+                        RestPositionFlag = task.RestPositionFlag.HasValue ? (byte)task.RestPositionFlag.Value : (byte)0,
+                        Barcode = task.BarCode,
+                        State = task.State.HasValue ? (StockTaskState)task.State.Value : StockTaskState.Init,
+                        StockTaskType = task.Type.HasValue ? (StockTaskType)task.Type.Value : StockTaskType.NONE,
+                        TrayReverseNo = task.TrayReverseNo.HasValue ? task.TrayReverseNo.Value : 0,
+                        TrayNum = task.TrayNum.HasValue ? task.TrayNum.Value : 0,
+                        DeliveryItemNum = task.DeliveryItemNum.HasValue ? task.DeliveryItemNum.Value : 0,
+                        DbId = task.Id,
+                        CreatedAt = task.CreatedAt.Value,
                         IsInProcessing = true
                     };
-                  //  taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
+
+                   // AddOrUpdateItemToTaskDisplay(taskItem);
+                    //  taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
                     return taskItem;
                 }
                 else
@@ -108,5 +116,15 @@ namespace AGVCenterWPF
             }
         } 
 
+
+
+        //private void RefreshTaskList()
+        //{
+        //    List<StockTask> tasks = new StockTaskService(Settings.Default.dbString).GetLastTasks(BaseConfig.KeepMonitorTaskNum);
+        //    foreach(var task in tasks)
+        //    {
+
+        //    }
+        //}
     }
 }

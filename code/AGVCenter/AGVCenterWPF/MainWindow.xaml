@@ -37,7 +37,7 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
+                    <Grid Grid.Row="0" Visibility="Collapsed">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
@@ -117,7 +117,7 @@
                                 Width="60" Click="SetBoxTypeBtn_Click"
                                 Grid.Column="2" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top" Height="22"/>
 
-                        <Button x:Name="manInButton" Content="重新入库" 
+                        <Button x:Name="manInButton" Content="手动入库" 
                                 Width="60"  
                                 Grid.Column="3" HorizontalAlignment="Left" Margin="0,10,0,0" 
                                 VerticalAlignment="Top" Height="22" Click="manInButton_Click"/>
