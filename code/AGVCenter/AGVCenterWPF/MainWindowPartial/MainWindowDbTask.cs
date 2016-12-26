@@ -84,29 +84,10 @@ namespace AGVCenterWPF
                     .GetTaskByStatesAndRoadMachine(states, roadMachineIndex);
                 if (task != null)
                 {
-                    StockTaskItem taskItem = new StockTaskItem()
-                    {
-                        RoadMachineIndex = task.RoadMachineIndex.HasValue ? task.RoadMachineIndex.Value : 0,
-                        BoxType = task.BoxType.HasValue ? (byte)task.BoxType.Value : (byte)0,
-                        PositionNr = task.PositionNr,
-                        PositionFloor = task.PositionRow.HasValue ? task.PositionFloor.Value : 0,
-                        PositionColumn = task.PositionColumn.HasValue ? task.PositionColumn.Value : 0,
-                        PositionRow = task.PositionRow.HasValue ? task.PositionRow.Value : 0,
-                        AgvPassFlag = task.AgvPassFlag.HasValue ? (byte)task.AgvPassFlag.Value : (byte)0,
-                        RestPositionFlag = task.RestPositionFlag.HasValue ? (byte)task.RestPositionFlag.Value : (byte)0,
-                        Barcode = task.BarCode,
-                        State = task.State.HasValue ? (StockTaskState)task.State.Value : StockTaskState.Init,
-                        StockTaskType = task.Type.HasValue ? (StockTaskType)task.Type.Value : StockTaskType.NONE,
-                        TrayReverseNo = task.TrayReverseNo.HasValue ? task.TrayReverseNo.Value : 0,
-                        TrayNum = task.TrayNum.HasValue ? task.TrayNum.Value : 0,
-                        DeliveryItemNum = task.DeliveryItemNum.HasValue ? task.DeliveryItemNum.Value : 0,
-                        DbId = task.Id,
-                        CreatedAt = task.CreatedAt.Value,
-                        IsInProcessing = true
-                    };
+                    StockTaskItem taskItem = this.InitTaskItemByStockTask(task);
 
                    // AddOrUpdateItemToTaskDisplay(taskItem);
-                    //  taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
+                   //  taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
                     return taskItem;
                 }
                 else
@@ -114,17 +95,33 @@ namespace AGVCenterWPF
                     return null;
                 }
             }
-        } 
+        }
+
+        private StockTaskItem InitTaskItemByStockTask(StockTask task)
+        {
+            return new StockTaskItem()
+            {
+                RoadMachineIndex = task.RoadMachineIndex.HasValue ? task.RoadMachineIndex.Value : 0,
+                BoxType = task.BoxType.HasValue ? (byte)task.BoxType.Value : (byte)0,
+                PositionNr = task.PositionNr,
+                PositionFloor = task.PositionRow.HasValue ? task.PositionFloor.Value : 0,
+                PositionColumn = task.PositionColumn.HasValue ? task.PositionColumn.Value : 0,
+                PositionRow = task.PositionRow.HasValue ? task.PositionRow.Value : 0,
+                AgvPassFlag = task.AgvPassFlag.HasValue ? (byte)task.AgvPassFlag.Value : (byte)0,
+                RestPositionFlag = task.RestPositionFlag.HasValue ? (byte)task.RestPositionFlag.Value : (byte)0,
+                Barcode = task.BarCode,
+                State = task.State.HasValue ? (StockTaskState)task.State.Value : StockTaskState.Init,
+                StockTaskType = task.Type.HasValue ? (StockTaskType)task.Type.Value : StockTaskType.NONE,
+                TrayReverseNo = task.TrayReverseNo.HasValue ? task.TrayReverseNo.Value : 0,
+                TrayNum = task.TrayNum.HasValue ? task.TrayNum.Value : 0,
+                DeliveryItemNum = task.DeliveryItemNum.HasValue ? task.DeliveryItemNum.Value : 0,
+                DbId = task.Id,
+                CreatedAt = task.CreatedAt.Value,
+                IsInProcessing = true
+            };
+        }
 
 
 
-        //private void RefreshTaskList()
-        //{
-        //    List<StockTask> tasks = new StockTaskService(Settings.Default.dbString).GetLastTasks(BaseConfig.KeepMonitorTaskNum);
-        //    foreach(var task in tasks)
-        //    {
-
-        //    }
-        //}
     }
 }

@@ -85,6 +85,7 @@
     <Compile Include="DemoData.cs" />
     <Compile Include="Helper\SqlHelper.cs" />
     <Compile Include="MainWindowPartial\MainWindowDbTask.cs" />
+    <Compile Include="MainWindowPartial\MainWindowMonitor.cs" />
     <Compile Include="MainWindowPartial\MainWindowOPC.cs" />
     <Compile Include="OPCConfig.cs" />
     <Compile Include="MainWindowPartial\MainWindowRestTask.cs" />

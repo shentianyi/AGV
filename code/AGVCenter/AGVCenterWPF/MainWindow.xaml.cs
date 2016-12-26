@@ -108,6 +108,10 @@ namespace AGVCenterWPF
                 // 初始化并从数据库加载任务
                 this.InitQueueAndLoadTaskFromDb();
             }
+            else
+            {
+                this.InitMonitorFields();
+            }
             #endregion
 
             // 初始化OPC变量
@@ -131,6 +135,10 @@ namespace AGVCenterWPF
             {
                 this.InitAndStartOPCConnectTimers();
             }
+            else
+            {
+                this.StartMonitorTimers();
+            }
 
             /// 是否显示基本设置
             if (BaseConfig.IsOPCConnector)
@@ -139,7 +147,7 @@ namespace AGVCenterWPF
             }
             else
             {
-                SettingTabItem.Visibility = Visibility.Hidden;
+                SettingTabItem.Visibility = Visibility.Collapsed;
             }
 
         }
@@ -776,7 +784,7 @@ namespace AGVCenterWPF
                             if (TestConfig.ShowRescanErrorBarcode)
                             {
 
-                                this.AddItemToTaskDisplay(taskItem);
+                                this.AddOrUpdateItemToTaskDisplay(taskItem);
                                 // TaskCenterForDisplayQueue.Add(taskItem);
                             }
                             return true;
@@ -794,7 +802,7 @@ namespace AGVCenterWPF
                                 taskItem.State = StockTaskState.ErrorBarcodeReScan;
                                 if (TestConfig.ShowRescanErrorBarcode)
                                 {
-                                    this.AddItemToTaskDisplay(taskItem);
+                                    this.AddOrUpdateItemToTaskDisplay(taskItem);
                                     // TaskCenterForDisplayQueue.Add(taskItem);
                                 }
                                 return true;
@@ -1000,7 +1008,7 @@ namespace AGVCenterWPF
                     AgvScanTaskQueue.Add(taskItem.Barcode, taskItem);
                 }
 
-                this.AddItemToTaskDisplay(taskItem);
+                this.AddOrUpdateItemToTaskDisplay(taskItem);
 
                 //  TaskCenterForDisplayQueue.Add(taskItem);
                 if (taskItem.StockTaskType == StockTaskType.IN)
@@ -1195,8 +1203,15 @@ namespace AGVCenterWPF
         /// </summary>
         private void ShutDownComponents()
         {
-            this.StopTimers();
-            this.ShutDownUpdateStackTaskStateComponent();
+            if (BaseConfig.IsOPCConnector)
+            {
+                this.StopTimers();
+                this.ShutDownUpdateStackTaskStateComponent();
+            }
+            else
+            {
+                this.StopMonitorTimers();
+            }
             this.DisconnectOPCServer();
         }
 
@@ -1328,11 +1343,6 @@ namespace AGVCenterWPF
         {
             this.Dispatcher.Invoke(new Action(() =>
             {
-                //   CenterStockTaskDisplayDG.ItemsSource = null;
-                //   CenterStockTaskDisplayDG.Items.Refresh();
-                ////   CenterStockTaskDisplayDG.Items.Clear();
-                //   CenterStockTaskDisplayDG.ItemsSource = this.TaskCenterForDisplayQueue;
-                //   CenterStockTaskDisplayDG.Items.Refresh();
                 CenterStockTaskDisplayDG.Items.Refresh();
 
             }));
@@ -1524,9 +1534,7 @@ namespace AGVCenterWPF
         {
             AgvInStockPassQueue = new Queue();
             InRobootPickQueue = new Queue();
-            // RoadMachine1TaskQueue = new Dictionary<string, StockTaskItem>();
             RoadMachine1TaskQueue = new Queue();
-            // RoadMachine2TaskQueue = new Dictionary<string, StockTaskItem>();
             AgvScanTaskQueue = new Dictionary<string, StockTaskItem>();
             RoadMachine2TaskQueue = new Queue();
 
@@ -1537,28 +1545,9 @@ namespace AGVCenterWPF
                 .GetTaskByStates(StockTaskItem.ShouldLoadFromDbStates);
             foreach (var task in tasks)
             {
-                StockTaskItem item = new StockTaskItem()
-                {
-                    RoadMachineIndex = task.RoadMachineIndex.HasValue ? task.RoadMachineIndex.Value : 0,
-                    BoxType = task.BoxType.HasValue ? (byte)task.BoxType.Value : (byte)0,
-                    PositionNr = task.PositionNr,
-                    PositionFloor = task.PositionRow.HasValue ? task.PositionFloor.Value : 0,
-                    PositionColumn = task.PositionColumn.HasValue ? task.PositionColumn.Value : 0,
-                    PositionRow = task.PositionRow.HasValue ? task.PositionRow.Value : 0,
-                    AgvPassFlag = task.AgvPassFlag.HasValue ? (byte)task.AgvPassFlag.Value : (byte)0,
-                    RestPositionFlag = task.RestPositionFlag.HasValue ? (byte)task.RestPositionFlag.Value : (byte)0,
-                    Barcode = task.BarCode,
-                    State = task.State.HasValue ? (StockTaskState)task.State.Value : StockTaskState.Init,
-                    StockTaskType = task.Type.HasValue ? (StockTaskType)task.Type.Value : StockTaskType.NONE,
-                    TrayReverseNo = task.TrayReverseNo.HasValue ? task.TrayReverseNo.Value : 0,
-                    TrayNum = task.TrayNum.HasValue ? task.TrayNum.Value : 0,
-                    DeliveryItemNum = task.DeliveryItemNum.HasValue ? task.DeliveryItemNum.Value : 0,
-                    DbId = task.Id,
-                    CreatedAt = task.CreatedAt.Value,
-                    IsInProcessing = true
-                };
+                StockTaskItem item = this.InitTaskItemByStockTask(task);
                 item.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
-                AddItemToTaskDisplay(item);
+                AddOrUpdateItemToTaskDisplay(item);
                 switch (item.State)
                 {
                     case StockTaskState.AgvInStcoking:
@@ -1658,7 +1647,7 @@ namespace AGVCenterWPF
                         //    RoadMachine2TaskQueue.Add(taskItem.Barcode, taskItem);
                         RoadMachine2TaskQueue.Enqueue(taskItem);
                     }
-                    this.AddItemToTaskDisplay(taskItem);
+                    this.AddOrUpdateItemToTaskDisplay(taskItem);
                 }
                 OutStockCenterQueue.Remove(f.Key);
                 return true;
@@ -1670,15 +1659,45 @@ namespace AGVCenterWPF
         /// 将任务放入显示列表
         /// </summary>
         /// <param name="taskItem"></param>
-        private void AddItemToTaskDisplay(StockTaskItem taskItem)
+        private void AddOrUpdateItemToTaskDisplay(StockTaskItem taskItem,bool refresh=true)
         {
-            TaskCenterForDisplayQueue.Add(taskItem);
-
-            if (TaskCenterForDisplayQueue.Count > BaseConfig.MaxMonitorTaskNum)
+            if (TaskCenterForDisplayQueue.Where(s => s.DbId == taskItem.DbId && taskItem.DbId > 0).FirstOrDefault() != null)
             {
-                TaskCenterForDisplayQueue.RemoveRange(0, TaskCenterForDisplayQueue.Count - BaseConfig.KeepMonitorTaskNum);
+                var i = TaskCenterForDisplayQueue.Where(s => s.DbId == taskItem.DbId && taskItem.DbId > 0).FirstOrDefault();
+                //  i = taskItem;
+
+                i.RoadMachineIndex = taskItem.RoadMachineIndex;
+
+                i.BoxType = taskItem.BoxType;
+
+                i.PositionNr = taskItem.PositionNr;
+                i.PositionFloor = taskItem.PositionFloor;
+                i.PositionColumn = taskItem.PositionColumn;
+                i.PositionRow = taskItem.PositionRow;
+                i.AgvPassFlag = taskItem.AgvPassFlag;
+                i.RestPositionFlag = taskItem.RestPositionFlag;
+                i.Barcode = taskItem.Barcode;
+                i.State = taskItem.State;
+                i.StockTaskType = taskItem.StockTaskType;
+                i.TrayReverseNo = taskItem.TrayReverseNo;
+                i.TrayNum = taskItem.TrayNum;
+                i.DeliveryItemNum = taskItem.DeliveryItemNum;
+                i.DbId = taskItem.DbId;
+                i.CreatedAt = taskItem.CreatedAt;
+                i.IsInProcessing = true;
             }
-            RefreshList();
+            else
+            {
+                TaskCenterForDisplayQueue.Add(taskItem);
+                if (refresh)
+                {
+                    if (TaskCenterForDisplayQueue.Count > BaseConfig.MaxMonitorTaskNum)
+                    {
+                        TaskCenterForDisplayQueue.RemoveRange(0, TaskCenterForDisplayQueue.Count - BaseConfig.KeepMonitorTaskNum);
+                    }
+                    RefreshList();
+                }
+            }
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Messaging;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,6 +33,17 @@ namespace TestWPF
         private void inStockBtn_Click(object sender, RoutedEventArgs e)
         {
             new InStockOrOutStockWindow().Show();
+        }
+
+        private void createRemoteMsgBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //MessageQueue q = new MessageQueue(".\\private$\\agvtaskqueue");
+
+          MessageQueue q = new MessageQueue("FormatName:Direct=TCP:192.168.0.99\\private$\\agvtaskqueue");
+            q.Send(new Message {
+                Body = "23",
+                Formatter = new XmlMessageFormatter(new Type[] { typeof(string) })
+            });
         }
     }
 }

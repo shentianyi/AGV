@@ -236,7 +236,7 @@ namespace AGVCenterLib.Model.OPC
 
         public virtual string GetSimpleOpcKey(int index, Array clientHandles)
         {
-            return this.OPCItemIDs.GetValue(int.Parse(clientHandles.GetValue(index).ToString())).ToString().Replace(OPCAddressMap.INOUT_AddrPrefix, "");
+            return this.OPCItemIDs.GetValue(int.Parse(clientHandles.GetValue(index).ToString())).ToString();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace AGVCenterLib.Model.OPC
 
 
         // 出库机械手需抓取托总量 7
-        public int OutrootPickTrayCount { get; set; }
+        public int OutrootNeedPickTrayCount { get; set; }
 
         // 出库机械手已抓取量  8
         public int OutrootPickCount { get; set; }
@@ -148,36 +148,36 @@ namespace AGVCenterLib.Model.OPC
                         this.Xdj2OutPaltformIsBuffSmall = (bool)ItemValues.GetValue(i);
                         break;
                     case 7:
-                        this.OutrootPickTrayCount = (int)ItemValues.GetValue(i);
+                        this.OutrootNeedPickTrayCount = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 8:
-                        this.OutrootPickCount = (int)ItemValues.GetValue(i);
+                        this.OutrootPickCount = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
 
                     case 9:
-                        this.Xdj1CurentState = (int)ItemValues.GetValue(i);
+                        this.Xdj1CurentState = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 10:
-                        this.Xdj1CurentError = (int)ItemValues.GetValue(i);
+                        this.Xdj1CurentError = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 11:
-                        this.Xdj1CurentFloor = (int)ItemValues.GetValue(i);
+                        this.Xdj1CurentFloor = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 12:
-                        this.Xdj1CurentColumn = (int)ItemValues.GetValue(i);
+                        this.Xdj1CurentColumn = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
 
                     case 13:
-                        this.Xdj2CurentState = (int)ItemValues.GetValue(i);
+                        this.Xdj2CurentState = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 14:
-                        this.Xdj2CurentError = (int)ItemValues.GetValue(i);
+                        this.Xdj2CurentError = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 15:
-                        this.Xdj2CurentFloor = (int)ItemValues.GetValue(i);
+                        this.Xdj2CurentFloor = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     case 16:
-                        this.Xdj2CurentColumn = (int)ItemValues.GetValue(i);
+                        this.Xdj2CurentColumn = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
 
                     default:

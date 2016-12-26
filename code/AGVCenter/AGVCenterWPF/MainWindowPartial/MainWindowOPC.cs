@@ -338,6 +338,14 @@ namespace AGVCenterWPF
                         ItemValues.GetValue(i));
                 }
                 OPCCheckInStockBarcodeData.SetValue(NumItems, ClientHandles, ItemValues);
+                try {
+                    this.label_scan_get_inposi_rw_flag.Content = OPCCheckInStockBarcodeData.OPCRwFlag;
+                    this.label_scan_get_inposi_barcode.Content = OPCCheckInStockBarcodeData.ScanedBarcode;
+                }catch(Exception exx)
+                {
+
+                    LogUtil.Logger.Error(exx.Message, exx);
+                }
             }
             catch (Exception ex)
             {
@@ -367,6 +375,17 @@ namespace AGVCenterWPF
                         ItemValues.GetValue(i));
                 }
                 OPCAgvInStockPassData.SetValue(NumItems, ClientHandles, ItemValues);
+
+                try
+                {
+                    this.label_stock_pass_agv_rw_flag.Content = OPCAgvInStockPassData.OPCRwFlag;
+                    this.label_stock_pass_agv_flag.Content = OPCAgvInStockPassData.AgvPassFlag;
+                }
+                catch (Exception exx)
+                {
+
+                    LogUtil.Logger.Error(exx.Message, exx);
+                }
             }
             catch (Exception ex)
             {
@@ -396,6 +415,17 @@ namespace AGVCenterWPF
                         ItemValues.GetValue(i));
                 }
                 OPCInRobootPickData.SetValue(NumItems, ClientHandles, ItemValues);
+                try
+                {
+                    this.label_inrobot_pick_rw_flag.Content = OPCInRobootPickData.OPCRwFlag;
+                    this.label_inrobot_pick_box_type.Content = OPCInRobootPickData.BoxType;
+                }
+                catch (Exception exx)
+                {
+
+                    LogUtil.Logger.Error(exx.Message, exx);
+                }
+
             }
             catch (Exception ex)
             {
@@ -431,6 +461,27 @@ namespace AGVCenterWPF
                 }
 
                 OPCSetStockTaskRoadMachine1Data.SetValue(NumItems, ClientHandles, ItemValues);
+
+
+                try
+                {
+                    this.label_stock_xdj1_rw_flag.Content = OPCSetStockTaskRoadMachine1Data.OPCRwFlag;
+                    this.label_stock_xdj1_action_type.Content = OPCSetStockTaskRoadMachine1Data.StockTaskType;
+                    this.label_stock_xdj1_position1.Content = OPCSetStockTaskRoadMachine1Data.PositionFloor;
+                    this.label_stock_xdj1_position2.Content = OPCSetStockTaskRoadMachine1Data.PositionColumn;
+                    this.label_stock_xdj1_position3.Content = OPCSetStockTaskRoadMachine1Data.PositionRow;
+                    this.label_stock_xdj1_box_type.Content = OPCSetStockTaskRoadMachine1Data.BoxType;
+                    this.label_stock_xdj1_reset_position_flag.Content = OPCSetStockTaskRoadMachine1Data.RestPositionFlag;
+                    this.label_stock_xdj1_tray_reverse_no.Content = OPCSetStockTaskRoadMachine1Data.TrayReverseNo;
+                    this.label_stock_xdj1_tray_num.Content = OPCSetStockTaskRoadMachine1Data.TrayNum;
+                    this.label_stock_xdj1_delivery_num.Content = OPCSetStockTaskRoadMachine1Data.DeliveryItemNum;
+                    this.label_stock_xdj1_barcode.Content = OPCSetStockTaskRoadMachine1Data.Barcode;
+                }
+                catch (Exception exx)
+                {
+
+                    LogUtil.Logger.Error(exx.Message, exx);
+                }
             }
             catch (Exception ex)
             {
@@ -461,6 +512,27 @@ namespace AGVCenterWPF
                 }
                 OPCSetStockTaskRoadMachine2Data.SetValue(NumItems, ClientHandles, ItemValues);
 
+
+
+                try
+                {
+                    this.label_stock_xdj2_rw_flag.Content = OPCSetStockTaskRoadMachine2Data.OPCRwFlag;
+                    this.label_stock_xdj2_action_type.Content = OPCSetStockTaskRoadMachine2Data.StockTaskType;
+                    this.label_stock_xdj2_position1.Content = OPCSetStockTaskRoadMachine2Data.PositionFloor;
+                    this.label_stock_xdj2_position2.Content = OPCSetStockTaskRoadMachine2Data.PositionColumn;
+                    this.label_stock_xdj2_position3.Content = OPCSetStockTaskRoadMachine2Data.PositionRow;
+                    this.label_stock_xdj2_box_type.Content = OPCSetStockTaskRoadMachine2Data.BoxType;
+                    this.label_stock_xdj2_reset_position_flag.Content = OPCSetStockTaskRoadMachine2Data.RestPositionFlag;
+                    this.label_stock_xdj2_tray_reverse_no.Content = OPCSetStockTaskRoadMachine2Data.TrayReverseNo;
+                    this.label_stock_xdj2_tray_num.Content = OPCSetStockTaskRoadMachine2Data.TrayNum;
+                    this.label_stock_xdj2_delivery_num.Content = OPCSetStockTaskRoadMachine2Data.DeliveryItemNum;
+                    this.label_stock_xdj2_barcode.Content = OPCSetStockTaskRoadMachine2Data.Barcode;
+                }
+                catch (Exception exx)
+                {
+
+                    LogUtil.Logger.Error(exx.Message, exx);
+                }
             }
             catch (Exception ex)
             {
@@ -562,6 +634,20 @@ namespace AGVCenterWPF
                         ItemValues.GetValue(i));
                 }
                 OPCOutRobootPickData.SetValue(NumItems, ClientHandles, ItemValues);
+
+
+                try
+                {
+                    this.label_outrobot_pick_rw_flag.Content = OPCOutRobootPickData.OPCRwFlag;
+                    this.label_outrobot_pick_box_type.Content = OPCOutRobootPickData.BoxType;
+                    this.label_outrobot_pick_trayno.Content = OPCOutRobootPickData.TrayNum;
+                     
+                }
+                catch (Exception exx)
+                {
+
+                    LogUtil.Logger.Error(exx.Message, exx);
+                }
             }
             catch (Exception ex)
             {
@@ -593,6 +679,27 @@ namespace AGVCenterWPF
                         ItemValues.GetValue(i));
                 }
                 OPCDataResetData.SetValue(NumItems, ClientHandles, ItemValues);
+
+
+                try
+                {
+                    this.label_xdj1_in_paltform_is_buff.Content = OPCDataResetData.Xdj1InPaltformIsBuff;
+                    this.label_xdj1_out_platform_is_buff_big.Content = OPCDataResetData.Xdj1OutPaltformIsBuffBig;
+                    this.label_xdj1_out_platform_is_buff_small.Content = OPCDataResetData.Xdj1OutPaltformIsBuffSmall;
+
+
+                    this.label_xdj2_in_paltform_is_buff.Content = OPCDataResetData.Xdj2InPaltformIsBuff;
+                    this.label_xdj2_out_platform_is_buff_big.Content = OPCDataResetData.Xdj2OutPaltformIsBuffBig;
+                    this.label_xdj2_out_platform_is_buff_small.Content = OPCDataResetData.Xdj2OutPaltformIsBuffSmall;
+
+                    this.label_outrobot_need_pick_trayno.Content = OPCDataResetData.OutrootNeedPickTrayCount;
+                    this.label_outroot_pick_count.Content = OPCDataResetData.OutrootPickCount;
+                }
+                catch (Exception exx)
+                {
+
+                    LogUtil.Logger.Error(exx.Message, exx);
+                }
             }
             catch (Exception ex)
             {
