@@ -576,6 +576,34 @@ namespace AGVCenterWPF
                 //        ItemValues.GetValue(i));
                 //}
                 OPCRoadMachine1TaskFeedData.SetValue(NumItems, ClientHandles, ItemValues);
+
+
+                try
+                {
+                    this.label_xdj1_state_current_position1.Content = OPCRoadMachine1TaskFeedData.CurrentPositionFloor;
+                    this.label_xdj1_state_current_position2.Content = OPCRoadMachine1TaskFeedData.CurrentPositionColumn;
+                    this.label_xdj1_state_current_position3.Content = OPCRoadMachine1TaskFeedData.CurrentPositionRow;
+
+                    this.label_xdj1_state_target_out_position1.Content = OPCRoadMachine1TaskFeedData.TargetOutPositionFloor;
+                    this.label_xdj1_state_target_out_position2.Content = OPCRoadMachine1TaskFeedData.TargetOutPositionColumn;
+                    this.label_xdj1_state_target_out_position3.Content = OPCRoadMachine1TaskFeedData.TargetOutPositionRow;
+
+                    this.label_xdj1_state_target_in_position1.Content = OPCRoadMachine1TaskFeedData.TargetInPositionFloor;
+                    this.label_xdj1_state_target_in_position2.Content = OPCRoadMachine1TaskFeedData.TargetInPositionColumn;
+                    this.label_xdj1_state_target_in_position3.Content = OPCRoadMachine1TaskFeedData.TargetInPositionRow;
+
+
+                    this.label_xdj1_state_current_state.Content = OPCRoadMachine1TaskFeedData.CurrentState;
+                    this.label_xdj1_state_err.Content = OPCRoadMachine1TaskFeedData.Error;
+                    this.label_xdj1_state_current_barcode.Content = OPCRoadMachine1TaskFeedData.CurrentBarcode;
+                    this.label_xdj1_state_position_barcode.Content = OPCRoadMachine1TaskFeedData.PositionBarcode;
+                }
+                catch (Exception exx)
+                {
+
+                    LogUtil.Logger.Error(exx.Message, exx);
+                }
+
             }
             catch (Exception ex)
             {
@@ -605,6 +633,32 @@ namespace AGVCenterWPF
                 //        ItemValues.GetValue(i));
                 //}
                 OPCRoadMachine2TaskFeedData.SetValue(NumItems, ClientHandles, ItemValues);
+
+                try
+                {
+                    this.label_xdj2_state_current_position1.Content = OPCRoadMachine2TaskFeedData.CurrentPositionFloor;
+                    this.label_xdj2_state_current_position2.Content = OPCRoadMachine2TaskFeedData.CurrentPositionColumn;
+                    this.label_xdj2_state_current_position3.Content = OPCRoadMachine2TaskFeedData.CurrentPositionRow;
+
+                    this.label_xdj2_state_target_out_position1.Content = OPCRoadMachine2TaskFeedData.TargetOutPositionFloor;
+                    this.label_xdj2_state_target_out_position2.Content = OPCRoadMachine2TaskFeedData.TargetOutPositionColumn;
+                    this.label_xdj2_state_target_out_position3.Content = OPCRoadMachine2TaskFeedData.TargetOutPositionRow;
+
+                    this.label_xdj2_state_target_in_position1.Content = OPCRoadMachine2TaskFeedData.TargetInPositionFloor;
+                    this.label_xdj2_state_target_in_position2.Content = OPCRoadMachine2TaskFeedData.TargetInPositionColumn;
+                    this.label_xdj2_state_target_in_position3.Content = OPCRoadMachine2TaskFeedData.TargetInPositionRow;
+
+
+                    this.label_xdj2_state_current_state.Content = OPCRoadMachine2TaskFeedData.CurrentState;
+                    this.label_xdj2_state_err.Content = OPCRoadMachine2TaskFeedData.Error;
+                    this.label_xdj2_state_current_barcode.Content = OPCRoadMachine2TaskFeedData.CurrentBarcode;
+                    this.label_xdj2_state_position_barcode.Content = OPCRoadMachine2TaskFeedData.PositionBarcode;
+                }
+                catch (Exception exx)
+                {
+
+                    LogUtil.Logger.Error(exx.Message, exx);
+                }
             }
             catch (Exception ex)
             {
@@ -641,7 +695,8 @@ namespace AGVCenterWPF
                     this.label_outrobot_pick_rw_flag.Content = OPCOutRobootPickData.OPCRwFlag;
                     this.label_outrobot_pick_box_type.Content = OPCOutRobootPickData.BoxType;
                     this.label_outrobot_pick_trayno.Content = OPCOutRobootPickData.TrayNum;
-                     
+                    
+
                 }
                 catch (Exception exx)
                 {
@@ -694,6 +749,11 @@ namespace AGVCenterWPF
 
                     this.label_outrobot_need_pick_trayno.Content = OPCDataResetData.OutrootNeedPickTrayCount;
                     this.label_outroot_pick_count.Content = OPCDataResetData.OutrootPickCount;
+
+
+                    this.label_xdj1_pickup_or_out_state.Content = OPCDataResetData.Xdj1CurentPickupOrOutState;
+
+                    this.label_xdj2_pickup_or_out_state.Content = OPCDataResetData.Xdj2CurentPickupOrOutState;
                 }
                 catch (Exception exx)
                 {
