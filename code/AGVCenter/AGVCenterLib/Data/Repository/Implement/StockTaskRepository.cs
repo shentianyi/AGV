@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AGVCenterLib.Data.Repository.Interface;
 using AGVCenterLib.Enum;
 using AGVCenterLib.Model;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Implement
 {
@@ -85,6 +86,30 @@ namespace AGVCenterLib.Data.Repository.Implement
         public List<StockTask> GetLast(int take = 300)
         {
             return this.context.StockTask.OrderByDescending(s => s.Id).Take(take).ToList();
+        }
+
+
+        public IQueryable<StockTask> Search(StockTaskSearchModel searchModel)
+        {
+            return null;
+            //var q = this.context.Position as IQueryable<Position>;
+
+            //if (!string.IsNullOrEmpty(searchModel.Nr))
+            //{
+            //    q = q.Where(s => s.Nr.Contains(searchModel.Nr));
+            //}
+
+            //if (!string.IsNullOrEmpty(searchModel.NrAct))
+            //{
+            //    q = q.Where(s => s.Nr == searchModel.NrAct);
+            //}
+
+            //if (searchModel.IsLocked.HasValue)
+            //{
+            //    q = q.Where(s => s.isLocked == searchModel.IsLocked);
+            //}
+
+            //return q;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AGVCenterLib.Enum;
 using AGVCenterLib.Model;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Interface
 {
@@ -32,5 +33,8 @@ namespace AGVCenterLib.Data.Repository.Interface
         StockTask GetByStatesAndRoadMachine(List<StockTaskState> states, int? roadMachineIndex = null);
 
         List<StockTask> GetLast(int take = 300);
+
+
+        IQueryable<StockTask> Search(StockTaskSearchModel searchModel);
     }
 }

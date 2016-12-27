@@ -95,6 +95,8 @@ namespace AGVCenterWPF
         System.Timers.Timer SetOPCStockTaskTimer;
         #endregion
 
+        SynchronizationContext uiContext;
+
         /// <summary>
         /// 初始化数据
         /// </summary>
@@ -102,6 +104,8 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            uiContext = SynchronizationContext.Current;
+
             #region 加载初始化数据
             if (BaseConfig.IsOPCConnector)
             {
@@ -129,7 +133,7 @@ namespace AGVCenterWPF
             {
                 this.ConnectOPC();
             }
-            
+
             /// 初始化定时器，用以分发任务
             if (BaseConfig.IsOPCConnector)
             {
@@ -456,7 +460,7 @@ namespace AGVCenterWPF
             if (OPCSetStockTaskRoadMachine1Data.CanWrite && RoadMachine1TaskQueue.Count > 0)
             {
                 StockTaskItem ii = RoadMachine1TaskQueue.Peek() as StockTaskItem;
-                if (ii.IsCanceled)
+                if (ii.ShouldDequeueStockTask)
                 {
                     RoadMachine1TaskQueue.Dequeue();
                 }
@@ -500,7 +504,7 @@ namespace AGVCenterWPF
             if (OPCSetStockTaskRoadMachine2Data.CanWrite && RoadMachine2TaskQueue.Count > 0)
             {
                 StockTaskItem ii = RoadMachine2TaskQueue.Peek() as StockTaskItem;
-                if (ii.IsCanceled)
+                if (ii.ShouldDequeueStockTask)
                 {
                     RoadMachine2TaskQueue.Dequeue();
                 }
@@ -779,7 +783,7 @@ namespace AGVCenterWPF
 
             lock (WriteTaskCenterQueueLocker)
             {
-                StockTaskItem taskItem = new StockTaskItem()
+                StockTaskItem taskItem = new StockTaskItem(this.uiContext)
                 {
                     Barcode = barcode,
                     StockTaskType = StockTaskType.IN
@@ -1076,7 +1080,7 @@ namespace AGVCenterWPF
             }
 
             /// 取消的任务直接删除
-            if ((queue.Peek() as StockTaskItem).IsCanceled)
+            if ((queue.Peek() as StockTaskItem).ShouldDequeueStockTask)
             {
                 queue.Dequeue();
             }
@@ -1500,7 +1504,7 @@ namespace AGVCenterWPF
                             foreach (var st in stockTasks)
                             {
 
-                                StockTaskItem taskItem = new StockTaskItem()
+                                StockTaskItem taskItem = new StockTaskItem(this.uiContext)
                                 {
                                     StockTaskType = StockTaskType.OUT,
                                     Barcode = st.BarCode,
@@ -1654,15 +1658,16 @@ namespace AGVCenterWPF
                 this.OPCOutRobootPickData.TrayNum = f.Value.FirstOrDefault().TrayNum;//f.Value.Count();
                 foreach (var taskItem in f.Value)
                 {
-                    taskItem.State = StockTaskState.RoadMachineWaitOutStock;
 
                     if (taskItem.RoadMachineIndex == 1)
                     {
+                        taskItem.State = StockTaskState.RoadMachineWaitOutStock;
                         // RoadMachine1TaskQueue.Add(taskItem.Barcode, taskItem);
                         RoadMachine1TaskQueue.Enqueue(taskItem);
                     }
                     else if (taskItem.RoadMachineIndex == 2)
                     {
+                        taskItem.State = StockTaskState.RoadMachineWaitOutStock;
                         //    RoadMachine2TaskQueue.Add(taskItem.Barcode, taskItem);
                         RoadMachine2TaskQueue.Enqueue(taskItem);
                     }

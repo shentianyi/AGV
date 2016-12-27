@@ -99,7 +99,7 @@ namespace AGVCenterWPF
 
         private StockTaskItem InitTaskItemByStockTask(StockTask task)
         {
-            return new StockTaskItem()
+            return new StockTaskItem(this.uiContext)
             {
                 RoadMachineIndex = task.RoadMachineIndex.HasValue ? task.RoadMachineIndex.Value : 0,
                 BoxType = task.BoxType.HasValue ? (byte)task.BoxType.Value : (byte)0,

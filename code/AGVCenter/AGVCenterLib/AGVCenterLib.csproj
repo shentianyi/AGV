@@ -135,6 +135,7 @@
     <Compile Include="Model\SearchModel\DeliverySearchModel.cs" />
     <Compile Include="Model\SearchModel\PositionSearchModel.cs" />
     <Compile Include="Model\SearchModel\StockMovementSearchModel.cs" />
+    <Compile Include="Model\SearchModel\StockTaskSearchModel.cs" />
     <Compile Include="Model\SearchModel\StorageSearchModel.cs" />
     <Compile Include="Model\SearchModel\UniqueItemSearchModel.cs" />
     <Compile Include="Model\StockTaskItem.cs" />

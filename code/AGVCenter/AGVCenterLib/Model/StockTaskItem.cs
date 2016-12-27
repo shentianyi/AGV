@@ -88,7 +88,14 @@ namespace AGVCenterLib.Model
             StockTaskState.RoadMachineWaitOutStock
         };
 
-        public StockTaskItem()
+        public StockTaskItem(SynchronizationContext _context):base(_context)
+        {
+            this.State = StockTaskState.Init;
+            this.IsInProcessing = false;
+            this.CreatedAt = DateTime.Now;
+        }
+
+        public StockTaskItem():base()
         {
             this.State = StockTaskState.Init;
             this.IsInProcessing = false;

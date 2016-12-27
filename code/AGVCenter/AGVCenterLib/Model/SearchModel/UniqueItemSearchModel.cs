@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AGVCenterLib.Model.SearchModel
 {
+    [DataContract]
     public class UniqueItemSearchModel
     {
         [DataMember]

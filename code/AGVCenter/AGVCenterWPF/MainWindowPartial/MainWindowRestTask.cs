@@ -371,7 +371,7 @@ namespace AGVCenterWPF
             {
                 ScanedBarCodeTB.Text = (int.Parse(ScanedBarCodeTB.Text) + 1).ToString();
             }
-            StockTaskItem taskItem = new StockTaskItem()
+            StockTaskItem taskItem = new StockTaskItem(this.uiContext)
             {
                 Barcode = ScanedBarCodeTB.Text,
                 StockTaskType = StockTaskType.IN,
