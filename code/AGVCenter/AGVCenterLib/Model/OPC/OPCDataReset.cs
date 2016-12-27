@@ -74,37 +74,113 @@ namespace AGVCenterLib.Model.OPC
         }
         #endregion
 
-
-        public void RestXdj1InPaltformIsBuff(OPCGroup group)
+        /// <summary>
+        /// 重置xdj1入库平台
+        /// </summary>
+        /// <param name="group"></param>
+        public void ResetXdj1InPaltformIsBuff(OPCGroup group)
         {
             int[] SyncItemServerHandles = new int[2];
             object[] SyncItemValues = new object[2];
             Array SyncItemServerErrors;
 
-            SyncItemValues[1] = false;
+            SyncItemValues[1] = !this.Xdj1InPaltformIsBuff;
 
             SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(1);
 
             group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
         }
 
-
-        public void RestXdj2InPaltformIsBuff(OPCGroup group)
+        /// <summary>
+        /// 重置xdj1出库大箱
+        /// </summary>
+        /// <param name="group"></param>
+        public void ResetXdj1OutPaltformIsBuffBig(OPCGroup group)
         {
             int[] SyncItemServerHandles = new int[2];
             object[] SyncItemValues = new object[2];
             Array SyncItemServerErrors;
 
-            SyncItemValues[1] = false;
+            SyncItemValues[1] = !this.Xdj1OutPaltformIsBuffBig;
 
-            SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(2);
+            SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(3);
 
             group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
         }
 
 
 
-        public void IncrOutrootPickCount(OPCGroup group)
+        /// <summary>
+        /// 重置xdj1出库小箱
+        /// </summary>
+        /// <param name="group"></param>
+        public void ResetXdj1OutPaltformIsBuffSmall(OPCGroup group)
+        {
+            int[] SyncItemServerHandles = new int[2];
+            object[] SyncItemValues = new object[2];
+            Array SyncItemServerErrors;
+
+            SyncItemValues[1] = !this.Xdj1OutPaltformIsBuffSmall;
+
+            SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(4);
+
+            group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
+        }
+
+
+        /// <summary>
+        /// 重置xdj2入库平台
+        /// </summary>
+        /// <param name="group"></param>
+        public void ResetXdj2InPaltformIsBuff(OPCGroup group)
+        {
+            int[] SyncItemServerHandles = new int[2];
+            object[] SyncItemValues = new object[2];
+            Array SyncItemServerErrors;
+
+            SyncItemValues[1] = !this.Xdj2InPaltformIsBuff;
+
+            SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(2);
+
+            group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
+        }
+
+        /// <summary>
+        /// 重置xdj2出库平台大箱
+        /// </summary>
+        /// <param name="group"></param>
+        public void ResetXdj2OutPaltformIsBuffBig(OPCGroup group)
+        {
+            int[] SyncItemServerHandles = new int[2];
+            object[] SyncItemValues = new object[2];
+            Array SyncItemServerErrors;
+
+            SyncItemValues[1] = !this.Xdj2OutPaltformIsBuffBig;
+
+            SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(5);
+
+            group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
+        }
+
+        /// <summary>
+        /// 重置xdj2出库平台小箱
+        /// </summary>
+        /// <param name="group"></param>
+        public void ResetXdj2OutPaltformIsBuffSmall(OPCGroup group)
+        {
+            int[] SyncItemServerHandles = new int[2];
+            object[] SyncItemValues = new object[2];
+            Array SyncItemServerErrors;
+
+            SyncItemValues[1] = !this.Xdj2OutPaltformIsBuffSmall;
+
+            SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(6);
+
+            group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
+        }
+
+
+        public void IncrOutrootPickCount(OPCGroup group,int x=1)
         {
             int[] SyncItemServerHandles = new int[2];
             object[] SyncItemValues = new object[2];
@@ -112,7 +188,7 @@ namespace AGVCenterLib.Model.OPC
 
             SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(8);
 
-            SyncItemValues[1] = this.OutrootPickCount + 1;
+            SyncItemValues[1] = this.OutrootPickCount + x;
             group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
         }
 

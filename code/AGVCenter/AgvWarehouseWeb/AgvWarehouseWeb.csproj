@@ -213,6 +213,7 @@
     <Compile Include="Controllers\DeliveryItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\StockMovementController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Controllers\UniqueItemController.cs" />
@@ -319,6 +320,7 @@
     <Content Include="Views\StockMovement\Index.cshtml" />
     <Content Include="Views\Delivery\Index.cshtml" />
     <Content Include="Views\DeliveryItem\Index.cshtml" />
+    <Content Include="Views\Position\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

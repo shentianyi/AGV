@@ -595,6 +595,7 @@ namespace AGVCenterWPF
 
                     this.label_xdj1_state_current_state.Content = OPCRoadMachine1TaskFeedData.CurrentState;
                     this.label_xdj1_state_err.Content = OPCRoadMachine1TaskFeedData.Error;
+                    this.label_xdj1_state_action_flag.Content = OPCRoadMachine1TaskFeedData.ActionFlag;
                     this.label_xdj1_state_current_barcode.Content = OPCRoadMachine1TaskFeedData.CurrentBarcode;
                     this.label_xdj1_state_position_barcode.Content = OPCRoadMachine1TaskFeedData.PositionBarcode;
                 }
@@ -651,6 +652,8 @@ namespace AGVCenterWPF
 
                     this.label_xdj2_state_current_state.Content = OPCRoadMachine2TaskFeedData.CurrentState;
                     this.label_xdj2_state_err.Content = OPCRoadMachine2TaskFeedData.Error;
+
+                    this.label_xdj2_state_action_flag.Content = OPCRoadMachine2TaskFeedData.ActionFlag;
                     this.label_xdj2_state_current_barcode.Content = OPCRoadMachine2TaskFeedData.CurrentBarcode;
                     this.label_xdj2_state_position_barcode.Content = OPCRoadMachine2TaskFeedData.PositionBarcode;
                 }

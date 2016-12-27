@@ -1,0 +1,179 @@
+﻿@using MvcPaging;
+
+@model IPagedList<AGVCenterLib.Data.Position>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row" style="margin:0;">
+    <div class="col-md-12">
+        <form action="/Position/Search" method="get">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>库位号</span>
+                    <input type="text" name="Nr" id="Nr" placeholder="库位号" value="@ViewBag.Query.Nr" />
+                </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>库位号(精确)</span>
+                        <input type="text" name="NrAct" id="NrAct" placeholder="库位号" value="@ViewBag.Query.NrAct" />
+                    </div>
+                </div>
+            <div class="marco-igroup-primary">
+                <span>
+                    是否锁定
+                    <select name="IsLocked" id="IsLocked">
+                        @if (ViewBag.Query.IsLocked == null)
+                        {
+                        <option value=""></option>
+                        <option value="True">是</option>
+                        <option value="False">否</option>
+                        }
+                        else if (ViewBag.Query.IsLocked)
+                        {
+                            <option value=""></option>
+                            <option value="True" selected>是</option>
+                            <option value="False">否</option>
+                        }
+                        else
+                        {
+                            <option value=""></option>
+                            <option value="True">是</option>
+                            <option value="False" selected>否</option>
+                        }
+                    </select>
+                </span>
+                      <button type="submit" class="marco-btn-success" style="margin-left:0;">
+                          <i class="glyphicon glyphicon-search"></i>
+                          搜索
+                      </button>
+            </div> 
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Nr
+        </th>
+        <th>
+            WarehouseNr
+        </th>
+        <th>
+            Floor
+        </th>
+        <th>
+            Column
+        </th>
+        <th>
+            Row
+        </th>
+        <th>
+            State
+        </th>
+        <th>
+            RoadMachineIndex
+        </th>
+        <th>
+            KSK Nr
+        </th>
+        <th>
+            isLocked
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WarehouseNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Floor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Column)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Row)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoadMachineIndex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StorageUniqItemNr)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.isLocked)*@
+            @if (item.isLocked)
+            {
+                <a href="#" class="option-icon-danger" title="点击解锁" onclick="lock('@item.Nr')">
+                    <i class="fa fa-lock"></i>
+                </a>
+            }
+            else
+            {
+
+                <a href="#" class="option-icon-danger" title="点击锁定" onclick="lock('@item.Nr')">
+                    <i class="fa fa-unlock"></i>
+                </a>
+            }
+
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Nr }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Nr }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Nr })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<div class="col-sm-12" style="text-align:center;">
+    <div class="clearfix pagination">
+        <div class="pagination-inner">
+            @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
+                        .Options(o => o.AddRouteValue("NrAct", ViewBag.Query.NrAct))
+                        .Options(o => o.AddRouteValue("IsLocked", ViewBag.Query.IsLocked));
+                    @html
+                }
+                else
+                {
+                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  function lock(nr){
+        if(confirm('确定操作？')){
+            $.post('/Position/LockUnLockPosition', { positionNr: nr }, function (data) {
+                if(data.Success){
+                    alert('操作成功！');
+                    window.location.reload();
+                } else {
+                    alert('操作失败：'+data.Content);
+                }
+            },'json');
+        }
+  }
+</script>

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
- 
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Implement
 {
@@ -73,6 +73,28 @@ namespace AGVCenterLib.Data.Repository.Implement
             {
                 return null;
             }
+        }
+
+        public IQueryable<Position> Search(PositionSearchModel searchModel)
+        {
+            var q = this.context.Position as IQueryable<Position>;
+
+            if (!string.IsNullOrEmpty(searchModel.Nr))
+            {
+                q = q.Where(s => s.Nr.Contains(searchModel.Nr));
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.NrAct))
+            {
+                q = q.Where(s => s.Nr == searchModel.NrAct);
+            }
+
+            if (searchModel.IsLocked.HasValue)
+            {
+                q = q.Where(s => s.isLocked == searchModel.IsLocked);
+            }
+
+            return q;
         }
     }
 }

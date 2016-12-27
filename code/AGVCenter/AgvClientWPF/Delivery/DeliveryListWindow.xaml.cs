@@ -119,6 +119,7 @@ namespace AgvClientWPF.Delivery
                 if (MessageBox.Show("确定？", "确定？", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes) {
                     DeliveryServiceClient dsc = new DeliveryServiceClient();
                     dsc.DeleteDeliveryForTest(d.Nr);
+                    LoadDeliveryList();
                 } 
             }
         }

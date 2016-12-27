@@ -307,46 +307,63 @@ namespace AGVCenterWPF
                     {
                         if (prevRoadMahineIndex == 1)
                         {
-                            if (BaseConfig.RoadMachine2Enabled)
+                            if (BaseConfig.RoadMachine2Enabled && !OPCDataResetData.Xdj2InPaltformIsBuff)
                             {
                                 roadMachineIndex = 2;
                             }
-                        }
-                        else
-                        {
-                            if (BaseConfig.RoadMachine1Enabled)
+                            else if (BaseConfig.RoadMachine1Enabled && !OPCDataResetData.Xdj1InPaltformIsBuff)
                             {
                                 roadMachineIndex = 1;
                             }
                         }
-                    }
-                    else if (RoadMachine1TaskQueue.Count == 0)
-                    {
-                        if (BaseConfig.RoadMachine1Enabled)
+                        else
                         {
-                            roadMachineIndex = 1;
+                            if (BaseConfig.RoadMachine1Enabled && !OPCDataResetData.Xdj1InPaltformIsBuff)
+                            {
+                                roadMachineIndex = 1;
+                            }
+                            else if (BaseConfig.RoadMachine2Enabled && !OPCDataResetData.Xdj2InPaltformIsBuff)
+                            {
+                                roadMachineIndex = 2;
+                            }
                         }
+                        //if (prevRoadMahineIndex == 1)
+                        //{
+                        //    if (!OPCDataResetData.Xdj2InPaltformIsBuff)
+                        //    {
+                        //        if (BaseConfig.RoadMachine2Enabled)
+                        //        {
+                        //            roadMachineIndex = 2;
+                        //        }
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (!OPCDataResetData.Xdj1InPaltformIsBuff)
+                        //    {
+                        //        if (BaseConfig.RoadMachine1Enabled)
+                        //        {
+                        //            roadMachineIndex = 1;
+                        //        }
+                        //    }
+                        //}
                     }
-                    else if (RoadMachine2TaskQueue.Count == 0)
+                    else if (RoadMachine1TaskQueue.Count == 0 && (!OPCDataResetData.Xdj1InPaltformIsBuff) && BaseConfig.RoadMachine1Enabled)
                     {
-                        if (BaseConfig.RoadMachine2Enabled)
-                        {
-                            roadMachineIndex = 2;
-                        }
+                        roadMachineIndex = 1;
                     }
-                    else if (this.NotHasRoadMachineBuffingTask(1))
+                    else if (RoadMachine2TaskQueue.Count == 0 && (!OPCDataResetData.Xdj2InPaltformIsBuff) && BaseConfig.RoadMachine2Enabled)
                     {
-                        if (BaseConfig.RoadMachine1Enabled)
-                        {
-                            roadMachineIndex = 1;
-                        }
+                        roadMachineIndex = 2;
                     }
-                    else if (this.NotHasRoadMachineBuffingTask(2))
+                    else if (this.NotHasRoadMachineBuffingTask(1) && (!OPCDataResetData.Xdj1InPaltformIsBuff) && BaseConfig.RoadMachine1Enabled)
                     {
-                        if (BaseConfig.RoadMachine2Enabled)
-                        {
-                            roadMachineIndex = 2;
-                        }
+                        roadMachineIndex = 1;
+
+                    }
+                    else if (this.NotHasRoadMachineBuffingTask(2) && (!OPCDataResetData.Xdj2InPaltformIsBuff) && BaseConfig.RoadMachine2Enabled)
+                    {
+                        roadMachineIndex = 2;
                     }
                     else
                     {
@@ -366,11 +383,7 @@ namespace AGVCenterWPF
                         //return;
                     }
 
-                    prevRoadMahineIndex = roadMachineIndex;
-
-                    taskItem.RoadMachineIndex = roadMachineIndex;
-                    taskItem.State = StockTaskState.RoadMachineStockBuffing;
-
+                  
                     if (roadMachineIndex == 1)
                     {
                         OPCInRobootPickData.BoxType = taskItem.BoxType;
@@ -391,8 +404,14 @@ namespace AGVCenterWPF
                         //RoadMachine2TaskQueue.Add(taskItem.Barcode, taskItem);
                         RoadMachine2TaskQueue.Enqueue(taskItem);
                     }
+
                     if (roadMachineIndex != 0)
                     {
+                        prevRoadMahineIndex = roadMachineIndex;
+
+                        taskItem.RoadMachineIndex = roadMachineIndex;
+                        taskItem.State = StockTaskState.RoadMachineStockBuffing;
+                        
                         if (OPCInRobootPickData.SyncWrite(OPCInRobootPickOPCGroup))
                         {
                             InRobootPickQueue.Dequeue();
@@ -1711,8 +1730,8 @@ namespace AGVCenterWPF
                 return position;
             }
         }
-        #endregion
 
+        #endregion
 
     }
 }

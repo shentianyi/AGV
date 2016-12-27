@@ -5,6 +5,7 @@ using System.Text;
 using AGVCenterLib.Data;
 using AGVCenterLib.Data.Repository.Implement;
 using AGVCenterLib.Data.Repository.Interface;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Service
 {
@@ -87,11 +88,26 @@ namespace AGVCenterLib.Service
             this.Context.SaveAll();
         }
 
+        public IQueryable<Position> Search(PositionSearchModel searchModel)
+        {
+            return new PositionRepository(this.Context).Search(searchModel);
+        }
+
+
         public void CreatePosition( Position position)
         {
             IPositionRepository posiRep = new PositionRepository(this.Context);
             posiRep.Create(position);
             this.Context.SaveAll();
         }
+
+        public void LockUnlockPosotion(string positionNr)
+        {
+            Position p = new PositionRepository(this.Context).FindByNr(positionNr);
+            p.isLocked =! p.isLocked;
+            this.Context.SaveAll();
+        }
     }
+
+
 }

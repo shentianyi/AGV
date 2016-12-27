@@ -50,6 +50,7 @@ namespace AGVCenterLib.Model.OPC
         }
         #endregion
 
+  
 
         /// <summary>
         /// 设置值

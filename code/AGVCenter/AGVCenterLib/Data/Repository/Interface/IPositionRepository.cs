@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AGVCenterLib.Model;
+using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Interface
 {
@@ -25,6 +26,8 @@ namespace AGVCenterLib.Data.Repository.Interface
         void Creates(List<Position> entities);
 
         void DeleteAll();
-        
+
+        IQueryable<Position> Search(PositionSearchModel searchModel);
+
     }
 }

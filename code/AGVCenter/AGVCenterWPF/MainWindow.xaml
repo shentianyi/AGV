@@ -448,11 +448,13 @@
                         <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
                         <Label Content="S7:[S7 connection_1]DB308,B260.inrobot_pick_rw_flag" Width="450" Background="LightYellow"></Label>
                         <Label Content="" Name="label_inrobot_pick_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
+                            <Button Content="重置" Name="restInRobotRWFlagFlag" Click="restInRobotRWFlagFlag_Click"/>
+                     </StackPanel>
                     <StackPanel Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                         <Label Content="【箱型】" Background="LightBlue" Width="150"></Label>
                         <Label Content="S7:[S7 connection_1]DB308,B261.inrobot_pick_box_type" Width="450" Background="LightYellow"></Label>
                         <Label Content="" Name="label_inrobot_pick_box_type" MinWidth="50" Background="LightSkyBlue"></Label>
+                      
                     </StackPanel>
 
                     <Label Content="巷道机1库存任务：" FontSize="13" Background="LightGreen" Grid.Row="9"/>
@@ -515,17 +517,20 @@
                         <Label Content="【入库平台有货】" Background="LightBlue" Width="150"></Label>
                         <Label Content="S7:[S7 connection_1]DB68,X10.0.xdj1_in_platform_is_buff" Width="450" Background="LightYellow"></Label>
                         <Label Content="" Name="label_xdj1_in_paltform_is_buff" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="resetXDJ1InIsBuff" Click="resetXDJ1InIsBuff_Click" ></Button>
                     </StackPanel>
                     <StackPanel Grid.Row="22" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                         <Label Content="【出库平台有大箱】" Background="LightBlue" Width="150"></Label>
                         <Label Content="S7:[S7 connection_1]DB10,X24.0.xdj1_out_platform_is_buff_big" Width="450" Background="LightYellow"></Label>
                         <Label Content="" Name="label_xdj1_out_platform_is_buff_big" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
+                            <Button Content="重置" Name="resetXDJ1OutIsBuffBig" Click="resetXDJ1OutIsBuffBig_Click"></Button>
+                        </StackPanel>
                     <StackPanel Grid.Row="23" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                         <Label Content="【出库平台有小箱】" Background="LightBlue" Width="150"></Label>
                         <Label Content="S7:[S7 connection_1]DB10,X24.1.xdj1_out_platform_is_buff_small" Width="450" Background="LightYellow"></Label>
                         <Label Content="" Name="label_xdj1_out_platform_is_buff_small" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
+                            <Button Content="重置" Name="resetXDJ1OutIsBuffSmall" Click="resetXDJ1OutIsBuffSmall_Click"></Button>
+                        </StackPanel>
 
 
 
@@ -589,18 +594,21 @@
                         </StackPanel>
                         <StackPanel Grid.Row="36" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                             <Label Content="【入库平台有货】" Background="LightBlue" Width="150"></Label>
-                            <Label Content="S7:[S7 connection_1]DB308,B550.String.254.stock_xdj2_barcode" Width="450" Background="LightYellow"></Label>
+                            <Label Content="S7:[S7 connection_1]DB68,X10.1.xdj2_in_platform_is_buff" Width="450" Background="LightYellow"></Label>
                             <Label Content="" Name="label_xdj2_in_paltform_is_buff" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="resetXDJ2InIsBuff" Click="resetXDJ2InIsBuff_Click"></Button>
                         </StackPanel>
                         <StackPanel Grid.Row="37" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                             <Label Content="【出库平台有大箱】" Background="LightBlue" Width="150"></Label>
                             <Label Content="S7:[S7 connection_1]DB10,X24.2.xdj2_out_platform_is_buff_big" Width="450" Background="LightYellow"></Label>
                             <Label Content="" Name="label_xdj2_out_platform_is_buff_big" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="resetXDJ2OutIsBuffBig" Click="resetXDJ2OutIsBuffBig_Click"></Button>
                         </StackPanel>
                         <StackPanel Grid.Row="38" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                             <Label Content="【出库平台有小箱】" Background="LightBlue" Width="150"></Label>
                             <Label Content="S7:[S7 connection_1]DB10,X24.3.xdj2_out_platform_is_buff_small" Width="450" Background="LightYellow"></Label>
                             <Label Content="" Name="label_xdj2_out_platform_is_buff_small" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="resetXDJ2OutIsBuffSmall" Click="resetXDJ2OutIsBuffSmall_Click"></Button>
                         </StackPanel>
 
 
@@ -629,6 +637,8 @@
                             <Label Content="【已码垛箱数】" Background="LightBlue" Width="150"></Label>
                             <Label Content="S7:[S7 connection_1]DB68,W18.outroot_pick_count" Width="450" Background="LightYellow"></Label>
                             <Label Content="" Name="label_outroot_pick_count" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="+ 1" Width="30" Name="OutrootPickCountIncrBtn" Click="reseOutrootPickCountIncrBtn_Click"></Button>
+                            <Button Content="- 1" Width="30" Name="OutrootPickCountDecrBtn" Click="reseOutrootPickCountDecrBtn_Click" ></Button>
                         </StackPanel>
 
 
@@ -640,7 +650,7 @@
                         </StackPanel>
                         <StackPanel Grid.Row="47" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                             <Label Content="【当前列】" Background="LightBlue" Width="150"></Label>
-                            <Label Content="" Width="450" Background="LightYellow"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B808.int.xdj1_state_current_position2" Width="450" Background="LightYellow"></Label>
                             <Label Content="" Name="label_xdj1_state_current_position2" MinWidth="50" Background="LightSkyBlue"></Label>
                         </StackPanel>
                         <StackPanel Grid.Row="48" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">

@@ -212,6 +212,11 @@ namespace AGVCenterWPF
             }
         }
 
+        /// <summary>
+        /// 手动入库
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void manInButton_Click(object sender, RoutedEventArgs e)
         {
             if (CenterStockTaskDisplayDG.SelectedIndex > -1)
@@ -237,7 +242,11 @@ namespace AGVCenterWPF
         }
 
 
-
+        /// <summary>
+        /// 手动出库
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void manOutButton_Click(object sender, RoutedEventArgs e)
         {
             if (CenterStockTaskDisplayDG.SelectedIndex > -1)
@@ -270,7 +279,7 @@ namespace AGVCenterWPF
         {
             if(MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes)
             {
-                OPCDataResetData.RestXdj1InPaltformIsBuff(OPCDataResetOPCGroup);
+                OPCDataResetData.ResetXdj1InPaltformIsBuff(OPCDataResetOPCGroup);
             }
         }
 
@@ -284,7 +293,7 @@ namespace AGVCenterWPF
         {
             if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                OPCDataResetData.RestXdj2InPaltformIsBuff(OPCDataResetOPCGroup);
+                OPCDataResetData.ResetXdj2InPaltformIsBuff(OPCDataResetOPCGroup);
             }
         }
         #endregion
@@ -339,11 +348,7 @@ namespace AGVCenterWPF
             if (AgvScanTaskQueue != null)
             {
                 AgvScanTaskQueue.Clear();
-            }
-            
-
-            
- 
+            } 
             if (TaskCenterForDisplayQueue != null)
             {
                 TaskCenterForDisplayQueue.Clear();
@@ -428,6 +433,96 @@ namespace AGVCenterWPF
 
             }
             BaseConfig.PreScanBar = string.Empty;
+        }
+
+
+        /// <summary>
+        /// 重置入库机械手
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void restInRobotRWFlagFlag_Click(object sender, RoutedEventArgs e)
+        {
+            OPCInRobootPickData.ResetReadWriteFlag(OPCInRobootPickOPCGroup);
+        }
+
+
+        /// <summary>
+        /// 重置巷道机1入库平台是否有货
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void resetXDJ1InIsBuff_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                OPCDataResetData.ResetXdj1InPaltformIsBuff(OPCDataResetOPCGroup);
+            }
+        }
+
+
+
+        private void resetXDJ1OutIsBuffBig_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                OPCDataResetData.ResetXdj1OutPaltformIsBuffBig(OPCDataResetOPCGroup);
+            }
+        }
+
+        private void resetXDJ1OutIsBuffSmall_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                OPCDataResetData.ResetXdj1OutPaltformIsBuffSmall(OPCDataResetOPCGroup);
+            }
+        }
+
+        /// <summary>
+        /// 重置巷道机2入库平台是否有货
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void resetXDJ2InIsBuff_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                OPCDataResetData.ResetXdj2InPaltformIsBuff(OPCDataResetOPCGroup);
+            }
+        } 
+
+        private void resetXDJ2OutIsBuffBig_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                OPCDataResetData.ResetXdj2OutPaltformIsBuffBig(OPCDataResetOPCGroup);
+            }
+        }
+
+        private void resetXDJ2OutIsBuffSmall_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                OPCDataResetData.ResetXdj2OutPaltformIsBuffSmall(OPCDataResetOPCGroup);
+            }
+        }
+
+
+
+        private void reseOutrootPickCountIncrBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确定加1？", "确定加1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup,1);
+            }
+        }
+
+        private void reseOutrootPickCountDecrBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("确定减1？", "确定减1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup, -1);
+            }
         }
         #endregion
     }
