@@ -1,0 +1,198 @@
+﻿@using MvcPaging;
+
+@model IPagedList<AGVCenterLib.Data.StockTask>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row" style="margin:0;">
+    <div class="col-md-12">
+        <form action="/StockTask/Search" method="get">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>KSK 号</span>
+                    <input type="text" name="UniqItemNr" id="UniqItemNr" placeholder="KSK 号" value="@ViewBag.Query.UniqItemNr" />
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>库位号</span>
+                    <input type="text" name="PositionNr" id="PositionNr" placeholder="库位号" value="@ViewBag.Query.PositionNr" />
+                    <button type="submit" class="marco-btn-success" style="margin-left:0;">
+                        <i class="glyphicon glyphicon-search"></i>
+                        搜索
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>&nbsp;</th>
+        <th>
+            RoadMachineIndex
+        </th>
+        <th>
+            BoxType
+        </th>
+        <th>
+            PositionNr
+        </th>
+        <th>
+            PositionFloor
+        </th>
+        <th>
+            PositionColumn
+        </th>
+        <th>
+            PositionRow
+        </th>
+        <th>
+            AgvPassFlag
+        </th>
+        <th>
+            RestPositionFlag
+        </th>
+        <th>
+            BarCode
+        </th>
+        <th>
+            State
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            TrayReverseNo
+        </th>
+        <th>
+            TrayNum
+        </th>
+        <th>
+            DeliveryItemNum
+        </th>
+        <th>
+            DeliveryBatchId
+        </th>
+        <th>
+            TrayBatchId
+        </th>
+        <th>
+            CreatedAt
+        </th>
+        <th>
+            UpdatedAt
+        </th>
+        <th>
+            IsCannotInStockState
+        </th>
+        <th>
+            StateStr
+        </th>
+        <th></th>
+    </tr>
+
+@if (Model != null)
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@(i += 1)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoadMachineIndex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BoxType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionFloor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionRow)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgvPassFlag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestPositionFlag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrayReverseNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrayNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryItemNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryBatchId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrayBatchId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCannotInStockState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateStr)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+}
+</table>
+
+
+<div class="col-sm-12" style="text-align:center;">
+    <div class="clearfix pagination">
+        <div class="pagination-inner">
+            @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("PositionNr", ViewBag.Query.PositionNr))
+                        .Options(o => o.AddRouteValue("UniqItemNr", ViewBag.Query.UniqItemNr));
+                    @html
+                }
+                else
+                {
+                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                }
+            }
+        </div>
+    </div>
+</div>

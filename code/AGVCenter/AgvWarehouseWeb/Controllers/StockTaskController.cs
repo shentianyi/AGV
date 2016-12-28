@@ -3,15 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AGVCenterLib.Data;
+using AGVCenterLib.Model.SearchModel;
+using AGVCenterLib.Service;
+using AgvWarehouseWeb.Helpers;
+using AgvWarehouseWeb.Properties;
+using MvcPaging;
 
 namespace AgvWarehouseWeb.Controllers
 {
     public class StockTaskController : Controller
     {
         // GET: StockTask
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View();
+            int pageIndex = PagingHelper.GetPageIndex(page);
+            StockTaskService ps = new StockTaskService(Settings.Default.db);
+            var q = new StockTaskSearchModel();
+
+            IPagedList<StockTask> items =
+                ps.Search(q)
+                .ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+            return View(items);
+        }
+
+
+        public ActionResult Search([Bind(Include = "UniqItemNr,PositionNr")]  StockTaskSearchModel q)
+        {
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            StockTaskService ps = new StockTaskService(Settings.Default.db);
+
+            IPagedList<StockTask> items =
+                ps.Search(q)
+                .ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            return View("Index", items);
         }
 
         // GET: StockTask/Details/5

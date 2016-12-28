@@ -90,26 +90,22 @@ namespace AGVCenterLib.Data.Repository.Implement
 
 
         public IQueryable<StockTask> Search(StockTaskSearchModel searchModel)
-        {
-            return null;
-            //var q = this.context.Position as IQueryable<Position>;
+        { 
+            var q = this.context.StockTask as IQueryable<StockTask>;
 
-            //if (!string.IsNullOrEmpty(searchModel.Nr))
-            //{
-            //    q = q.Where(s => s.Nr.Contains(searchModel.Nr));
-            //}
+            if (!string.IsNullOrEmpty(searchModel.UniqItemNr))
+            {
+                q = q.Where(s => s.BarCode.Contains(searchModel.UniqItemNr));
+            }
 
-            //if (!string.IsNullOrEmpty(searchModel.NrAct))
-            //{
-            //    q = q.Where(s => s.Nr == searchModel.NrAct);
-            //}
+            if (!string.IsNullOrEmpty(searchModel.PositionNr))
+            {
+                q = q.Where(s => s.PositionNr.Contains(searchModel.PositionNr));
+            }
 
-            //if (searchModel.IsLocked.HasValue)
-            //{
-            //    q = q.Where(s => s.isLocked == searchModel.IsLocked);
-            //}
+            
 
-            //return q;
+            return q;
         }
     }
 }

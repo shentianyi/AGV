@@ -30,6 +30,22 @@ namespace AgvWarehouseWeb.Controllers
             return View(items);
         }
 
+        public ActionResult Search([Bind(Include = "UniqItemNr,PositionNr")]  StockMovementSearchModel q)
+        {
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            StockMovementService ps = new StockMovementService(Settings.Default.db);
+            IPagedList<StockMovement> items =
+               ps.Search(q)
+               .ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            return View("Index", items);
+        }
+
         // GET: StockMovement/Details/5
         public ActionResult Details(int id)
         {

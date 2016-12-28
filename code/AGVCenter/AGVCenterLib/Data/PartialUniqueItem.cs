@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AGVCenterLib.Enum;
+using Brilliantech.Framwork.Utils.EnumUtil;
 
 namespace AGVCenterLib.Data
 {
@@ -30,6 +31,12 @@ namespace AGVCenterLib.Data
                 return BoxType.GetStr(this.BoxTypeId);
             }
         }
-
+        public string StateStr
+        {
+            get
+            {
+                return EnumUtil.GetDescription((UniqueItemState)this.State);
+            }
+        }
     }
 }

@@ -24,8 +24,22 @@ namespace AGVCenterLib.Data.Repository.Implement
         }
 
         public IQueryable<StockMovement> Search(StockMovementSearchModel searchModel)
-        {
-            return this.context.StockMovement;
-        }
+        {    
+            var q = this.context.StockMovement as IQueryable<StockMovement>;
+
+            if (!string.IsNullOrEmpty(searchModel.UniqItemNr))
+            {
+                q = q.Where(s => s.UniqItemNr.Contains(searchModel.UniqItemNr));
+            }
+
+
+            if (!string.IsNullOrEmpty(searchModel.PositionNr))
+            {
+                q = q.Where(s => s.SourcePosition.Contains(searchModel.PositionNr)
+                || s.AimedPosition.Contains(searchModel.PositionNr));
+            }
+
+            return q;
+        } 
     }
 }

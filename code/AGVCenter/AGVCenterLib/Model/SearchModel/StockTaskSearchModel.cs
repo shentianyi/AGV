@@ -11,5 +11,8 @@ namespace AGVCenterLib.Model.SearchModel
     {
         [DataMember]
         public string UniqItemNr { get; set; }
+
+        [DataMember]
+        public string PositionNr { get; set; }
     }
 }

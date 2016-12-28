@@ -27,6 +27,7 @@
 </div>
 <table class="table">
     <tr>
+        <th>&nbsp;</th>
         <th>
             Nr
         </th>
@@ -43,32 +44,37 @@
 </th>
         @*<th></th>*@
     </tr>
+@if (Model != null)
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@(i += 1)</td>
+            <td>
+                <a href="DeliveryItem/Search?DeliveryNr=@item.Nr">@Html.DisplayFor(modelItem => item.Nr)</a>
+            </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <a href="DeliveryItem/Search?DeliveryNr=@item.Nr">@Html.DisplayFor(modelItem => item.Nr)</a>
-        </td>
-      
-        <td>
-            @Html.DisplayFor(modelItem => item.CanSend)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StateStr)
-        </td><td>
-    @Html.DisplayFor(modelItem => item.CreatedAt)
-</td>
-<td>
-    @Html.DisplayFor(modelItem => item.UpdatedAt)
-</td>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Nr }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Nr }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Nr })
-        </td>*@
-    </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CanSend)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Nr }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Nr }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Nr })
+                </td>*@
+        </tr>
+    }
 }
-
 </table>
 <div class="col-sm-12" style="text-align:center;">
     <div class="clearfix pagination">

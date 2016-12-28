@@ -322,10 +322,10 @@
     <Content Include="Views\Delivery\Index.cshtml" />
     <Content Include="Views\DeliveryItem\Index.cshtml" />
     <Content Include="Views\Position\Index.cshtml" />
+    <Content Include="Views\StockTask\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\StockTask\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

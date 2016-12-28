@@ -9,6 +9,7 @@ using AGVCenterLib.Enum;
 using AGVCenterLib.Model;
 using AGVCenterLib.Model.Message;
 using AGVCenterLib.Model.OPC;
+using AGVCenterLib.Model.SearchModel;
 using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace AGVCenterLib.Service
@@ -271,6 +272,11 @@ namespace AGVCenterLib.Service
         public List<StockTask> GetLastTasks(int take = 300)
         {
             return new StockTaskRepository(this.Context).GetLast(take);
+        }
+
+        public IQueryable<StockTask> Search(StockTaskSearchModel searchModel)
+        {
+            return new StockTaskRepository(this.Context).Search(searchModel);
         }
     }
 }
