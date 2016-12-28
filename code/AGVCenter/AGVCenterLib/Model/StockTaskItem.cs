@@ -55,7 +55,7 @@ namespace AGVCenterLib.Model
             StockTaskState.RoadMachineOutStockInit
         };
         public static List<StockTaskState> ShouldDequeueStockTaskStates = new List<StockTaskState>() {
-            StockTaskState.IsCanceled,
+            StockTaskState.Canceled,
             StockTaskState.ManInStocked,
             StockTaskState.ManOutStocked
         };
