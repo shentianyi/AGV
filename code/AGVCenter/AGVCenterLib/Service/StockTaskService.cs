@@ -48,6 +48,12 @@ namespace AGVCenterLib.Service
             task.DbId = st.Id;
             return true;
         }
+        public void CreateTask(StockTask st)
+        {
+            IStockTaskRepository stRep = new StockTaskRepository(this.Context);
+            stRep.Create(st);
+            this.Context.SaveAll();
+        }
 
         /// <summary>
         /// 更新任务状态
@@ -216,7 +222,8 @@ namespace AGVCenterLib.Service
         /// <returns></returns>
         public List<StockTask> GetInitOutStockTasksAndUpdateState(List<string> dispatchedBatchId)
         {
-            IStockTaskRepository stockTaskRep = new StockTaskRepository(this.Context);
+            dispatchedBatchId = new List<string>();
+               IStockTaskRepository stockTaskRep = new StockTaskRepository(this.Context);
             List<StockTask> tasks = new List<StockTask>();
             // 等待执行的任务
             List<StockTask> waitTasks = stockTaskRep.GetByState(StockTaskState.RoadMachineWaitOutStock);
@@ -225,8 +232,8 @@ namespace AGVCenterLib.Service
             // 执行中的任务
             List<StockTask> outingTasks = stockTaskRep.GetByState(StockTaskState.RoadMachineOutStocking);
 
-            if (waitTasks.Count == 0 && waitDispatchTasks.Count == 0 && outingTasks.Count==0)
-            {
+            //if (waitTasks.Count == 0 && waitDispatchTasks.Count == 0 && outingTasks.Count==0)
+            //{
                tasks = stockTaskRep
                     .GetByState(StockTaskState.RoadMachineOutStockInit)
                     .Where(s => (!dispatchedBatchId.Contains(s.TrayBatchId)))
@@ -242,7 +249,7 @@ namespace AGVCenterLib.Service
                     stockTaskRep.UpdateTasksState(tasks.Select(s => s.Id).ToList(),
                         StockTaskState.RoadMachineWaitOutStockDispatch);
                 }
-            }
+            //}
             return tasks;
         }
 

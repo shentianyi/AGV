@@ -15,8 +15,8 @@ namespace AGVCenterWPF
         System.Timers.Timer monitorTaskTimer;
         private void InitMonitorFields()
         {
-            TaskCenterForDisplayQueue = new List<StockTaskItem>();
-      
+         TaskCenterForDisplayQueue = new List<StockTaskItem>();
+            //     TaskCenterForDisplayQueue = new System.Collections.ObjectModel.ObservableCollection<StockTaskItem>();
 
             this.Dispatcher.Invoke(new Action(() =>
             {

@@ -1160,8 +1160,25 @@ namespace AGVCenterWPF
             {
                 while (receiveMessageQueue.Count > 0)
                 {
-                    StockTaskService sts = new StockTaskService(OPCConfig.DbString);
-                    sts.UpdateTaskState(receiveMessageQueue.Dequeue() as StockTask);
+                    //   StockTaskService sts = new StockTaskService(OPCConfig.DbString);
+                    //   sts.UpdateTaskState(receiveMessageQueue.Dequeue() as StockTask);
+
+
+                    try
+                    {
+                        StockTask st = receiveMessageQueue.Dequeue() as StockTask;
+                        StockTaskService sts = new StockTaskService(OPCConfig.DbString);
+                        sts.UpdateTaskState(st);
+                        //Thread.Sleep(100);
+
+                        LogUtil.Logger.InfoFormat("【后台更新任务】任务ID:{0}", st.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogUtil.Logger.Error(ex.Message, ex);
+
+                    }
+
                 }
 
                 receivedEvent.WaitOne();
@@ -1358,19 +1375,6 @@ namespace AGVCenterWPF
                 MessageBox.Show("不存在任务，OPC暂不可以读取入库数据");
             }
         }
-
-        /// <summary>
-        /// 更新显示列表
-        /// </summary>
-        private void RefreshList()
-        {
-            this.Dispatcher.Invoke(new Action(() =>
-            {
-                CenterStockTaskDisplayDG.Items.Refresh();
-
-            }));
-        }
-
         /// <summary>
         /// 关闭窗口时
         /// </summary>
@@ -1481,7 +1485,7 @@ namespace AGVCenterWPF
                 {
                     int c1 = RoadMachine1TaskQueue.ToArray().Where(s => (s as StockTaskItem).StockTaskType == StockTaskType.OUT).Count();
                     int c2 = RoadMachine2TaskQueue.ToArray().Where(s => (s as StockTaskItem).StockTaskType == StockTaskType.OUT).Count();
-
+                    
                     if (c1 > 0 || c2 > 0)
                     {
                         // 当存在出库任务时，不加载出库
@@ -1636,6 +1640,8 @@ namespace AGVCenterWPF
                 }
             }
 
+
+
             DispatchTrayOutStockTaskTimer.Start();
         }
         /// <summary>
@@ -1680,47 +1686,66 @@ namespace AGVCenterWPF
 
 
         /// <summary>
+        /// 更新显示列表
+        /// </summary>
+        private void RefreshList()
+        {
+            //this.Dispatcher.Invoke(new Action(() =>
+            //{
+               CenterStockTaskDisplayDG.Items.Refresh();
+
+            //}));
+        }
+
+        private object addOrUpdateItemLocker = new object();
+        /// <summary>
         /// 将任务放入显示列表
         /// </summary>
         /// <param name="taskItem"></param>
-        private void AddOrUpdateItemToTaskDisplay(StockTaskItem taskItem,bool refresh=true)
+        private void AddOrUpdateItemToTaskDisplay(StockTaskItem taskItem, bool refresh = true)
         {
-            if (TaskCenterForDisplayQueue.Where(s => s.DbId == taskItem.DbId && taskItem.DbId > 0).FirstOrDefault() != null)
+            lock (addOrUpdateItemLocker)
             {
-                var i = TaskCenterForDisplayQueue.Where(s => s.DbId == taskItem.DbId && taskItem.DbId > 0).FirstOrDefault();
-                //  i = taskItem;
-
-                i.RoadMachineIndex = taskItem.RoadMachineIndex;
-
-                i.BoxType = taskItem.BoxType;
-
-                i.PositionNr = taskItem.PositionNr;
-                i.PositionFloor = taskItem.PositionFloor;
-                i.PositionColumn = taskItem.PositionColumn;
-                i.PositionRow = taskItem.PositionRow;
-                i.AgvPassFlag = taskItem.AgvPassFlag;
-                i.RestPositionFlag = taskItem.RestPositionFlag;
-                i.Barcode = taskItem.Barcode;
-                i.State = taskItem.State;
-                i.StockTaskType = taskItem.StockTaskType;
-                i.TrayReverseNo = taskItem.TrayReverseNo;
-                i.TrayNum = taskItem.TrayNum;
-                i.DeliveryItemNum = taskItem.DeliveryItemNum;
-                i.DbId = taskItem.DbId;
-                i.CreatedAt = taskItem.CreatedAt;
-                i.IsInProcessing = true;
-            }
-            else
-            {
-                TaskCenterForDisplayQueue.Add(taskItem);
-                if (refresh)
+                this.Dispatcher.BeginInvoke((Action)delegate ()
                 {
-                    if (TaskCenterForDisplayQueue.Count > BaseConfig.MaxMonitorTaskNum)
+                    if (TaskCenterForDisplayQueue.Where(s => s.DbId == taskItem.DbId && taskItem.DbId > 0).FirstOrDefault() != null)
                     {
-                        TaskCenterForDisplayQueue.RemoveRange(0, TaskCenterForDisplayQueue.Count - BaseConfig.KeepMonitorTaskNum);
+                        var i = TaskCenterForDisplayQueue.Where(s => s.DbId == taskItem.DbId && taskItem.DbId > 0).FirstOrDefault();
+                    //  i = taskItem;
+
+                    i.RoadMachineIndex = taskItem.RoadMachineIndex;
+
+                        i.BoxType = taskItem.BoxType;
+
+                        i.PositionNr = taskItem.PositionNr;
+                        i.PositionFloor = taskItem.PositionFloor;
+                        i.PositionColumn = taskItem.PositionColumn;
+                        i.PositionRow = taskItem.PositionRow;
+                        i.AgvPassFlag = taskItem.AgvPassFlag;
+                        i.RestPositionFlag = taskItem.RestPositionFlag;
+                        i.Barcode = taskItem.Barcode;
+                        i.State = taskItem.State;
+                        i.StockTaskType = taskItem.StockTaskType;
+                        i.TrayReverseNo = taskItem.TrayReverseNo;
+                        i.TrayNum = taskItem.TrayNum;
+                        i.DeliveryItemNum = taskItem.DeliveryItemNum;
+                        i.DbId = taskItem.DbId;
+                        i.CreatedAt = taskItem.CreatedAt;
+                        i.IsInProcessing = true;
                     }
-                    RefreshList();
-                }
+                    else
+                    {
+                        TaskCenterForDisplayQueue.Add(taskItem);
+                        if (refresh)
+                        {
+                            if (TaskCenterForDisplayQueue.Count > BaseConfig.MaxMonitorTaskNum)
+                            {
+                                TaskCenterForDisplayQueue.RemoveRange(0, TaskCenterForDisplayQueue.Count - BaseConfig.KeepMonitorTaskNum);
+                            }
+                            RefreshList();
+                        }
+                    }
+                });
             }
         }
 

@@ -220,7 +220,7 @@ namespace AGVCenterWPF
             }
         }
 
-        
+
         /// <summary>
         /// 手动入库
         /// </summary>

@@ -1,0 +1,132 @@
+未处理System.InvalidOperationException
+  HResult=-2146233079
+  Message=某个 ItemsControl 与它的项源不一致。
+  请参见内部异常以获取更多信息。
+  Source=PresentationFramework
+  StackTrace:
+       在 System.Windows.Controls.ItemContainerGenerator.Verify()
+       在 System.Windows.Controls.VirtualizingStackPanel.MeasureChild(IItemContainerGenerator& generator, IContainItemStorage& itemStorageProvider, IContainItemStorage& parentItemStorageProvider, Object& parentItem, Boolean& hasUniformOrAverageContainerSizeBeenSet, Double& computedUniformOrAverageContainerSize, Boolean& computedAreContainersUniformlySized, IList& items, Object& item, IList& children, Int32& childIndex, Boolean& visualOrderChanged, Boolean& isHorizontal, Size& childConstraint, Rect& viewport, VirtualizationCacheLength& cacheSize, VirtualizationCacheLengthUnit& cacheUnit, Boolean& foundFirstItemInViewport, Double& firstItemInViewportOffset, Size& stackPixelSize, Size& stackPixelSizeInViewport, Size& stackPixelSizeInCacheBeforeViewport, Size& stackPixelSizeInCacheAfterViewport, Size& stackLogicalSize, Size& stackLogicalSizeInViewport, Size& stackLogicalSizeInCacheBeforeViewport, Size& stackLogicalSizeInCacheAfterViewport, Boolean& mustDisableVirtualization, Boolean isBeforeFirstItem, Boolean isAfterFirstItem, Boolean isAfterLastItem, Boolean skipActualMeasure, Boolean skipGeneration, Boolean& hasBringIntoViewContainerBeenMeasured, Boolean& hasVirtualizingChildren)
+       在 System.Windows.Controls.VirtualizingStackPanel.MeasureOverrideImpl(Size constraint, Nullable`1& lastPageSafeOffset, List`1& previouslyMeasuredOffsets, Nullable`1& lastPagePixelSize, Boolean remeasure)
+       在 System.Windows.Controls.VirtualizingStackPanel.MeasureOverride(Size constraint)
+       在 System.Windows.Controls.Primitives.DataGridRowsPresenter.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 MS.Internal.Helper.MeasureElementWithSingleChild(UIElement element, Size constraint)
+       在 System.Windows.Controls.ItemsPresenter.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 MS.Internal.Helper.MeasureElementWithSingleChild(UIElement element, Size constraint)
+       在 System.Windows.Controls.ScrollContentPresenter.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Controls.Grid.MeasureCell(Int32 cell, Boolean forceInfinityV)
+       在 System.Windows.Controls.Grid.MeasureCellsGroup(Int32 cellsHead, Size referenceSize, Boolean ignoreDesiredSizeU, Boolean forceInfinityV, Boolean& hasDesiredSizeUChanged)
+       在 System.Windows.Controls.Grid.MeasureCellsGroup(Int32 cellsHead, Size referenceSize, Boolean ignoreDesiredSizeU, Boolean forceInfinityV)
+       在 System.Windows.Controls.Grid.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Controls.ScrollViewer.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Controls.Border.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Controls.Control.MeasureOverride(Size constraint)
+       在 System.Windows.Controls.DataGrid.MeasureOverride(Size availableSize)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Controls.Grid.MeasureCell(Int32 cell, Boolean forceInfinityV)
+       在 System.Windows.Controls.Grid.MeasureCellsGroup(Int32 cellsHead, Size referenceSize, Boolean ignoreDesiredSizeU, Boolean forceInfinityV, Boolean& hasDesiredSizeUChanged)
+       在 System.Windows.Controls.Grid.MeasureCellsGroup(Int32 cellsHead, Size referenceSize, Boolean ignoreDesiredSizeU, Boolean forceInfinityV)
+       在 System.Windows.Controls.Grid.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 MS.Internal.Helper.MeasureElementWithSingleChild(UIElement element, Size constraint)
+       在 System.Windows.Controls.ContentPresenter.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 Microsoft.Windows.Themes.ClassicBorderDecorator.MeasureOverride(Size availableSize)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Controls.Grid.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Controls.Grid.MeasureCell(Int32 cell, Boolean forceInfinityV)
+       在 System.Windows.Controls.Grid.MeasureCellsGroup(Int32 cellsHead, Size referenceSize, Boolean ignoreDesiredSizeU, Boolean forceInfinityV, Boolean& hasDesiredSizeUChanged)
+       在 System.Windows.Controls.Grid.MeasureCellsGroup(Int32 cellsHead, Size referenceSize, Boolean ignoreDesiredSizeU, Boolean forceInfinityV)
+       在 System.Windows.Controls.Grid.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Controls.Control.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Controls.Grid.MeasureCell(Int32 cell, Boolean forceInfinityV)
+       在 System.Windows.Controls.Grid.MeasureCellsGroup(Int32 cellsHead, Size referenceSize, Boolean ignoreDesiredSizeU, Boolean forceInfinityV, Boolean& hasDesiredSizeUChanged)
+       在 System.Windows.Controls.Grid.MeasureCellsGroup(Int32 cellsHead, Size referenceSize, Boolean ignoreDesiredSizeU, Boolean forceInfinityV)
+       在 System.Windows.Controls.Grid.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 MS.Internal.Helper.MeasureElementWithSingleChild(UIElement element, Size constraint)
+       在 System.Windows.Controls.ContentPresenter.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Documents.AdornerDecorator.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Controls.Border.MeasureOverride(Size constraint)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.Window.MeasureOverrideHelper(Size constraint)
+       在 System.Windows.Window.MeasureOverride(Size availableSize)
+       在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+       在 System.Windows.UIElement.Measure(Size availableSize)
+       在 System.Windows.ContextLayoutManager.UpdateLayout()
+       在 System.Windows.ContextLayoutManager.UpdateLayoutCallback(Object arg)
+       在 System.Windows.Media.MediaContext.InvokeOnRenderCallback.DoWork()
+       在 System.Windows.Media.MediaContext.FireInvokeOnRenderCallbacks()
+       在 System.Windows.Media.MediaContext.RenderMessageHandlerCore(Object resizedCompositionTarget)
+       在 System.Windows.Media.MediaContext.RenderMessageHandler(Object resizedCompositionTarget)
+       在 System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+       在 System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+       在 System.Windows.Threading.DispatcherOperation.InvokeImpl()
+       在 System.Windows.Threading.DispatcherOperation.InvokeInSecurityContext(Object state)
+       在 System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+       在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+       在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+       在 System.Windows.Threading.DispatcherOperation.Invoke()
+       在 System.Windows.Threading.Dispatcher.ProcessQueue()
+       在 System.Windows.Threading.Dispatcher.WndProcHook(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+       在 MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+       在 MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+       在 System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+       在 System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+       在 System.Windows.Threading.Dispatcher.LegacyInvokeImpl(DispatcherPriority priority, TimeSpan timeout, Delegate method, Object args, Int32 numArgs)
+       在 MS.Win32.HwndSubclass.SubclassWndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam)
+       在 MS.Win32.UnsafeNativeMethods.DispatchMessage(MSG& msg)
+       在 System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)
+       在 System.Windows.Threading.Dispatcher.PushFrame(DispatcherFrame frame)
+       在 System.Windows.Application.RunDispatcher(Object ignore)
+       在 System.Windows.Application.RunInternal(Window window)
+       在 System.Windows.Application.Run(Window window)
+       在 System.Windows.Application.Run()
+       在 AGVCenterWPF.App.Main() 位置 C:\Users\Charlot\Documents\GitHub\AGV\code\AGVCenter\AGVCenterWPF\obj\Debug\App.g.cs:行号 0
+  InnerException: 
+       HResult=-2146233088
+       Message=针对开发人员的信息(使用文本可视化工具来阅读此内容):
+引发此异常的原因是名为“CenterStockTaskDisplayDG”的控件“System.Windows.Controls.DataGrid Items.Count:33”的生成器已接收到一个 CollectionChanged 事件序列，这些事件与 Items 集合的当前状态不符。  检测到以下差异:
+  累积计数 32 与实际计数 33 不相同。[累积计数的计算方式为: 上次重置时的计数 + 添加数 - 自上次重置后的删除数。]
+
+以下的一个或多个源可能已引发错误事件:
+     System.Windows.Controls.ItemContainerGenerator
+      System.Windows.Controls.ItemCollection
+       System.Windows.Data.ListCollectionView
+        System.Collections.Generic.List`1[[AGVCenterLib.Model.StockTaskItem, AGVCenterLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+(标有星号的源被认为更有可能是问题的根源。)
+
+最常见的原因有: (a)在未引发相应事件的情况下更改了集合或集合的计数，(b)引发的事件使用了错误的索引或项参数。
+
+异常的堆栈跟踪将描述不一致情况是如何检测到的，而不是描述不一致情况是如何发生的。  若要获得更及时的异常，应将生成器上附加的属性“PresentationTraceSources.TraceLevel”设置为值“High”，然后重新运行该方案。  完成此操作的一个方法是，在“即时”窗口中运行与下面的命令类似的命令:
+   System.Diagnostics.PresentationTraceSources.SetTraceLevel(myItemsControl.ItemContainerGenerator, System.Diagnostics.PresentationTraceLevel.High)
+。这会使得在发生每个 CollectionChanged 事件之后运行检测逻辑，因此，这将减慢应用程序的运行速度。
+
+       InnerException: 

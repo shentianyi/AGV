@@ -90,14 +90,14 @@ namespace AGVCenterWPF
         public static string OPCOutRobootPickOPCGroupName = "OPCOutRobootPickOPCGroup";
         public static int OPCOutRobootPickOPCGroupRate = 100;
         public static int OPCOutRobootPickOPCGroupDeadBand = 0;
-        public static int DispatchTrayOutStockTaskTimerInterval = 300;
+        public static int DispatchTrayOutStockTaskTimerInterval = 1000;
         #endregion
 
 
         /// <summary>
         /// 加载数据库出库任务定时器Interval
         /// </summary>
-        public static int LoadOutStockTaskFromDbTimerInterval = 300;
+        public static int LoadOutStockTaskFromDbTimerInterval = 1000;
 
         #endregion
 

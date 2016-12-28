@@ -12,6 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AGVCenterLib.Data;
+using AGVCenterLib.Enum;
+using AGVCenterLib.Model;
+using AGVCenterLib.Service;
+using TestWPF.Properties;
 
 namespace TestWPF
 {
@@ -49,6 +54,46 @@ namespace TestWPF
         private void autoComTest_Click(object sender, RoutedEventArgs e)
         {
             new AutoComScanTest().Show();
+        }
+
+        System.Timers.Timer t = new System.Timers.Timer();
+
+        private void createOutTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+            t.Elapsed += T_Elapsed;
+            t.Interval = 2000;
+            t.Enabled = true;
+            t.Start();
+        }
+        int i = 0;
+        private void T_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            t.Stop();
+            i++;
+            for (int j = 0; j < 20; j++)
+            {
+                StockTaskService ts = new StockTaskService(Settings.Default.db);
+                StockTask taskItem = new StockTask()
+                {
+                    BarCode = Guid.NewGuid().ToString(),
+                    Type = (int)StockTaskType.OUT,
+                    TrayBatchId = i.ToString(),
+                    RoadMachineIndex = 1,
+                    State =90,
+                    BoxType = 1,
+                    PositionFloor = 1,
+                    PositionColumn = 1,
+                    PositionRow = 1
+                };
+                ts.CreateTask(taskItem);
+            }
+            t.Start();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            t.Enabled = false;
+            t.Stop();
         }
     }
 }
