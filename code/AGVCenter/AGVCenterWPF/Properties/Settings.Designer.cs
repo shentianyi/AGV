@@ -43,11 +43,20 @@ namespace AGVCenterWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Charlot-PC\\MSSQLSERVER20082;Initial Catalog=AgvWarehouseDb;Persist Se" +
-            "curity Info=True;User ID=sa;Password=123456@")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.0.99;Initial Catalog=AgvWarehouseDb;Persist Security Info=Tru" +
+            "e;User ID=sa;Password=123456@")]
         public string dbString {
             get {
                 return ((string)(this["dbString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FormatName:Direct=TCP:192.168.0.99\\\\private$\\\\agvtaskqueue\\agvtaskqueue")]
+        public string agvMsgQueue {
+            get {
+                return ((string)(this["agvMsgQueue"]));
             }
         }
     }

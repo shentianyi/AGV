@@ -131,6 +131,7 @@
     <Compile Include="Model\OPC\OPCDataBase.cs" />
     <Compile Include="Model\OPC\OPCRoadMachineTaskFeed.cs" />
     <Compile Include="Model\OPC\OPCSetStockTask.cs" />
+    <Compile Include="Model\RemoteTaskActionItem.cs" />
     <Compile Include="Model\SearchModel\DeliveryItemSearchModel.cs" />
     <Compile Include="Model\SearchModel\DeliverySearchModel.cs" />
     <Compile Include="Model\SearchModel\PositionSearchModel.cs" />

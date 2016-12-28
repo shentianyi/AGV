@@ -209,9 +209,18 @@ namespace AGVCenterWPF
                         }
                     }
                 }
+                else
+                {
+                    if (taskItem.IsCanCancel)
+                    {
+                        taskItem.State = StockTaskState.Canceled;
+                        this.MonitorUpdateTaskState(taskItem);
+                    }
+                }
             }
         }
 
+        
         /// <summary>
         /// 手动入库
         /// </summary>
@@ -223,7 +232,7 @@ namespace AGVCenterWPF
             {
                 StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
 
-                if (taskItem.IsCanCancel)
+                if (taskItem.IsCanCancel || taskItem.IsCanceled)
                 {
                    // this.prevScanedBarcode = string.Empty;
                     taskItem.State = StockTaskState.ManInStocked;

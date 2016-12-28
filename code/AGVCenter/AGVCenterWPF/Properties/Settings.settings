@@ -9,7 +9,10 @@
       <Value Profile="(Default)">OPC.SimaticNET.1</Value>
     </Setting>
     <Setting Name="dbString" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa;Password=123456@</Value>
+      <Value Profile="(Default)">Data Source=192.168.0.99;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa;Password=123456@</Value>
+    </Setting>
+    <Setting Name="agvMsgQueue" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">FormatName:Direct=TCP:192.168.0.99\\private$\\agvtaskqueue\agvtaskqueue</Value>
     </Setting>
   </Settings>
 </SettingsFile>

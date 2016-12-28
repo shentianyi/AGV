@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using AGVCenterLib.Data;
 using AGVCenterLib.Model;
 using AGVCenterLib.Service;
+using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace AGVCenterWPF
 {
@@ -61,5 +63,50 @@ namespace AGVCenterWPF
             }
            // this.RefreshList();
         }
+
+
+
+        /// <summary>
+        /// 更新Monitor的任务状态
+        /// </summary>
+        /// <param name="taskItem"></param>
+        private void MonitorUpdateTaskState(StockTaskItem taskItem)
+        {
+            try
+            {
+                if (taskItem.DbId > 0)
+                {
+                    LogUtil.Logger.Info("***********************************************************");
+                    LogUtil.Logger.InfoFormat("任务状态变化:bar:{0}-dbid: {1}-position: {2}:{3}------->{4}",
+                        taskItem.Barcode,
+                        taskItem.DbId,
+                        taskItem.PositionNr,
+                        taskItem.StateWas,
+                        taskItem.State);
+                    LogUtil.Logger.Info("***********************************************************");
+
+                    StockTask updatedStockTask = new StockTask();
+
+                    updatedStockTask.Id = taskItem.DbId;
+                    updatedStockTask.State = (int)taskItem.State;
+
+                    updatedStockTask.RoadMachineIndex = taskItem.RoadMachineIndex;
+                    updatedStockTask.PositionNr = taskItem.PositionNr;
+                    updatedStockTask.PositionFloor = taskItem.PositionFloor;
+                    updatedStockTask.PositionColumn = taskItem.PositionColumn;
+                    updatedStockTask.PositionRow = taskItem.PositionRow;
+
+                    StockTaskService sts = new StockTaskService(OPCConfig.DbString);
+                    sts.UpdateTaskState(updatedStockTask);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
     }
 }

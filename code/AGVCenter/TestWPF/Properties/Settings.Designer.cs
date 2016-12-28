@@ -25,8 +25,8 @@ namespace TestWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Charlot-PC\\MSSQLSERVER20082;Initial Catalog=AgvWarehoueDb;Persist Sec" +
-            "urity Info=True;User ID=sa;Password=123456@")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Charlot-PC\\MSSQLSERVER20082;Initial Catalog=AgvWarehouseDb;Persist Se" +
+            "curity Info=True;User ID=sa;Password=123456@")]
         public string db {
             get {
                 return ((string)(this["db"]));

@@ -45,5 +45,10 @@ namespace TestWPF
                 Formatter = new XmlMessageFormatter(new Type[] { typeof(string) })
             });
         }
+
+        private void autoComTest_Click(object sender, RoutedEventArgs e)
+        {
+            new AutoComScanTest().Show();
+        }
     }
 }
