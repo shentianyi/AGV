@@ -230,7 +230,7 @@ namespace AGVCenterWPF
             if (AgvInStockPassQueue.Count > 0 && OPCAgvInStockPassData.CanWrite)
             {
                 StockTaskItem taskItem = AgvInStockPassQueue.Peek() as StockTaskItem;
-                if (taskItem.IsCanceled)
+                if (taskItem.ShouldDequeueStockTask)
                 {
                     AgvInStockPassQueue.Dequeue();
                 }
@@ -296,7 +296,7 @@ namespace AGVCenterWPF
             {
                 StockTaskItem taskItem = InRobootPickQueue.Peek() as StockTaskItem;
                 // taskItem.State = StockTaskState.RobootInStocking;
-                if (taskItem.IsCanceled)
+                if (taskItem.ShouldDequeueStockTask)
                 {
                     InRobootPickQueue.Dequeue();
                 }
