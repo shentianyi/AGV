@@ -128,7 +128,7 @@ namespace AGVCenterWPF
                     }
                     #endregion
                 }
-                else if (roadMachineIndex == 1)
+                else if (roadMachineIndex == 2)
                 {
                     #region 巷道机2模式
                     if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.OutHigherThanIn)
@@ -148,7 +148,7 @@ namespace AGVCenterWPF
                            
                         }
                     }
-                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.OutHigherThanIn)
+                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.OutHigherThanIn)
                     {
                         if (RoadMachine2InTaskQueue.Count > 0)
                         {

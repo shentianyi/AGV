@@ -413,7 +413,8 @@ namespace AGVCenterWPF
         {
             SetOPCStockTaskTimer.Stop();
 
-            if (OPCSetStockTaskRoadMachine1Data.CanWrite && RoadMachine1CenterTaskQueue.Count > 0)
+
+            if (OPCSetStockTaskRoadMachine1Data.CanWrite)
             {
                 StockTaskItem taskItem = this.DequeueRoadmMachineTaskToCenter(1);
                 if (taskItem == null)
@@ -453,9 +454,9 @@ namespace AGVCenterWPF
 
             }
 
-            if (OPCSetStockTaskRoadMachine2Data.CanWrite && RoadMachine2CenterTaskQueue.Count > 0)
+            if (OPCSetStockTaskRoadMachine2Data.CanWrite )
             {
-                StockTaskItem taskItem = this.DequeueRoadmMachineTaskToCenter(1);
+                StockTaskItem taskItem = this.DequeueRoadmMachineTaskToCenter(2);
                 if (taskItem == null)
                 {
 
@@ -498,9 +499,10 @@ namespace AGVCenterWPF
             SetOPCStockTaskTimer.Start();
 
         }
-         
 
 
+
+        private string firstBarIgnore = string.Empty;
         /// <summary>
         /// 读取入库条码信息读写标记改变处理
         /// </summary>
@@ -516,11 +518,17 @@ namespace AGVCenterWPF
                 {
                     try
                     {
-
                         LogUtil.Logger.InfoFormat("【扫描到条码内容】{0}:", OPCCheckInStockBarcodeData.ScanedBarcode);
                         if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode))
                         {
-                            this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+                            if (string.IsNullOrEmpty(firstBarIgnore)) {
+                                firstBarIgnore = OPCCheckInStockBarcodeData.ScanedBarcode;
+                               // BaseConfig.PreScanBar = firstBarIgnore;
+                            }
+                            else
+                            {
+                                this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -726,7 +734,7 @@ namespace AGVCenterWPF
             }
         }
 
-        //    private string prevScanedBarcode = string.Empty;
+        private string prevScanedBarcode = string.Empty;
         /// <summary>
         /// 将入库任务写入AGV扫描任务队列，并派发到AGV放行队列
         /// </summary>
@@ -734,7 +742,6 @@ namespace AGVCenterWPF
         /// <returns></returns>
         private bool CreateInTaskIntoAgvScanTaskQueue(string barcode)
         {
-
             lock (WriteTaskCenterQueueLocker)
             {
                 StockTaskItem taskItem = new StockTaskItem(this.uiContext)
