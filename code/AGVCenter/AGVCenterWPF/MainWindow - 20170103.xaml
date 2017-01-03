@@ -1,0 +1,817 @@
+﻿<Window x:Class="AGVCenterWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AGVCenterWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="993" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TabControl x:Name="tabControl"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,-10,-10">
+            <TabItem Header="OPC 服务配置" Height="23" VerticalAlignment="Bottom">
+                <Grid Background="#FFE5E5E5"  VerticalAlignment="Stretch">
+                    <Label x:Name="label" Content="OPC服务列表:" HorizontalAlignment="Left" Margin="26,49,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="OPCListServerBtn" Content="寻找可用OPC服务" HorizontalAlignment="Left" Margin="25,17,0,0" VerticalAlignment="Top" Width="129" Height="27" Click="ListOPCServerBtn_Click"/>
+                    <ListBox x:Name="OPCServersLB" HorizontalAlignment="Left" Height="116" Margin="25,75,0,0" VerticalAlignment="Top" Width="219" SelectionChanged="OPCServersLB_SelectionChanged"/>
+                    <Button x:Name="ConnectOPCServerBtn" Content="连接服务" HorizontalAlignment="Left" Margin="271,151,0,0" VerticalAlignment="Top" Width="84" Click="ConnectOPCServerBtn_Click" Height="40"/>
+                    <Label x:Name="label1" Content="OPC服务：" HorizontalAlignment="Left" Margin="249,72,0,0" VerticalAlignment="Top"/>
+
+                    <TextBox x:Name="OPCServerTB" HorizontalAlignment="Left" Height="23" Margin="340,75,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="138"/>
+                    <Label x:Name="label2" Content="节点名称:(IP)" HorizontalAlignment="Left" Margin="249,103,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="OPCNodeNameTB" HorizontalAlignment="Left"
+                		Height="23" Margin="340,106,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="138"/>
+                    <Button x:Name="DisConnectOPCServerBtn" Content="端开服务" HorizontalAlignment="Left" Margin="397,151,0,0" VerticalAlignment="Top" Width="78" Click="DisConnectOPCServerBtn_Click" Height="40"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="总库存操作列表">
+                <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button  Visibility="Collapsed"   Name="RestAllDataAndCleanBtn" Grid.Column="0"
+                                Content="重置所有数据" Margin="5"   ToolTip="删除所有出入库任务、库存、运单，但保持唯一码、库位" Click="RestAllDataAndCleanBtn_Click"></Button>
+
+                        <Button   Visibility="Collapsed"  Name="RestAllTaskAndCleanBtn" Grid.Column="1"
+                                Content="重置出入库任务" Margin="5" 
+                                  Click="RestAllTaskAndCleanBtn_Click" ToolTip="删除所有的任务、库存，但保持唯一码和运单信息"></Button>
+
+                        <Button  Visibility="Collapsed"  Name="RestOutTaskAndCleanBtn" Grid.Column="2"
+                                Content="重置出库任务" Margin="5" 
+                                  Click="RestOutTaskAndCleanBtn_Click" ToolTip="改变完成的出库任务状态，可重新加载使用，不需要其它操作"></Button>
+
+
+                        <Label x:Name="label3" Content="条码" Grid.Column="3"  HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
+
+                        <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left" 
+                             Height="26" Margin="45,11,0,0" Grid.Column="3"
+                		TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="95"/>
+
+                        <Label Content="巷道机：" Grid.Column="4"/>
+                        <TextBox Grid.Column="4" Text="1" Margin="51,0,205,26" Name="RoadMachineIndexTB" Grid.ColumnSpan="2" />
+                        <Button x:Name="createInStockBtn" Grid.Column="5"
+                                Content="手动生成入库任务" 
+                                HorizontalAlignment="Left" Margin="10,10,0,0" 
+                                VerticalAlignment="Top" Width="104" Height="40"
+                                Click="createInStockBtn_Click"/>
+                        <CheckBox x:Name="IncreaseBarcodeCheckBox"
+                                
+                                  Content="条码自增" Grid.Column="6" HorizontalAlignment="Left" 
+                                  Margin="1,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="81"/>
+
+                        <CheckBox x:Name="LipRoadMachineCheckBox"
+                                 
+                                  Content="1,2巷道机间隔" Grid.Column="6" 
+                                  HorizontalAlignment="Left" Margin="1,34,0,0" 
+                                  VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="95"/>
+                        <Button x:Name="createOutStockTaskBtn" Content="生成出库任务" 
+                                Grid.Column="5" HorizontalAlignment="Left" Visibility="Hidden"
+                                Margin="10,10,0,0" VerticalAlignment="Top" Width="89" Height="30"/>
+
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="139*"></ColumnDefinition>
+                            <ColumnDefinition Width="139*"></ColumnDefinition>
+                            <ColumnDefinition Width="139*"></ColumnDefinition>
+                            <ColumnDefinition Width="140*"></ColumnDefinition>
+                            <ColumnDefinition Width="187*"></ColumnDefinition>
+                            <ColumnDefinition Width="92*"></ColumnDefinition>
+                            <ColumnDefinition Width="139*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="restRescanButton" Content="重置前一个扫描码" 
+                                Width="129"  
+                                Grid.Column="0" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="23" Click="restRescanButton_Click"/>
+
+
+                        <Label x:Name="label5" Content="条码号" Visibility="Collapsed" Grid.Column="0" HorizontalAlignment="Right" 
+                               Margin="0,10,0,0" VerticalAlignment="Top" Height="26" Width="46"/>
+
+                        <TextBox x:Name="lbBoxTypeTB" Grid.Column="1"
+                                 HorizontalAlignment="Left"  Visibility="Collapsed" 
+                                 Height="23" Margin="9,10,0,0" TextWrapping="Wrap" 
+                                 Text="" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2"/>
+
+                        <Button x:Name="setBigBoxTypeButton" Content="设置大箱" 
+                                Width="60" Click="SetBoxTypeBtn_Click" Visibility="Collapsed" 
+                                Grid.Column="2" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="22"/>
+                        <Button x:Name="setSmallBoxTypeButton" Content="设置小箱"   Visibility="Collapsed" 
+                                Width="60" Click="SetBoxTypeBtn_Click"
+                                Grid.Column="2" HorizontalAlignment="Left" Margin="70,10,0,0" VerticalAlignment="Top" Height="22"/>
+
+                        <Button x:Name="manInButton" Content="手动入库" 
+                                Width="60"  
+                                Grid.Column="2" HorizontalAlignment="Left" Margin="0,10,0,0" 
+                                VerticalAlignment="Top" Height="22" Click="manInButton_Click"/>
+
+                        <Button x:Name="manOutButton" Content="手动出库" 
+                                Width="60" 
+                                Grid.Column="2" HorizontalAlignment="Left"
+                                Margin="75,10,0,0" VerticalAlignment="Top" Height="22" Click="manOutButton_Click"/>
+
+                        <Button x:Name="goOnInButton" Content="继续未取货入库" 
+                                Width="108" ToolTip="巷道机在前往入库平台的过程中报警，先置为继续，然后打巷道机手动再切换自动"
+                                Grid.Column="3" HorizontalAlignment="Left"
+                                Margin="5,10,0,0" VerticalAlignment="Top" Height="22" Click="goOnInButton_Click"/>
+
+                        
+                        <Button x:Name="goOnOutButton" Content="继续未取货出库" 
+                                Width="108" ToolTip="巷道机在前往出库库位的过程中报警，先置为继续，然后打巷道机手动再切换自动"
+                                Grid.Column="4" HorizontalAlignment="Left"
+                                Margin="5,10,0,0" VerticalAlignment="Top" Height="22" Click="goOnOutButton_Click"/>
+
+                        <Button x:Name="CancelTaskBtn" Content="取消任务"
+                                Width="60" Click="CancelTaskBtn_Click"
+                                Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="22"/>
+
+                        <!--<Button x:Name="ReAGVInStockBtn" Content="重新AGV入库" 
+                                Width="90"  
+                                Grid.Column="3" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="22"/>-->
+
+                        <Button x:Name="ResetBuff1InStockBtn" Content="重置平台1" Visibility="Collapsed"
+                                Width="70"  
+                                Grid.Column="4" HorizontalAlignment="Left" Margin="0,10,0,0" 
+                                VerticalAlignment="Top" Height="22" Click="ResetBuff1InStockBtn_Click"/>
+
+                        <Button x:Name="ResetBuff2InStockBtn" Content="重置平台2"  Visibility="Collapsed"
+                                Width="70"  
+                                Grid.Column="4" HorizontalAlignment="Left" Margin="75,10,0,0" 
+                                VerticalAlignment="Top" Height="22"  Click="ResetBuff2InStockBtn_Click"/>
+
+
+                    </Grid>
+
+                    <!--<ListBox x:Name="CenterStockTaskDisplayLB"  Grid.Row="2"
+                         HorizontalAlignment="Stretch"  Margin="10,6,0,-4" 
+                             VerticalAlignment="Stretch"/>-->
+
+
+                    <DataGrid x:Name="CenterStockTaskDisplayDG" CanUserSortColumns="False"
+                      AutoGenerateColumns="False" CanUserAddRows="false"  IsReadOnly="True"
+                    Grid.Row="2"   ItemsSource="{Binding}"
+                         HorizontalAlignment="Stretch"  Margin="10,6,0,-4" 
+                             VerticalAlignment="Stretch"  MinHeight="487" MinWidth="482" 
+                  RenderTransformOrigin="0.499,0.316">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="时间" Binding="{Binding Path=CreatedAtStr}"/>
+                            <DataGridTextColumn Header="任务类型" Binding="{Binding Path=StockTaskTypeStr}"/>
+                            <DataGridTextColumn Header="条码" Binding="{Binding Path=Barcode}"/>
+                            <DataGridTextColumn Header="箱型" Binding="{Binding Path=BoxType}"/>
+                            <DataGridTextColumn Header="巷道机" Binding="{Binding Path=RoadMachineIndex}"/>
+                            <DataGridTextColumn Header="库位" Binding="{Binding Path=PositionNr}"/>
+                            <DataGridTextColumn Header="层" Binding="{Binding Path=PositionFloor}"/>
+                            <DataGridTextColumn Header="列" Binding="{Binding Path=PositionColumn}"/>
+                            <DataGridTextColumn Header="排" Binding="{Binding Path=PositionRow}"/>
+                            <DataGridTextColumn Header="AGV放行结果" Binding="{Binding Path=AgvPassFlag}"/>
+                            <DataGridTextColumn Header="托量倒数" Binding="{Binding Path=TrayReverseNo}"/>
+                            <DataGridTextColumn Header="托量" Binding="{Binding Path=TrayNum}"/>
+                            <DataGridTextColumn Header="单量" Binding="{Binding Path=DeliveryItemNum}"/>
+                            <DataGridTextColumn Header="状态" Binding="{Binding Path=StateStr}"/>
+                            <DataGridTextColumn Header="数据库Id" Binding="{Binding Path=DbId}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="扫描条码入库任务" Visibility="Collapsed">
+                <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+
+                            <ColumnDefinition Width="230*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!--<Label x:Name="label3" Content="扫描的条码" Grid.Column="0"  HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
+
+                        <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left" 
+                             Height="26" Margin="0,11,0,0" Grid.Column="1"
+                		TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="205"/>-->
+
+                        <!--<Button x:Name="WirteGetPisitionBarBtn" Grid.Column="2"
+                            Content="扫码入库任务" HorizontalAlignment="Left"
+                            Margin="0,10,0,0" VerticalAlignment="Top" Width="92" Height="27" Click="WirteGetPisitionBarBtn_Click"/>
+
+                        <Button Content="设置条码可写" Height="27"  Grid.Column="3" HorizontalAlignment="Left" 
+                                Margin="3,11,0,0" Name="SetAgvBarcodeCheckWritableBtn" VerticalAlignment="Top" Width="81" Click="SetAgvBarcodeCheckWritableBtn_Click" />
+                        <Button Content="设置条码可读"  Grid.Column="4"
+                            Height="27" HorizontalAlignment="Left" Margin="0,11,0,0" 
+                                Name="SetAgvBarcodeCheckReadableBtn" VerticalAlignment="Top" Width="81" Click="SetAgvBarcodeCheckReadableBtn_Click" RenderTransformOrigin="0.432,0.407" />
+
+                        <Button Content="设置机械手可写" Height="27"  Grid.Column="5"
+                            HorizontalAlignment="Left" Margin="0,11,0,0" Name="SetInRobootWritableBtn" VerticalAlignment="Top" Width="97" Click="SetInRobootWritableBtn_Click" />
+                        <Button Content="设置机械手可读" Height="27"  Grid.Column="6"
+        HorizontalAlignment="Left" Margin="0,11,0,0" Name="SetInRobootReadableBtn" VerticalAlignment="Top" Width="97" Click="SetInRobootReadableBtn_Click" />
+                        <Button Content="【清空任务】"  Grid.Column="7"
+                                Height="33" HorizontalAlignment="Left" Margin="0,9,0,0" 
+                            Name="ClearTasksForTestBtn" VerticalAlignment="Top" 
+                            Width="76" Click="ClearTasksForTestBtn_Click" />-->
+
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+
+                            <ColumnDefinition Width="230*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <!--<Label Content="巷道机：" Grid.Column="0"/>
+                        <TextBox Grid.Column="0" Text="1" Margin="51,0,205,26" Name="RoadMachineIndexTB" Grid.ColumnSpan="2" />
+                        <Button x:Name="createInStockBtn" Grid.Column="1"
+                                Content="手动生成入库任务" 
+                                HorizontalAlignment="Left" Margin="10,10,0,0" 
+                                VerticalAlignment="Top" Width="104" Height="40" Click="createInStockBtn_Click"/>
+                        <CheckBox x:Name="IncreaseBarcodeCheckBox"
+                                  IsChecked="True"
+                                  Content="条码自增" Grid.Column="1" HorizontalAlignment="Left" 
+                                  Margin="117,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="81"/>
+
+                        <CheckBox x:Name="LipRoadMachineCheckBox"
+                                  IsChecked="True"
+                                  Content="1,2巷道机间隔" Grid.Column="1" 
+                                  HorizontalAlignment="Left" Margin="117,34,0,0" 
+                                  VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="95"/>
+                        <Button x:Name="createOutStockTaskBtn" Content="生成出库任务" 
+                                Grid.Column="2" HorizontalAlignment="Left" Visibility="Hidden"
+                                Margin="10,10,0,0" VerticalAlignment="Top" Width="89" Height="30"/>-->
+
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <!--<Label x:Name="label4" Content="入库任务列表：" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" Height="27" Width="138" FontWeight="Bold"/>
+                        <ListBox x:Name="CenterInStockTaskLB"
+                             HorizontalAlignment="Stretch"
+                             Margin="10,35,0,0"
+                             VerticalAlignment="Stretch"/>-->
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="出库任务" Visibility="Collapsed" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="61">
+                <Grid Background="#FFE5E5E5">
+                    <!--<Label x:Name="label5" Content="待出库任务列表：" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top"/>
+                    <ListBox x:Name="WaitOutStockTaskLB" HorizontalAlignment="Left" 
+                              Margin="24,41,0,0" VerticalAlignment="Stretch" Width="203"/>-->
+                    <!--<Button x:Name="CreateOutStockTaskBtn" Content="出库 >" HorizontalAlignment="Left" Margin="234,176,0,0" VerticalAlignment="Top" Width="48" Height="295" FontWeight="Bold" Click="CreateOutStockTaskBtn_Click"/>-->
+                    <ListBox x:Name="CenterOutStockTaskLB" HorizontalAlignment="Stretch" 
+                               Margin="10,42,0,0" VerticalAlignment="Stretch" />
+                    <Label x:Name="label5_Copy" Content="出库任务列表：" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <!--<Button x:Name="LoadOutStockTaskBtn" Content="加载出库" HorizontalAlignment="Left" Margin="232,42,0,0" VerticalAlignment="Top" Width="55" Height="48" Click="LoadOutStockTaskBtn_Click"/>-->
+                </Grid>
+            </TabItem>
+            <TabItem Header="基本设置" x:Name="SettingTabItem" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="61" Loaded="SettingTabItem_Loaded">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox x:Name="autoConnectOPCCB" Grid.Row="0" Grid.Column="0" Content="自动连接OPC" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
+                              Click="SettingOPCCB_Checked"/>
+
+                    <CheckBox x:Name="autoLoadDbTaskOnStartCB" Grid.Row="0" Grid.Column="1" Content="启动加载数据库任务" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
+                              Click="SettingOPCCB_Checked"/>
+
+
+                    <CheckBox x:Name="roadMacine1EnabledCB" Grid.Row="1" Grid.Column="0" Content="巷道机1可用"   HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" 
+                               Click="SettingOPCCB_Checked"/>
+                    <CheckBox x:Name="roadMacine2EnabledCB" Grid.Row="1" Grid.Column="1" Content="巷道机2可用" 
+                              HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                                Click="SettingOPCCB_Checked"/>
+
+
+                    <CheckBox x:Name="inStockCreateStorageCB" Grid.Row="2" Grid.Column="0" Content="入库动作生成库存" ToolTip="在空跑巷道机测试且不需要动态库位时，可以不生成库位。\n 如只是给巷道机一个入库动作，无其它操作时。\n一旦生成库存，库位就被占用了，条码状态也变为已入库，此刻可以进行出库。" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                                Click="SettingOPCCB_Checked"/>
+
+                    <CheckBox x:Name="outStockTaskDelStorageCB" Grid.Row="2" Grid.Column="1" Content="出库动作删除库存" ToolTip="在反复巷道机测试出库码垛时，可以不删除库存。\n一旦删除库存，条码就变成已出库状态，且不可以再次重新运行，需要重置条码状态，然后再入库才可以再出库" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                                Click="SettingOPCCB_Checked"/>
+                    <CheckBox x:Name="showRescanErrorBarcodeCB" Grid.Row="2" Grid.Column="2" Content="显示重复扫描错误" ToolTip="是否显示重复扫描错，因为重复扫描可能很多次，都加入显示的话不利于观察 但是利于分析数据接收情况" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                                Click="SettingOPCCB_Checked"/>
+
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="OPC 变量监控" >
+                <ScrollViewer>
+                    <Grid VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                        </Grid.RowDefinitions>
+               
+                    <Label Content="条码扫描：" FontSize="13" Background="LightGreen" Grid.Row="0"/>
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B0.scan_get_inposi_rw_flag" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_scan_get_inposi_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【扫描条码内容】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B2.254.String.scan_get_inposi_barcode" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_scan_get_inposi_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    
+                    <Label Content="AGV放行：" FontSize="13" Background="LightGreen" Grid.Row="3"/>
+                    <StackPanel Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B258.stock_pass_agv_rw_flag" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_pass_agv_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【放行结果】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B259.stock_pass_agv_flag" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_pass_agv_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+
+                    <Label Content="入库机械手任务：" FontSize="13" Background="LightGreen" Grid.Row="6"/>
+                    <StackPanel Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B260.inrobot_pick_rw_flag" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_inrobot_pick_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="restInRobotRWFlagFlag" Click="restInRobotRWFlagFlag_Click"/>
+                     </StackPanel>
+                    <StackPanel Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【箱型】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B261.inrobot_pick_box_type" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_inrobot_pick_box_type" MinWidth="50" Background="LightSkyBlue"></Label>
+                      
+                    </StackPanel>
+
+                    <Label Content="巷道机1库存任务：" FontSize="13" Background="LightGreen" Grid.Row="9"/>
+                    <StackPanel Grid.Row="10" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B262.stock_xdj1_rw_flag" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="11" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【任务类型】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B263.stock_xdj1_action_type" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_action_type" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="12" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【层】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B264.int.stock_xdj1_position1" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_position1" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="13" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【列】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B266.int.stock_xdj1_position2" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_position2" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="14" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【排】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B268.int.stock_xdj1_position3" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_position3" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="15" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【箱型】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B270.stock_xdj1_box_type" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_box_type" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="16" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【入库重置标记】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B271.stock_xdj1_reset_position_flag" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_reset_position_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="17" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【托倒数序号】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B272.Int.stock_xdj1_tray_reverse_no" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_tray_reverse_no" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="18" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【整托量】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B274.Int.stock_xdj1_tray_num" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_tray_num" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="19" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【整运单量】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B276.Int.stock_xdj1_delivery_num" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_delivery_num" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="20" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【条码】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB308,B278.254.String.stock_xdj1_barcode" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_stock_xdj1_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
+                    </StackPanel>
+                    <StackPanel Grid.Row="21" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【入库平台有货】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB68,X10.0.xdj1_in_platform_is_buff" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_xdj1_in_paltform_is_buff" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="resetXDJ1InIsBuff" Click="resetXDJ1InIsBuff_Click" ></Button>
+                    </StackPanel>
+                    <StackPanel Grid.Row="22" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【出库平台有大箱】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB10,X24.0.xdj1_out_platform_is_buff_big" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_xdj1_out_platform_is_buff_big" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="resetXDJ1OutIsBuffBig" Click="resetXDJ1OutIsBuffBig_Click"></Button>
+                        </StackPanel>
+                    <StackPanel Grid.Row="23" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="【出库平台有小箱】" Background="LightBlue" Width="150"></Label>
+                        <Label Content="S7:[S7 connection_1]DB10,X24.1.xdj1_out_platform_is_buff_small" Width="450" Background="LightYellow"></Label>
+                        <Label Content="" Name="label_xdj1_out_platform_is_buff_small" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="resetXDJ1OutIsBuffSmall" Click="resetXDJ1OutIsBuffSmall_Click"></Button>
+                        </StackPanel>
+
+
+
+
+
+                        <Label Content="巷道机2库存任务：" FontSize="13" Background="LightGreen" Grid.Row="24"/>
+                        <StackPanel Grid.Row="25" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B534.stock_xdj2_rw_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="26" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【任务类型】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B535.stock_xdj2_action_type" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_action_type" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="27" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【层】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B536.int.stock_xdj2_position1" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_position1" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="28" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【列】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B538.int.stock_xdj2_position2" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_position2" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="29" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【排】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B540.int.stock_xdj2_position3" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_position3" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="30" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【箱型】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B542.stock_xdj2_box_type" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_box_type" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="31" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【入库重置标记】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B543.stock_xdj2_reset_position_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_reset_position_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="32" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【托倒数序号】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B544.Int.stock_xdj2_tray_reverse_no" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_tray_reverse_no" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="33" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【整托量】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B546.Int.stock_xdj2_tray_num" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_tray_num" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="34" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【整运单量】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B548.Int.stock_xdj2_devlivery_num" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_delivery_num" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="35" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【条码】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B550.String.254.stock_xdj2_barcode" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj2_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="36" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【入库平台有货】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB68,X10.1.xdj2_in_platform_is_buff" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_in_paltform_is_buff" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="resetXDJ2InIsBuff" Click="resetXDJ2InIsBuff_Click"></Button>
+                        </StackPanel>
+                        <StackPanel Grid.Row="37" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【出库平台有大箱】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB10,X24.2.xdj2_out_platform_is_buff_big" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_out_platform_is_buff_big" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="resetXDJ2OutIsBuffBig" Click="resetXDJ2OutIsBuffBig_Click"></Button>
+                        </StackPanel>
+                        <StackPanel Grid.Row="38" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【出库平台有小箱】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB10,X24.3.xdj2_out_platform_is_buff_small" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_out_platform_is_buff_small" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置" Name="resetXDJ2OutIsBuffSmall" Click="resetXDJ2OutIsBuffSmall_Click"></Button>
+                        </StackPanel>
+
+
+                        <Label Content="出库机械手任务：" FontSize="13" Background="LightGreen" Grid.Row="39"/>
+                        <StackPanel Grid.Row="40" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1878.outrobot_pick_rw_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_outrobot_pick_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="41" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【箱型】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1879.outrobot_pick_box_type" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_outrobot_pick_box_type" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="42" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【需要码垛箱数】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1880.int.outrobot_pick_trayno" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_outrobot_pick_trayno" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="43" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【接收到需要码垛箱数】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB68,W16.outrobot_pick_trayno" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_outrobot_need_pick_trayno" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="44" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【已码垛箱数】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB68,W18.outroot_pick_count" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_outroot_pick_count" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="+ 1" Width="30" Name="OutrootPickCountIncrBtn" Click="reseOutrootPickCountIncrBtn_Click"></Button>
+                            <Button Content="- 1" Width="30" Name="OutrootPickCountDecrBtn" Click="reseOutrootPickCountDecrBtn_Click" ></Button>
+                        </StackPanel>
+
+
+                        <Label Content="巷道机1任务反馈：" FontSize="13" Background="LightGreen" Grid.Row="45"/>
+                        <StackPanel Grid.Row="46" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前层】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B806.int.xdj1_state_current_position1" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_current_position1" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="47" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前列】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B808.int.xdj1_state_current_position2" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_current_position2" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="48" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前排】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B810.int.xdj1_state_current_position3" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_current_position3" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="49" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【出库层】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B812.int.xdj1_state_target_out_position1" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_target_out_position1" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="50" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【出库列】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B814.int.xdj1_state_target_out_position2" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_target_out_position2" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="51" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【出库排】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B816.int.xdj1_state_target_out_position3" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_target_out_position3" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="52" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【入库层】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B818.int.xdj1_state_target_in_position1" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_target_in_position1" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="53" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【入库列】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B820.int.xdj1_state_target_in_position2" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_target_in_position2" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="54" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【入库排】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B822.int.xdj1_state_target_in_position3" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_target_in_position3" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="55" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前状态】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B824.Word.xdj1_state_current_state" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_current_state" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="56" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前错误】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B826.Word.xdj1_state_err" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_err" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="57" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前条码】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B828.254.String.xdj1_state_current_barcode" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_current_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="58" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【目标库位条码】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1084.254.String.xdj1_state_position_barcode" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_position_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="59" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【任务反馈标记】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1340.xdj1_state_action_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_state_action_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="60" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前任务类型】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB117,W12.xdj1_pickup_or_out_state" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_pickup_or_out_state" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+
+
+                        <Label Content="巷道机2任务反馈：" FontSize="13" Background="LightGreen" Grid.Row="61"/>
+                        <StackPanel Grid.Row="62" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前层】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1342.int.xdj2_state_current_position1" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_current_position1" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="63" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前列】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1344.int.xdj2_state_current_position2" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_current_position2" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="64" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前排】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1346.int.xdj2_state_current_position3" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_current_position3" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="65" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【出库层】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1348.int.xdj2_state_target_out_position1" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_target_out_position1" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="66" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【出库列】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1350.int.xdj2_state_target_out_position2" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_target_out_position2" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="67" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【出库排】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1352.int.xdj2_state_target_out_position3" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_target_out_position3" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="68" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【入库层】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1354.int.xdj2_state_target_in_position1" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_target_in_position1" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="69" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【入库列】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1356.int.xdj2_state_target_in_position2" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_target_in_position2" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="70" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【入库排】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1358.int.xdj2_state_target_in_position3" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_target_in_position3" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="71" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前状态】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1360.Word.xdj2_state_current_state" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_current_state" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="72" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前错误】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1362.Word.xdj2_state_err" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_err" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="73" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前条码】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1364.254.String.xdj2_state_current_barcode" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_current_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="74" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【目标库位条码】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1620.254.String.xdj2_state_position_barcode" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_position_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="75" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【任务反馈标记】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B1876.xdj2_state_action_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_state_action_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="76" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【当前任务类型】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB118,W12.xdj2_pickup_or_out_state" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj2_pickup_or_out_state" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
