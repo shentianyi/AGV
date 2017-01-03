@@ -547,7 +547,12 @@ namespace AGVCenterWPF
                 {
                     try
                     {
-                        this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+
+                        LogUtil.Logger.InfoFormat("【扫描到条码内容】{0}:", OPCCheckInStockBarcodeData.ScanedBarcode);
+                        if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode))
+                        {
+                            this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -860,6 +865,7 @@ namespace AGVCenterWPF
                 else
                 {
                     taskItem.AgvPassFlag = (byte)AgvPassFlag.ReScan;
+                    return false;
                 }
                 #endregion
                 BaseConfig.PreScanBar = barcode;
