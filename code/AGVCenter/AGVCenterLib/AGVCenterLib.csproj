@@ -75,8 +75,11 @@
     </Compile>
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\PartialBoxType.cs" />
+    <Compile Include="Data\PartialPickListItemStorageView.cs" />
+    <Compile Include="Data\PartialPickList.cs" />
     <Compile Include="Data\PartialDelivery.cs" />
     <Compile Include="Data\IDataContextFactory.cs" />
+    <Compile Include="Data\PartialPickListStorageView.cs" />
     <Compile Include="Data\PartialPositon.cs" />
     <Compile Include="Data\PartialStockMovement.cs" />
     <Compile Include="Data\PartialStockTaskLog.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Enum\BoxType.cs" />
     <Compile Include="Enum\DeliveryState.cs" />
     <Compile Include="Enum\OPC\CanonicalDataType.cs" />
+    <Compile Include="Enum\PickListState.cs" />
     <Compile Include="Enum\RemoteActionType.cs" />
     <Compile Include="Enum\StockMovementType.cs" />
     <Compile Include="Enum\StockTaskActionFlag.cs" />
@@ -139,6 +143,7 @@
     <Compile Include="Model\OPC\OPCRoadMachineTaskFeed.cs" />
     <Compile Include="Model\OPC\OPCSetStockTask.cs" />
     <Compile Include="Model\RemoteTaskActionItem.cs" />
+    <Compile Include="Model\SearchModel\PickListItemSearchModel.cs" />
     <Compile Include="Model\SearchModel\DeliveryItemSearchModel.cs" />
     <Compile Include="Model\SearchModel\PickListSearchModel.cs" />
     <Compile Include="Model\SearchModel\DeliverySearchModel.cs" />
@@ -149,6 +154,7 @@
     <Compile Include="Model\SearchModel\StorageSearchModel.cs" />
     <Compile Include="Model\SearchModel\UniqueItemSearchModel.cs" />
     <Compile Include="Model\StockTaskItem.cs" />
+    <Compile Include="Model\ViewModel\PickListItemStorageViewModel.cs" />
     <Compile Include="Model\ViewModel\DeliveryItemStorageViewModel.cs" />
     <Compile Include="Model\ViewModel\PickListStorageViewModel.cs" />
     <Compile Include="Model\ViewModel\PickListModel.cs" />

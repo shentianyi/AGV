@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AgvClientWPF.Delivery"
+        xmlns:local="clr-namespace:AgvClientWPF.Storage"
         mc:Ignorable="d"
         Title="StorageListWindow" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -37,10 +37,13 @@
             </DataGrid.Columns>
         </DataGrid>
                 <StackPanel Grid.Row="0" Grid.Column="1">
-                <Button x:Name="createDeliveryListBtn" Content="运单创建运单" 
-                        Margin="0,10,0,0"
+                <Button x:Name="createDeliveryListBtn" Content="创建运单" 
+                        Margin="0,10,0,0" Visibility="Collapsed"
                         Width="100" Height="40" Click="createDeliveryListBtn_Click"/>
-               
+                <Button x:Name="createPickListBtn" Content="创建择货单" 
+                        Margin="0,10,0,0"
+                        Width="100" Height="40" Click="createPickListBtn_Click"/>
+
             </StackPanel>
             </Grid>
        

@@ -79,6 +79,7 @@ namespace AGVCenterLib.Service
                 PickItemNum = task.PickItemNum,
                 PickBatchId = task.PickBatchId,
                 TrayBatchId = task.TrayBatchId,
+                PickListItemId=task.PickListItemId,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };

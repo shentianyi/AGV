@@ -32,7 +32,12 @@ namespace AGVCenterLib.Model.ViewModel
             }
         }
 
-        
+        [DataMember]
+        public int? State { get; set; }
+
+        [DataMember]
+        public string StateStr { get; set; }
+
         [DataMember]
         public DateTime? CreatedAt { get; set; }
 

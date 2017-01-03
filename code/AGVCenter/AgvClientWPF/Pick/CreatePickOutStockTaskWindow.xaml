@@ -3,16 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AgvClientWPF.Delivery"
+        xmlns:local="clr-namespace:AgvClientWPF.Pick"
         mc:Ignorable="d"
-        Title="DeliveryCreateOutStockTaskWindow" Height="500" Width="600"  WindowStartupLocation="CenterScreen">
+        Title="PickListCreateOutStockTaskWindow" Height="500" Width="600"  WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label x:Name="label" Content="运单号：" HorizontalAlignment="Left" Margin="29,63,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="pickListNrTB" HorizontalAlignment="Left" Height="23" Margin="92,63,0,0" 
+        <Label x:Name="label" Content="择货单号：" HorizontalAlignment="Left" Margin="29,63,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="pickListNrTB" HorizontalAlignment="Left" Height="23" Margin="102,63,0,0" 
                  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="191"/>
-        <Button x:Name="loadStorageBtn" Content="加载择货项" HorizontalAlignment="Left" Margin="297,63,0,0" VerticalAlignment="Top" Width="75" Click="loadStorageBtn_Click"/>
+        <Button x:Name="loadStorageBtn" Content="加载择货项" HorizontalAlignment="Left" Margin="305,63,0,0" VerticalAlignment="Top" Width="75" Click="loadStorageBtn_Click"/>
 
-        <DataGrid x:Name="pickListStorageDG" AutoGenerateColumns="False" CanUserAddRows="false" 
+        <DataGrid x:Name="pickListStorageDG" AutoGenerateColumns="False"
+                  CanUserAddRows="false" 
                   HorizontalAlignment="Left" Margin="29,94,0,0"   IsReadOnly="True"
                   VerticalAlignment="Top" Height="295" Width="498" 
                   RenderTransformOrigin="0.499,0.316">

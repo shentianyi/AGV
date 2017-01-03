@@ -213,6 +213,8 @@
     <Compile Include="Controllers\DeliveryItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PickListController.cs" />
+    <Compile Include="Controllers\PickListItemController.cs" />
     <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\StockMovementController.cs" />
     <Compile Include="Controllers\StockTaskLogController.cs" />
@@ -325,6 +327,8 @@
     <Content Include="Views\Position\Index.cshtml" />
     <Content Include="Views\StockTask\Index.cshtml" />
     <Content Include="Views\StockTaskLog\Index.cshtml" />
+    <Content Include="Views\PickList\Index.cshtml" />
+    <Content Include="Views\PickListItem\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

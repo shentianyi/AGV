@@ -240,7 +240,7 @@ namespace AGVCenterLib.Service
                     message.Content = string.Format("择货单{0}不存在", pickListNr);
                     return message;
                 }
-
+                
                 // 按照箱子类型排序
                 List<PickListStorageView> deliveryStorages =
                     pickListRep.GetStorageList(pickListNr).ToList();
@@ -325,6 +325,9 @@ namespace AGVCenterLib.Service
                                     TrayReverseNo = currentTrayItemCount - j,
                                     PickBatchId = pickListNr,
                                     TrayBatchId = trayBatchId,
+
+                                    PickListItemId = s.PickListItemId,
+
                                     CreatedAt = DateTime.Now,
                                     UpdatedAt = DateTime.Now
                                 });
@@ -335,6 +338,7 @@ namespace AGVCenterLib.Service
                 }
                 IStockTaskRepository stRep = new StockTaskRepository(this.Context);
                 stRep.Creates(stockTasks);
+                pickList.State = (int)PickListState.PickTaskCreated;
                 this.Context.SaveAll();
 
                 message.Success = true;

@@ -66,22 +66,22 @@ namespace AGVCenterLib.Data
     partial void InsertUniqueItem(UniqueItem instance);
     partial void UpdateUniqueItem(UniqueItem instance);
     partial void DeleteUniqueItem(UniqueItem instance);
-    partial void InsertPickList(PickList instance);
-    partial void UpdatePickList(PickList instance);
-    partial void DeletePickList(PickList instance);
     partial void InsertPickListItem(PickListItem instance);
     partial void UpdatePickListItem(PickListItem instance);
     partial void DeletePickListItem(PickListItem instance);
-    partial void InsertStockTask(StockTask instance);
-    partial void UpdateStockTask(StockTask instance);
-    partial void DeleteStockTask(StockTask instance);
+    partial void InsertPickList(PickList instance);
+    partial void UpdatePickList(PickList instance);
+    partial void DeletePickList(PickList instance);
     partial void InsertStockTaskLog(StockTaskLog instance);
     partial void UpdateStockTaskLog(StockTaskLog instance);
     partial void DeleteStockTaskLog(StockTaskLog instance);
+    partial void InsertStockTask(StockTask instance);
+    partial void UpdateStockTask(StockTask instance);
+    partial void DeleteStockTask(StockTask instance);
     #endregion
 		
 		public AgvWarehouseDataContext() : 
-				base(global::AGVCenterLib.Properties.Settings.Default.AgvWarehouseDbConnectionString1, mappingSource)
+				base(global::AGVCenterLib.Properties.Settings.Default.AgvWarehouseDbConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}
@@ -246,14 +246,6 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<PickList> PickList
-		{
-			get
-			{
-				return this.GetTable<PickList>();
-			}
-		}
-		
 		public System.Data.Linq.Table<PickListItem> PickListItem
 		{
 			get
@@ -262,11 +254,19 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<StockTask> StockTask
+		public System.Data.Linq.Table<PickList> PickList
 		{
 			get
 			{
-				return this.GetTable<StockTask>();
+				return this.GetTable<PickList>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PickListStorageView> PickListStorageView
+		{
+			get
+			{
+				return this.GetTable<PickListStorageView>();
 			}
 		}
 		
@@ -278,11 +278,19 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<PickListStorageView> PickListStorageView
+		public System.Data.Linq.Table<StockTask> StockTask
 		{
 			get
 			{
-				return this.GetTable<PickListStorageView>();
+				return this.GetTable<StockTask>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PickListItemStorageView> PickListItemStorageView
+		{
+			get
+			{
+				return this.GetTable<PickListItemStorageView>();
 			}
 		}
 	}
@@ -5225,144 +5233,6 @@ namespace AGVCenterLib.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PickList")]
-	public partial class PickList : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Nr;
-		
-		private System.Nullable<System.DateTime> _CreatedAt;
-		
-		private System.Nullable<System.DateTime> _UpdatedAt;
-		
-		private EntitySet<PickListItem> _PickListItem;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnNrChanging(string value);
-    partial void OnNrChanged();
-    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedAtChanged();
-    partial void OnUpdatedAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnUpdatedAtChanged();
-    #endregion
-		
-		public PickList()
-		{
-			this._PickListItem = new EntitySet<PickListItem>(new Action<PickListItem>(this.attach_PickListItem), new Action<PickListItem>(this.detach_PickListItem));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Nr
-		{
-			get
-			{
-				return this._Nr;
-			}
-			set
-			{
-				if ((this._Nr != value))
-				{
-					this.OnNrChanging(value);
-					this.SendPropertyChanging();
-					this._Nr = value;
-					this.SendPropertyChanged("Nr");
-					this.OnNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedAt
-		{
-			get
-			{
-				return this._CreatedAt;
-			}
-			set
-			{
-				if ((this._CreatedAt != value))
-				{
-					this.OnCreatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedAt = value;
-					this.SendPropertyChanged("CreatedAt");
-					this.OnCreatedAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdatedAt
-		{
-			get
-			{
-				return this._UpdatedAt;
-			}
-			set
-			{
-				if ((this._UpdatedAt != value))
-				{
-					this.OnUpdatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._UpdatedAt = value;
-					this.SendPropertyChanged("UpdatedAt");
-					this.OnUpdatedAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PickList_PickListItem", Storage="_PickListItem", ThisKey="Nr", OtherKey="PickListNr")]
-		public EntitySet<PickListItem> PickListItem
-		{
-			get
-			{
-				return this._PickListItem;
-			}
-			set
-			{
-				this._PickListItem.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PickListItem(PickListItem entity)
-		{
-			this.SendPropertyChanging();
-			entity.PickList = this;
-		}
-		
-		private void detach_PickListItem(PickListItem entity)
-		{
-			this.SendPropertyChanging();
-			entity.PickList = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PickListItem")]
 	public partial class PickListItem : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5586,295 +5456,58 @@ namespace AGVCenterLib.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StockTask")]
-	public partial class StockTask : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PickList")]
+	public partial class PickList : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
-		
-		private System.Nullable<int> _RoadMachineIndex;
-		
-		private System.Nullable<int> _BoxType;
-		
-		private string _PositionNr;
-		
-		private System.Nullable<int> _PositionFloor;
-		
-		private System.Nullable<int> _PositionColumn;
-		
-		private System.Nullable<int> _PositionRow;
-		
-		private System.Nullable<int> _AgvPassFlag;
-		
-		private System.Nullable<int> _RestPositionFlag;
-		
-		private string _BarCode;
+		private string _Nr;
 		
 		private System.Nullable<int> _State;
-		
-		private System.Nullable<int> _Type;
-		
-		private System.Nullable<int> _TrayReverseNo;
-		
-		private System.Nullable<int> _TrayNum;
-		
-		private System.Nullable<int> _PickItemNum;
-		
-		private string _PickBatchId;
-		
-		private string _TrayBatchId;
 		
 		private System.Nullable<System.DateTime> _CreatedAt;
 		
 		private System.Nullable<System.DateTime> _UpdatedAt;
 		
+		private EntitySet<PickListItem> _PickListItem;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnRoadMachineIndexChanging(System.Nullable<int> value);
-    partial void OnRoadMachineIndexChanged();
-    partial void OnBoxTypeChanging(System.Nullable<int> value);
-    partial void OnBoxTypeChanged();
-    partial void OnPositionNrChanging(string value);
-    partial void OnPositionNrChanged();
-    partial void OnPositionFloorChanging(System.Nullable<int> value);
-    partial void OnPositionFloorChanged();
-    partial void OnPositionColumnChanging(System.Nullable<int> value);
-    partial void OnPositionColumnChanged();
-    partial void OnPositionRowChanging(System.Nullable<int> value);
-    partial void OnPositionRowChanged();
-    partial void OnAgvPassFlagChanging(System.Nullable<int> value);
-    partial void OnAgvPassFlagChanged();
-    partial void OnRestPositionFlagChanging(System.Nullable<int> value);
-    partial void OnRestPositionFlagChanged();
-    partial void OnBarCodeChanging(string value);
-    partial void OnBarCodeChanged();
+    partial void OnNrChanging(string value);
+    partial void OnNrChanged();
     partial void OnStateChanging(System.Nullable<int> value);
     partial void OnStateChanged();
-    partial void OnTypeChanging(System.Nullable<int> value);
-    partial void OnTypeChanged();
-    partial void OnTrayReverseNoChanging(System.Nullable<int> value);
-    partial void OnTrayReverseNoChanged();
-    partial void OnTrayNumChanging(System.Nullable<int> value);
-    partial void OnTrayNumChanged();
-    partial void OnPickItemNumChanging(System.Nullable<int> value);
-    partial void OnPickItemNumChanged();
-    partial void OnPickBatchIdChanging(string value);
-    partial void OnPickBatchIdChanged();
-    partial void OnTrayBatchIdChanging(string value);
-    partial void OnTrayBatchIdChanged();
     partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
     partial void OnCreatedAtChanged();
     partial void OnUpdatedAtChanging(System.Nullable<System.DateTime> value);
     partial void OnUpdatedAtChanged();
     #endregion
 		
-		public StockTask()
+		public PickList()
 		{
+			this._PickListItem = new EntitySet<PickListItem>(new Action<PickListItem>(this.attach_PickListItem), new Action<PickListItem>(this.detach_PickListItem));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Nr
 		{
 			get
 			{
-				return this._Id;
+				return this._Nr;
 			}
 			set
 			{
-				if ((this._Id != value))
+				if ((this._Nr != value))
 				{
-					this.OnIdChanging(value);
+					this.OnNrChanging(value);
 					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoadMachineIndex", DbType="Int")]
-		public System.Nullable<int> RoadMachineIndex
-		{
-			get
-			{
-				return this._RoadMachineIndex;
-			}
-			set
-			{
-				if ((this._RoadMachineIndex != value))
-				{
-					this.OnRoadMachineIndexChanging(value);
-					this.SendPropertyChanging();
-					this._RoadMachineIndex = value;
-					this.SendPropertyChanged("RoadMachineIndex");
-					this.OnRoadMachineIndexChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoxType", DbType="Int")]
-		public System.Nullable<int> BoxType
-		{
-			get
-			{
-				return this._BoxType;
-			}
-			set
-			{
-				if ((this._BoxType != value))
-				{
-					this.OnBoxTypeChanging(value);
-					this.SendPropertyChanging();
-					this._BoxType = value;
-					this.SendPropertyChanged("BoxType");
-					this.OnBoxTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionNr", DbType="VarChar(50)")]
-		public string PositionNr
-		{
-			get
-			{
-				return this._PositionNr;
-			}
-			set
-			{
-				if ((this._PositionNr != value))
-				{
-					this.OnPositionNrChanging(value);
-					this.SendPropertyChanging();
-					this._PositionNr = value;
-					this.SendPropertyChanged("PositionNr");
-					this.OnPositionNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionFloor", DbType="Int")]
-		public System.Nullable<int> PositionFloor
-		{
-			get
-			{
-				return this._PositionFloor;
-			}
-			set
-			{
-				if ((this._PositionFloor != value))
-				{
-					this.OnPositionFloorChanging(value);
-					this.SendPropertyChanging();
-					this._PositionFloor = value;
-					this.SendPropertyChanged("PositionFloor");
-					this.OnPositionFloorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionColumn", DbType="Int")]
-		public System.Nullable<int> PositionColumn
-		{
-			get
-			{
-				return this._PositionColumn;
-			}
-			set
-			{
-				if ((this._PositionColumn != value))
-				{
-					this.OnPositionColumnChanging(value);
-					this.SendPropertyChanging();
-					this._PositionColumn = value;
-					this.SendPropertyChanged("PositionColumn");
-					this.OnPositionColumnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRow", DbType="Int")]
-		public System.Nullable<int> PositionRow
-		{
-			get
-			{
-				return this._PositionRow;
-			}
-			set
-			{
-				if ((this._PositionRow != value))
-				{
-					this.OnPositionRowChanging(value);
-					this.SendPropertyChanging();
-					this._PositionRow = value;
-					this.SendPropertyChanged("PositionRow");
-					this.OnPositionRowChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AgvPassFlag", DbType="Int")]
-		public System.Nullable<int> AgvPassFlag
-		{
-			get
-			{
-				return this._AgvPassFlag;
-			}
-			set
-			{
-				if ((this._AgvPassFlag != value))
-				{
-					this.OnAgvPassFlagChanging(value);
-					this.SendPropertyChanging();
-					this._AgvPassFlag = value;
-					this.SendPropertyChanged("AgvPassFlag");
-					this.OnAgvPassFlagChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RestPositionFlag", DbType="Int")]
-		public System.Nullable<int> RestPositionFlag
-		{
-			get
-			{
-				return this._RestPositionFlag;
-			}
-			set
-			{
-				if ((this._RestPositionFlag != value))
-				{
-					this.OnRestPositionFlagChanging(value);
-					this.SendPropertyChanging();
-					this._RestPositionFlag = value;
-					this.SendPropertyChanged("RestPositionFlag");
-					this.OnRestPositionFlagChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BarCode", DbType="VarChar(500)")]
-		public string BarCode
-		{
-			get
-			{
-				return this._BarCode;
-			}
-			set
-			{
-				if ((this._BarCode != value))
-				{
-					this.OnBarCodeChanging(value);
-					this.SendPropertyChanging();
-					this._BarCode = value;
-					this.SendPropertyChanged("BarCode");
-					this.OnBarCodeChanged();
+					this._Nr = value;
+					this.SendPropertyChanged("Nr");
+					this.OnNrChanged();
 				}
 			}
 		}
@@ -5899,126 +5532,6 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
-		public System.Nullable<int> Type
-		{
-			get
-			{
-				return this._Type;
-			}
-			set
-			{
-				if ((this._Type != value))
-				{
-					this.OnTypeChanging(value);
-					this.SendPropertyChanging();
-					this._Type = value;
-					this.SendPropertyChanged("Type");
-					this.OnTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayReverseNo", DbType="Int")]
-		public System.Nullable<int> TrayReverseNo
-		{
-			get
-			{
-				return this._TrayReverseNo;
-			}
-			set
-			{
-				if ((this._TrayReverseNo != value))
-				{
-					this.OnTrayReverseNoChanging(value);
-					this.SendPropertyChanging();
-					this._TrayReverseNo = value;
-					this.SendPropertyChanged("TrayReverseNo");
-					this.OnTrayReverseNoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayNum", DbType="Int")]
-		public System.Nullable<int> TrayNum
-		{
-			get
-			{
-				return this._TrayNum;
-			}
-			set
-			{
-				if ((this._TrayNum != value))
-				{
-					this.OnTrayNumChanging(value);
-					this.SendPropertyChanging();
-					this._TrayNum = value;
-					this.SendPropertyChanged("TrayNum");
-					this.OnTrayNumChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickItemNum", DbType="Int")]
-		public System.Nullable<int> PickItemNum
-		{
-			get
-			{
-				return this._PickItemNum;
-			}
-			set
-			{
-				if ((this._PickItemNum != value))
-				{
-					this.OnPickItemNumChanging(value);
-					this.SendPropertyChanging();
-					this._PickItemNum = value;
-					this.SendPropertyChanged("PickItemNum");
-					this.OnPickItemNumChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickBatchId", DbType="VarChar(50)")]
-		public string PickBatchId
-		{
-			get
-			{
-				return this._PickBatchId;
-			}
-			set
-			{
-				if ((this._PickBatchId != value))
-				{
-					this.OnPickBatchIdChanging(value);
-					this.SendPropertyChanging();
-					this._PickBatchId = value;
-					this.SendPropertyChanged("PickBatchId");
-					this.OnPickBatchIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayBatchId", DbType="VarChar(50)")]
-		public string TrayBatchId
-		{
-			get
-			{
-				return this._TrayBatchId;
-			}
-			set
-			{
-				if ((this._TrayBatchId != value))
-				{
-					this.OnTrayBatchIdChanging(value);
-					this.SendPropertyChanging();
-					this._TrayBatchId = value;
-					this.SendPropertyChanged("TrayBatchId");
-					this.OnTrayBatchIdChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
 		public System.Nullable<System.DateTime> CreatedAt
 		{
@@ -6059,545 +5572,16 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StockTaskLog")]
-	public partial class StockTaskLog : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private System.Nullable<int> _StockTaskId;
-		
-		private System.Nullable<int> _RoadMachineIndex;
-		
-		private System.Nullable<int> _BoxType;
-		
-		private string _PositionNr;
-		
-		private System.Nullable<int> _PositionFloor;
-		
-		private System.Nullable<int> _PositionColumn;
-		
-		private System.Nullable<int> _PositionRow;
-		
-		private System.Nullable<int> _AgvPassFlag;
-		
-		private System.Nullable<int> _RestPositionFlag;
-		
-		private string _BarCode;
-		
-		private System.Nullable<int> _FromState;
-		
-		private System.Nullable<int> _ToState;
-		
-		private System.Nullable<int> _Type;
-		
-		private System.Nullable<int> _TrayReverseNo;
-		
-		private System.Nullable<int> _TrayNum;
-		
-		private System.Nullable<int> _PickItemNum;
-		
-		private string _PickBatchId;
-		
-		private string _TrayBatchId;
-		
-		private System.Nullable<System.DateTime> _CreatedAt;
-		
-		private System.Nullable<System.DateTime> _UpdatedAt;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnStockTaskIdChanging(System.Nullable<int> value);
-    partial void OnStockTaskIdChanged();
-    partial void OnRoadMachineIndexChanging(System.Nullable<int> value);
-    partial void OnRoadMachineIndexChanged();
-    partial void OnBoxTypeChanging(System.Nullable<int> value);
-    partial void OnBoxTypeChanged();
-    partial void OnPositionNrChanging(string value);
-    partial void OnPositionNrChanged();
-    partial void OnPositionFloorChanging(System.Nullable<int> value);
-    partial void OnPositionFloorChanged();
-    partial void OnPositionColumnChanging(System.Nullable<int> value);
-    partial void OnPositionColumnChanged();
-    partial void OnPositionRowChanging(System.Nullable<int> value);
-    partial void OnPositionRowChanged();
-    partial void OnAgvPassFlagChanging(System.Nullable<int> value);
-    partial void OnAgvPassFlagChanged();
-    partial void OnRestPositionFlagChanging(System.Nullable<int> value);
-    partial void OnRestPositionFlagChanged();
-    partial void OnBarCodeChanging(string value);
-    partial void OnBarCodeChanged();
-    partial void OnFromStateChanging(System.Nullable<int> value);
-    partial void OnFromStateChanged();
-    partial void OnToStateChanging(System.Nullable<int> value);
-    partial void OnToStateChanged();
-    partial void OnTypeChanging(System.Nullable<int> value);
-    partial void OnTypeChanged();
-    partial void OnTrayReverseNoChanging(System.Nullable<int> value);
-    partial void OnTrayReverseNoChanged();
-    partial void OnTrayNumChanging(System.Nullable<int> value);
-    partial void OnTrayNumChanged();
-    partial void OnPickItemNumChanging(System.Nullable<int> value);
-    partial void OnPickItemNumChanged();
-    partial void OnPickBatchIdChanging(string value);
-    partial void OnPickBatchIdChanged();
-    partial void OnTrayBatchIdChanging(string value);
-    partial void OnTrayBatchIdChanged();
-    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedAtChanged();
-    partial void OnUpdatedAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnUpdatedAtChanged();
-    #endregion
-		
-		public StockTaskLog()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PickList_PickListItem", Storage="_PickListItem", ThisKey="Nr", OtherKey="PickListNr")]
+		public EntitySet<PickListItem> PickListItem
 		{
 			get
 			{
-				return this._Id;
+				return this._PickListItem;
 			}
 			set
 			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockTaskId", DbType="Int")]
-		public System.Nullable<int> StockTaskId
-		{
-			get
-			{
-				return this._StockTaskId;
-			}
-			set
-			{
-				if ((this._StockTaskId != value))
-				{
-					this.OnStockTaskIdChanging(value);
-					this.SendPropertyChanging();
-					this._StockTaskId = value;
-					this.SendPropertyChanged("StockTaskId");
-					this.OnStockTaskIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoadMachineIndex", DbType="Int")]
-		public System.Nullable<int> RoadMachineIndex
-		{
-			get
-			{
-				return this._RoadMachineIndex;
-			}
-			set
-			{
-				if ((this._RoadMachineIndex != value))
-				{
-					this.OnRoadMachineIndexChanging(value);
-					this.SendPropertyChanging();
-					this._RoadMachineIndex = value;
-					this.SendPropertyChanged("RoadMachineIndex");
-					this.OnRoadMachineIndexChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoxType", DbType="Int")]
-		public System.Nullable<int> BoxType
-		{
-			get
-			{
-				return this._BoxType;
-			}
-			set
-			{
-				if ((this._BoxType != value))
-				{
-					this.OnBoxTypeChanging(value);
-					this.SendPropertyChanging();
-					this._BoxType = value;
-					this.SendPropertyChanged("BoxType");
-					this.OnBoxTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionNr", DbType="VarChar(50)")]
-		public string PositionNr
-		{
-			get
-			{
-				return this._PositionNr;
-			}
-			set
-			{
-				if ((this._PositionNr != value))
-				{
-					this.OnPositionNrChanging(value);
-					this.SendPropertyChanging();
-					this._PositionNr = value;
-					this.SendPropertyChanged("PositionNr");
-					this.OnPositionNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionFloor", DbType="Int")]
-		public System.Nullable<int> PositionFloor
-		{
-			get
-			{
-				return this._PositionFloor;
-			}
-			set
-			{
-				if ((this._PositionFloor != value))
-				{
-					this.OnPositionFloorChanging(value);
-					this.SendPropertyChanging();
-					this._PositionFloor = value;
-					this.SendPropertyChanged("PositionFloor");
-					this.OnPositionFloorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionColumn", DbType="Int")]
-		public System.Nullable<int> PositionColumn
-		{
-			get
-			{
-				return this._PositionColumn;
-			}
-			set
-			{
-				if ((this._PositionColumn != value))
-				{
-					this.OnPositionColumnChanging(value);
-					this.SendPropertyChanging();
-					this._PositionColumn = value;
-					this.SendPropertyChanged("PositionColumn");
-					this.OnPositionColumnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRow", DbType="Int")]
-		public System.Nullable<int> PositionRow
-		{
-			get
-			{
-				return this._PositionRow;
-			}
-			set
-			{
-				if ((this._PositionRow != value))
-				{
-					this.OnPositionRowChanging(value);
-					this.SendPropertyChanging();
-					this._PositionRow = value;
-					this.SendPropertyChanged("PositionRow");
-					this.OnPositionRowChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AgvPassFlag", DbType="Int")]
-		public System.Nullable<int> AgvPassFlag
-		{
-			get
-			{
-				return this._AgvPassFlag;
-			}
-			set
-			{
-				if ((this._AgvPassFlag != value))
-				{
-					this.OnAgvPassFlagChanging(value);
-					this.SendPropertyChanging();
-					this._AgvPassFlag = value;
-					this.SendPropertyChanged("AgvPassFlag");
-					this.OnAgvPassFlagChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RestPositionFlag", DbType="Int")]
-		public System.Nullable<int> RestPositionFlag
-		{
-			get
-			{
-				return this._RestPositionFlag;
-			}
-			set
-			{
-				if ((this._RestPositionFlag != value))
-				{
-					this.OnRestPositionFlagChanging(value);
-					this.SendPropertyChanging();
-					this._RestPositionFlag = value;
-					this.SendPropertyChanged("RestPositionFlag");
-					this.OnRestPositionFlagChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BarCode", DbType="VarChar(500)")]
-		public string BarCode
-		{
-			get
-			{
-				return this._BarCode;
-			}
-			set
-			{
-				if ((this._BarCode != value))
-				{
-					this.OnBarCodeChanging(value);
-					this.SendPropertyChanging();
-					this._BarCode = value;
-					this.SendPropertyChanged("BarCode");
-					this.OnBarCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FromState", DbType="Int")]
-		public System.Nullable<int> FromState
-		{
-			get
-			{
-				return this._FromState;
-			}
-			set
-			{
-				if ((this._FromState != value))
-				{
-					this.OnFromStateChanging(value);
-					this.SendPropertyChanging();
-					this._FromState = value;
-					this.SendPropertyChanged("FromState");
-					this.OnFromStateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToState", DbType="Int")]
-		public System.Nullable<int> ToState
-		{
-			get
-			{
-				return this._ToState;
-			}
-			set
-			{
-				if ((this._ToState != value))
-				{
-					this.OnToStateChanging(value);
-					this.SendPropertyChanging();
-					this._ToState = value;
-					this.SendPropertyChanged("ToState");
-					this.OnToStateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
-		public System.Nullable<int> Type
-		{
-			get
-			{
-				return this._Type;
-			}
-			set
-			{
-				if ((this._Type != value))
-				{
-					this.OnTypeChanging(value);
-					this.SendPropertyChanging();
-					this._Type = value;
-					this.SendPropertyChanged("Type");
-					this.OnTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayReverseNo", DbType="Int")]
-		public System.Nullable<int> TrayReverseNo
-		{
-			get
-			{
-				return this._TrayReverseNo;
-			}
-			set
-			{
-				if ((this._TrayReverseNo != value))
-				{
-					this.OnTrayReverseNoChanging(value);
-					this.SendPropertyChanging();
-					this._TrayReverseNo = value;
-					this.SendPropertyChanged("TrayReverseNo");
-					this.OnTrayReverseNoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayNum", DbType="Int")]
-		public System.Nullable<int> TrayNum
-		{
-			get
-			{
-				return this._TrayNum;
-			}
-			set
-			{
-				if ((this._TrayNum != value))
-				{
-					this.OnTrayNumChanging(value);
-					this.SendPropertyChanging();
-					this._TrayNum = value;
-					this.SendPropertyChanged("TrayNum");
-					this.OnTrayNumChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickItemNum", DbType="Int")]
-		public System.Nullable<int> PickItemNum
-		{
-			get
-			{
-				return this._PickItemNum;
-			}
-			set
-			{
-				if ((this._PickItemNum != value))
-				{
-					this.OnPickItemNumChanging(value);
-					this.SendPropertyChanging();
-					this._PickItemNum = value;
-					this.SendPropertyChanged("PickItemNum");
-					this.OnPickItemNumChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickBatchId", DbType="VarChar(50)")]
-		public string PickBatchId
-		{
-			get
-			{
-				return this._PickBatchId;
-			}
-			set
-			{
-				if ((this._PickBatchId != value))
-				{
-					this.OnPickBatchIdChanging(value);
-					this.SendPropertyChanging();
-					this._PickBatchId = value;
-					this.SendPropertyChanged("PickBatchId");
-					this.OnPickBatchIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayBatchId", DbType="VarChar(50)")]
-		public string TrayBatchId
-		{
-			get
-			{
-				return this._TrayBatchId;
-			}
-			set
-			{
-				if ((this._TrayBatchId != value))
-				{
-					this.OnTrayBatchIdChanging(value);
-					this.SendPropertyChanging();
-					this._TrayBatchId = value;
-					this.SendPropertyChanged("TrayBatchId");
-					this.OnTrayBatchIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedAt
-		{
-			get
-			{
-				return this._CreatedAt;
-			}
-			set
-			{
-				if ((this._CreatedAt != value))
-				{
-					this.OnCreatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedAt = value;
-					this.SendPropertyChanged("CreatedAt");
-					this.OnCreatedAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdatedAt
-		{
-			get
-			{
-				return this._UpdatedAt;
-			}
-			set
-			{
-				if ((this._UpdatedAt != value))
-				{
-					this.OnUpdatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._UpdatedAt = value;
-					this.SendPropertyChanged("UpdatedAt");
-					this.OnUpdatedAtChanged();
-				}
+				this._PickListItem.Assign(value);
 			}
 		}
 		
@@ -6619,6 +5603,18 @@ namespace AGVCenterLib.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_PickListItem(PickListItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.PickList = this;
+		}
+		
+		private void detach_PickListItem(PickListItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.PickList = null;
 		}
 	}
 	
@@ -6632,7 +5628,7 @@ namespace AGVCenterLib.Data
 		
 		private System.Nullable<System.DateTime> _UpdatedAt;
 		
-		private int _ASPickListItemId;
+		private int _PickListItemId;
 		
 		private string _PickListItemPickListNr;
 		
@@ -6742,18 +5738,18 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ASPickListItemId", DbType="Int NOT NULL")]
-		public int ASPickListItemId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemId", DbType="Int NOT NULL")]
+		public int PickListItemId
 		{
 			get
 			{
-				return this._ASPickListItemId;
+				return this._PickListItemId;
 			}
 			set
 			{
-				if ((this._ASPickListItemId != value))
+				if ((this._PickListItemId != value))
 				{
-					this._ASPickListItemId = value;
+					this._PickListItemId = value;
 				}
 			}
 		}
@@ -7202,6 +6198,1513 @@ namespace AGVCenterLib.Data
 				if ((this._PositionRoadMachineIndex != value))
 				{
 					this._PositionRoadMachineIndex = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StockTaskLog")]
+	public partial class StockTaskLog : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private System.Nullable<int> _StockTaskId;
+		
+		private System.Nullable<int> _RoadMachineIndex;
+		
+		private System.Nullable<int> _BoxType;
+		
+		private string _PositionNr;
+		
+		private System.Nullable<int> _PositionFloor;
+		
+		private System.Nullable<int> _PositionColumn;
+		
+		private System.Nullable<int> _PositionRow;
+		
+		private System.Nullable<int> _AgvPassFlag;
+		
+		private System.Nullable<int> _RestPositionFlag;
+		
+		private string _BarCode;
+		
+		private System.Nullable<int> _FromState;
+		
+		private System.Nullable<int> _ToState;
+		
+		private System.Nullable<int> _Type;
+		
+		private System.Nullable<int> _TrayReverseNo;
+		
+		private System.Nullable<int> _TrayNum;
+		
+		private System.Nullable<int> _PickItemNum;
+		
+		private string _PickBatchId;
+		
+		private string _TrayBatchId;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private System.Nullable<System.DateTime> _UpdatedAt;
+		
+		private System.Nullable<int> _PickListItemId;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnStockTaskIdChanging(System.Nullable<int> value);
+    partial void OnStockTaskIdChanged();
+    partial void OnRoadMachineIndexChanging(System.Nullable<int> value);
+    partial void OnRoadMachineIndexChanged();
+    partial void OnBoxTypeChanging(System.Nullable<int> value);
+    partial void OnBoxTypeChanged();
+    partial void OnPositionNrChanging(string value);
+    partial void OnPositionNrChanged();
+    partial void OnPositionFloorChanging(System.Nullable<int> value);
+    partial void OnPositionFloorChanged();
+    partial void OnPositionColumnChanging(System.Nullable<int> value);
+    partial void OnPositionColumnChanged();
+    partial void OnPositionRowChanging(System.Nullable<int> value);
+    partial void OnPositionRowChanged();
+    partial void OnAgvPassFlagChanging(System.Nullable<int> value);
+    partial void OnAgvPassFlagChanged();
+    partial void OnRestPositionFlagChanging(System.Nullable<int> value);
+    partial void OnRestPositionFlagChanged();
+    partial void OnBarCodeChanging(string value);
+    partial void OnBarCodeChanged();
+    partial void OnFromStateChanging(System.Nullable<int> value);
+    partial void OnFromStateChanged();
+    partial void OnToStateChanging(System.Nullable<int> value);
+    partial void OnToStateChanged();
+    partial void OnTypeChanging(System.Nullable<int> value);
+    partial void OnTypeChanged();
+    partial void OnTrayReverseNoChanging(System.Nullable<int> value);
+    partial void OnTrayReverseNoChanged();
+    partial void OnTrayNumChanging(System.Nullable<int> value);
+    partial void OnTrayNumChanged();
+    partial void OnPickItemNumChanging(System.Nullable<int> value);
+    partial void OnPickItemNumChanged();
+    partial void OnPickBatchIdChanging(string value);
+    partial void OnPickBatchIdChanged();
+    partial void OnTrayBatchIdChanging(string value);
+    partial void OnTrayBatchIdChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    partial void OnUpdatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedAtChanged();
+    partial void OnPickListItemIdChanging(System.Nullable<int> value);
+    partial void OnPickListItemIdChanged();
+    #endregion
+		
+		public StockTaskLog()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockTaskId", DbType="Int")]
+		public System.Nullable<int> StockTaskId
+		{
+			get
+			{
+				return this._StockTaskId;
+			}
+			set
+			{
+				if ((this._StockTaskId != value))
+				{
+					this.OnStockTaskIdChanging(value);
+					this.SendPropertyChanging();
+					this._StockTaskId = value;
+					this.SendPropertyChanged("StockTaskId");
+					this.OnStockTaskIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoadMachineIndex", DbType="Int")]
+		public System.Nullable<int> RoadMachineIndex
+		{
+			get
+			{
+				return this._RoadMachineIndex;
+			}
+			set
+			{
+				if ((this._RoadMachineIndex != value))
+				{
+					this.OnRoadMachineIndexChanging(value);
+					this.SendPropertyChanging();
+					this._RoadMachineIndex = value;
+					this.SendPropertyChanged("RoadMachineIndex");
+					this.OnRoadMachineIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoxType", DbType="Int")]
+		public System.Nullable<int> BoxType
+		{
+			get
+			{
+				return this._BoxType;
+			}
+			set
+			{
+				if ((this._BoxType != value))
+				{
+					this.OnBoxTypeChanging(value);
+					this.SendPropertyChanging();
+					this._BoxType = value;
+					this.SendPropertyChanged("BoxType");
+					this.OnBoxTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionNr", DbType="VarChar(50)")]
+		public string PositionNr
+		{
+			get
+			{
+				return this._PositionNr;
+			}
+			set
+			{
+				if ((this._PositionNr != value))
+				{
+					this.OnPositionNrChanging(value);
+					this.SendPropertyChanging();
+					this._PositionNr = value;
+					this.SendPropertyChanged("PositionNr");
+					this.OnPositionNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionFloor", DbType="Int")]
+		public System.Nullable<int> PositionFloor
+		{
+			get
+			{
+				return this._PositionFloor;
+			}
+			set
+			{
+				if ((this._PositionFloor != value))
+				{
+					this.OnPositionFloorChanging(value);
+					this.SendPropertyChanging();
+					this._PositionFloor = value;
+					this.SendPropertyChanged("PositionFloor");
+					this.OnPositionFloorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionColumn", DbType="Int")]
+		public System.Nullable<int> PositionColumn
+		{
+			get
+			{
+				return this._PositionColumn;
+			}
+			set
+			{
+				if ((this._PositionColumn != value))
+				{
+					this.OnPositionColumnChanging(value);
+					this.SendPropertyChanging();
+					this._PositionColumn = value;
+					this.SendPropertyChanged("PositionColumn");
+					this.OnPositionColumnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRow", DbType="Int")]
+		public System.Nullable<int> PositionRow
+		{
+			get
+			{
+				return this._PositionRow;
+			}
+			set
+			{
+				if ((this._PositionRow != value))
+				{
+					this.OnPositionRowChanging(value);
+					this.SendPropertyChanging();
+					this._PositionRow = value;
+					this.SendPropertyChanged("PositionRow");
+					this.OnPositionRowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AgvPassFlag", DbType="Int")]
+		public System.Nullable<int> AgvPassFlag
+		{
+			get
+			{
+				return this._AgvPassFlag;
+			}
+			set
+			{
+				if ((this._AgvPassFlag != value))
+				{
+					this.OnAgvPassFlagChanging(value);
+					this.SendPropertyChanging();
+					this._AgvPassFlag = value;
+					this.SendPropertyChanged("AgvPassFlag");
+					this.OnAgvPassFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RestPositionFlag", DbType="Int")]
+		public System.Nullable<int> RestPositionFlag
+		{
+			get
+			{
+				return this._RestPositionFlag;
+			}
+			set
+			{
+				if ((this._RestPositionFlag != value))
+				{
+					this.OnRestPositionFlagChanging(value);
+					this.SendPropertyChanging();
+					this._RestPositionFlag = value;
+					this.SendPropertyChanged("RestPositionFlag");
+					this.OnRestPositionFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BarCode", DbType="VarChar(500)")]
+		public string BarCode
+		{
+			get
+			{
+				return this._BarCode;
+			}
+			set
+			{
+				if ((this._BarCode != value))
+				{
+					this.OnBarCodeChanging(value);
+					this.SendPropertyChanging();
+					this._BarCode = value;
+					this.SendPropertyChanged("BarCode");
+					this.OnBarCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FromState", DbType="Int")]
+		public System.Nullable<int> FromState
+		{
+			get
+			{
+				return this._FromState;
+			}
+			set
+			{
+				if ((this._FromState != value))
+				{
+					this.OnFromStateChanging(value);
+					this.SendPropertyChanging();
+					this._FromState = value;
+					this.SendPropertyChanged("FromState");
+					this.OnFromStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToState", DbType="Int")]
+		public System.Nullable<int> ToState
+		{
+			get
+			{
+				return this._ToState;
+			}
+			set
+			{
+				if ((this._ToState != value))
+				{
+					this.OnToStateChanging(value);
+					this.SendPropertyChanging();
+					this._ToState = value;
+					this.SendPropertyChanged("ToState");
+					this.OnToStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
+		public System.Nullable<int> Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayReverseNo", DbType="Int")]
+		public System.Nullable<int> TrayReverseNo
+		{
+			get
+			{
+				return this._TrayReverseNo;
+			}
+			set
+			{
+				if ((this._TrayReverseNo != value))
+				{
+					this.OnTrayReverseNoChanging(value);
+					this.SendPropertyChanging();
+					this._TrayReverseNo = value;
+					this.SendPropertyChanged("TrayReverseNo");
+					this.OnTrayReverseNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayNum", DbType="Int")]
+		public System.Nullable<int> TrayNum
+		{
+			get
+			{
+				return this._TrayNum;
+			}
+			set
+			{
+				if ((this._TrayNum != value))
+				{
+					this.OnTrayNumChanging(value);
+					this.SendPropertyChanging();
+					this._TrayNum = value;
+					this.SendPropertyChanged("TrayNum");
+					this.OnTrayNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickItemNum", DbType="Int")]
+		public System.Nullable<int> PickItemNum
+		{
+			get
+			{
+				return this._PickItemNum;
+			}
+			set
+			{
+				if ((this._PickItemNum != value))
+				{
+					this.OnPickItemNumChanging(value);
+					this.SendPropertyChanging();
+					this._PickItemNum = value;
+					this.SendPropertyChanged("PickItemNum");
+					this.OnPickItemNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickBatchId", DbType="VarChar(50)")]
+		public string PickBatchId
+		{
+			get
+			{
+				return this._PickBatchId;
+			}
+			set
+			{
+				if ((this._PickBatchId != value))
+				{
+					this.OnPickBatchIdChanging(value);
+					this.SendPropertyChanging();
+					this._PickBatchId = value;
+					this.SendPropertyChanged("PickBatchId");
+					this.OnPickBatchIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayBatchId", DbType="VarChar(50)")]
+		public string TrayBatchId
+		{
+			get
+			{
+				return this._TrayBatchId;
+			}
+			set
+			{
+				if ((this._TrayBatchId != value))
+				{
+					this.OnTrayBatchIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrayBatchId = value;
+					this.SendPropertyChanged("TrayBatchId");
+					this.OnTrayBatchIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedAt
+		{
+			get
+			{
+				return this._UpdatedAt;
+			}
+			set
+			{
+				if ((this._UpdatedAt != value))
+				{
+					this.OnUpdatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedAt = value;
+					this.SendPropertyChanged("UpdatedAt");
+					this.OnUpdatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemId", DbType="Int")]
+		public System.Nullable<int> PickListItemId
+		{
+			get
+			{
+				return this._PickListItemId;
+			}
+			set
+			{
+				if ((this._PickListItemId != value))
+				{
+					this.OnPickListItemIdChanging(value);
+					this.SendPropertyChanging();
+					this._PickListItemId = value;
+					this.SendPropertyChanged("PickListItemId");
+					this.OnPickListItemIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StockTask")]
+	public partial class StockTask : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private System.Nullable<int> _RoadMachineIndex;
+		
+		private System.Nullable<int> _BoxType;
+		
+		private string _PositionNr;
+		
+		private System.Nullable<int> _PositionFloor;
+		
+		private System.Nullable<int> _PositionColumn;
+		
+		private System.Nullable<int> _PositionRow;
+		
+		private System.Nullable<int> _AgvPassFlag;
+		
+		private System.Nullable<int> _RestPositionFlag;
+		
+		private string _BarCode;
+		
+		private System.Nullable<int> _State;
+		
+		private System.Nullable<int> _Type;
+		
+		private System.Nullable<int> _TrayReverseNo;
+		
+		private System.Nullable<int> _TrayNum;
+		
+		private System.Nullable<int> _PickItemNum;
+		
+		private string _PickBatchId;
+		
+		private string _TrayBatchId;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private System.Nullable<System.DateTime> _UpdatedAt;
+		
+		private System.Nullable<int> _PickListItemId;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnRoadMachineIndexChanging(System.Nullable<int> value);
+    partial void OnRoadMachineIndexChanged();
+    partial void OnBoxTypeChanging(System.Nullable<int> value);
+    partial void OnBoxTypeChanged();
+    partial void OnPositionNrChanging(string value);
+    partial void OnPositionNrChanged();
+    partial void OnPositionFloorChanging(System.Nullable<int> value);
+    partial void OnPositionFloorChanged();
+    partial void OnPositionColumnChanging(System.Nullable<int> value);
+    partial void OnPositionColumnChanged();
+    partial void OnPositionRowChanging(System.Nullable<int> value);
+    partial void OnPositionRowChanged();
+    partial void OnAgvPassFlagChanging(System.Nullable<int> value);
+    partial void OnAgvPassFlagChanged();
+    partial void OnRestPositionFlagChanging(System.Nullable<int> value);
+    partial void OnRestPositionFlagChanged();
+    partial void OnBarCodeChanging(string value);
+    partial void OnBarCodeChanged();
+    partial void OnStateChanging(System.Nullable<int> value);
+    partial void OnStateChanged();
+    partial void OnTypeChanging(System.Nullable<int> value);
+    partial void OnTypeChanged();
+    partial void OnTrayReverseNoChanging(System.Nullable<int> value);
+    partial void OnTrayReverseNoChanged();
+    partial void OnTrayNumChanging(System.Nullable<int> value);
+    partial void OnTrayNumChanged();
+    partial void OnPickItemNumChanging(System.Nullable<int> value);
+    partial void OnPickItemNumChanged();
+    partial void OnPickBatchIdChanging(string value);
+    partial void OnPickBatchIdChanged();
+    partial void OnTrayBatchIdChanging(string value);
+    partial void OnTrayBatchIdChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    partial void OnUpdatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedAtChanged();
+    partial void OnPickListItemIdChanging(System.Nullable<int> value);
+    partial void OnPickListItemIdChanged();
+    #endregion
+		
+		public StockTask()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoadMachineIndex", DbType="Int")]
+		public System.Nullable<int> RoadMachineIndex
+		{
+			get
+			{
+				return this._RoadMachineIndex;
+			}
+			set
+			{
+				if ((this._RoadMachineIndex != value))
+				{
+					this.OnRoadMachineIndexChanging(value);
+					this.SendPropertyChanging();
+					this._RoadMachineIndex = value;
+					this.SendPropertyChanged("RoadMachineIndex");
+					this.OnRoadMachineIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoxType", DbType="Int")]
+		public System.Nullable<int> BoxType
+		{
+			get
+			{
+				return this._BoxType;
+			}
+			set
+			{
+				if ((this._BoxType != value))
+				{
+					this.OnBoxTypeChanging(value);
+					this.SendPropertyChanging();
+					this._BoxType = value;
+					this.SendPropertyChanged("BoxType");
+					this.OnBoxTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionNr", DbType="VarChar(50)")]
+		public string PositionNr
+		{
+			get
+			{
+				return this._PositionNr;
+			}
+			set
+			{
+				if ((this._PositionNr != value))
+				{
+					this.OnPositionNrChanging(value);
+					this.SendPropertyChanging();
+					this._PositionNr = value;
+					this.SendPropertyChanged("PositionNr");
+					this.OnPositionNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionFloor", DbType="Int")]
+		public System.Nullable<int> PositionFloor
+		{
+			get
+			{
+				return this._PositionFloor;
+			}
+			set
+			{
+				if ((this._PositionFloor != value))
+				{
+					this.OnPositionFloorChanging(value);
+					this.SendPropertyChanging();
+					this._PositionFloor = value;
+					this.SendPropertyChanged("PositionFloor");
+					this.OnPositionFloorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionColumn", DbType="Int")]
+		public System.Nullable<int> PositionColumn
+		{
+			get
+			{
+				return this._PositionColumn;
+			}
+			set
+			{
+				if ((this._PositionColumn != value))
+				{
+					this.OnPositionColumnChanging(value);
+					this.SendPropertyChanging();
+					this._PositionColumn = value;
+					this.SendPropertyChanged("PositionColumn");
+					this.OnPositionColumnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRow", DbType="Int")]
+		public System.Nullable<int> PositionRow
+		{
+			get
+			{
+				return this._PositionRow;
+			}
+			set
+			{
+				if ((this._PositionRow != value))
+				{
+					this.OnPositionRowChanging(value);
+					this.SendPropertyChanging();
+					this._PositionRow = value;
+					this.SendPropertyChanged("PositionRow");
+					this.OnPositionRowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AgvPassFlag", DbType="Int")]
+		public System.Nullable<int> AgvPassFlag
+		{
+			get
+			{
+				return this._AgvPassFlag;
+			}
+			set
+			{
+				if ((this._AgvPassFlag != value))
+				{
+					this.OnAgvPassFlagChanging(value);
+					this.SendPropertyChanging();
+					this._AgvPassFlag = value;
+					this.SendPropertyChanged("AgvPassFlag");
+					this.OnAgvPassFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RestPositionFlag", DbType="Int")]
+		public System.Nullable<int> RestPositionFlag
+		{
+			get
+			{
+				return this._RestPositionFlag;
+			}
+			set
+			{
+				if ((this._RestPositionFlag != value))
+				{
+					this.OnRestPositionFlagChanging(value);
+					this.SendPropertyChanging();
+					this._RestPositionFlag = value;
+					this.SendPropertyChanged("RestPositionFlag");
+					this.OnRestPositionFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BarCode", DbType="VarChar(500)")]
+		public string BarCode
+		{
+			get
+			{
+				return this._BarCode;
+			}
+			set
+			{
+				if ((this._BarCode != value))
+				{
+					this.OnBarCodeChanging(value);
+					this.SendPropertyChanging();
+					this._BarCode = value;
+					this.SendPropertyChanged("BarCode");
+					this.OnBarCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
+		public System.Nullable<int> State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this.OnStateChanging(value);
+					this.SendPropertyChanging();
+					this._State = value;
+					this.SendPropertyChanged("State");
+					this.OnStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
+		public System.Nullable<int> Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayReverseNo", DbType="Int")]
+		public System.Nullable<int> TrayReverseNo
+		{
+			get
+			{
+				return this._TrayReverseNo;
+			}
+			set
+			{
+				if ((this._TrayReverseNo != value))
+				{
+					this.OnTrayReverseNoChanging(value);
+					this.SendPropertyChanging();
+					this._TrayReverseNo = value;
+					this.SendPropertyChanged("TrayReverseNo");
+					this.OnTrayReverseNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayNum", DbType="Int")]
+		public System.Nullable<int> TrayNum
+		{
+			get
+			{
+				return this._TrayNum;
+			}
+			set
+			{
+				if ((this._TrayNum != value))
+				{
+					this.OnTrayNumChanging(value);
+					this.SendPropertyChanging();
+					this._TrayNum = value;
+					this.SendPropertyChanged("TrayNum");
+					this.OnTrayNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickItemNum", DbType="Int")]
+		public System.Nullable<int> PickItemNum
+		{
+			get
+			{
+				return this._PickItemNum;
+			}
+			set
+			{
+				if ((this._PickItemNum != value))
+				{
+					this.OnPickItemNumChanging(value);
+					this.SendPropertyChanging();
+					this._PickItemNum = value;
+					this.SendPropertyChanged("PickItemNum");
+					this.OnPickItemNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickBatchId", DbType="VarChar(50)")]
+		public string PickBatchId
+		{
+			get
+			{
+				return this._PickBatchId;
+			}
+			set
+			{
+				if ((this._PickBatchId != value))
+				{
+					this.OnPickBatchIdChanging(value);
+					this.SendPropertyChanging();
+					this._PickBatchId = value;
+					this.SendPropertyChanged("PickBatchId");
+					this.OnPickBatchIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrayBatchId", DbType="VarChar(50)")]
+		public string TrayBatchId
+		{
+			get
+			{
+				return this._TrayBatchId;
+			}
+			set
+			{
+				if ((this._TrayBatchId != value))
+				{
+					this.OnTrayBatchIdChanging(value);
+					this.SendPropertyChanging();
+					this._TrayBatchId = value;
+					this.SendPropertyChanged("TrayBatchId");
+					this.OnTrayBatchIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedAt
+		{
+			get
+			{
+				return this._UpdatedAt;
+			}
+			set
+			{
+				if ((this._UpdatedAt != value))
+				{
+					this.OnUpdatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedAt = value;
+					this.SendPropertyChanged("UpdatedAt");
+					this.OnUpdatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemId", DbType="Int")]
+		public System.Nullable<int> PickListItemId
+		{
+			get
+			{
+				return this._PickListItemId;
+			}
+			set
+			{
+				if ((this._PickListItemId != value))
+				{
+					this.OnPickListItemIdChanging(value);
+					this.SendPropertyChanging();
+					this._PickListItemId = value;
+					this.SendPropertyChanged("PickListItemId");
+					this.OnPickListItemIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PickListItemStorageView")]
+	public partial class PickListItemStorageView
+	{
+		
+		private int _Id;
+		
+		private string _PickListNr;
+		
+		private string _UniqItemNr;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private System.Nullable<System.DateTime> _UpdatedAt;
+		
+		private string _UniqueItemNr;
+		
+		private System.Nullable<int> _UniqueItemBoxTypeId;
+		
+		private string _UniqueItemPartNr;
+		
+		private string _UniqueItemKNr;
+		
+		private string _UniqueItemKNrWithYear;
+		
+		private string _UniqueItemCheckCode;
+		
+		private string _UniqueItemKskNr;
+		
+		private string _UniqueItemQR;
+		
+		private System.Nullable<int> _UniqueItemState;
+		
+		private System.Nullable<System.DateTime> _UniqueItemCreatedAt;
+		
+		private System.Nullable<System.DateTime> _UniqueItemUpdatedAt;
+		
+		private System.Nullable<int> _StorageId;
+		
+		private string _StoragePositionNr;
+		
+		private string _StoragePartNr;
+		
+		private System.Nullable<System.DateTime> _StorageFIFO;
+		
+		private string _StorageUniqItemNr;
+		
+		private System.Nullable<System.DateTime> _StorageCreatedAt;
+		
+		private System.Nullable<System.DateTime> _StorageUpdatedAt;
+		
+		public PickListItemStorageView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListNr", DbType="VarChar(50)")]
+		public string PickListNr
+		{
+			get
+			{
+				return this._PickListNr;
+			}
+			set
+			{
+				if ((this._PickListNr != value))
+				{
+					this._PickListNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqItemNr", DbType="VarChar(50)")]
+		public string UniqItemNr
+		{
+			get
+			{
+				return this._UniqItemNr;
+			}
+			set
+			{
+				if ((this._UniqItemNr != value))
+				{
+					this._UniqItemNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this._CreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedAt
+		{
+			get
+			{
+				return this._UpdatedAt;
+			}
+			set
+			{
+				if ((this._UpdatedAt != value))
+				{
+					this._UpdatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemNr", DbType="VarChar(50)")]
+		public string UniqueItemNr
+		{
+			get
+			{
+				return this._UniqueItemNr;
+			}
+			set
+			{
+				if ((this._UniqueItemNr != value))
+				{
+					this._UniqueItemNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemBoxTypeId", DbType="Int")]
+		public System.Nullable<int> UniqueItemBoxTypeId
+		{
+			get
+			{
+				return this._UniqueItemBoxTypeId;
+			}
+			set
+			{
+				if ((this._UniqueItemBoxTypeId != value))
+				{
+					this._UniqueItemBoxTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemPartNr", DbType="VarChar(50)")]
+		public string UniqueItemPartNr
+		{
+			get
+			{
+				return this._UniqueItemPartNr;
+			}
+			set
+			{
+				if ((this._UniqueItemPartNr != value))
+				{
+					this._UniqueItemPartNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKNr", DbType="VarChar(50)")]
+		public string UniqueItemKNr
+		{
+			get
+			{
+				return this._UniqueItemKNr;
+			}
+			set
+			{
+				if ((this._UniqueItemKNr != value))
+				{
+					this._UniqueItemKNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKNrWithYear", DbType="VarChar(50)")]
+		public string UniqueItemKNrWithYear
+		{
+			get
+			{
+				return this._UniqueItemKNrWithYear;
+			}
+			set
+			{
+				if ((this._UniqueItemKNrWithYear != value))
+				{
+					this._UniqueItemKNrWithYear = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemCheckCode", DbType="VarChar(50)")]
+		public string UniqueItemCheckCode
+		{
+			get
+			{
+				return this._UniqueItemCheckCode;
+			}
+			set
+			{
+				if ((this._UniqueItemCheckCode != value))
+				{
+					this._UniqueItemCheckCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKskNr", DbType="VarChar(50)")]
+		public string UniqueItemKskNr
+		{
+			get
+			{
+				return this._UniqueItemKskNr;
+			}
+			set
+			{
+				if ((this._UniqueItemKskNr != value))
+				{
+					this._UniqueItemKskNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemQR", DbType="VarChar(50)")]
+		public string UniqueItemQR
+		{
+			get
+			{
+				return this._UniqueItemQR;
+			}
+			set
+			{
+				if ((this._UniqueItemQR != value))
+				{
+					this._UniqueItemQR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemState", DbType="Int")]
+		public System.Nullable<int> UniqueItemState
+		{
+			get
+			{
+				return this._UniqueItemState;
+			}
+			set
+			{
+				if ((this._UniqueItemState != value))
+				{
+					this._UniqueItemState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemCreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UniqueItemCreatedAt
+		{
+			get
+			{
+				return this._UniqueItemCreatedAt;
+			}
+			set
+			{
+				if ((this._UniqueItemCreatedAt != value))
+				{
+					this._UniqueItemCreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemUpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UniqueItemUpdatedAt
+		{
+			get
+			{
+				return this._UniqueItemUpdatedAt;
+			}
+			set
+			{
+				if ((this._UniqueItemUpdatedAt != value))
+				{
+					this._UniqueItemUpdatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageId", DbType="Int")]
+		public System.Nullable<int> StorageId
+		{
+			get
+			{
+				return this._StorageId;
+			}
+			set
+			{
+				if ((this._StorageId != value))
+				{
+					this._StorageId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoragePositionNr", DbType="VarChar(50)")]
+		public string StoragePositionNr
+		{
+			get
+			{
+				return this._StoragePositionNr;
+			}
+			set
+			{
+				if ((this._StoragePositionNr != value))
+				{
+					this._StoragePositionNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoragePartNr", DbType="VarChar(50)")]
+		public string StoragePartNr
+		{
+			get
+			{
+				return this._StoragePartNr;
+			}
+			set
+			{
+				if ((this._StoragePartNr != value))
+				{
+					this._StoragePartNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageFIFO", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StorageFIFO
+		{
+			get
+			{
+				return this._StorageFIFO;
+			}
+			set
+			{
+				if ((this._StorageFIFO != value))
+				{
+					this._StorageFIFO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageUniqItemNr", DbType="VarChar(50)")]
+		public string StorageUniqItemNr
+		{
+			get
+			{
+				return this._StorageUniqItemNr;
+			}
+			set
+			{
+				if ((this._StorageUniqItemNr != value))
+				{
+					this._StorageUniqItemNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageCreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StorageCreatedAt
+		{
+			get
+			{
+				return this._StorageCreatedAt;
+			}
+			set
+			{
+				if ((this._StorageCreatedAt != value))
+				{
+					this._StorageCreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageUpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StorageUpdatedAt
+		{
+			get
+			{
+				return this._StorageUpdatedAt;
+			}
+			set
+			{
+				if ((this._StorageUpdatedAt != value))
+				{
+					this._StorageUpdatedAt = value;
 				}
 			}
 		}

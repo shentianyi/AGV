@@ -44,12 +44,13 @@ namespace AgvClientWPF.Pick
 
         private void LoadPickListStorage(string pickListNr)
         {
-            try {
-               PickServiceClient dsc = new PickServiceClient();
+            try
+            {
+                PickServiceClient dsc = new PickServiceClient();
                 List<PickListStorageViewModel> models = dsc.GetPickListStorageByNr(pickListNr).ToList();
                 pickListStorageDG.ItemsSource = models;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

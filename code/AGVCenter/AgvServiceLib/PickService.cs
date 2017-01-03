@@ -20,6 +20,11 @@ namespace AgvServiceLib
             ps = new AGVCenterLib.Service.PickListService(SqlHelper.ConnectStr);
         }
 
+        public ResultMessage CanItemAddToPickList(string uniqNr)
+        {
+            return new PickListItemService(SqlHelper.ConnectStr).CanItemAddToPickList(uniqNr);
+        }
+
         public ResultMessage CreateOutStockTaskByNr(string nr)
         {
             return new StockTaskService(SqlHelper.ConnectStr).CreateOutStockTaskByPickList(nr);

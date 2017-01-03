@@ -38,6 +38,9 @@ namespace AgvClientWPF.AgvPickService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPickService/GetPickListStorageByNr", ReplyAction="http://tempuri.org/IPickService/GetPickListStorageByNrResponse")]
         AGVCenterLib.Model.ViewModel.PickListStorageViewModel[] GetPickListStorageByNr(string nr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPickService/CanItemAddToPickList", ReplyAction="http://tempuri.org/IPickService/CanItemAddToPickListResponse")]
+        AGVCenterLib.Model.Message.ResultMessage CanItemAddToPickList(string uniqNr);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -97,6 +100,10 @@ namespace AgvClientWPF.AgvPickService {
         
         public AGVCenterLib.Model.ViewModel.PickListStorageViewModel[] GetPickListStorageByNr(string nr) {
             return base.Channel.GetPickListStorageByNr(nr);
+        }
+        
+        public AGVCenterLib.Model.Message.ResultMessage CanItemAddToPickList(string uniqNr) {
+            return base.Channel.CanItemAddToPickList(uniqNr);
         }
     }
 }

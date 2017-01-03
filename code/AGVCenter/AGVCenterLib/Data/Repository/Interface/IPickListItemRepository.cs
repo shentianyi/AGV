@@ -13,5 +13,6 @@ namespace AGVCenterLib.Data.Repository.Interface
         void Creates(List<PickListItem> entities);
         PickListItem FindByUniqNr(string uniqNr);
         PickListItem FindByUniqNr(string uniqNr, string pickListNr);
+        IQueryable<PickListItemStorageView> SearchDetail(PickListItemSearchModel searchModel);
     }
 }

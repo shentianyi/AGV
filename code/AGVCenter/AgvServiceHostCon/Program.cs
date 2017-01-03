@@ -30,6 +30,7 @@ namespace AgvServiceHostCon
                 deliveryService.Open();
                 trayService.Open();
                 storageService.Open();
+                pickService.Open();
 
 
                 Console.WriteLine("生产服务已启动");

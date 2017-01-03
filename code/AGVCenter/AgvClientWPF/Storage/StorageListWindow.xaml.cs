@@ -15,6 +15,7 @@ using AGVCenterLib.Model.ViewModel;
 using AgvClientWPF.AgvDeliveryService;
 using AgvClientWPF.AgvStorageService;
 using AgvClientWPF.Delivery;
+using AgvClientWPF.Pick;
 
 namespace AgvClientWPF.Storage
 {
@@ -63,6 +64,20 @@ namespace AgvClientWPF.Storage
             if (storages.Count > 0)
             {
                 new CreateDeliveryWindow(storages.Select(s => s.UniqItemNr).ToList()).Show();
+            }
+        }
+
+        private void createPickListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<StorageModel> storages = new List<StorageModel>();
+            foreach (var i in storageDG.SelectedItems)
+            {
+                StorageModel storage = i as StorageModel;
+                storages.Add(storage);
+            }
+            if (storages.Count > 0)
+            {
+                new CreatePickListWindow(storages.Select(s => s.UniqItemNr).ToList()).Show();
             }
         }
     }

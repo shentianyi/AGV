@@ -39,5 +39,9 @@ namespace AgvServiceLib
 
         [OperationContract]
         List<PickListStorageViewModel> GetPickListStorageByNr(string nr);
+
+        [OperationContract]
+        ResultMessage CanItemAddToPickList(string uniqNr);
+
     }
 }

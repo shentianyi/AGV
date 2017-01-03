@@ -1,6 +1,6 @@
 ﻿@using MvcPaging;
 
-@model IPagedList<AGVCenterLib.Data.Delivery>
+@model IPagedList<AGVCenterLib.Data.PickList>
 
 @{
     ViewBag.Title = "Index";
@@ -9,11 +9,11 @@
 
 <div class="row" style="margin:0;">
     <div class="col-md-12">
-        <form action="/Delivery/Search" method="get">
+        <form action="/PickList/Search" method="get">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
-                    <span>运单号</span>
-                    <input type="text" name="Nr" id="Nr" placeholder="运单号" value="@ViewBag.Query.Nr" />
+                    <span>择货单号</span>
+                    <input type="text" name="Nr" id="Nr" placeholder="择货单号" value="@ViewBag.Query.Nr" />
                
 
                     <button type="submit" class="marco-btn-success" style="margin-left:0;">
@@ -30,9 +30,6 @@
         <th>&nbsp;</th>
         <th>
             Nr
-        </th>
-        <th>
-            CanSend
         </th>
         <th>
            StateStr
@@ -52,11 +49,7 @@
         <tr>
             <td>@(i += 1)</td>
             <td>
-                <a href="/DeliveryItem/Search?DeliveryNrAct=@item.Nr">@Html.DisplayFor(modelItem => item.Nr)</a>
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.CanSend)
+                <a href="/PickListItem/Search?DeliveryNr=@item.Nr">@Html.DisplayFor(modelItem => item.Nr)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StateStr)

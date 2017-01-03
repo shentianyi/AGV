@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AgvWarehouseDb" Class="AgvWarehouseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa" SettingsObjectName="AGVCenterLib.Properties.Settings" SettingsPropertyName="AgvWarehouseDbConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=192.168.0.99;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa" SettingsObjectName="AGVCenterLib.Properties.Settings" SettingsPropertyName="AgvWarehouseDbConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BoxType" Member="BoxType">
     <Type Name="BoxType">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -272,14 +272,6 @@
       <Association Name="BoxType_UniqueItem" Member="BoxType" ThisKey="BoxTypeId" OtherKey="Id" Type="BoxType" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PickList" Member="PickList">
-    <Type Name="PickList">
-      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="PickList_PickListItem" Member="PickListItem" ThisKey="Nr" OtherKey="PickListNr" Type="PickListItem" />
-    </Type>
-  </Table>
   <Table Name="dbo.PickListItem" Member="PickListItem">
     <Type Name="PickListItem">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -291,52 +283,13 @@
       <Association Name="PickList_PickListItem" Member="PickList" ThisKey="PickListNr" OtherKey="Nr" Type="PickList" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.StockTask" Member="StockTask">
-    <Type Name="StockTask">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BoxType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="PositionFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PositionColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PositionRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AgvPassFlag" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RestPositionFlag" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BarCode" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+  <Table Name="dbo.PickList" Member="PickList">
+    <Type Name="PickList">
+      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TrayReverseNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TrayNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PickItemNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PickBatchId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="TrayBatchId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.StockTaskLog" Member="StockTaskLog">
-    <Type Name="StockTaskLog">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="StockTaskId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BoxType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="PositionFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PositionColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PositionRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AgvPassFlag" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RestPositionFlag" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BarCode" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="FromState" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ToState" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TrayReverseNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TrayNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PickItemNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PickBatchId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="TrayBatchId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="PickList_PickListItem" Member="PickListItem" ThisKey="Nr" OtherKey="PickListNr" Type="PickListItem" />
     </Type>
   </Table>
   <Table Name="dbo.PickListStorageView" Member="PickListStorageView">
@@ -344,7 +297,7 @@
       <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ASPickListItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PickListItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PickListItemPickListNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="PickListItemUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="PickListItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -373,6 +326,83 @@
       <Column Name="PositionRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PositionState" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PositionRoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StockTaskLog" Member="StockTaskLog">
+    <Type Name="StockTaskLog">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StockTaskId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BoxType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PositionFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AgvPassFlag" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RestPositionFlag" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BarCode" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="FromState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ToState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrayReverseNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrayNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PickItemNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PickBatchId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TrayBatchId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PickListItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StockTask" Member="StockTask">
+    <Type Name="StockTask">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BoxType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PositionFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AgvPassFlag" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RestPositionFlag" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BarCode" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrayReverseNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrayNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PickItemNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PickBatchId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TrayBatchId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PickListItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PickListItemStorageView" Member="PickListItemStorageView">
+    <Type Name="PickListItemStorageView">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PickListNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UniqueItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemBoxTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UniqueItemPartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemKNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemKNrWithYear" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemCheckCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemKskNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemQR" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UniqueItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UniqueItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StorageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoragePositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StoragePartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StorageFIFO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StorageUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StorageCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StorageUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

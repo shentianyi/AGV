@@ -54,5 +54,12 @@ namespace AGVCenterLib.Service
             
             return message;
         }
+
+
+
+        public IQueryable<PickListItemStorageView> SearchDetail(PickListItemSearchModel searchModel)
+        {
+            return new PickListItemRepository(this.Context).SearchDetail(searchModel);
+        }
     }
 }

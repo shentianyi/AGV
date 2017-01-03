@@ -69,6 +69,7 @@ namespace AGVCenterLib.Service
                 PickList pickList = new PickList()
                 {
                     Nr = pickListNr,
+                    State=(int)PickListState.Init,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 };

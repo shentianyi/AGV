@@ -95,8 +95,14 @@
     <Compile Include="Helper\PrintHelper.cs" />
     <Compile Include="Helper\UniqueHelper.cs" />
     <Compile Include="Model\Printer.cs" />
+    <Compile Include="Pick\CreatePickListWindow.xaml.cs">
+      <DependentUpon>CreatePickListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pick\CreatePickOutStockTaskWindow.xaml.cs">
       <DependentUpon>CreatePickOutStockTaskWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pick\PickOutStockTaskMonitorWindow.xaml.cs">
+      <DependentUpon>PickOutStockTaskMonitorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pick\PickItemListWindow.xaml.cs">
       <DependentUpon>PickItemListWindow.xaml</DependentUpon>
@@ -176,7 +182,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pick\CreatePickListWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pick\CreatePickOutStockTaskWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pick\PickOutStockTaskMonitorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -72,17 +72,17 @@ namespace AgvClientWPF
 
         private void createPickListBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            new CreatePickListWindow().Show();
         }
 
         private void createPickListTaskBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            new CreatePickOutStockTaskWindow().Show();
         }
 
         private void pickListTaskMonitorBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            new PickOutStockTaskMonitorWindow().Show();
         }
 
         private void pickListBtn_Click(object sender, RoutedEventArgs e)

@@ -65,6 +65,12 @@
   <wsdl:message name="IPickService_GetPickListStorageByNr_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPickListStorageByNrResponse" />
   </wsdl:message>
+  <wsdl:message name="IPickService_CanItemAddToPickList_InputMessage">
+    <wsdl:part name="parameters" element="tns:CanItemAddToPickList" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_CanItemAddToPickList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CanItemAddToPickListResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPickService">
     <wsdl:operation name="PickListExists">
       <wsdl:input wsaw:Action="http://tempuri.org/IPickService/PickListExists" message="tns:IPickService_PickListExists_InputMessage" />
@@ -97,6 +103,10 @@
     <wsdl:operation name="GetPickListStorageByNr">
       <wsdl:input wsaw:Action="http://tempuri.org/IPickService/GetPickListStorageByNr" message="tns:IPickService_GetPickListStorageByNr_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPickService/GetPickListStorageByNrResponse" message="tns:IPickService_GetPickListStorageByNr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CanItemAddToPickList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPickService/CanItemAddToPickList" message="tns:IPickService_CanItemAddToPickList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPickService/CanItemAddToPickListResponse" message="tns:IPickService_CanItemAddToPickList_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="pickservice" type="tns:IPickService">
@@ -167,6 +177,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPickListStorageByNr">
       <soap:operation soapAction="http://tempuri.org/IPickService/GetPickListStorageByNr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CanItemAddToPickList">
+      <soap:operation soapAction="http://tempuri.org/IPickService/CanItemAddToPickList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

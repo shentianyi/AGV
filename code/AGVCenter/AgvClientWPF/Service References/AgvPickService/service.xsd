@@ -116,4 +116,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="CanItemAddToPickList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="uniqNr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CanItemAddToPickListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CanItemAddToPickListResult" nillable="true" type="q9:ResultMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

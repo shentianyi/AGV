@@ -12,16 +12,16 @@ using MvcPaging;
 
 namespace AgvWarehouseWeb.Controllers
 {
-    public class DeliveryItemController : Controller
+    public class PickListItemController : Controller
     {
-        // GET: DeliveryItem
+        // GET: PickListItem
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
 
-            DeliveryItemService ps = new DeliveryItemService(Settings.Default.db);
-            var q = new DeliveryItemSearchModel();
-            IPagedList<DeliveryItemStorageView> items =
+            PickListItemService ps = new PickListItemService(Settings.Default.db);
+            var q = new PickListItemSearchModel();
+            IPagedList<PickListItemStorageView> items =
                 ps.SearchDetail(q)
                 .ToPagedList(pageIndex, Settings.Default.pageSize);
 
@@ -31,17 +31,18 @@ namespace AgvWarehouseWeb.Controllers
         }
 
 
-        public ActionResult Search([Bind(Include = "Nr,KNr,PositionNr,DeliveryNr,DeliveryNrAct,TrayNr")]  DeliveryItemSearchModel q)
+        public ActionResult Search([Bind(Include = "Nr,KNr,PositionNr,PickListNr,PickListNrAct")]  PickListItemSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            DeliveryItemService ps = new DeliveryItemService(Settings.Default.db);
-             
-            IPagedList<DeliveryItemStorageView> items =
+            PickListItemService ps = new PickListItemService(Settings.Default.db);
+     
+            IPagedList<PickListItemStorageView> items =
                 ps.SearchDetail(q)
                 .ToPagedList(pageIndex, Settings.Default.pageSize);
+
 
             ViewBag.Query = q;
 
@@ -49,19 +50,19 @@ namespace AgvWarehouseWeb.Controllers
             return View("Index", items);
         }
 
-        // GET: DeliveryItem/Details/5
+        // GET: PickListItem/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: DeliveryItem/Create
+        // GET: PickListItem/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: DeliveryItem/Create
+        // POST: PickListItem/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -77,13 +78,13 @@ namespace AgvWarehouseWeb.Controllers
             }
         }
 
-        // GET: DeliveryItem/Edit/5
+        // GET: PickListItem/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: DeliveryItem/Edit/5
+        // POST: PickListItem/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -99,13 +100,13 @@ namespace AgvWarehouseWeb.Controllers
             }
         }
 
-        // GET: DeliveryItem/Delete/5
+        // GET: PickListItem/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: DeliveryItem/Delete/5
+        // POST: PickListItem/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

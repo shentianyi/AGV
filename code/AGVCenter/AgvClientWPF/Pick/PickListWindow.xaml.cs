@@ -78,7 +78,7 @@ namespace AgvClientWPF.Pick
             var d = GetPickListModelItem();
             if (d != null)
             {
-            //    new DeliveryOutStockTaskMonitorWindow(d.Nr).Show();
+                new PickOutStockTaskMonitorWindow(d.Nr).Show();
             }
         }
         private void pickCreateStockTaskBtn_Click(object sender, RoutedEventArgs e)
@@ -86,7 +86,7 @@ namespace AgvClientWPF.Pick
             var d = GetPickListModelItem();
             if (d != null)
             {
-             //   new CreateDeliveryOutStockTaskWindow(d.Nr).Show();
+                new CreatePickOutStockTaskWindow(d.Nr).Show();
             }
         } 
 

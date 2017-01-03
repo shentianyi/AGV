@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AgvClientWPF.Delivery"
+        xmlns:local="clr-namespace:AgvClientWPF.Pick"
         mc:Ignorable="d"
-        Title="DeliveryListWindow" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="PickListWindow" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
@@ -33,8 +33,9 @@
                   VerticalAlignment="Top" MinHeight="487" MinWidth="482" 
                   RenderTransformOrigin="0.499,0.316">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="择货单号" Binding="{Binding Path=Nr}"/>
-                <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
+                    <DataGridTextColumn Header="择货单号" Binding="{Binding Path=Nr}"/>
+                    <DataGridTextColumn Header="状态" Binding="{Binding Path=StateStr}"/>
+                    <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
 
             </DataGrid.Columns>
         </DataGrid>
@@ -47,7 +48,7 @@
                         Height="40" Click="pickStockTaskMonitorBtn_Click"/>
 
                 <Button x:Name="pickDeleteBtn" Content="【择货单删除-测试用】" 
-                         Margin="69,130,51,0" Height="40" Click="pickListDeleteBtn_Click"/>
+                         Margin="44,130,51,0" Height="40" Click="pickListDeleteBtn_Click"/>
             </StackPanel>
             </Grid>
        
