@@ -8,5 +8,23 @@
     <Setting Name="TestModel" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="KnrReg" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">[0-9]{7}</Value>
+    </Setting>
+    <Setting Name="KnrWithYearReg" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">[0-9]{9}</Value>
+    </Setting>
+    <Setting Name="QrReg" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">[0-9]{10}</Value>
+    </Setting>
+    <Setting Name="CheckCodeReg" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">[0-9]{11}</Value>
+    </Setting>
+    <Setting Name="KskRge" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">[A-Za-z0-9]{12}</Value>
+    </Setting>
+    <Setting Name="LayoutReg" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">([A-Za-Z]{2})-([0-9]{4})</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

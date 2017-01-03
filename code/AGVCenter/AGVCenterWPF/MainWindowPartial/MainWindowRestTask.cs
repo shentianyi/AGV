@@ -279,6 +279,45 @@ namespace AGVCenterWPF
 
             }
         }
+
+
+
+        /// <summary>
+        /// 继续巷道机未取货的入库
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void goOnInButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CenterStockTaskDisplayDG.SelectedIndex > -1)
+            {
+                StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
+
+                if (taskItem.State == StockTaskState.RoadMachineInStocking)
+                {
+                    taskItem.State = StockTaskState.RoadMachineStockBuffing;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 继续巷道机未取货的出库
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void goOnOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CenterStockTaskDisplayDG.SelectedIndex > -1)
+            {
+                StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
+
+                if (taskItem.State==StockTaskState.RoadMachineOutStocking)
+                {
+                    taskItem.State = StockTaskState.RoadMachineWaitOutStock;
+                }
+            }
+        }
         /// <summary>
         /// 重置入库平台1
         /// </summary>
@@ -375,7 +414,7 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void createInStockBtn_Click(object sender, RoutedEventArgs e)
         {
-            return;
+          //  return;
             if (IncreaseBarcodeCheckBox.IsChecked.Value)
             {
                 ScanedBarCodeTB.Text = (int.Parse(ScanedBarCodeTB.Text) + 1).ToString();
@@ -388,7 +427,7 @@ namespace AGVCenterWPF
                 State = StockTaskState.RoadMachineStockBuffing,
                 BoxType = (byte)1
             };
-       //     taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
+           taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
             UniqueItemService ui = new UniqueItemService(OPCConfig.DbString);
             //if (ui.FindByCheckCode(taskItem.Barcode) == null)
             if (ui.FindByNr(taskItem.Barcode) == null)
@@ -406,21 +445,29 @@ namespace AGVCenterWPF
             if (int.Parse(RoadMachineIndexTB.Text) == 1)
             {
                 //  RoadMachine1TaskQueue.Add(taskItem.Barcode, taskItem);
-              //  RoadMachine1TaskQueue.Enqueue(taskItem);
+                RoadMachine1TaskQueue.Enqueue(taskItem);
             }
             else if (int.Parse(RoadMachineIndexTB.Text) == 2)
             {
                 // RoadMachine2TaskQueue.Add(taskItem.Barcode, taskItem);
-            //    RoadMachine2TaskQueue.Enqueue(taskItem);
+                RoadMachine2TaskQueue.Enqueue(taskItem);
             }
 
-            TaskCenterForDisplayQueue.Add(taskItem);
+           // TaskCenterForDisplayQueue.Add(taskItem);
 
-          //  AddOrUpdateItemToTaskDisplay(taskItem);
+           AddOrUpdateItemToTaskDisplay(taskItem);
 
             if (LipRoadMachineCheckBox.IsChecked.Value)
             {
                 RoadMachineIndexTB.Text = RoadMachineIndexTB.Text == "1" ? "2" : "1";
+            }
+            if (RoadMachineIndexTB.Text == "1")
+            {
+                OPCDataResetData.ResetXdj1InPaltformIsBuff(this.OPCDataResetOPCGroup);
+            }
+            else
+            {
+                OPCDataResetData.ResetXdj2InPaltformIsBuff(this.OPCDataResetOPCGroup);
             }
             //# RefreshList();
         }

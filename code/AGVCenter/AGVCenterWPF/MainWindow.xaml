@@ -36,7 +36,7 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Visibility="Collapsed">
+                    <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
@@ -46,14 +46,14 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Button   Name="RestAllDataAndCleanBtn" Grid.Column="0"
+                        <Button  Visibility="Collapsed"   Name="RestAllDataAndCleanBtn" Grid.Column="0"
                                 Content="重置所有数据" Margin="5"   ToolTip="删除所有出入库任务、库存、运单，但保持唯一码、库位" Click="RestAllDataAndCleanBtn_Click"></Button>
 
-                        <Button   Name="RestAllTaskAndCleanBtn" Grid.Column="1"
+                        <Button   Visibility="Collapsed"  Name="RestAllTaskAndCleanBtn" Grid.Column="1"
                                 Content="重置出入库任务" Margin="5" 
                                   Click="RestAllTaskAndCleanBtn_Click" ToolTip="删除所有的任务、库存，但保持唯一码和运单信息"></Button>
 
-                        <Button   Name="RestOutTaskAndCleanBtn" Grid.Column="2"
+                        <Button  Visibility="Collapsed"  Name="RestOutTaskAndCleanBtn" Grid.Column="2"
                                 Content="重置出库任务" Margin="5" 
                                   Click="RestOutTaskAndCleanBtn_Click" ToolTip="改变完成的出库任务状态，可重新加载使用，不需要其它操作"></Button>
 
@@ -69,14 +69,15 @@
                         <Button x:Name="createInStockBtn" Grid.Column="5"
                                 Content="手动生成入库任务" 
                                 HorizontalAlignment="Left" Margin="10,10,0,0" 
-                                VerticalAlignment="Top" Width="104" Height="40" Click="createInStockBtn_Click"/>
+                                VerticalAlignment="Top" Width="104" Height="40"
+                                Click="createInStockBtn_Click"/>
                         <CheckBox x:Name="IncreaseBarcodeCheckBox"
-                                  IsChecked="True"
+                                
                                   Content="条码自增" Grid.Column="6" HorizontalAlignment="Left" 
                                   Margin="1,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="81"/>
 
                         <CheckBox x:Name="LipRoadMachineCheckBox"
-                                  IsChecked="True"
+                                 
                                   Content="1,2巷道机间隔" Grid.Column="6" 
                                   HorizontalAlignment="Left" Margin="1,34,0,0" 
                                   VerticalAlignment="Top" RenderTransformOrigin="0.247,0.5" Width="95"/>
@@ -125,6 +126,17 @@
                                 Width="60" 
                                 Grid.Column="2" HorizontalAlignment="Left"
                                 Margin="75,10,0,0" VerticalAlignment="Top" Height="22" Click="manOutButton_Click"/>
+
+                        <Button x:Name="goOnInButton" Content="继续未取货入库" 
+                                Width="108" ToolTip="巷道机在前往入库平台的过程中报警，先置为继续，然后打巷道机手动再切换自动"
+                                Grid.Column="3" HorizontalAlignment="Left"
+                                Margin="5,10,0,0" VerticalAlignment="Top" Height="22" Click="goOnInButton_Click"/>
+
+                        
+                        <Button x:Name="goOnOutButton" Content="继续未取货出库" 
+                                Width="108" ToolTip="巷道机在前往出库库位的过程中报警，先置为继续，然后打巷道机手动再切换自动"
+                                Grid.Column="4" HorizontalAlignment="Left"
+                                Margin="5,10,0,0" VerticalAlignment="Top" Height="22" Click="goOnOutButton_Click"/>
 
                         <Button x:Name="CancelTaskBtn" Content="取消任务"
                                 Width="60" Click="CancelTaskBtn_Click"

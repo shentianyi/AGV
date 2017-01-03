@@ -40,5 +40,59 @@ namespace AgvClientWPF.Properties {
                 return ((bool)(this["TestModel"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[0-9]{7}")]
+        public string KnrReg {
+            get {
+                return ((string)(this["KnrReg"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[0-9]{9}")]
+        public string KnrWithYearReg {
+            get {
+                return ((string)(this["KnrWithYearReg"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[0-9]{10}")]
+        public string QrReg {
+            get {
+                return ((string)(this["QrReg"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[0-9]{11}")]
+        public string CheckCodeReg {
+            get {
+                return ((string)(this["CheckCodeReg"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[A-Za-z0-9]{12}")]
+        public string KskRge {
+            get {
+                return ((string)(this["KskRge"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("([A-Za-Z]{2})-([0-9]{4})")]
+        public string LayoutReg {
+            get {
+                return ((string)(this["LayoutReg"]));
+            }
+        }
     }
 }

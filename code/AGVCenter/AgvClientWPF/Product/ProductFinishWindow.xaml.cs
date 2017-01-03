@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AgvClientWPF.Properties;
+using System.Text.RegularExpressions;
 
 namespace AgvClientWPF.Product
 {
@@ -40,24 +41,27 @@ namespace AgvClientWPF.Product
             ResultMessage message = new ResultMessage();
             try
             {
-                if (CrossCheck())
+                if (this.InputCheck())
                 {
-
-                    UniqueItemModel item = new UniqueItemModel()
+                    if (CrossCheck())
                     {
-                        Nr = KskNrTB.Text, //QrTB.Text,
-                        QR = QrTB.Text,
-                        KNr = KnrTB.Text,
-                        KNrWithYear = KNrWithYearTB.Text,
-                        CheckCode = CheckCodeTB.Text,
-                        KskNr = KskNrTB.Text,
-                        BoxTypeId = GetBoxTypeId()
-                    };
-                    if (item.BoxTypeId != 0)
-                    {
-                        ProductServiceClient ps = new ProductServiceClient();
-                        message = ps.CreateUniqItem(item);
+                        UniqueItemModel item = new UniqueItemModel()
+                        {
+                            Nr = KskNrTB.Text, //QrTB.Text,
+                            QR = QrTB.Text,
+                            KNr = KnrTB.Text,
+                            KNrWithYear = KNrWithYearTB.Text,
+                            CheckCode = CheckCodeTB.Text,
+                            KskNr = KskNrTB.Text,
+                            BoxTypeId = GetBoxTypeId(),
+                            PartNr = LayoutNrTB.Text
+                        };
+                        if (item.BoxTypeId != 0)
+                        {
+                            ProductServiceClient ps = new ProductServiceClient();
+                            message = ps.CreateUniqItem(item);
 
+                        }
                     }
                 }
             }
@@ -79,6 +83,7 @@ namespace AgvClientWPF.Product
             KNrWithYearTB.Text = string.Empty;
             CheckCodeTB.Text = string.Empty;
             KskNrTB.Text = string.Empty;
+            LayoutNrTB.Text = string.Empty;
             if (Settings.Default.TestModel)
             {
                 KnrTB.Focus();
@@ -105,6 +110,30 @@ namespace AgvClientWPF.Product
                 MessageBox.Show("大小箱设置错误！请设置,\n 1为大箱，2为小箱");
                 return 0;
             }
+        }
+
+        private bool InputCheck()
+        {
+            if (this.InputCheckQr())
+            {
+                if (this.InputCheckKnr())
+                {
+                    if (this.InputCheckKnrWithYear())
+                    {
+                        if (this.InputCheckCheckCode())
+                        {
+                            if (this.InputCheckKskNr())
+                            {
+                                if (this.InputCheckLayout())
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -158,6 +187,7 @@ namespace AgvClientWPF.Product
 
 
 
+
         private void AutoChangeFocusTB_KeyUp(object sender, KeyEventArgs e)
         {
             TextBox tb = sender as TextBox;
@@ -171,16 +201,44 @@ namespace AgvClientWPF.Product
                 switch (tb.Name)
                 {
                     case "QrTB":
-                        KnrTB.Focus();
+                        if (this.InputCheckQr())
+                        {
+                            KnrTB.Focus();
+                        }
+                        else
+                        {
+                            QrTB.SelectAll();
+                        }
                         break;
                     case "KnrTB":
-                        KNrWithYearTB.Focus();
+                        if (this.InputCheckKnr())
+                        {
+                            KNrWithYearTB.Focus();
+                        }
+                        else
+                        {
+                            KnrTB.SelectAll();
+                        }
                         break;
                     case "KNrWithYearTB":
-                        CheckCodeTB.Focus();
+                        if (this.InputCheckKnrWithYear())
+                        {
+                            CheckCodeTB.Focus();
+                        }
+                        else
+                        {
+                            KNrWithYearTB.SelectAll();
+                        }
                         break;
                     case "CheckCodeTB":
-                        KskNrTB.Focus();
+                        if (this.InputCheckCheckCode())
+                        {
+                            KskNrTB.Focus();
+                        }
+                        else
+                        {
+                            CheckCodeTB.SelectAll();
+                        }
                         break;
                     case "KskNrTB":
                         //QrTB.Focus();
@@ -188,12 +246,140 @@ namespace AgvClientWPF.Product
                         //{
                         //    KnrTB.Focus();
                         //}
-                        this.ProductOffLine();
+                        //this.ProductOffLine();
+                        if (this.InputCheckKskNr())
+                        {
+                            this.LayoutNrTB.Focus();
+                        }
+                        else
+                        {
+                            this.LayoutNrTB.SelectAll();
+                        }
+                        break;
+                    case "LayoutNrTB":
+                        if (this.InputCheckLayout())
+                        {
+                            this.ProductOffLine();
+                        }
+                        else
+                        {
+                            this.LayoutNrTB.SelectAll();
+                        }
                         break;
                     default:
                         break;
                 }
             }
+        }
+
+        private bool InputCheckQr()
+        {
+            if (string.IsNullOrEmpty(QrTB.Text))
+            {
+                MessageBox.Show("电测二维码不可以为空");
+                return false;
+            }
+            else
+            {
+                if (!new Regex(Settings.Default.QrReg).IsMatch(QrTB.Text))
+                {
+                    MessageBox.Show("请扫描电测二维码");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool InputCheckKnr()
+        {
+            if (string.IsNullOrEmpty(KnrTB.Text))
+            {
+                MessageBox.Show("大众生产号不可以为空");
+                return false;
+            }
+            else
+            {
+                if (!new Regex(Settings.Default.KnrReg).IsMatch(KnrTB.Text))
+                {
+                    MessageBox.Show("请扫描大众生产号");
+                    return false;
+                }
+            }
+            return true;    
+        }
+
+        private bool InputCheckKnrWithYear()
+        {
+            if (string.IsNullOrEmpty(KNrWithYearTB.Text))
+            {
+                MessageBox.Show("前缀大众生产号不可以为空");
+                return false;
+            }
+            else
+            {
+
+                if (!new Regex(Settings.Default.KnrWithYearReg).IsMatch(KNrWithYearTB.Text))
+                {
+                    MessageBox.Show("请扫描前缀大众生产号");
+                    return false;
+                }
+            }
+            return true;    
+        }
+
+        private bool InputCheckCheckCode()
+        {
+            if (string.IsNullOrEmpty(CheckCodeTB.Text))
+            {
+                MessageBox.Show("验证码不可以为空");
+                return false;
+            }
+            else
+            {
+                if (!new Regex(Settings.Default.CheckCodeReg).IsMatch(CheckCodeTB.Text))
+                {
+                    MessageBox.Show("请扫描验证码");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        private bool InputCheckKskNr()
+        {
+            if (string.IsNullOrEmpty(KskNrTB.Text))
+            {
+                MessageBox.Show("KSK号不可以为空");
+                return false;
+            }
+            else
+            {
+                if (!new Regex(Settings.Default.KskRge).IsMatch(KskNrTB.Text))
+                {
+                    MessageBox.Show("请扫描KSK号");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool InputCheckLayout()
+        {
+            if (string.IsNullOrEmpty(LayoutNrTB.Text))
+            {
+                MessageBox.Show("配置代码不可以为空");
+                return false;
+            }
+            else
+            {
+                if (!new Regex(Settings.Default.LayoutReg).IsMatch(LayoutNrTB.Text))
+                {
+                    MessageBox.Show("请扫描配置代码");
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

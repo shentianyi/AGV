@@ -47,6 +47,8 @@ namespace AGVCenterLib.Service
             stRep.Create(st);
             this.Context.SaveAll();
             task.DbId = st.Id;
+
+            new StockTaskLogService(this.DbString).CreateByStockTask(st);
             return true;
         }
         public void CreateTask(StockTask st)
@@ -86,6 +88,9 @@ namespace AGVCenterLib.Service
                     new StorageService(this.Context).InStockByCheckCode(taskStock.PositionNr, t.BarCode);
                 }
                 this.Context.SaveAll();
+
+
+                new StockTaskLogService(this.DbString).CreateByStockTask(t);
             }
 
             return true;
@@ -125,8 +130,7 @@ namespace AGVCenterLib.Service
                 List<StockTask> stockTasks = new List<StockTask>();
 
                 IPositionRepository posiRep = new PositionRepository(this.Context);
-
-
+                 
                 foreach (var boxType in boxTypes)
                 {
                     //List<DeliveryStorageView> deliveryStoragesByBoxType =
@@ -207,6 +211,8 @@ namespace AGVCenterLib.Service
                 this.Context.SaveAll();
 
                 message.Success = true;
+
+
             }catch(Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
@@ -233,9 +239,9 @@ namespace AGVCenterLib.Service
             // 执行中的任务
             List<StockTask> outingTasks = stockTaskRep.GetByState(StockTaskState.RoadMachineOutStocking);
 
-            //if (waitTasks.Count == 0 && waitDispatchTasks.Count == 0 && outingTasks.Count==0)
-            //{
-               tasks = stockTaskRep
+            if (waitTasks.Count == 0 && waitDispatchTasks.Count == 0 && outingTasks.Count == 0)
+            {
+                tasks = stockTaskRep
                     .GetByState(StockTaskState.RoadMachineOutStockInit)
                     .Where(s => (!dispatchedBatchId.Contains(s.TrayBatchId)))
                     .OrderBy(s => s.DeliveryBatchId).ThenBy(s => s.DeliveryBatchId).ToList();
@@ -250,7 +256,7 @@ namespace AGVCenterLib.Service
                     stockTaskRep.UpdateTasksState(tasks.Select(s => s.Id).ToList(),
                         StockTaskState.RoadMachineWaitOutStockDispatch);
                 }
-            //}
+            }
             return tasks;
         }
 

@@ -331,26 +331,6 @@ namespace AGVCenterWPF
                                 roadMachineIndex = 2;
                             }
                         }
-                        //if (prevRoadMahineIndex == 1)
-                        //{
-                        //    if (!OPCDataResetData.Xdj2InPaltformIsBuff)
-                        //    {
-                        //        if (BaseConfig.RoadMachine2Enabled)
-                        //        {
-                        //            roadMachineIndex = 2;
-                        //        }
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    if (!OPCDataResetData.Xdj1InPaltformIsBuff)
-                        //    {
-                        //        if (BaseConfig.RoadMachine1Enabled)
-                        //        {
-                        //            roadMachineIndex = 1;
-                        //        }
-                        //    }
-                        //}
                     }
                     else if (RoadMachine1TaskQueue.Count == 0 && (!OPCDataResetData.Xdj1InPaltformIsBuff) && BaseConfig.RoadMachine1Enabled)
                     {
@@ -1162,8 +1142,6 @@ namespace AGVCenterWPF
                 {
                     //   StockTaskService sts = new StockTaskService(OPCConfig.DbString);
                     //   sts.UpdateTaskState(receiveMessageQueue.Dequeue() as StockTask);
-
-
                     try
                     {
                         StockTask st = receiveMessageQueue.Dequeue() as StockTask;
@@ -1632,14 +1610,12 @@ namespace AGVCenterWPF
 
             if (OPCOutRobootPickData.CanWrite)
             {
-                // LoadOutStockTaskFromDb();
 
                 if (this.DispatchOutStockTaskByTray())
                 {
                     this.OPCOutRobootPickData.SyncWrite(this.OPCOutRobootPickOPCGroup);
                 }
             }
-
 
 
             DispatchTrayOutStockTaskTimer.Start();
@@ -1660,7 +1636,7 @@ namespace AGVCenterWPF
                     return false;
                 }
                 var f = OutStockCenterQueue.FirstOrDefault();
-                 this.OPCOutRobootPickData.BoxType = f.Value.FirstOrDefault().BoxType;
+                this.OPCOutRobootPickData.BoxType = f.Value.FirstOrDefault().BoxType;
                 this.OPCOutRobootPickData.TrayNum = f.Value.FirstOrDefault().TrayNum;//f.Value.Count();
                 foreach (var taskItem in f.Value)
                 {

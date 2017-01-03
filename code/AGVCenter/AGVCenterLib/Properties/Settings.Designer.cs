@@ -77,5 +77,16 @@ namespace AGVCenterLib.Properties {
                 return ((string)(this["AgvWarehouseDbConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.0.99;Initial Catalog=AgvWarehouseDb;Persist Security Info=Tru" +
+            "e;User ID=sa;Password=123456@")]
+        public string AgvWarehouseDbConnectionString2 {
+            get {
+                return ((string)(this["AgvWarehouseDbConnectionString2"]));
+            }
+        }
     }
 }

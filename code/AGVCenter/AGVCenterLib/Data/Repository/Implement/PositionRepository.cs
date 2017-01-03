@@ -41,11 +41,17 @@ namespace AGVCenterLib.Data.Repository.Implement
 
         public Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs, bool lockPosition = false)
         {
+            //PositionStorageView ps = this.context.PositionStorageView
+            //    .Where(s => (!exceptsNrs.Contains(s.Nr))
+            //    && s.RoadMachineIndex==roadMachineIndex
+            //    && (s.StorageId==null && s.isLocked==false))
+            //    .OrderBy(s => s.Row).ThenBy(s => s.Column).ThenBy(s => s.Floor).FirstOrDefault();
+
             PositionStorageView ps = this.context.PositionStorageView
-                .Where(s => (!exceptsNrs.Contains(s.Nr))
-                && s.RoadMachineIndex==roadMachineIndex
-                && (s.StorageId==null && s.isLocked==false))
-                .OrderBy(s => s.Row).ThenBy(s => s.Column).ThenBy(s => s.Floor).FirstOrDefault();
+              .Where(s => (!exceptsNrs.Contains(s.Nr))
+              && s.RoadMachineIndex == roadMachineIndex
+              && (s.StorageId == null && s.isLocked == false))
+              .OrderByDescending(s => s.Column).ThenBy(s => s.Row).ThenBy(s => s.Floor).FirstOrDefault();
             if (ps != null)
             {
                 if (lockPosition)

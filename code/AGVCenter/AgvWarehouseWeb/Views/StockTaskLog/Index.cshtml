@@ -1,6 +1,6 @@
 ﻿@using MvcPaging;
 
-@model IPagedList<AGVCenterLib.Data.StockTask>
+@model IPagedList<AGVCenterLib.Data.StockTaskLog>
 
 @{
     ViewBag.Title = "Index";
@@ -9,7 +9,7 @@
 
 <div class="row" style="margin:0;">
     <div class="col-md-12">
-        <form action="/StockTask/Search" method="get">
+        <form action="/StockTaskLog/Search" method="get">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>KSK 号</span>
@@ -127,7 +127,7 @@
                 @Html.DisplayFor(modelItem => item.BarCode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StateStr)
+                @Html.DisplayFor(modelItem => item.FromStateStr)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
@@ -155,7 +155,9 @@
             </td>
 
             <td>
-                <a href="/StockTaskLog/Search?StockTaskId=@item.Id" target="_blank">History</a>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
             </td>
         </tr>
     }
@@ -172,7 +174,8 @@
                 {
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
                         .Options(o => o.AddRouteValue("PositionNr", ViewBag.Query.PositionNr))
-                        .Options(o => o.AddRouteValue("UniqItemNr", ViewBag.Query.UniqItemNr));
+                        .Options(o => o.AddRouteValue("UniqItemNr", ViewBag.Query.UniqItemNr))
+                        .Options(o => o.AddRouteValue("StockTaskId", ViewBag.Query.StockTaskId));
                     @html
                 }
                 else

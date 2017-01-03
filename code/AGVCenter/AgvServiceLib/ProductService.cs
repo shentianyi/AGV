@@ -27,7 +27,8 @@ namespace AgvServiceLib
                 KNrWithYear = item.KNrWithYear,
                 CheckCode = item.CheckCode,
                 KskNr = item.KskNr,
-                BoxTypeId = item.BoxTypeId
+                BoxTypeId = item.BoxTypeId,
+                PartNr=item.PartNr
             };
             message = service.Create(uitem);
 

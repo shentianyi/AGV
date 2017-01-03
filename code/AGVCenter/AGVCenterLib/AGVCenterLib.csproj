@@ -79,6 +79,7 @@
     <Compile Include="Data\IDataContextFactory.cs" />
     <Compile Include="Data\PartialPositon.cs" />
     <Compile Include="Data\PartialStockMovement.cs" />
+    <Compile Include="Data\PartialStockTaskLog.cs" />
     <Compile Include="Data\PartialStorageUniqueItemView.cs" />
     <Compile Include="Data\PartialDeliveryItemStorageView.cs" />
     <Compile Include="Data\PartialDeliveryStorageView.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Data\Repository\Implement\UniqueItemRepository.cs" />
     <Compile Include="Data\Repository\Implement\StockTaskRepository.cs" />
     <Compile Include="Data\Repository\Implement\BoxTypeRepository.cs" />
+    <Compile Include="Data\Repository\Implement\StockTaskLogRepository.cs" />
     <Compile Include="Data\Repository\Implement\WarehouseRepository.cs" />
     <Compile Include="Data\Repository\Interface\IDeliveryItemRepository.cs" />
     <Compile Include="Data\Repository\Interface\IDeliveryTrayRepository.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Data\Repository\Interface\IDeliveryRepository.cs" />
     <Compile Include="Data\Repository\Interface\IStockTaskRepository.cs" />
     <Compile Include="Data\Repository\Interface\IBoxTypeRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IStockTaskLogRepository.cs" />
     <Compile Include="Data\Repository\Interface\IWarehouseRepository.cs" />
     <Compile Include="Data\Repository\IRepository.cs" />
     <Compile Include="Data\Repository\RepositoryBase.cs" />
@@ -136,6 +139,7 @@
     <Compile Include="Model\SearchModel\DeliverySearchModel.cs" />
     <Compile Include="Model\SearchModel\PositionSearchModel.cs" />
     <Compile Include="Model\SearchModel\StockMovementSearchModel.cs" />
+    <Compile Include="Model\SearchModel\StockTaskLogSearchModel.cs" />
     <Compile Include="Model\SearchModel\StockTaskSearchModel.cs" />
     <Compile Include="Model\SearchModel\StorageSearchModel.cs" />
     <Compile Include="Model\SearchModel\UniqueItemSearchModel.cs" />
@@ -154,6 +158,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\StockTaskLogService.cs" />
     <Compile Include="Service\StockMovementService.cs" />
     <Compile Include="Service\StorageService.cs" />
     <Compile Include="Service\TrayService.cs" />
