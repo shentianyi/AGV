@@ -22,6 +22,7 @@ namespace AGVCenterLib.Data.Repository.Interface
 
 
         List<UniqueItem> ListByDeliveryNr(string deliveryNr);
+        List<UniqueItem> ListByPickListNr(string pickListNr);
 
         IQueryable<UniqueItem> Search(UniqueItemSearchModel searchModel);
     }

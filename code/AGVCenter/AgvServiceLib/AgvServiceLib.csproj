@@ -54,7 +54,9 @@
     <Compile Include="IDeliveryService.cs" />
     <Compile Include="IProductService.cs" />
     <Compile Include="IStorageService.cs" />
+    <Compile Include="IPickService.cs" />
     <Compile Include="StorageService.cs" />
+    <Compile Include="PickService.cs" />
     <Compile Include="TrayService.cs" />
     <Compile Include="ITrayService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

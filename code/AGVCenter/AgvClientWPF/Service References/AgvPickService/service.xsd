@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" />
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.SearchModel" />
+  <xs:element name="PickListExists">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PickListExistsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PickListExistsResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreatePickList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pickListNr" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="uniqItemsNrs" nillable="true" type="q1:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreatePickListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CreatePickListResult" nillable="true" type="q2:ResultMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPickListUniqItemsByNr">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPickListUniqItemsByNrResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" minOccurs="0" name="GetPickListUniqItemsByNrResult" nillable="true" type="q3:ArrayOfUniqueItemModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateOutStockTaskByNr">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateOutStockTaskByNrResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CreateOutStockTaskByNrResult" nillable="true" type="q4:ResultMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPickListOutStockTasks">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPickListOutStockTasksResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" minOccurs="0" name="GetPickListOutStockTasksResult" nillable="true" type="q5:ArrayOfStockTaskModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.SearchModel" minOccurs="0" name="searchModel" nillable="true" type="q6:PickListSearchModel" />
+        <xs:element minOccurs="0" name="limit" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SearchListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" minOccurs="0" name="SearchListResult" nillable="true" type="q7:ArrayOfPickListModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePickListForTest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pickListNr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeletePickListForTestResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPickListStorageByNr">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="nr" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPickListStorageByNrResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" minOccurs="0" name="GetPickListStorageByNrResult" nillable="true" type="q8:ArrayOfPickListStorageViewModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

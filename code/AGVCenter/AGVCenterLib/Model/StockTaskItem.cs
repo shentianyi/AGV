@@ -309,7 +309,7 @@ namespace AGVCenterLib.Model
         /// 运单项的个数
         /// </summary>
         private int deliveryItemNum;
-        public int DeliveryItemNum
+        public int PickItemNum
         {
             get { return this.deliveryItemNum; }
             set

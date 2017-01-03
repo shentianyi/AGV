@@ -86,6 +86,8 @@
     <Compile Include="Data\PartialStockTask.cs" />
     <Compile Include="Data\PartialTrayDeliveryView.cs" />
     <Compile Include="Data\PartialUniqueItem.cs" />
+    <Compile Include="Data\Repository\Implement\PickListItemRepository.cs" />
+    <Compile Include="Data\Repository\Implement\PickListRepository.cs" />
     <Compile Include="Data\Repository\Implement\DeliveryTrayRepository.cs" />
     <Compile Include="Data\Repository\Implement\TrayRepository.cs" />
     <Compile Include="Data\Repository\Implement\TrayItemRepository.cs" />
@@ -100,7 +102,9 @@
     <Compile Include="Data\Repository\Implement\BoxTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\StockTaskLogRepository.cs" />
     <Compile Include="Data\Repository\Implement\WarehouseRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IPickListItemRepository.cs" />
     <Compile Include="Data\Repository\Interface\IDeliveryItemRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IPickListRepository.cs" />
     <Compile Include="Data\Repository\Interface\IDeliveryTrayRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITrayRepository.cs" />
     <Compile Include="Data\Repository\Interface\IPartRepository.cs" />
@@ -136,6 +140,7 @@
     <Compile Include="Model\OPC\OPCSetStockTask.cs" />
     <Compile Include="Model\RemoteTaskActionItem.cs" />
     <Compile Include="Model\SearchModel\DeliveryItemSearchModel.cs" />
+    <Compile Include="Model\SearchModel\PickListSearchModel.cs" />
     <Compile Include="Model\SearchModel\DeliverySearchModel.cs" />
     <Compile Include="Model\SearchModel\PositionSearchModel.cs" />
     <Compile Include="Model\SearchModel\StockMovementSearchModel.cs" />
@@ -145,6 +150,8 @@
     <Compile Include="Model\SearchModel\UniqueItemSearchModel.cs" />
     <Compile Include="Model\StockTaskItem.cs" />
     <Compile Include="Model\ViewModel\DeliveryItemStorageViewModel.cs" />
+    <Compile Include="Model\ViewModel\PickListStorageViewModel.cs" />
+    <Compile Include="Model\ViewModel\PickListModel.cs" />
     <Compile Include="Model\ViewModel\StorageModel.cs" />
     <Compile Include="Model\ViewModel\TrayDeliveryViewModel.cs" />
     <Compile Include="Model\ViewModel\DeliveryStorageViewModel.cs" />
@@ -158,6 +165,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\PickListItemService.cs" />
+    <Compile Include="Service\PickListService.cs" />
     <Compile Include="Service\StockTaskLogService.cs" />
     <Compile Include="Service\StockMovementService.cs" />
     <Compile Include="Service\StorageService.cs" />

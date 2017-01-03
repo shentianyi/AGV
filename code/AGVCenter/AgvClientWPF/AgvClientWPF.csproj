@@ -95,7 +95,21 @@
     <Compile Include="Helper\PrintHelper.cs" />
     <Compile Include="Helper\UniqueHelper.cs" />
     <Compile Include="Model\Printer.cs" />
+    <Compile Include="Pick\CreatePickOutStockTaskWindow.xaml.cs">
+      <DependentUpon>CreatePickOutStockTaskWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pick\PickItemListWindow.xaml.cs">
+      <DependentUpon>PickItemListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pick\PickListWindow.xaml.cs">
+      <DependentUpon>PickListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Service References\AgvDeliveryService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AgvPickService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -162,6 +176,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pick\CreatePickOutStockTaskWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pick\PickItemListWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pick\PickListWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Product\ProductFinishWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -202,6 +228,8 @@
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryItemStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryStorageViewModel.datasource" />
+    <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.PickListModel.datasource" />
+    <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.PickListStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StockTaskModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StorageModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.TrayDeliveryViewModel.datasource" />
@@ -228,6 +256,25 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AgvDeliveryService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvPickService\AGVCenterLib.Model.Message.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvPickService\AGVCenterLib.Model.SearchModel.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvPickService\AGVCenterLib.Model.ViewModel.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvPickService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvPickService\service.wsdl" />
+    <None Include="Service References\AgvPickService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvPickService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AgvProductService\AGVCenterLib.Model.Message1.xsd">
@@ -280,6 +327,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AgvDeliveryService\" />
+    <WCFMetadataStorage Include="Service References\AgvPickService\" />
     <WCFMetadataStorage Include="Service References\AgvProductService\" />
     <WCFMetadataStorage Include="Service References\AgvStorageService\" />
     <WCFMetadataStorage Include="Service References\AgvTrayService\" />
@@ -348,6 +396,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\AgvStorageService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AgvPickService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AgvPickService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AgvPickService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

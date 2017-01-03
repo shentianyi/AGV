@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfUniqueItemModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UniqueItemModel" nillable="true" type="tns:UniqueItemModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUniqueItemModel" nillable="true" type="tns:ArrayOfUniqueItemModel" />
+  <xs:complexType name="UniqueItemModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BoxTypeId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CheckCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="KNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KNrWithYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KskNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PartNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UniqueItemModel" nillable="true" type="tns:UniqueItemModel" />
+  <xs:complexType name="ArrayOfStockTaskModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StockTaskModel" nillable="true" type="tns:StockTaskModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStockTaskModel" nillable="true" type="tns:ArrayOfStockTaskModel" />
+  <xs:complexType name="StockTaskModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgvPassFlag" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BarCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BoxType" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DeliveryBatchId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeliveryItemNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="PositionColumn" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PositionFloor" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PositionNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PositionRow" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RestPositionFlag" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RoadMachineIndex" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StateStr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrayBatchId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrayNum" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TrayReverseNo" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StockTaskModel" nillable="true" type="tns:StockTaskModel" />
+  <xs:complexType name="ArrayOfPickListModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PickListModel" nillable="true" type="tns:PickListModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPickListModel" nillable="true" type="tns:ArrayOfPickListModel" />
+  <xs:complexType name="PickListModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Nr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PickListModel" nillable="true" type="tns:PickListModel" />
+  <xs:complexType name="ArrayOfPickListStorageViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PickListStorageViewModel" nillable="true" type="tns:PickListStorageViewModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPickListStorageViewModel" nillable="true" type="tns:ArrayOfPickListStorageViewModel" />
+  <xs:complexType name="PickListStorageViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IsInStock" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Nr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PickListItemCreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PickListItemId" type="xs:int" />
+      <xs:element minOccurs="0" name="PickListItemPickListNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PickListItemUniqItemNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PickListItemUpdatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="StorageCreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="StorageFIFO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="StorageId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StoragePartNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StoragePositionNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StorageUniqItemNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StorageUpdatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UniqueItemBoxTypeId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UniqueItemCheckCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemCreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UniqueItemKNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemKNrWithYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemKskNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemPartNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemQR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemState" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UniqueItemUpdatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PickListStorageViewModel" nillable="true" type="tns:PickListStorageViewModel" />
+</xs:schema>

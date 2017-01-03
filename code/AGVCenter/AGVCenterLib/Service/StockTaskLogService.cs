@@ -76,8 +76,8 @@ namespace AGVCenterLib.Service
                 Type = task.Type,
                 TrayReverseNo = task.TrayReverseNo,
                 TrayNum = task.TrayNum,
-                DeliveryItemNum = task.DeliveryItemNum,
-                DeliveryBatchId = task.DeliveryBatchId,
+                PickItemNum = task.PickItemNum,
+                PickBatchId = task.PickBatchId,
                 TrayBatchId = task.TrayBatchId,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now

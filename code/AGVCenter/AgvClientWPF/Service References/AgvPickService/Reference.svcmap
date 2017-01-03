@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a7fb6a89-445a-4cc3-b2fc-9077a4ef3d27" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:9001/AgvService/PickService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="b97efa22-858c-4e07-93b5-bf7ccb82e0c6" SourceId="1" SourceUrl="http://localhost:9001/AgvService/PickService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="6e2e6de6-5697-435b-a6fe-cdeb49455012" SourceId="1" SourceUrl="http://localhost:9001/AgvService/PickService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="8c501064-7b03-4492-803f-620b32cd2e83" SourceId="1" SourceUrl="http://localhost:9001/AgvService/PickService/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="74e6e6c3-2f44-48e4-a16f-afcd341b1e05" SourceId="1" SourceUrl="http://localhost:9001/AgvService/PickService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.Message.xsd" MetadataType="Schema" ID="1fba71b7-2844-4498-860a-85150236e703" SourceId="1" SourceUrl="http://localhost:9001/AgvService/PickService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.ViewModel.xsd" MetadataType="Schema" ID="28f1a0f6-e946-4032-b913-25fd85e918bc" SourceId="1" SourceUrl="http://localhost:9001/AgvService/PickService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.SearchModel.xsd" MetadataType="Schema" ID="17b963ab-e5a6-434f-b46c-0a41af79d9c3" SourceId="1" SourceUrl="http://localhost:9001/AgvService/PickService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

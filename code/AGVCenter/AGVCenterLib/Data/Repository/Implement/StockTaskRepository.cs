@@ -55,9 +55,9 @@ namespace AGVCenterLib.Data.Repository.Implement
 
 
 
-        public List<StockTask> GetOutStockTaskByDelivery(string deliveryNr)
+        public List<StockTask> GetOutStockTaskByPickList(string pickListNr)
         {
-            return this.context.StockTask.Where(s => s.DeliveryBatchId == deliveryNr).ToList();
+            return this.context.StockTask.Where(s => s.PickBatchId == pickListNr).ToList();
         }
 
         public StockTask FindLastByNr(string nr)

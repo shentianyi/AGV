@@ -42,9 +42,9 @@
                 <StackPanel Grid.Row="0" Grid.Column="1">
                 <Button x:Name="deliveryItemListBtn" Content="运单项列表"  Margin="0,10,0,0"
                         Width="100" Height="40" Click="deliveryItemListBtn_Click"/>
-                <Button x:Name="deliveryCreateStockTaskBtn" Content="运单出库"  Margin="0,10,0,0"
+                <Button x:Name="deliveryCreateStockTaskBtn" Content="运单出库" Visibility="Collapsed"  Margin="0,10,0,0"
                         Width="100" Height="40" Click="deliveryCreateStockTaskBtn_Click" />
-                <Button x:Name="deliveryStockTaskMonitorBtn" Content="出库监控" Width="100"  Margin="0,10,0,0"
+                <Button x:Name="deliveryStockTaskMonitorBtn" Content="出库监控" Width="100" Visibility="Collapsed"   Margin="0,10,0,0"
                         Height="40" Click="deliveryStockTaskMonitorBtn_Click"/>
                 <Button x:Name="deliveryCreateTrayBtn" Content="创建托盘" Width="100" Height="40"
                          Margin="0,10,0,0"

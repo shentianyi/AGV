@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PickService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="pickservice_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsoma:OptimizedMimeSerialization xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.SearchModel" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IPickService_PickListExists_InputMessage">
+    <wsdl:part name="parameters" element="tns:PickListExists" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_PickListExists_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PickListExistsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_CreatePickList_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePickList" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_CreatePickList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreatePickListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_GetPickListUniqItemsByNr_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPickListUniqItemsByNr" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_GetPickListUniqItemsByNr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPickListUniqItemsByNrResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_CreateOutStockTaskByNr_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateOutStockTaskByNr" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_CreateOutStockTaskByNr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateOutStockTaskByNrResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_GetPickListOutStockTasks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPickListOutStockTasks" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_GetPickListOutStockTasks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPickListOutStockTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_SearchList_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchList" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_SearchList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_DeletePickListForTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePickListForTest" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_DeletePickListForTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePickListForTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_GetPickListStorageByNr_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPickListStorageByNr" />
+  </wsdl:message>
+  <wsdl:message name="IPickService_GetPickListStorageByNr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPickListStorageByNrResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IPickService">
+    <wsdl:operation name="PickListExists">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPickService/PickListExists" message="tns:IPickService_PickListExists_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPickService/PickListExistsResponse" message="tns:IPickService_PickListExists_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePickList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPickService/CreatePickList" message="tns:IPickService_CreatePickList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPickService/CreatePickListResponse" message="tns:IPickService_CreatePickList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPickListUniqItemsByNr">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPickService/GetPickListUniqItemsByNr" message="tns:IPickService_GetPickListUniqItemsByNr_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPickService/GetPickListUniqItemsByNrResponse" message="tns:IPickService_GetPickListUniqItemsByNr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOutStockTaskByNr">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPickService/CreateOutStockTaskByNr" message="tns:IPickService_CreateOutStockTaskByNr_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPickService/CreateOutStockTaskByNrResponse" message="tns:IPickService_CreateOutStockTaskByNr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPickListOutStockTasks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPickService/GetPickListOutStockTasks" message="tns:IPickService_GetPickListOutStockTasks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPickService/GetPickListOutStockTasksResponse" message="tns:IPickService_GetPickListOutStockTasks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPickService/SearchList" message="tns:IPickService_SearchList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPickService/SearchListResponse" message="tns:IPickService_SearchList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePickListForTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPickService/DeletePickListForTest" message="tns:IPickService_DeletePickListForTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPickService/DeletePickListForTestResponse" message="tns:IPickService_DeletePickListForTest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPickListStorageByNr">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPickService/GetPickListStorageByNr" message="tns:IPickService_GetPickListStorageByNr_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPickService/GetPickListStorageByNrResponse" message="tns:IPickService_GetPickListStorageByNr_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="pickservice" type="tns:IPickService">
+    <wsp:PolicyReference URI="#pickservice_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PickListExists">
+      <soap:operation soapAction="http://tempuri.org/IPickService/PickListExists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePickList">
+      <soap:operation soapAction="http://tempuri.org/IPickService/CreatePickList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPickListUniqItemsByNr">
+      <soap:operation soapAction="http://tempuri.org/IPickService/GetPickListUniqItemsByNr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOutStockTaskByNr">
+      <soap:operation soapAction="http://tempuri.org/IPickService/CreateOutStockTaskByNr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPickListOutStockTasks">
+      <soap:operation soapAction="http://tempuri.org/IPickService/GetPickListOutStockTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchList">
+      <soap:operation soapAction="http://tempuri.org/IPickService/SearchList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePickListForTest">
+      <soap:operation soapAction="http://tempuri.org/IPickService/DeletePickListForTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPickListStorageByNr">
+      <soap:operation soapAction="http://tempuri.org/IPickService/GetPickListStorageByNr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PickService">
+    <wsdl:port name="pickservice" binding="tns:pickservice">
+      <soap:address location="http://localhost:9001/AgvService/PickService/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

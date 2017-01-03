@@ -55,6 +55,16 @@ namespace AGVCenterLib.Data.Repository.Implement
                     select i).ToList();
         }
 
+
+        public List<UniqueItem> ListByPickListNr(string pickListNr)
+        {
+
+            return (from i in context.UniqueItem
+                    join d in context.PickListItem on i.Nr equals d.UniqItemNr
+                    where d.PickListNr == pickListNr
+                    select i).ToList();
+        }
+
         public IQueryable<UniqueItem> Search(UniqueItemSearchModel searchModel)
         {
             var q= this.context.UniqueItem as IQueryable<UniqueItem>;

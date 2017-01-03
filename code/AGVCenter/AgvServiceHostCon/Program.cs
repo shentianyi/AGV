@@ -16,6 +16,7 @@ namespace AgvServiceHostCon
             ServiceHost deliveryService = null;
             ServiceHost trayService = null;
             ServiceHost storageService = null;
+            ServiceHost pickService = null;
 
             try
             {
@@ -23,6 +24,7 @@ namespace AgvServiceHostCon
                 deliveryService = new ServiceHost(typeof(DeliveryService));
                 trayService = new ServiceHost(typeof(TrayService));
                 storageService = new ServiceHost(typeof(StorageService));
+                pickService = new ServiceHost(typeof(PickService));
 
                 productSercice.Open();
                 deliveryService.Open();

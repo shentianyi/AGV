@@ -114,7 +114,7 @@ namespace AGVCenterWPF
                 StockTaskType = task.Type.HasValue ? (StockTaskType)task.Type.Value : StockTaskType.NONE,
                 TrayReverseNo = task.TrayReverseNo.HasValue ? task.TrayReverseNo.Value : 0,
                 TrayNum = task.TrayNum.HasValue ? task.TrayNum.Value : 0,
-                DeliveryItemNum = task.DeliveryItemNum.HasValue ? task.DeliveryItemNum.Value : 0,
+                PickItemNum = task.PickItemNum.HasValue ? task.PickItemNum.Value : 0,
                 DbId = task.Id,
                 CreatedAt = task.CreatedAt.Value,
                 IsInProcessing = true

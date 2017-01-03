@@ -184,7 +184,7 @@ namespace AGVCenterLib.Service
         /// <returns></returns>
         public List<StockTask> GetDeliveryOutStockTasks(string nr)
         {
-            return new StockTaskRepository(this.Context).GetOutStockTaskByDelivery(nr);
+            return new StockTaskRepository(this.Context).GetOutStockTaskByPickList(nr);
         }
 
         public List<Delivery> SearchList(DeliverySearchModel searchModel,int limit=50)

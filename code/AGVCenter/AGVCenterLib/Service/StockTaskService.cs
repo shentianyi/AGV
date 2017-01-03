@@ -193,10 +193,10 @@ namespace AGVCenterLib.Service
                                     PositionRow = position.Row,
 
                                     State = (int)StockTaskState.RoadMachineOutStockInit,
-                                    DeliveryItemNum = deliveryStoragesCount,
+                                    PickItemNum = deliveryStoragesCount,
                                     TrayNum= currentTrayItemCount,
                                     TrayReverseNo= currentTrayItemCount-j,
-                                    DeliveryBatchId = deliveryNr,
+                                    PickBatchId = deliveryNr,
                                     TrayBatchId = trayBatchId,
                                     CreatedAt = DateTime.Now,
                                     UpdatedAt = DateTime.Now
@@ -214,6 +214,132 @@ namespace AGVCenterLib.Service
 
 
             }catch(Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+                message.Content = ex.Message;
+                message.MessageType = MessageType.Exception;
+            }
+            return message;
+        }
+
+        /// <summary>
+        /// 根据择货单生成出库任务，写入MSMQ
+        /// </summary>
+        /// <param name="pickListNr"></param>
+        /// <returns></returns>
+        public ResultMessage CreateOutStockTaskByPickList(string pickListNr)
+        {
+            ResultMessage message = new ResultMessage();
+            try
+            {
+                IPickListRepository pickListRep = new PickListRepository(this.Context);
+                PickList  pickList = pickListRep.FindByNr(pickListNr);
+
+                if (pickList == null)
+                {
+                    message.Content = string.Format("择货单{0}不存在", pickListNr);
+                    return message;
+                }
+
+                // 按照箱子类型排序
+                List<PickListStorageView> deliveryStorages =
+                    pickListRep.GetStorageList(pickListNr).ToList();
+
+                int deliveryStoragesCount = deliveryStorages.Count;
+
+                if (deliveryStoragesCount == 0)
+                {
+                    message.Content = string.Format("择货单{0}不存在库存项", pickListNr);
+                    return message;
+                }
+                List<Data.BoxType> boxTypes = new BoxTypeRepository(this.Context).All();
+
+                List<StockTask> stockTasks = new List<StockTask>();
+
+                IPositionRepository posiRep = new PositionRepository(this.Context);
+
+                foreach (var boxType in boxTypes)
+                {
+                    //List<DeliveryStorageView> deliveryStoragesByBoxType =
+                    //    deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id)
+                    //    .OrderBy(s => s.StoragePositionNr).ToList();
+
+                    List<PickListStorageView> pickListStoragesByBoxType = new List<PickListStorageView>();
+
+                    List<PickListStorageView> roadMachine1Tasks =
+                        deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id
+                        && s.PositionRoadMachineIndex == 1).OrderBy(s => s.StoragePositionNr).ToList();
+
+                    List<PickListStorageView> roadMachine2Tasks =
+                        deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id
+                        && s.PositionRoadMachineIndex == 2).OrderBy(s => s.StoragePositionNr).ToList();
+
+                    int count = roadMachine1Tasks.Count > roadMachine2Tasks.Count ? roadMachine1Tasks.Count : roadMachine2Tasks.Count;
+
+                    for (var i = 0; i < count; i++)
+                    {
+                        if (i < roadMachine1Tasks.Count)
+                        {
+                            pickListStoragesByBoxType.Add(roadMachine1Tasks[i]);
+                        }
+
+                        if (i < roadMachine2Tasks.Count)
+                        {
+                            pickListStoragesByBoxType.Add(roadMachine2Tasks[i]);
+                        }
+                    }
+
+                    int totalItemCount = pickListStoragesByBoxType.Count;
+                    if (totalItemCount > 0)
+                    {
+                        int trayCount =
+                            pickListStoragesByBoxType.Count % boxType.TrayQty.Value == 0 ?
+                            pickListStoragesByBoxType.Count / boxType.TrayQty.Value
+                            :
+                            pickListStoragesByBoxType.Count / boxType.TrayQty.Value + 1;
+                        for (int i = 0; i < trayCount; i++)
+                        {
+                            string trayBatchId = Guid.NewGuid().ToString();
+                            int currentTrayItemCount = (i + 1 == trayCount) ? (totalItemCount - i * boxType.TrayQty.Value) : boxType.TrayQty.Value;
+                            for (int j = 0; j < currentTrayItemCount; j++)
+                            {
+                                var s = pickListStoragesByBoxType[i * boxType.TrayQty.Value + j];
+
+                                Position position = posiRep.FindByNr(s.StoragePositionNr);
+
+                                stockTasks.Add(new StockTask()
+                                {
+                                    Type = (int)StockTaskType.OUT,
+
+                                    RoadMachineIndex = position.RoadMachineIndex,
+                                    BoxType = s.UniqueItemBoxTypeId,
+                                    BarCode = s.UniqueItemCheckCode,
+                                    PositionNr = position.Nr,
+                                    PositionFloor = position.Floor,
+                                    PositionColumn = position.Column,
+                                    PositionRow = position.Row,
+
+                                    State = (int)StockTaskState.RoadMachineOutStockInit,
+                                    PickItemNum = deliveryStoragesCount,
+                                    TrayNum = currentTrayItemCount,
+                                    TrayReverseNo = currentTrayItemCount - j,
+                                    PickBatchId = pickListNr,
+                                    TrayBatchId = trayBatchId,
+                                    CreatedAt = DateTime.Now,
+                                    UpdatedAt = DateTime.Now
+                                });
+
+                            }
+                        }
+                    }
+                }
+                IStockTaskRepository stRep = new StockTaskRepository(this.Context);
+                stRep.Creates(stockTasks);
+                this.Context.SaveAll();
+
+                message.Success = true;
+            }
+            catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
                 message.Content = ex.Message;
@@ -244,7 +370,7 @@ namespace AGVCenterLib.Service
                 tasks = stockTaskRep
                     .GetByState(StockTaskState.RoadMachineOutStockInit)
                     .Where(s => (!dispatchedBatchId.Contains(s.TrayBatchId)))
-                    .OrderBy(s => s.DeliveryBatchId).ThenBy(s => s.DeliveryBatchId).ToList();
+                    .OrderBy(s => s.PickBatchId).ThenBy(s => s.TrayBatchId).ToList();
 
                 StockTask st = tasks.FirstOrDefault();
                 if (st != null)

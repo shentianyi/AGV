@@ -462,7 +462,7 @@ namespace AGVCenterWPF
 
                         OPCSetStockTaskRoadMachine1Data.TrayReverseNo = taskItem.TrayReverseNo;
                         OPCSetStockTaskRoadMachine1Data.TrayNum = taskItem.TrayNum;
-                        OPCSetStockTaskRoadMachine1Data.DeliveryItemNum = taskItem.DeliveryItemNum;
+                        OPCSetStockTaskRoadMachine1Data.DeliveryItemNum = taskItem.PickItemNum;
 
 
                         OPCSetStockTaskRoadMachine1Data.Barcode = taskItem.Barcode;
@@ -505,7 +505,7 @@ namespace AGVCenterWPF
 
                         OPCSetStockTaskRoadMachine2Data.TrayReverseNo = taskItem.TrayReverseNo;
                         OPCSetStockTaskRoadMachine2Data.TrayNum = taskItem.TrayNum;
-                        OPCSetStockTaskRoadMachine2Data.DeliveryItemNum = taskItem.DeliveryItemNum;
+                        OPCSetStockTaskRoadMachine2Data.DeliveryItemNum = taskItem.PickItemNum;
 
 
                         OPCSetStockTaskRoadMachine2Data.Barcode = taskItem.Barcode;
@@ -1499,7 +1499,7 @@ namespace AGVCenterWPF
 
                                     TrayReverseNo = st.TrayReverseNo.HasValue ? st.TrayReverseNo.Value : 0,
                                     TrayNum = st.TrayNum.HasValue ? st.TrayNum.Value : 0,
-                                    DeliveryItemNum = st.DeliveryItemNum.HasValue ? st.DeliveryItemNum.Value : 0,
+                                    PickItemNum = st.PickItemNum.HasValue ? st.PickItemNum.Value : 0,
                                     State = (StockTaskState)st.State,
                                     DbId = st.Id,
                                     IsInProcessing = true
@@ -1704,7 +1704,7 @@ namespace AGVCenterWPF
                         i.StockTaskType = taskItem.StockTaskType;
                         i.TrayReverseNo = taskItem.TrayReverseNo;
                         i.TrayNum = taskItem.TrayNum;
-                        i.DeliveryItemNum = taskItem.DeliveryItemNum;
+                        i.PickItemNum = taskItem.PickItemNum;
                         i.DbId = taskItem.DbId;
                         i.CreatedAt = taskItem.CreatedAt;
                         i.IsInProcessing = true;

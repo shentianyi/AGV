@@ -242,5 +242,10 @@ namespace AGVCenterLib.Service
         {
             return new StorageRepository(this.Context).All();
         }
+
+        public Storage FindStorageByUniqNr(string uniqItemNr)
+        {
+            return new StorageRepository(this.Context).FindByUniqNr(uniqItemNr);
+        }
     }
 }

@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using AgvClientWPF.Delivery;
 using AGVCenterLib.Model;
 using AgvClientWPF.Storage;
+using AgvClientWPF.Pick;
 
 namespace AgvClientWPF
 {
@@ -68,5 +69,26 @@ namespace AgvClientWPF
         {
             new StorageListWindow().Show();
         }
+
+        private void createPickListBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void createPickListTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void pickListTaskMonitorBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void pickListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new  PickListWindow().Show();
+        }
+
     }
 }
