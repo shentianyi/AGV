@@ -34,7 +34,7 @@ namespace AgvClientWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool TestModel {
             get {
                 return ((bool)(this["TestModel"]));
@@ -43,7 +43,7 @@ namespace AgvClientWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[0-9]{7}")]
+        [global::System.Configuration.DefaultSettingValueAttribute("^[0-9]{7}$")]
         public string KnrReg {
             get {
                 return ((string)(this["KnrReg"]));
@@ -52,7 +52,7 @@ namespace AgvClientWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[0-9]{9}")]
+        [global::System.Configuration.DefaultSettingValueAttribute("^[0-9]{9}$")]
         public string KnrWithYearReg {
             get {
                 return ((string)(this["KnrWithYearReg"]));
@@ -61,7 +61,7 @@ namespace AgvClientWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[0-9]{10}")]
+        [global::System.Configuration.DefaultSettingValueAttribute("^[0-9]{10}$")]
         public string QrReg {
             get {
                 return ((string)(this["QrReg"]));
@@ -70,7 +70,7 @@ namespace AgvClientWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[0-9]{11}")]
+        [global::System.Configuration.DefaultSettingValueAttribute("^[0-9]{11}$")]
         public string CheckCodeReg {
             get {
                 return ((string)(this["CheckCodeReg"]));
@@ -79,7 +79,7 @@ namespace AgvClientWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("[A-Za-z0-9]{12}")]
+        [global::System.Configuration.DefaultSettingValueAttribute("^[A-Za-z0-9]{12}$")]
         public string KskRge {
             get {
                 return ((string)(this["KskRge"]));
@@ -88,7 +88,7 @@ namespace AgvClientWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("([A-Za-Z]{2})-([0-9]{4})")]
+        [global::System.Configuration.DefaultSettingValueAttribute("^([A-Z]{2})-([0-9]{4})$")]
         public string LayoutReg {
             get {
                 return ((string)(this["LayoutReg"]));

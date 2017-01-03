@@ -25,6 +25,7 @@
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="be29cbbb-fc8a-40b7-95d0-e43f1562c17a" SourceId="1" SourceUrl="http://localhost:9001/AgvService/StorageService/mex" />
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="89b8898b-765b-428f-b137-032c80b5422e" SourceId="1" SourceUrl="http://localhost:9001/AgvService/StorageService/mex" />
     <MetadataFile FileName="AGVCenterLib.Model.ViewModel.xsd" MetadataType="Schema" ID="6aecf984-339e-4b30-a1e9-b29bc1065d8d" SourceId="1" SourceUrl="http://localhost:9001/AgvService/StorageService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.SearchModel.xsd" MetadataType="Schema" ID="03ca241c-25b9-4ebb-a899-3b8fc9d300a3" SourceId="1" SourceUrl="http://localhost:9001/AgvService/StorageService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

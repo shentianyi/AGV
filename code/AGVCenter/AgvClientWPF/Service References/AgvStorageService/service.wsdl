@@ -12,6 +12,7 @@
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.ViewModel" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.SearchModel" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IStorageService_GetAll_InputMessage">
@@ -20,10 +21,20 @@
   <wsdl:message name="IStorageService_GetAll_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllResponse" />
   </wsdl:message>
+  <wsdl:message name="IStorageService_SearchDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:SearchDetail" />
+  </wsdl:message>
+  <wsdl:message name="IStorageService_SearchDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SearchDetailResponse" />
+  </wsdl:message>
   <wsdl:portType name="IStorageService">
     <wsdl:operation name="GetAll">
       <wsdl:input wsaw:Action="http://tempuri.org/IStorageService/GetAll" message="tns:IStorageService_GetAll_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStorageService/GetAllResponse" message="tns:IStorageService_GetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStorageService/SearchDetail" message="tns:IStorageService_SearchDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStorageService/SearchDetailResponse" message="tns:IStorageService_SearchDetail_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="storageservice" type="tns:IStorageService">
@@ -31,6 +42,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetAll">
       <soap:operation soapAction="http://tempuri.org/IStorageService/GetAll" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchDetail">
+      <soap:operation soapAction="http://tempuri.org/IStorageService/SearchDetail" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

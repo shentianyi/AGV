@@ -17,6 +17,9 @@ namespace AgvClientWPF.AgvStorageService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStorageService/GetAll", ReplyAction="http://tempuri.org/IStorageService/GetAllResponse")]
         AGVCenterLib.Model.ViewModel.StorageModel[] GetAll();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStorageService/SearchDetail", ReplyAction="http://tempuri.org/IStorageService/SearchDetailResponse")]
+        AGVCenterLib.Model.ViewModel.StorageUniqueItemViewModel[] SearchDetail(AGVCenterLib.Model.SearchModel.StorageSearchModel searchModel);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -48,6 +51,10 @@ namespace AgvClientWPF.AgvStorageService {
         
         public AGVCenterLib.Model.ViewModel.StorageModel[] GetAll() {
             return base.Channel.GetAll();
+        }
+        
+        public AGVCenterLib.Model.ViewModel.StorageUniqueItemViewModel[] SearchDetail(AGVCenterLib.Model.SearchModel.StorageSearchModel searchModel) {
+            return base.Channel.SearchDetail(searchModel);
         }
     }
 }

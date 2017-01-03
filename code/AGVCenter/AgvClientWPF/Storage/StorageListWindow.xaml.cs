@@ -24,22 +24,47 @@ namespace AgvClientWPF.Storage
     /// </summary>
     public partial class StorageListWindow : Window
     {
+        private static List<SelectItem> roadMachines = new List<SelectItem>()
+        {
+            new SelectItem() {Value=-1,Text="全部" },
+            new SelectItem() {Value=1,Text="1号" },
+            new SelectItem() {Value=2,Text="2号" }
+        };
+
+        private static List<SelectItem> boxTypes = new List<SelectItem>()
+        {
+            new SelectItem() {Value=-1,Text="全部" },
+            new SelectItem() {Value=1,Text="大箱" },
+            new SelectItem() {Value=2,Text="小箱" }
+        };
         public StorageListWindow()
         {
             InitializeComponent();
+            RoadMachineIndexCB.ItemsSource = roadMachines;
+            BoxTypeCB.ItemsSource = boxTypes;
         }
 
         private void loadStorageBtn_Click(object sender, RoutedEventArgs e)
         {
            LoadStorageList();
         }
-        List<StorageModel> storages;
+        List<StorageUniqueItemViewModel> storages;
         private void LoadStorageList()
         {
             try
             {
+                StorageSearchModel q = new StorageSearchModel();
+                if(RoadMachineIndexCB.SelectedIndex>-1 && ((int)RoadMachineIndexCB.SelectedValue) > -1)
+                {
+                    q.RoadMachineIndex = (int)RoadMachineIndexCB.SelectedValue;
+                }
+                if (BoxTypeCB.SelectedIndex > -1 && ((int)BoxTypeCB.SelectedValue) > -1)
+                {
+                    q.BoxTypeId = (int)BoxTypeCB.SelectedValue;
+                }
+
                 StorageServiceClient dsc = new StorageServiceClient();
-                storages = dsc.GetAll().ToList();
+                storages = dsc.SearchDetail(q).ToList();
                 storageDG.ItemsSource = storages;
             }
             catch (Exception ex)

@@ -182,14 +182,6 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<StorageUniqueItemView> StorageUniqueItemView
-		{
-			get
-			{
-				return this.GetTable<StorageUniqueItemView>();
-			}
-		}
-		
 		public System.Data.Linq.Table<DeliveryStorageView> DeliveryStorageView
 		{
 			get
@@ -291,6 +283,14 @@ namespace AGVCenterLib.Data
 			get
 			{
 				return this.GetTable<PickListItemStorageView>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StorageUniqueItemView> StorageUniqueItemView
+		{
+			get
+			{
+				return this.GetTable<StorageUniqueItemView>();
 			}
 		}
 	}
@@ -2274,339 +2274,6 @@ namespace AGVCenterLib.Data
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StorageUniqueItemView")]
-	public partial class StorageUniqueItemView
-	{
-		
-		private int _Id;
-		
-		private string _PositionNr;
-		
-		private string _PartNr;
-		
-		private System.Nullable<System.DateTime> _FIFO;
-		
-		private string _UniqItemNr;
-		
-		private System.Nullable<System.DateTime> _CreatedAt;
-		
-		private System.Nullable<System.DateTime> _UpdatedAt;
-		
-		private string _UniqueItemNr;
-		
-		private System.Nullable<int> _UniqueItemBoxTypeId;
-		
-		private string _UniqueItemPartNr;
-		
-		private string _UniqueItemKNr;
-		
-		private string _UniqueItemKNrWithYear;
-		
-		private string _UniqueItemCheckCode;
-		
-		private string _UniqueItemKskNr;
-		
-		private string _UniqueItemQR;
-		
-		private System.Nullable<int> _UniqueItemState;
-		
-		private System.Nullable<System.DateTime> _UniqueItemCreatedAt;
-		
-		private System.Nullable<System.DateTime> _UniqueItemUpdatedAt;
-		
-		public StorageUniqueItemView()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this._Id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string PositionNr
-		{
-			get
-			{
-				return this._PositionNr;
-			}
-			set
-			{
-				if ((this._PositionNr != value))
-				{
-					this._PositionNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartNr", DbType="VarChar(50)")]
-		public string PartNr
-		{
-			get
-			{
-				return this._PartNr;
-			}
-			set
-			{
-				if ((this._PartNr != value))
-				{
-					this._PartNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FIFO", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FIFO
-		{
-			get
-			{
-				return this._FIFO;
-			}
-			set
-			{
-				if ((this._FIFO != value))
-				{
-					this._FIFO = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqItemNr", DbType="VarChar(50)")]
-		public string UniqItemNr
-		{
-			get
-			{
-				return this._UniqItemNr;
-			}
-			set
-			{
-				if ((this._UniqItemNr != value))
-				{
-					this._UniqItemNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedAt
-		{
-			get
-			{
-				return this._CreatedAt;
-			}
-			set
-			{
-				if ((this._CreatedAt != value))
-				{
-					this._CreatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdatedAt
-		{
-			get
-			{
-				return this._UpdatedAt;
-			}
-			set
-			{
-				if ((this._UpdatedAt != value))
-				{
-					this._UpdatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string UniqueItemNr
-		{
-			get
-			{
-				return this._UniqueItemNr;
-			}
-			set
-			{
-				if ((this._UniqueItemNr != value))
-				{
-					this._UniqueItemNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemBoxTypeId", DbType="Int")]
-		public System.Nullable<int> UniqueItemBoxTypeId
-		{
-			get
-			{
-				return this._UniqueItemBoxTypeId;
-			}
-			set
-			{
-				if ((this._UniqueItemBoxTypeId != value))
-				{
-					this._UniqueItemBoxTypeId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemPartNr", DbType="VarChar(50)")]
-		public string UniqueItemPartNr
-		{
-			get
-			{
-				return this._UniqueItemPartNr;
-			}
-			set
-			{
-				if ((this._UniqueItemPartNr != value))
-				{
-					this._UniqueItemPartNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKNr", DbType="VarChar(50)")]
-		public string UniqueItemKNr
-		{
-			get
-			{
-				return this._UniqueItemKNr;
-			}
-			set
-			{
-				if ((this._UniqueItemKNr != value))
-				{
-					this._UniqueItemKNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKNrWithYear", DbType="VarChar(50)")]
-		public string UniqueItemKNrWithYear
-		{
-			get
-			{
-				return this._UniqueItemKNrWithYear;
-			}
-			set
-			{
-				if ((this._UniqueItemKNrWithYear != value))
-				{
-					this._UniqueItemKNrWithYear = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemCheckCode", DbType="VarChar(50)")]
-		public string UniqueItemCheckCode
-		{
-			get
-			{
-				return this._UniqueItemCheckCode;
-			}
-			set
-			{
-				if ((this._UniqueItemCheckCode != value))
-				{
-					this._UniqueItemCheckCode = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKskNr", DbType="VarChar(50)")]
-		public string UniqueItemKskNr
-		{
-			get
-			{
-				return this._UniqueItemKskNr;
-			}
-			set
-			{
-				if ((this._UniqueItemKskNr != value))
-				{
-					this._UniqueItemKskNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemQR", DbType="VarChar(50)")]
-		public string UniqueItemQR
-		{
-			get
-			{
-				return this._UniqueItemQR;
-			}
-			set
-			{
-				if ((this._UniqueItemQR != value))
-				{
-					this._UniqueItemQR = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemState", DbType="Int")]
-		public System.Nullable<int> UniqueItemState
-		{
-			get
-			{
-				return this._UniqueItemState;
-			}
-			set
-			{
-				if ((this._UniqueItemState != value))
-				{
-					this._UniqueItemState = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemCreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UniqueItemCreatedAt
-		{
-			get
-			{
-				return this._UniqueItemCreatedAt;
-			}
-			set
-			{
-				if ((this._UniqueItemCreatedAt != value))
-				{
-					this._UniqueItemCreatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemUpdatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UniqueItemUpdatedAt
-		{
-			get
-			{
-				return this._UniqueItemUpdatedAt;
-			}
-			set
-			{
-				if ((this._UniqueItemUpdatedAt != value))
-				{
-					this._UniqueItemUpdatedAt = value;
-				}
 			}
 		}
 	}
@@ -7705,6 +7372,465 @@ namespace AGVCenterLib.Data
 				if ((this._StorageUpdatedAt != value))
 				{
 					this._StorageUpdatedAt = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StorageUniqueItemView")]
+	public partial class StorageUniqueItemView
+	{
+		
+		private int _Id;
+		
+		private string _PositionNr;
+		
+		private string _PartNr;
+		
+		private System.Nullable<System.DateTime> _FIFO;
+		
+		private string _UniqItemNr;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private System.Nullable<System.DateTime> _UpdatedAt;
+		
+		private string _UniqueItemNr;
+		
+		private System.Nullable<int> _UniqueItemBoxTypeId;
+		
+		private string _UniqueItemPartNr;
+		
+		private string _UniqueItemKNr;
+		
+		private string _UniqueItemKNrWithYear;
+		
+		private string _UniqueItemCheckCode;
+		
+		private string _UniqueItemKskNr;
+		
+		private string _UniqueItemQR;
+		
+		private System.Nullable<int> _UniqueItemState;
+		
+		private System.Nullable<System.DateTime> _UniqueItemCreatedAt;
+		
+		private System.Nullable<System.DateTime> _UniqueItemUpdatedAt;
+		
+		private bool _PositionIsLocked;
+		
+		private System.Nullable<int> _PositionRoadMachineIndex;
+		
+		private System.Nullable<int> _PositionState;
+		
+		private int _PositionRow;
+		
+		private int _PositionColumn;
+		
+		private int _PositionFloor;
+		
+		private string _PositionWarehouseNr;
+		
+		public StorageUniqueItemView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL")]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this._Id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string PositionNr
+		{
+			get
+			{
+				return this._PositionNr;
+			}
+			set
+			{
+				if ((this._PositionNr != value))
+				{
+					this._PositionNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartNr", DbType="VarChar(50)")]
+		public string PartNr
+		{
+			get
+			{
+				return this._PartNr;
+			}
+			set
+			{
+				if ((this._PartNr != value))
+				{
+					this._PartNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FIFO", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FIFO
+		{
+			get
+			{
+				return this._FIFO;
+			}
+			set
+			{
+				if ((this._FIFO != value))
+				{
+					this._FIFO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqItemNr", DbType="VarChar(50)")]
+		public string UniqItemNr
+		{
+			get
+			{
+				return this._UniqItemNr;
+			}
+			set
+			{
+				if ((this._UniqItemNr != value))
+				{
+					this._UniqItemNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this._CreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedAt
+		{
+			get
+			{
+				return this._UpdatedAt;
+			}
+			set
+			{
+				if ((this._UpdatedAt != value))
+				{
+					this._UpdatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string UniqueItemNr
+		{
+			get
+			{
+				return this._UniqueItemNr;
+			}
+			set
+			{
+				if ((this._UniqueItemNr != value))
+				{
+					this._UniqueItemNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemBoxTypeId", DbType="Int")]
+		public System.Nullable<int> UniqueItemBoxTypeId
+		{
+			get
+			{
+				return this._UniqueItemBoxTypeId;
+			}
+			set
+			{
+				if ((this._UniqueItemBoxTypeId != value))
+				{
+					this._UniqueItemBoxTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemPartNr", DbType="VarChar(50)")]
+		public string UniqueItemPartNr
+		{
+			get
+			{
+				return this._UniqueItemPartNr;
+			}
+			set
+			{
+				if ((this._UniqueItemPartNr != value))
+				{
+					this._UniqueItemPartNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKNr", DbType="VarChar(50)")]
+		public string UniqueItemKNr
+		{
+			get
+			{
+				return this._UniqueItemKNr;
+			}
+			set
+			{
+				if ((this._UniqueItemKNr != value))
+				{
+					this._UniqueItemKNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKNrWithYear", DbType="VarChar(50)")]
+		public string UniqueItemKNrWithYear
+		{
+			get
+			{
+				return this._UniqueItemKNrWithYear;
+			}
+			set
+			{
+				if ((this._UniqueItemKNrWithYear != value))
+				{
+					this._UniqueItemKNrWithYear = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemCheckCode", DbType="VarChar(50)")]
+		public string UniqueItemCheckCode
+		{
+			get
+			{
+				return this._UniqueItemCheckCode;
+			}
+			set
+			{
+				if ((this._UniqueItemCheckCode != value))
+				{
+					this._UniqueItemCheckCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKskNr", DbType="VarChar(50)")]
+		public string UniqueItemKskNr
+		{
+			get
+			{
+				return this._UniqueItemKskNr;
+			}
+			set
+			{
+				if ((this._UniqueItemKskNr != value))
+				{
+					this._UniqueItemKskNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemQR", DbType="VarChar(50)")]
+		public string UniqueItemQR
+		{
+			get
+			{
+				return this._UniqueItemQR;
+			}
+			set
+			{
+				if ((this._UniqueItemQR != value))
+				{
+					this._UniqueItemQR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemState", DbType="Int")]
+		public System.Nullable<int> UniqueItemState
+		{
+			get
+			{
+				return this._UniqueItemState;
+			}
+			set
+			{
+				if ((this._UniqueItemState != value))
+				{
+					this._UniqueItemState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemCreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UniqueItemCreatedAt
+		{
+			get
+			{
+				return this._UniqueItemCreatedAt;
+			}
+			set
+			{
+				if ((this._UniqueItemCreatedAt != value))
+				{
+					this._UniqueItemCreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemUpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UniqueItemUpdatedAt
+		{
+			get
+			{
+				return this._UniqueItemUpdatedAt;
+			}
+			set
+			{
+				if ((this._UniqueItemUpdatedAt != value))
+				{
+					this._UniqueItemUpdatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionIsLocked", DbType="Bit NOT NULL")]
+		public bool PositionIsLocked
+		{
+			get
+			{
+				return this._PositionIsLocked;
+			}
+			set
+			{
+				if ((this._PositionIsLocked != value))
+				{
+					this._PositionIsLocked = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRoadMachineIndex", DbType="Int")]
+		public System.Nullable<int> PositionRoadMachineIndex
+		{
+			get
+			{
+				return this._PositionRoadMachineIndex;
+			}
+			set
+			{
+				if ((this._PositionRoadMachineIndex != value))
+				{
+					this._PositionRoadMachineIndex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionState", DbType="Int")]
+		public System.Nullable<int> PositionState
+		{
+			get
+			{
+				return this._PositionState;
+			}
+			set
+			{
+				if ((this._PositionState != value))
+				{
+					this._PositionState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRow", DbType="Int NOT NULL")]
+		public int PositionRow
+		{
+			get
+			{
+				return this._PositionRow;
+			}
+			set
+			{
+				if ((this._PositionRow != value))
+				{
+					this._PositionRow = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionColumn", DbType="Int NOT NULL")]
+		public int PositionColumn
+		{
+			get
+			{
+				return this._PositionColumn;
+			}
+			set
+			{
+				if ((this._PositionColumn != value))
+				{
+					this._PositionColumn = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionFloor", DbType="Int NOT NULL")]
+		public int PositionFloor
+		{
+			get
+			{
+				return this._PositionFloor;
+			}
+			set
+			{
+				if ((this._PositionFloor != value))
+				{
+					this._PositionFloor = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionWarehouseNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string PositionWarehouseNr
+		{
+			get
+			{
+				return this._PositionWarehouseNr;
+			}
+			set
+			{
+				if ((this._PositionWarehouseNr != value))
+				{
+					this._PositionWarehouseNr = value;
 				}
 			}
 		}

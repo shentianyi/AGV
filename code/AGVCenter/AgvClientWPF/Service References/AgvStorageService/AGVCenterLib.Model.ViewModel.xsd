@@ -18,4 +18,40 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="StorageModel" nillable="true" type="tns:StorageModel" />
+  <xs:complexType name="ArrayOfStorageUniqueItemViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StorageUniqueItemViewModel" nillable="true" type="tns:StorageUniqueItemViewModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStorageUniqueItemViewModel" nillable="true" type="tns:ArrayOfStorageUniqueItemViewModel" />
+  <xs:complexType name="StorageUniqueItemViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FIFO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="PartNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PositionColumn" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PositionFloor" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PositionIsLocked" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PositionNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PositionRoadMachineIndex" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PositionRow" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PositionState" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PositionWarehouseNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqItemNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemBoxTypeId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UniqueItemCheckCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemCreatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UniqueItemKNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemKNrWithYear" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemKskNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemPartNr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemQR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UniqueItemState" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UniqueItemUpdatedAt" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StorageUniqueItemViewModel" nillable="true" type="tns:StorageUniqueItemViewModel" />
 </xs:schema>

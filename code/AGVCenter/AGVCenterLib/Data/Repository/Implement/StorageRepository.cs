@@ -63,6 +63,16 @@ namespace AGVCenterLib.Data.Repository.Implement
             {
                 q = q.Where(s => s.PositionNr.Contains(searchModel.PositionNr));
             }
+
+            if (searchModel.BoxTypeId.HasValue)
+            {
+                q = q.Where(s => s.UniqueItemBoxTypeId == searchModel.BoxTypeId);
+            }
+
+            if (searchModel.RoadMachineIndex.HasValue)
+            {
+                q = q.Where(s => s.PositionRoadMachineIndex == searchModel.RoadMachineIndex);
+            }
             return q;
         }
 

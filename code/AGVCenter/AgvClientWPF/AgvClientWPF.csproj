@@ -246,6 +246,7 @@
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.PickListStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StockTaskModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StorageModel.datasource" />
+    <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StorageUniqueItemViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.TrayDeliveryViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.UniqueItemModel.datasource" />
     <None Include="Properties\Settings.settings">
@@ -302,6 +303,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AgvProductService\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvStorageService\AGVCenterLib.Model.SearchModel.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AgvStorageService\AGVCenterLib.Model.ViewModel.xsd">
