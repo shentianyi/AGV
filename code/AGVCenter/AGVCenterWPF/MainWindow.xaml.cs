@@ -529,9 +529,9 @@ namespace AGVCenterWPF
             SetOPCStockTaskTimer.Start();
 
         }
-         
 
 
+        string firstBarIgnore = null;
         /// <summary>
         /// 读取入库条码信息读写标记改变处理
         /// </summary>
@@ -548,10 +548,24 @@ namespace AGVCenterWPF
                     try
                     {
 
+                        //LogUtil.Logger.InfoFormat("【扫描到条码内容】{0}:", OPCCheckInStockBarcodeData.ScanedBarcode);
+                        //if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode))
+                        //{
+                        //    this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+                        //}
+
                         LogUtil.Logger.InfoFormat("【扫描到条码内容】{0}:", OPCCheckInStockBarcodeData.ScanedBarcode);
                         if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode))
                         {
-                            this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+                            if (string.IsNullOrEmpty(firstBarIgnore))
+                            {
+                                firstBarIgnore = OPCCheckInStockBarcodeData.ScanedBarcode;
+                                // BaseConfig.PreScanBar = firstBarIgnore;
+                            }
+                            else
+                            {
+                                this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+                            }
                         }
                     }
                     catch (Exception ex)
