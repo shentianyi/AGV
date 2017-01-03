@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Config\ModeConfig.cs" />
     <Compile Include="Config\BaseConfig.cs" />
     <Compile Include="Config\TestConfig.cs" />
     <Compile Include="DemoData.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="MainWindowPartial\MainWindowDbTask.cs" />
     <Compile Include="MainWindowPartial\MainWindowMonitor.cs" />
     <Compile Include="MainWindowPartial\MainWindowOPC.cs" />
+    <Compile Include="MainWindowPartial\MainWindowRoadMachineTaskQueue.cs" />
     <Compile Include="OPCConfig.cs" />
     <Compile Include="MainWindowPartial\MainWindowRestTask.cs" />
     <Compile Include="MainWindowPartial\MainWindowTestConfig.cs" />
@@ -123,6 +125,9 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="CodeMapImportant.dgml" />
+    <None Include="Config\mode.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Config\base.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
