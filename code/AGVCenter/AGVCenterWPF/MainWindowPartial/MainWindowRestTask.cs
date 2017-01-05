@@ -502,6 +502,21 @@ namespace AGVCenterWPF
             OPCInRobootPickData.ResetReadWriteFlag(OPCInRobootPickOPCGroup);
         }
 
+        /// <summary>
+        /// 重置出库机械手
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void restOutRobotRWFlagFlag_Click(object sender, RoutedEventArgs e)
+        {
+            OPCOutRobootPickData.ResetReadWriteFlag(OPCOutRobootPickOPCGroup,(byte)2);
+            //OPCInRobootPickData.ResetReadWriteFlag(OPCInRobootPickOPCGroup);
+        }
+        private void restOutRobotRWFlagFlag1_Click(object sender, RoutedEventArgs e)
+        {
+
+            OPCOutRobootPickData.ResetReadWriteFlag(OPCOutRobootPickOPCGroup, (byte)1);
+        }
 
         /// <summary>
         /// 重置巷道机1入库平台是否有货

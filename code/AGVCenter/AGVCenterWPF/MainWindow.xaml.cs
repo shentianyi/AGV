@@ -398,6 +398,7 @@ namespace AGVCenterWPF
                         
                         if (OPCInRobootPickData.SyncWrite(OPCInRobootPickOPCGroup))
                         {
+                            LogUtil.Logger.InfoFormat("【写入入库机械手命令：{0}-{1}】",taskItem.RoadMachineIndex, OPCInRobootPickData.BoxType);
                             InRobootPickQueue.Dequeue();
                             //# RefreshList();
                         }
@@ -542,7 +543,7 @@ namespace AGVCenterWPF
             if (b.CanRead)
             {
                 // 读取条码，获取放行信息写入队列
-                LogUtil.Logger.InfoFormat("【根据-条码-判断放行】{0}", OPCCheckInStockBarcodeData.ScanedBarcode);
+              //  LogUtil.Logger.InfoFormat("【根据-条码-判断放行】{0}", OPCCheckInStockBarcodeData.ScanedBarcode);
                 if (BaseConfig.IsOPCConnector)
                 {
                     try
@@ -554,7 +555,7 @@ namespace AGVCenterWPF
                         //    this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
                         //}
 
-                        LogUtil.Logger.InfoFormat("【扫描到条码内容】{0}:", OPCCheckInStockBarcodeData.ScanedBarcode);
+                       // LogUtil.Logger.InfoFormat("【扫描到条码内容】{0}:", OPCCheckInStockBarcodeData.ScanedBarcode);
                         if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode))
                         {
                             if (string.IsNullOrEmpty(firstBarIgnore))
@@ -618,7 +619,7 @@ namespace AGVCenterWPF
         /// <param name="toFlag"></param>
         private void OPCSetStockTaskRoadMachine1Data_RwFlagChangedEvent(OPCDataBase b, byte toFlag)
         {
-            LogUtil.Logger.InfoFormat("【OPC  巷道机 1 入库任务读写标记改变】{0}->{1}", b.OPCRwFlagWas, b.OPCRwFlag);
+            //LogUtil.Logger.InfoFormat("【OPC  巷道机 1 入库任务读写标记改变】{0}->{1}", b.OPCRwFlagWas, b.OPCRwFlag);
             //if (b.CanWrite)
             //{
             // 这边就不写了，使用定时器写入库任务！
@@ -632,7 +633,7 @@ namespace AGVCenterWPF
         /// <param name="toFlag"></param>
         private void OPCSetStockTaskRoadMachine2Data_RwFlagChangedEvent(OPCDataBase b, byte toFlag)
         {
-            LogUtil.Logger.InfoFormat("【OPC  巷道机 2 入库任务读写标记改变】{0}->{1}", b.OPCRwFlagWas, b.OPCRwFlag);
+           // LogUtil.Logger.InfoFormat("【OPC  巷道机 2 入库任务读写标记改变】{0}->{1}", b.OPCRwFlagWas, b.OPCRwFlag);
         }
 
         /// <summary>
@@ -642,11 +643,11 @@ namespace AGVCenterWPF
         /// <param name="toActionFlag"></param>
         private void OPCRoadMachine1TaskFeedData_ActionFlagChangeEvent(OPCRoadMachineTaskFeed taskFeed, byte toActionFlag)
         {
-            LogUtil.Logger.InfoFormat("【OPC  巷道机 {0} 库存动作标记改变】【{1}】{2}->{3}",
-                taskFeed.RoadMachineIndex,
-                taskFeed.CurrentBarcode,
-                taskFeed.ActionFlagWas,
-                taskFeed.ActionFlag);
+            //LogUtil.Logger.InfoFormat("【OPC  巷道机 {0} 库存动作标记改变】【{1}】{2}->{3}",
+            //    taskFeed.RoadMachineIndex,
+            //    taskFeed.CurrentBarcode,
+            //    taskFeed.ActionFlagWas,
+            //    taskFeed.ActionFlag);
             // 更改任务状态
             if ((StockTaskActionFlag)taskFeed.ActionFlagWas == StockTaskActionFlag.Excuting)
             {
@@ -1169,7 +1170,7 @@ namespace AGVCenterWPF
                         sts.UpdateTaskState(st);
                         //Thread.Sleep(100);
 
-                        LogUtil.Logger.InfoFormat("【后台更新任务】任务ID:{0}", st.Id);
+                      //  LogUtil.Logger.InfoFormat("【后台更新任务】任务ID:{0}", st.Id);
                     }
                     catch (Exception ex)
                     {
@@ -1194,14 +1195,14 @@ namespace AGVCenterWPF
             // 更新数据库中的task的状态
             if (taskItem.DbId > 0)
             {
-                LogUtil.Logger.Info("***********************************************************");
-                LogUtil.Logger.InfoFormat("任务状态变化:bar:{0}-dbid: {1}-position: {2}:{3}------->{4}",
-                    taskItem.Barcode,
-                    taskItem.DbId,
-                    taskItem.PositionNr,
-                    taskItem.StateWas,
-                    taskItem.State);
-                LogUtil.Logger.Info("***********************************************************");
+                //LogUtil.Logger.Info("***********************************************************");
+                //LogUtil.Logger.InfoFormat("任务状态变化:bar:{0}-dbid: {1}-position: {2}:{3}------->{4}",
+                //    taskItem.Barcode,
+                //    taskItem.DbId,
+                //    taskItem.PositionNr,
+                //    taskItem.StateWas,
+                //    taskItem.State);
+                //LogUtil.Logger.Info("***********************************************************");
 
                 StockTask updatedStockTask = new StockTask();
 
@@ -1325,7 +1326,7 @@ namespace AGVCenterWPF
                 OPCCheckInStockBarcodeData.ScanedBarcode = ScanedBarCodeTB.Text;
                 if (OPCCheckInStockBarcodeData.SyncWrite(OPCCheckInstockBarcodeOPCGroup))
                 {
-                    LogUtil.Logger.Info("【条码读取成功】");
+                  //  LogUtil.Logger.Info("【条码读取成功】");
                     // MessageBox.Show("条码读取成功");
                 }
             }
@@ -1759,5 +1760,6 @@ namespace AGVCenterWPF
 
         #endregion
 
+       
     }
 }

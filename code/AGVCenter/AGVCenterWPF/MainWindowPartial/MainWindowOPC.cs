@@ -333,9 +333,9 @@ namespace AGVCenterWPF
                 // 从1开始
                 for (var i = 1; i <= NumItems; i++)
                 {
-                    LogUtil.Logger.InfoFormat("【数据改变】【入库条码扫描】【{0}】{1}",
-                        OPCCheckInStockBarcodeData.GetSimpleOpcKey(i, ClientHandles),
-                        ItemValues.GetValue(i));
+                    //LogUtil.Logger.InfoFormat("【数据改变】【入库条码扫描】【{0}】{1}",
+                    //    OPCCheckInStockBarcodeData.GetSimpleOpcKey(i, ClientHandles),
+                    //    ItemValues.GetValue(i));
                 }
                 OPCCheckInStockBarcodeData.SetValue(NumItems, ClientHandles, ItemValues);
                 try {
@@ -370,9 +370,9 @@ namespace AGVCenterWPF
                 // 从1开始
                 for (var i = 1; i <= NumItems; i++)
                 {
-                    LogUtil.Logger.InfoFormat("【数据改变】【AGV放行】【{0}】{1}",
-                        OPCAgvInStockPassData.GetSimpleOpcKey(i, ClientHandles),
-                        ItemValues.GetValue(i));
+                    //LogUtil.Logger.InfoFormat("【数据改变】【AGV放行】【{0}】{1}",
+                    //    OPCAgvInStockPassData.GetSimpleOpcKey(i, ClientHandles),
+                    //    ItemValues.GetValue(i));
                 }
                 OPCAgvInStockPassData.SetValue(NumItems, ClientHandles, ItemValues);
 
@@ -455,9 +455,9 @@ namespace AGVCenterWPF
                 // 从1开始
                 for (var i = 1; i <= NumItems; i++)
                 {
-                    LogUtil.Logger.InfoFormat("【数据改变】【任务接受】【巷道机1】【{0}】{1}",
-                        OPCSetStockTaskRoadMachine1Data.GetSimpleOpcKey(i, ClientHandles),
-                        ItemValues.GetValue(i));
+                    //LogUtil.Logger.InfoFormat("【数据改变】【任务接受】【巷道机1】【{0}】{1}",
+                    //    OPCSetStockTaskRoadMachine1Data.GetSimpleOpcKey(i, ClientHandles),
+                    //    ItemValues.GetValue(i));
                 }
 
                 OPCSetStockTaskRoadMachine1Data.SetValue(NumItems, ClientHandles, ItemValues);
@@ -506,9 +506,9 @@ namespace AGVCenterWPF
                 // 从1开始
                 for (var i = 1; i <= NumItems; i++)
                 {
-                    LogUtil.Logger.InfoFormat("【数据改变】【任务接受】【巷道机 2】【{0}】{1}",
-                        OPCSetStockTaskRoadMachine2Data.GetSimpleOpcKey(i, ClientHandles),
-                        ItemValues.GetValue(i).ToString());
+                    //LogUtil.Logger.InfoFormat("【数据改变】【任务接受】【巷道机 2】【{0}】{1}",
+                    //    OPCSetStockTaskRoadMachine2Data.GetSimpleOpcKey(i, ClientHandles),
+                    //    ItemValues.GetValue(i).ToString());
                 }
                 OPCSetStockTaskRoadMachine2Data.SetValue(NumItems, ClientHandles, ItemValues);
 
@@ -686,9 +686,9 @@ namespace AGVCenterWPF
                 // 从1开始
                 for (var i = 1; i <= NumItems; i++)
                 {
-                    LogUtil.Logger.InfoFormat("【数据改变】【出库机械手】【{0}】{1}",
-                        OPCOutRobootPickData.GetSimpleOpcKey(i, ClientHandles),
-                        ItemValues.GetValue(i));
+                    //LogUtil.Logger.InfoFormat("【数据改变】【出库机械手】【{0}】{1}",
+                    //    OPCOutRobootPickData.GetSimpleOpcKey(i, ClientHandles),
+                    //    ItemValues.GetValue(i));
                 }
                 OPCOutRobootPickData.SetValue(NumItems, ClientHandles, ItemValues);
 
@@ -732,9 +732,9 @@ namespace AGVCenterWPF
                 // 从1开始
                 for (var i = 1; i <= NumItems; i++)
                 {
-                    LogUtil.Logger.InfoFormat("【数据改变】【OPC 设置】【{0}】{1}",
-                        OPCDataResetData.GetSimpleOpcKey(i, ClientHandles),
-                        ItemValues.GetValue(i));
+                    //LogUtil.Logger.InfoFormat("【数据改变】【OPC 设置】【{0}】{1}",
+                    //    OPCDataResetData.GetSimpleOpcKey(i, ClientHandles),
+                    //    ItemValues.GetValue(i));
                 }
                 OPCDataResetData.SetValue(NumItems, ClientHandles, ItemValues);
 

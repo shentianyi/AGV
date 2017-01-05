@@ -220,7 +220,7 @@ namespace AGVCenterLib.Model.OPC
             }
             else
             {
-                LogUtil.Logger.InfoFormat("【扫描条码内容】{0}", o.ToString());
+               // LogUtil.Logger.InfoFormat("【扫描条码内容】{0}", o.ToString());
                 List<string> s = o.ToString().Trim('\n').Trim('\r').Split('\r').ToList();
                 List<string> ss = new List<string>();
                 foreach(var sss in s)
@@ -243,13 +243,13 @@ namespace AGVCenterLib.Model.OPC
         /// 重置读写标记为0
         /// </summary>
         /// <param name="group"></param>
-        public void ResetReadWriteFlag(OPCGroup group)
+        public void ResetReadWriteFlag(OPCGroup group,byte flag=0)
         {
             int[] SyncItemServerHandles = new int[2];
             object[] SyncItemValues = new object[2];
             Array SyncItemServerErrors;
 
-            SyncItemValues[1] = 0;
+            SyncItemValues[1] = flag;
             SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(1);
             group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
         }

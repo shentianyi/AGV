@@ -80,10 +80,10 @@ namespace AgvClientWPF.Storage
 
         private void createDeliveryListBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<StorageModel> storages = new List<StorageModel>();
+            List<StorageUniqueItemViewModel> storages = new List<StorageUniqueItemViewModel>();
             foreach(var i in storageDG.SelectedItems)
             {
-                StorageModel storage = i as StorageModel;
+                StorageUniqueItemViewModel storage = i as StorageUniqueItemViewModel;
                 storages.Add(storage);
             }
             if (storages.Count > 0)
@@ -94,10 +94,10 @@ namespace AgvClientWPF.Storage
 
         private void createPickListBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<StorageModel> storages = new List<StorageModel>();
+            List<StorageUniqueItemViewModel> storages = new List<StorageUniqueItemViewModel>();
             foreach (var i in storageDG.SelectedItems)
             {
-                StorageModel storage = i as StorageModel;
+                StorageUniqueItemViewModel storage = i as StorageUniqueItemViewModel;
                 storages.Add(storage);
             }
             if (storages.Count > 0)

@@ -13,6 +13,10 @@
                 <DataTrigger Binding="{Binding State}" Value="120">
                     <Setter Property="Background" Value="LightGreen"/>
                 </DataTrigger>
+
+                <DataTrigger Binding="{Binding State}" Value="121">
+                    <Setter Property="Background" Value="Green"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
