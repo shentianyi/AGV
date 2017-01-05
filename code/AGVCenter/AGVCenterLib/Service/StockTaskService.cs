@@ -374,7 +374,11 @@ namespace AGVCenterLib.Service
                 tasks = stockTaskRep
                     .GetByState(StockTaskState.RoadMachineOutStockInit)
                     .Where(s => (!dispatchedBatchId.Contains(s.TrayBatchId)))
-                    .OrderBy(s => s.PickBatchId).ThenBy(s => s.TrayBatchId).ToList();
+                    .OrderBy(s => s.PickBatchId)
+                    .ThenBy(s=>s.CreatedAt)
+                    .ThenBy(s=>s.BoxType)
+                    .ThenBy(s=>s.TrayNum)
+                    .ThenBy(s => s.TrayBatchId).ToList();
 
                 StockTask st = tasks.FirstOrDefault();
                 if (st != null)

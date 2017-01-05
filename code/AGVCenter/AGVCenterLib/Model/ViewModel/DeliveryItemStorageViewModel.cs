@@ -11,9 +11,9 @@ namespace AGVCenterLib.Model.ViewModel
     public class DeliveryItemStorageViewModel
     {
         [DataMember]
-    public int Id { get; set; }
+        public int Id { get; set; }
 
-    [DataMember]
+        [DataMember]
         public string DeliveryNr { get; set; }
 
 
@@ -31,7 +31,7 @@ namespace AGVCenterLib.Model.ViewModel
         [DataMember]
         public DateTime? UpdatedAt { get; set; }
 
-         
+
         [DataMember]
         public string UniqueItemNr { get; set; }
 
@@ -52,7 +52,7 @@ namespace AGVCenterLib.Model.ViewModel
 
         [DataMember]
         public string UniqueItemKskNr { get; set; }
-          
+
         [DataMember]
         public string UniqueItemQR { get; set; }
 
@@ -107,7 +107,7 @@ namespace AGVCenterLib.Model.ViewModel
         [DataMember]
         public int? TrayItemState { get; set; }
 
-       
+
         [DataMember]
         public DateTime? TrayItemCreatedAt { get; set; }
 
@@ -133,9 +133,10 @@ namespace AGVCenterLib.Model.ViewModel
             Type t = item.GetType();
             foreach (var p in ps)
             {
-               
+
                 bool hasP = t.GetProperty(p.Name) != null;
-                if (hasP) {
+                if (hasP)
+                {
                     if (t.GetProperty(p.Name).CanWrite)
                     {
                         t.GetProperty(p.Name).SetValue(item,

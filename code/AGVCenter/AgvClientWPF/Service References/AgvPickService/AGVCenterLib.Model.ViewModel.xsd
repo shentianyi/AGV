@@ -62,6 +62,8 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Nr" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StateStr" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
     </xs:sequence>
   </xs:complexType>

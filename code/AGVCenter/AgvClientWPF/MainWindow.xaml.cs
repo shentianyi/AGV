@@ -90,5 +90,15 @@ namespace AgvClientWPF
             new  PickListWindow().Show();
         }
 
+        private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //if (this.WindowStyle == WindowStyle.SingleBorderWindow)
+            //{
+            //    this.WindowStyle = WindowStyle.None;
+            //}
+            //else{
+            //    this.WindowStyle = WindowStyle.SingleBorderWindow;
+            //}
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using AGVCenterLib.Enum;
@@ -9,13 +10,14 @@ using Brilliantech.Framwork.Utils.EnumUtil;
 
 namespace AGVCenterLib.Model
 {
-    public abstract class StockTaskItemBase : INotifyPropertyChanged
+    [DataContract]
+    public abstract class NotifyBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged; 
 
         protected Action<string> OnPropertyChanged;
         SynchronizationContext context;
-        public StockTaskItemBase(SynchronizationContext _context)
+        public NotifyBase(SynchronizationContext _context)
         {
             context = _context;
             OnPropertyChanged = propertyName =>
@@ -29,9 +31,9 @@ namespace AGVCenterLib.Model
         }
 
 
-        public StockTaskItemBase()
+        public NotifyBase()
         {
-            OnPropertyChanged = propertyName =>
+            this.OnPropertyChanged = propertyName =>
             {
                 PropertyChangedEventHandler handler = this.PropertyChanged;
                 if (handler != null)
@@ -44,7 +46,7 @@ namespace AGVCenterLib.Model
 
     }
 
-    public class StockTaskItem:StockTaskItemBase //: INotifyPropertyChanged
+    public class StockTaskItem:NotifyBase //: INotifyPropertyChanged
     {
         public static List<StockTaskState> InPickRobotGetDbStates = new List<StockTaskState>() {
             StockTaskState.AgvInStcoking
