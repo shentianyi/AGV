@@ -633,6 +633,10 @@
                             <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
                             <Label Content="S7:[S7 connection_1]DB308,B1878.outrobot_pick_rw_flag" Width="450" Background="LightYellow"></Label>
                             <Label Content="" Name="label_outrobot_pick_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                            <Button Content="重置可写" Name="restOutRobotRWFlagFlag" Click="restOutRobotRWFlagFlag_Click"/>
+                          
+                            <Button Content="重置可读" Name="restOutRobotRWFlagFlag1" Click="restOutRobotRWFlagFlag1_Click"/>
+
                         </StackPanel>
                         <StackPanel Grid.Row="41" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                             <Label Content="【箱型】" Background="LightBlue" Width="150"></Label>

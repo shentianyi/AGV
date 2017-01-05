@@ -243,13 +243,13 @@ namespace AGVCenterLib.Model.OPC
         /// 重置读写标记为0
         /// </summary>
         /// <param name="group"></param>
-        public void ResetReadWriteFlag(OPCGroup group)
+        public void ResetReadWriteFlag(OPCGroup group, byte flag = 0)
         {
             int[] SyncItemServerHandles = new int[2];
             object[] SyncItemValues = new object[2];
             Array SyncItemServerErrors;
 
-            SyncItemValues[1] = 0;
+            SyncItemValues[1] = flag;
             SyncItemServerHandles[1] = (int)this.ItemServerHandles.GetValue(1);
             group.SyncWrite(1, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
         }
