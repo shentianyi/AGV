@@ -19,6 +19,7 @@ namespace AGVCenterWPF.Config
         private static bool autoLoadDbTaskOnStart = true;
         private static string preScanBar = string.Empty;
         private static bool isOPCConnector = true;
+        private static string barcodeReg = "^[0-9]{10}[A-Z]{2}$";
 
         static BaseConfig()
         {
@@ -35,7 +36,7 @@ namespace AGVCenterWPF.Config
                 autoLoadDbTaskOnStart = bool.Parse(config.Get("autoLoadDbTaskOnStart"));
                 preScanBar = config.Get("preScanBar");
                 isOPCConnector = bool.Parse(config.Get("isOPCConnector"));
-
+                barcodeReg = config.Get("barcodeReg");
             }
             catch (Exception ex)
             {
@@ -161,6 +162,19 @@ namespace AGVCenterWPF.Config
                 isOPCConnector = value;
                 config.Set("isOPCConnector", value);
                 config.Save();
+            }
+        }
+
+        public static string BarcodeReg
+        {
+            get
+            {
+                return barcodeReg;
+            }
+
+            set
+            {
+                barcodeReg = value;
             }
         }
     }
