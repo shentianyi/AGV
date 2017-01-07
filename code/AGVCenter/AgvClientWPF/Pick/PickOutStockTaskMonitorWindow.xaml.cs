@@ -85,6 +85,7 @@ namespace AgvClientWPF.Pick
                 deliveryStockTaskDG.ItemsSource = stockTasks;
 
                 outStockedNumLab.Content = stockTasks.Count(s => s.State==(int)StockTaskState.ManOutStocked || s.State == (int)StockTaskState.OutStocked);
+
                 totalDeliveryItemNumLab.Content = stockTasks.Count();
 
                 outStockedTotalTrayNumLab.Content = stockTasks.Select(s => s.TrayBatchId).Distinct().Count();
@@ -98,7 +99,10 @@ namespace AgvClientWPF.Pick
                     }
                 }
 
+                
+
                 outStockedTrayNumLab.Content = finishTrayNum;
+                
             }
             catch (Exception ex)
             {

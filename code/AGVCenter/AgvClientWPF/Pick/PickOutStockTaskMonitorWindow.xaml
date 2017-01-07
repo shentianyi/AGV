@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Pick"
         mc:Ignorable="d"
-        Title="PickOutStockTaskMonitor"  Height="500" Width="600"  WindowStartupLocation="CenterScreen">
+        Title="PickOutStockTaskMonitor"  Height="600" Width="800"  WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style TargetType="DataGridCell">
@@ -22,35 +22,67 @@
     </Window.Resources>
     
     <Grid>
-        <Label x:Name="label" Content="择货单号：" HorizontalAlignment="Left" Margin="29,63,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="pickListNrTB" HorizontalAlignment="Left" Height="23" Margin="92,63,0,0" 
-                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="191"/>
-        <Button x:Name="loadOutStockTaskBtn" Content="加载出库任务" HorizontalAlignment="Left"
-                Margin="297,63,0,0" VerticalAlignment="Top" Width="92" Height="23" Click="loadOutStockTaskBtn_Click"/>
 
-        <DataGrid x:Name="deliveryStockTaskDG" AutoGenerateColumns="False" CanUserAddRows="false" 
-                  HorizontalAlignment="Left" Margin="88,94,0,0"  IsReadOnly="True"
-                  VerticalAlignment="Top" MinHeight="356" MinWidth="482" 
-                  RenderTransformOrigin="0.499,0.316">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="任务号" Binding="{Binding Path=Id}"/>
-                <DataGridTextColumn Header="箱型" Binding="{Binding Path=BoxType}"/>
-                <DataGridTextColumn Header="产品KSK" Binding="{Binding Path=BarCode}"/>
-                <DataGridTextColumn Header="巷道机号" Binding="{Binding Path=RoadMachineIndex}"/>
-                <DataGridTextColumn Header="库位号" Binding="{Binding Path=PositionNr}"/>
-                <DataGridTextColumn Header="当前状态" Binding="{Binding Path=StateStr}"/>
-                <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
-                <DataGridTextColumn Header="任务批次号" Binding="{Binding Path=TrayBatchId}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Label x:Name="outStockedNumLab" Content="0" HorizontalAlignment="Left" Margin="29,134,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
-        <Label x:Name="label2" Content="-" HorizontalAlignment="Left" Margin="31,160,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
-        <Label x:Name="totalDeliveryItemNumLab" Content="0" HorizontalAlignment="Left" Margin="29,191,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
-        <Label x:Name="outStockedTrayNumLab" Content="0" HorizontalAlignment="Left" Margin="29,271,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition >  </RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Label x:Name="label" Content="择货单号："
+                       HorizontalAlignment="Left" Margin="1,15,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="pickListNrTB" HorizontalAlignment="Left" Height="23" Margin="1,15,0,0" 
+                 TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="191"/>
+                <Button x:Name="loadOutStockTaskBtn" Content="加载出库任务" HorizontalAlignment="Left"
+                Margin="1,15,0,0" VerticalAlignment="Top" Width="92" Height="23" Click="loadOutStockTaskBtn_Click"/>
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+
+            <DataGrid x:Name="deliveryStockTaskDG" AutoGenerateColumns="False" 
+                      CanUserAddRows="false" 
+                  HorizontalAlignment="Stretch" Margin="1,1,0,0"  IsReadOnly="True"
+                  VerticalAlignment="Stretch" MinHeight="356" MinWidth="482" 
+                  RenderTransformOrigin="0.499,0.316" Grid.Column="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="任务号" Binding="{Binding Path=Id}"/>
+                    <DataGridTextColumn Header="箱型" Binding="{Binding Path=BoxType}"/>
+                    <DataGridTextColumn Header="产品KSK" Binding="{Binding Path=BarCode}"/>
+                    <DataGridTextColumn Header="巷道机号" Binding="{Binding Path=RoadMachineIndex}"/>
+                    <DataGridTextColumn Header="库位号" Binding="{Binding Path=PositionNr}"/>
+                    <DataGridTextColumn Header="当前状态" Binding="{Binding Path=StateStr}"/>
+                    <DataGridTextColumn Header="创建时间" Binding="{Binding Path=CreatedAt}"/>
+                    <DataGridTextColumn Header="任务批次号" Binding="{Binding Path=TrayBatchId}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+
+                <Label x:Name="outStockedNumLab" Content="0" HorizontalAlignment="Left" Margin="29,20,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+                <Label x:Name="label2" Content="-" Height="3" Background="Black" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+                <Label x:Name="totalDeliveryItemNumLab" Content="0" HorizontalAlignment="Left" Margin="29,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+               
+                <!--<Label x:Name="outStockingTrayNumLab" Content="0" HorizontalAlignment="Left" Margin="29,30,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"
                Background="#FFFBFBFF" Foreground="#FF0D22F0"/>
-        <Label x:Name="label3" Content="-" HorizontalAlignment="Left" Margin="32,303,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
-        <Label x:Name="outStockedTotalTrayNumLab" Content="0" HorizontalAlignment="Left" Margin="29,333,0,0" VerticalAlignment="Top" FontWeight="Bold" 
+                <Label x:Name="label3" Content="-" Height="3" Background="Black" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>-->
+
+                <Label x:Name="outStockedTrayNumLab" Content="0" HorizontalAlignment="Left" Margin="29,20,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"
+               Background="#FFFBFBFF" Foreground="#FF0D22F0"/>
+                <Label x:Name="label4" Content="-" Height="3" Background="Black" 
+                       HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+                <Label x:Name="outStockedTotalTrayNumLab" Content="0" HorizontalAlignment="Left" Margin="29,0,0,0" VerticalAlignment="Top" FontWeight="Bold" 
                FontSize="24" RenderTransformOrigin="0.434,2.91" Background="#FFFBFBFF" Foreground="#FF0D22F0"/>
-     
+
+            </StackPanel>
+
+         
+        </Grid>
+        
+       
     </Grid>
 </Window>
