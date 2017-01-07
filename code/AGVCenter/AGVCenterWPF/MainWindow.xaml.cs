@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
 using System.Windows;
@@ -505,7 +506,8 @@ namespace AGVCenterWPF
                     try
                     {
                         LogUtil.Logger.InfoFormat("【扫描到条码内容】{0}:", OPCCheckInStockBarcodeData.ScanedBarcode);
-                        if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode))
+                        if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode) 
+                            && new Regex(BaseConfig.BarcodeReg).IsMatch(OPCCheckInStockBarcodeData.ScanedBarcode))
                         {
                             if (string.IsNullOrEmpty(firstBarIgnore)) {
                                 firstBarIgnore = OPCCheckInStockBarcodeData.ScanedBarcode;
