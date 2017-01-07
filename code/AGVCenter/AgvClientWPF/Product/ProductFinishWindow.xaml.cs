@@ -50,7 +50,7 @@ namespace AgvClientWPF.Product
                             Nr = KskNrTB.Text, //QrTB.Text,
                             QR = QrTB.Text,
                             KNr = KnrTB.Text,
-                            KNrWithYear = KNrWithYearTB.Text,
+                          //  KNrWithYear = KNrWithYearTB.Text,
                             CheckCode = CheckCodeTB.Text,
                             KskNr = KskNrTB.Text,
                             BoxTypeId = GetBoxTypeId(),
@@ -80,7 +80,7 @@ namespace AgvClientWPF.Product
         {
             QrTB.Text = string.Empty;
             KnrTB.Text = string.Empty;
-            KNrWithYearTB.Text = string.Empty;
+           // KNrWithYearTB.Text = string.Empty;
             CheckCodeTB.Text = string.Empty;
             KskNrTB.Text = string.Empty;
             LayoutNrTB.Text = string.Empty;
@@ -118,8 +118,8 @@ namespace AgvClientWPF.Product
             {
                 if (this.InputCheckKnr())
                 {
-                    if (this.InputCheckKnrWithYear())
-                    {
+                    //if (this.InputCheckKnrWithYear())
+                    //{
                         if (this.InputCheckCheckCode())
                         {
                             if (this.InputCheckKskNr())
@@ -130,7 +130,7 @@ namespace AgvClientWPF.Product
                                 }
                             }
                         }
-                    }
+                  //  }
                 }
             }
             return false;
@@ -213,23 +213,24 @@ namespace AgvClientWPF.Product
                     case "KnrTB":
                         if (this.InputCheckKnr())
                         {
-                            KNrWithYearTB.Focus();
+                            // KNrWithYearTB.Focus();
+                            CheckCodeTB.Focus();
                         }
                         else
                         {
                             KnrTB.SelectAll();
                         }
                         break;
-                    case "KNrWithYearTB":
-                        if (this.InputCheckKnrWithYear())
-                        {
-                            CheckCodeTB.Focus();
-                        }
-                        else
-                        {
-                            KNrWithYearTB.SelectAll();
-                        }
-                        break;
+                    //case "KNrWithYearTB":
+                    //    if (this.InputCheckKnrWithYear())
+                    //    {
+                    //        CheckCodeTB.Focus();
+                    //    }
+                    //    else
+                    //    {
+                    //       // KNrWithYearTB.SelectAll();
+                    //    }
+                    //    break;
                     case "CheckCodeTB":
                         if (this.InputCheckCheckCode())
                         {
@@ -310,20 +311,20 @@ namespace AgvClientWPF.Product
 
         private bool InputCheckKnrWithYear()
         {
-            if (string.IsNullOrEmpty(KNrWithYearTB.Text))
-            {
-                MessageBox.Show("前缀大众生产号不可以为空");
-                return false;
-            }
-            else
-            {
+            //if (string.IsNullOrEmpty(KNrWithYearTB.Text))
+            //{
+            //    MessageBox.Show("前缀大众生产号不可以为空");
+            //    return false;
+            //}
+            //else
+            //{
 
-                if (!new Regex(Settings.Default.KnrWithYearReg).IsMatch(KNrWithYearTB.Text))
-                {
-                    MessageBox.Show("请扫描前缀大众生产号");
-                    return false;
-                }
-            }
+            //    if (!new Regex(Settings.Default.KnrWithYearReg).IsMatch(KNrWithYearTB.Text))
+            //    {
+            //        MessageBox.Show("请扫描前缀大众生产号");
+            //        return false;
+            //    }
+            //}
             return true;    
         }
 
