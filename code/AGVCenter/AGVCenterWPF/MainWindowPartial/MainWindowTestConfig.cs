@@ -22,6 +22,16 @@ namespace AGVCenterWPF
             this.inStockCreateStorageCB.IsChecked = TestConfig.InStockCreateStorage;
             this.outStockTaskDelStorageCB.IsChecked = TestConfig.OutStockTaskDelStorage;
             this.showRescanErrorBarcodeCB.IsChecked = TestConfig.ShowRescanErrorBarcode;
+
+
+            this.barcodeRegex.Text = BaseConfig.BarcodeReg;
+        }
+
+
+
+        private void SaveBarcodeRegBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BaseConfig.BarcodeReg = this.barcodeRegex.Text;
         }
 
         private void SettingOPCCB_Checked(object sender, RoutedEventArgs e)

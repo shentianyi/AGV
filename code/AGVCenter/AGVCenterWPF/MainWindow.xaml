@@ -338,6 +338,11 @@
                     <CheckBox x:Name="showRescanErrorBarcodeCB" Grid.Row="2" Grid.Column="2" Content="显示重复扫描错误" ToolTip="是否显示重复扫描错，因为重复扫描可能很多次，都加入显示的话不利于观察 但是利于分析数据接收情况" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
                                 Click="SettingOPCCB_Checked"/>
 
+                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                       <Label Content="标签规则："/>
+                       <TextBox  Width="150" Text="" Name="barcodeRegex"/>
+                        <Button Name="SaveBarcodeRegBtn" Content="保存" Click="SaveBarcodeRegBtn_Click"></Button>
+                    </StackPanel>
 
                 </Grid>
             </TabItem>

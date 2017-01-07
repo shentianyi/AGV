@@ -1772,8 +1772,8 @@ namespace AGVCenterWPF
             }
         }
 
+
         #endregion
 
-       
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using AGVCenterLib.Model.ViewModel;
 using AGVCenterLib.Service;
 using Brilliantech.Framwork.Utils.ConvertUtil;
@@ -49,12 +50,18 @@ namespace TestCon
             //}
             //Console.WriteLine("1".PadLeft(2, '0'));
 
-            TestCreateProduct.Test();
+            string r = "^[0-9]{1,3}$";
+        Console.WriteLine(    new Regex(r).IsMatch("1"));
+            Console.WriteLine(new Regex(r).IsMatch("23"));
+            Console.WriteLine(new Regex(r).IsMatch("123"));
+            Console.WriteLine(new Regex(r).IsMatch("1234"));
+            Console.WriteLine(new Regex(r).IsMatch("a"));
+            // TestCreateProduct.Test();
             //TestGetInStockPosition.Test(true);
             //var l = DeliveryStorageViewModel.Converts(new DeliveryService(Settings.Default.db).GetDeliveryStorageByNr("20161211180345"));
 
             // var d = new DeliveryService(Settings.Default.db).SearchList(new AGVCenterLib.Model.SearchModel.DeliverySearchModel(), 50);
-           // var d = new DeliveryService(Settings.Default.db).GetDeliveryStorageByNr("20161219134802");
+            // var d = new DeliveryService(Settings.Default.db).GetDeliveryStorageByNr("20161219134802");
             Console.Read();
         }
 

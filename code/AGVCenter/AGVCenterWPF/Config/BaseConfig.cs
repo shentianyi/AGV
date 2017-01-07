@@ -175,6 +175,8 @@ namespace AGVCenterWPF.Config
             set
             {
                 barcodeReg = value;
+                config.Set("barcodeReg", value);
+                config.Save();
             }
         }
     }
