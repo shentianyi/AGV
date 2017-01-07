@@ -506,17 +506,28 @@ namespace AGVCenterWPF
                     try
                     {
                         LogUtil.Logger.InfoFormat("【扫描到条码内容】{0}:", OPCCheckInStockBarcodeData.ScanedBarcode);
-                        if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode) 
-                            && new Regex(BaseConfig.BarcodeReg).IsMatch(OPCCheckInStockBarcodeData.ScanedBarcode))
+                        if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode))
                         {
-                            if (string.IsNullOrEmpty(firstBarIgnore)) {
-                                firstBarIgnore = OPCCheckInStockBarcodeData.ScanedBarcode;
-                               // BaseConfig.PreScanBar = firstBarIgnore;
+                            if (new Regex(BaseConfig.BarcodeReg).IsMatch(OPCCheckInStockBarcodeData.ScanedBarcode))
+                            {
+                                if (string.IsNullOrEmpty(firstBarIgnore))
+                                {
+                                    firstBarIgnore = OPCCheckInStockBarcodeData.ScanedBarcode;
+                                    // BaseConfig.PreScanBar = firstBarIgnore;
+                                }
+                                else
+                                {
+                                    this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+                                }
                             }
                             else
                             {
-                                this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+                                LogUtil.Logger.Info("【扫描到条码内容】不符合规范！");
                             }
+                        }
+                        else
+                        {
+                            LogUtil.Logger.Info("【扫描到条码内容】为空！");
                         }
                     }
                     catch (Exception ex)
