@@ -113,7 +113,7 @@ namespace AGVCenterWPF
 
                         }
                     }
-                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.OutHigherThanIn)
+                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.InHigherThanOut)
                     {
                         if (RoadMachine1InTaskQueue.Count > 0)
                         {
@@ -161,7 +161,7 @@ namespace AGVCenterWPF
 
                         }
                     }
-                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.OutHigherThanIn)
+                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.InHigherThanOut)
                     {
                         if (RoadMachine2InTaskQueue.Count > 0)
                         {
