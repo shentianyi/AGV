@@ -186,7 +186,7 @@ namespace AGVCenterLib.Service
 
                                     RoadMachineIndex = position.RoadMachineIndex,
                                     BoxType=s.UniqueItemBoxTypeId,
-                                    BarCode=s.UniqueItemCheckCode,
+                                    BarCode=s.UniqueItemNr,
                                     PositionNr = position.Nr,
                                     PositionFloor = position.Floor,
                                     PositionColumn = position.Column,
@@ -313,7 +313,7 @@ namespace AGVCenterLib.Service
 
                                     RoadMachineIndex = position.RoadMachineIndex,
                                     BoxType = s.UniqueItemBoxTypeId,
-                                    BarCode = s.UniqueItemCheckCode,
+                                    BarCode = s.UniqueItemNr,
                                     PositionNr = position.Nr,
                                     PositionFloor = position.Floor,
                                     PositionColumn = position.Column,
