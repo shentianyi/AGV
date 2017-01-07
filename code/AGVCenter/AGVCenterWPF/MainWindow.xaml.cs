@@ -346,27 +346,13 @@ namespace AGVCenterWPF
                     }
                     else
                     {
-                        /// 无可用的巷道机缓冲
-                        /// 默认给1
-                        //if (roadMachineIndex == 0)
-                        //{
-                        //    if (BaseConfig.RoadMachine1Enabled)
-                        //    {
-                        //        roadMachineIndex = 1;
-                        //    }
-                        //    else if (BaseConfig.RoadMachine2Enabled)
-                        //    {
-                        //        roadMachineIndex = 2;
-                        //    }
-                        //}
-                        //return;
+
                     }
 
                   
                     if (roadMachineIndex == 1)
                     {
                         OPCInRobootPickData.BoxType = taskItem.BoxType;
-                         
                         taskItem.RoadMachineIndex = roadMachineIndex;
                         this.EnqueueRoadMachineTask(taskItem);
                     }

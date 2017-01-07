@@ -4,12 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using AGVCenterLib.Enum;
 using AGVCenterWPF.Config;
+using Brilliantech.Framwork.Models;
+using Brilliantech.Framwork.Utils.EnumUtil;
 
 namespace AGVCenterWPF
 {
     public partial class MainWindow
     {
+
+       
+
         private void SettingTabItem_Loaded(object sender, RoutedEventArgs e)
         {
             this.autoConnectOPCCB.IsChecked = BaseConfig.AutoConnectOPC;
@@ -22,8 +28,56 @@ namespace AGVCenterWPF
             this.inStockCreateStorageCB.IsChecked = TestConfig.InStockCreateStorage;
             this.outStockTaskDelStorageCB.IsChecked = TestConfig.OutStockTaskDelStorage;
             this.showRescanErrorBarcodeCB.IsChecked = TestConfig.ShowRescanErrorBarcode;
+
+            this.LoadRMWorkModeSetting();
+
         }
 
+
+        private void LoadRMWorkModeSetting()
+        {
+            /// load roadmahine setting
+            List<EnumItem> modes = EnumUtil.GetList(typeof(RoadMachineTaskModel));
+
+            this.roadMachine1ModeCB.ItemsSource = modes;
+            this.roadMachine2ModeCB.ItemsSource = modes;
+
+            this.roadMachine1ModeCB.Items.Refresh();
+            this.roadMachine2ModeCB.Items.Refresh();
+
+            for (var i = 0; i < this.roadMachine1ModeCB.Items.Count; i++)
+            {
+                if (this.roadMachine1ModeCB.Items.OfType<EnumItem>().ToList()[i].Value.Equals(((int)ModeConfig.RoadMachine1TaskMode).ToString()))
+                {
+                    this.roadMachine1ModeCB.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            for (var i = 0; i < this.roadMachine2ModeCB.Items.Count; i++)
+            {
+             
+                if (this.roadMachine2ModeCB.Items.OfType<EnumItem>().ToList()[i].Value.Equals(((int)ModeConfig.RoadMachine2TaskMode).ToString()))
+                {
+                    this.roadMachine2ModeCB.SelectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+
+
+        private void roadMachine1ModeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cb = sender as ComboBox;
+            if(cb.Name== "roadMachine1ModeCB")
+            {
+                ModeConfig.RoadMachine1TaskMode =(RoadMachineTaskModel) int.Parse( roadMachine1ModeCB.SelectedValue.ToString());
+            }else if(cb.Name== "roadMachine2ModeCB")
+            {
+                ModeConfig.RoadMachine2TaskMode = (RoadMachineTaskModel)int.Parse(roadMachine2ModeCB.SelectedValue.ToString());
+            }
+        }
         private void SettingOPCCB_Checked(object sender, RoutedEventArgs e)
         {
             CheckBox cb = sender as CheckBox;

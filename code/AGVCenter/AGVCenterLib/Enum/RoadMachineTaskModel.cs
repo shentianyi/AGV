@@ -13,10 +13,26 @@ namespace AGVCenterLib.Enum
         /// </summary>
         [Description("出库优先")]
         OutHigherThanIn =100,
+
+
         /// <summary>
         /// 入库优先
         /// </summary>
         [Description("入库优先")]
-        InHigherThanOut =200
+        InHigherThanOut =200,
+
+
+        /// <summary>
+        /// 只出库
+        /// </summary>
+        [Description("只出库")]
+        OnlyOut =300,
+
+
+        /// <summary>
+        /// 只入库
+        /// </summary>
+        [Description("只入库")]
+        OnlyIn = 400
     }
 }

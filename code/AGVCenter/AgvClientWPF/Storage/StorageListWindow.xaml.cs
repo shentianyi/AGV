@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -16,6 +18,7 @@ using AgvClientWPF.AgvDeliveryService;
 using AgvClientWPF.AgvStorageService;
 using AgvClientWPF.Delivery;
 using AgvClientWPF.Pick;
+using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace AgvClientWPF.Storage
 {
@@ -54,7 +57,7 @@ namespace AgvClientWPF.Storage
             try
             {
                 StorageSearchModel q = new StorageSearchModel();
-                if(RoadMachineIndexCB.SelectedIndex>-1 && ((int)RoadMachineIndexCB.SelectedValue) > -1)
+                if (RoadMachineIndexCB.SelectedIndex > -1 && ((int)RoadMachineIndexCB.SelectedValue) > -1)
                 {
                     q.RoadMachineIndex = (int)RoadMachineIndexCB.SelectedValue;
                 }
@@ -62,13 +65,20 @@ namespace AgvClientWPF.Storage
                 {
                     q.BoxTypeId = (int)BoxTypeCB.SelectedValue;
                 }
+                if (!string.IsNullOrEmpty(KskNrTB.Text))
+                {
+                    q.Nr = KskNrTB.Text;
+                }
 
                 StorageServiceClient dsc = new StorageServiceClient();
+          
                 storages = dsc.SearchDetail(q).ToList();
+                
                 storageDG.ItemsSource = storages;
             }
             catch (Exception ex)
             {
+                LogUtil.Logger.Error(ex.Message, ex);
                 MessageBox.Show(ex.Message);
             }
         }
@@ -94,16 +104,112 @@ namespace AgvClientWPF.Storage
 
         private void createPickListBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<StorageUniqueItemViewModel> storages = new List<StorageUniqueItemViewModel>();
-            foreach (var i in storageDG.SelectedItems)
-            {
-                StorageUniqueItemViewModel storage = i as StorageUniqueItemViewModel;
-                storages.Add(storage);
-            }
+            List<StorageUniqueItemViewModel> storages= this.pickStorageDG.Items.OfType<StorageUniqueItemViewModel>().ToList();
+            //= new List<StorageUniqueItemViewModel>();
+            //foreach (var i in storageDG.SelectedItems)
+            //{
+            //    StorageUniqueItemViewModel storage = i as StorageUniqueItemViewModel;
+            //    storages.Add(storage);
+            //}
             if (storages.Count > 0)
             {
                 new CreatePickListWindow(storages.Select(s => s.UniqItemNr).ToList()).Show();
             }
         }
+
+        /// <summary>
+        /// 添加到picklist中
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addToPickListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var l = GetSelectedStorages();
+            if (l != null)
+            {
+                foreach (var ll in l)
+                {
+                    if (!this.pickStorageDG.Items.Contains(ll))
+                    {
+                        this.pickStorageDG.Items.Add(ll);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 从picklist中移除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void removeFromPickListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var l = GetPickSelectedStorages();
+            if (l != null)
+            {
+                foreach (var ll in l)
+                {
+                    if (this.pickStorageDG.Items.Contains(ll))
+                    {
+                        this.pickStorageDG.Items.Remove(ll);
+                    }
+                }
+            }
+        }
+
+        private List<StorageUniqueItemViewModel> GetSelectedStorages()
+        {
+           return (this.storageDG.ItemsSource as List<StorageUniqueItemViewModel>)
+                .Where(s => s.IsSelected == true)
+                .ToList();
+        }
+
+        private List<StorageUniqueItemViewModel> GetPickSelectedStorages()
+        {
+            return this.pickStorageDG.SelectedItems.OfType<StorageUniqueItemViewModel>().ToList();
+        }
+
+
+        private void _chkSelected_OnClick(object sender, RoutedEventArgs e)
+        {
+            CheckBox chkSelected = e.OriginalSource as CheckBox;
+
+            if (null == chkSelected)
+            {
+                return;
+            } 
+
+            var cbItem = chkSelected.DataContext as StorageUniqueItemViewModel; 
+            bool isChecked = chkSelected.IsChecked.HasValue ? chkSelected.IsChecked.Value : true;
+            FrameworkElement templateParent = chkSelected.TemplatedParent is FrameworkElement 
+                                                  ? (chkSelected.TemplatedParent as FrameworkElement).TemplatedParent as FrameworkElement
+                                                  : null;
+
+            if (templateParent is DataGridColumnHeader)
+            {
+                List<StorageUniqueItemViewModel> mvm = this.storageDG.ItemsSource as List<StorageUniqueItemViewModel>;
+                if (null != mvm)
+                {
+                    foreach (var sm in mvm)
+                    { 
+                        sm.IsSelected = isChecked;
+                    }
+                }
+
+            }
+            else if (templateParent is DataGridCell)
+            {
+                if (null != cbItem && null != this.storageDG.SelectedItems && this.storageDG.SelectedItems.Contains(cbItem))
+                {
+                    foreach (var otherSelected in this.storageDG.SelectedItems.OfType<StorageUniqueItemViewModel>())
+                    {
+                        otherSelected.IsSelected = isChecked;
+                    }
+                }
+            }
+        }
+
+
+
     }
 }

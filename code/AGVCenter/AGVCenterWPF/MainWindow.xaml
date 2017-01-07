@@ -340,9 +340,18 @@
 
                     <StackPanel  Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center"   Orientation="Horizontal">
                         <Label Content="巷道机1模式:"></Label>
-                        <ComboBox x:Name="comboBox" Width="100" Height="30"/>
+                        <ComboBox x:Name="roadMachine1ModeCB" SelectedValuePath="Value" 
+                                  DisplayMemberPath="Text" Width="100" Height="30"
+                                  SelectionChanged="roadMachine1ModeCB_SelectionChanged"></ComboBox>
                     </StackPanel>
 
+
+                    <StackPanel  Grid.Row="3"  Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center"   Orientation="Horizontal">
+                        <Label Content="巷道机2模式:"></Label>
+                        <ComboBox x:Name="roadMachine2ModeCB" Width="100" Height="30" 
+                                  SelectedValuePath="Value" DisplayMemberPath="Text"
+                                  SelectionChanged="roadMachine1ModeCB_SelectionChanged"></ComboBox>
+                    </StackPanel>
                 </Grid>
             </TabItem>
 

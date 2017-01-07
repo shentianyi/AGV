@@ -101,16 +101,16 @@ namespace AGVCenterWPF
                         if (RoadMachine1OutTaskQueue.Count > 0)
                         {
                             RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1OutTaskQueue.Dequeue());
-                            
+
                         }
                         else if (RoadMachine1InTaskQueue.Count > 0)
                         {
                             RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1InTaskQueue.Dequeue());
-                             
+
                         }
                         else
                         {
-                            
+
                         }
                     }
                     else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.OutHigherThanIn)
@@ -118,12 +118,25 @@ namespace AGVCenterWPF
                         if (RoadMachine1InTaskQueue.Count > 0)
                         {
                             RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1InTaskQueue.Dequeue());
-                            
                         }
                         else if (RoadMachine1OutTaskQueue.Count > 0)
                         {
                             RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1OutTaskQueue.Dequeue());
-                            
+
+                        }
+                    }
+                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.OnlyOut)
+                    {
+                        if (RoadMachine1OutTaskQueue.Count > 0)
+                        {
+                            RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1OutTaskQueue.Dequeue());
+                        }
+                    }
+                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.OnlyIn)
+                    {
+                        if (RoadMachine1InTaskQueue.Count > 0)
+                        {
+                            RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1InTaskQueue.Dequeue());
                         }
                     }
                     #endregion
@@ -136,16 +149,16 @@ namespace AGVCenterWPF
                         if (RoadMachine2OutTaskQueue.Count > 0)
                         {
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2OutTaskQueue.Dequeue());
-                            
+
                         }
                         else if (RoadMachine2InTaskQueue.Count > 0)
                         {
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2InTaskQueue.Dequeue());
-                            
+
                         }
                         else
                         {
-                           
+
                         }
                     }
                     else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.OutHigherThanIn)
@@ -153,16 +166,30 @@ namespace AGVCenterWPF
                         if (RoadMachine2InTaskQueue.Count > 0)
                         {
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2InTaskQueue.Dequeue());
-                            
+
                         }
                         else if (RoadMachine2OutTaskQueue.Count > 0)
                         {
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2OutTaskQueue.Dequeue());
-                            
+
                         }
                         else
                         {
-                            
+
+                        }
+                    }
+                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.OnlyOut)
+                    {
+                        if (RoadMachine2OutTaskQueue.Count > 0)
+                        {
+                            RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2OutTaskQueue.Dequeue());
+                        }
+                    }
+                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.OnlyIn)
+                    {
+                        if (RoadMachine2InTaskQueue.Count > 0)
+                        {
+                            RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2InTaskQueue.Dequeue());
                         }
                     }
                     #endregion

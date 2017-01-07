@@ -238,6 +238,9 @@
     <None Include="Config\printers.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="log4.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\DataSources\AGVCenterLib.Model.Message.ResultMessage.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryItemStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryModel.datasource" />

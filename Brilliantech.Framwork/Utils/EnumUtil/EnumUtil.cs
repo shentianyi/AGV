@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Brilliantech.Framwork.Models;
 
 namespace Brilliantech.Framwork.Utils.EnumUtil
 {
@@ -44,6 +45,24 @@ namespace Brilliantech.Framwork.Utils.EnumUtil
         {
             return Enum.GetValues(type);
         }
-        
+
+
+        public static List<EnumItem> GetList(Type type)
+        {
+            List<EnumItem> arraylist = new List<EnumItem>();
+
+            var values = Enum.GetValues(type);
+
+            foreach (Enum v in values)
+            {
+                EnumItem item = new EnumItem();
+                item.Text = GetDescription(v);
+                item.Value = Convert.ToInt32(v).ToString();
+                arraylist.Add(item);
+            }
+
+            return arraylist;
+        }
+
     }
 }

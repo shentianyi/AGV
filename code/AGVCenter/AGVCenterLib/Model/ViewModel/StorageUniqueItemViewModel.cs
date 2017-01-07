@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -8,15 +9,16 @@ using AGVCenterLib.Data;
 namespace AGVCenterLib.Model.ViewModel
 {
     [DataContract]
-    public class StorageUniqueItemViewModel
+    public class StorageUniqueItemViewModel:BaseViewModel
     {
+      public StorageUniqueItemViewModel() : base() { }
+
         [DataMember]
-    public int Id { get; set; }
+        public int Id { get; set; }
 
-    [DataMember]
+        [DataMember]
         public string PositionNr { get; set; }
-
-
+        
 
         [DataMember]
         public string PartNr { get; set; }
@@ -24,11 +26,16 @@ namespace AGVCenterLib.Model.ViewModel
         [DataMember]
         public DateTime? FIFO { get; set; }
 
-
+        private string uniqItemNr;
         [DataMember]
-        public string UniqItemNr { get; set; }
+        public string UniqItemNr { get {
+                return uniqItemNr;
+            } set {
+                uniqItemNr = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("UniqItemNr"));
+            } }
 
-        
+
 
         [DataMember]
         public DateTime? CreatedAt { get; set; }
@@ -36,9 +43,12 @@ namespace AGVCenterLib.Model.ViewModel
         [DataMember]
         public DateTime? UpdatedAt { get; set; }
 
-         
+        private string uniqueItemNr;
         [DataMember]
-        public string UniqueItemNr { get; set; }
+        public string UniqueItemNr { get { return uniqueItemNr; } set {
+                uniqueItemNr = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("UniqueItemNr"));
+            } }
 
         [DataMember]
         public int? UniqueItemBoxTypeId { get; set; }
@@ -55,9 +65,10 @@ namespace AGVCenterLib.Model.ViewModel
         [DataMember]
         public string UniqueItemCheckCode { get; set; }
 
+
         [DataMember]
         public string UniqueItemKskNr { get; set; }
-          
+
         [DataMember]
         public string UniqueItemQR { get; set; }
 
@@ -116,9 +127,10 @@ namespace AGVCenterLib.Model.ViewModel
             Type t = item.GetType();
             foreach (var p in ps)
             {
-               
+
                 bool hasP = t.GetProperty(p.Name) != null;
-                if (hasP) {
+                if (hasP)
+                {
                     if (t.GetProperty(p.Name).CanWrite)
                     {
                         t.GetProperty(p.Name).SetValue(item,
