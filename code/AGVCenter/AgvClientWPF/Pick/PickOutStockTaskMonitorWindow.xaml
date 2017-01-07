@@ -52,7 +52,7 @@
                   RenderTransformOrigin="0.499,0.316" Grid.Column="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="任务号" Binding="{Binding Path=Id}"/>
-                    <DataGridTextColumn Header="箱型" Binding="{Binding Path=BoxType}"/>
+                    <DataGridTextColumn Header="箱型" Binding="{Binding Path=BoxTypeStr}"/>
                     <DataGridTextColumn Header="产品KSK" Binding="{Binding Path=BarCode}"/>
                     <DataGridTextColumn Header="巷道机号" Binding="{Binding Path=RoadMachineIndex}"/>
                     <DataGridTextColumn Header="库位号" Binding="{Binding Path=PositionNr}"/>

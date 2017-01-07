@@ -16,5 +16,14 @@ namespace AGVCenterLib.Data
                 return EnumUtil.GetDescription((StockTaskState)this.FromState);
             }
         }
+
+
+        public string BoxTypeStr
+        {
+            get
+            {
+                return AGVCenterLib.Data.BoxType.GetStr(this.BoxType);
+            }
+        }
     }
 }
