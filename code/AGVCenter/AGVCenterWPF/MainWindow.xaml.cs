@@ -413,15 +413,14 @@ namespace AGVCenterWPF
                     if (roadMachineIndex != 0)
                     {
                         taskItem.RoadMachineIndex = roadMachineIndex;
-                        this.EnqueueRoadMachineTask(taskItem);
-                        prevRoadMahineIndex = roadMachineIndex;
-
-                        taskItem.RoadMachineIndex = roadMachineIndex;
-                        taskItem.State = StockTaskState.RoadMachineStockBuffing;
-                        
+                      
+                       
                         if (OPCInRobootPickData.SyncWrite(OPCInRobootPickOPCGroup))
                         {
                             InRobootPickQueue.Dequeue();
+                            taskItem.State = StockTaskState.RoadMachineStockBuffing;
+                            this.EnqueueRoadMachineTask(taskItem);
+                            prevRoadMahineIndex = roadMachineIndex;
                         }
                     }
                 }
@@ -1345,11 +1344,11 @@ namespace AGVCenterWPF
             switch (roadMachineIndex)
             {
                 case 1:
-                    if (this.RoadMachine1InTaskQueue.Count == 0) return false;
+                    if (this.RoadMachine1InTaskQueue.Count == 0) return true;
                     return RoadMachine1InTaskQueue.ToArray().
                          FirstOrDefault(s => (s as StockTaskItem).State == StockTaskState.RoadMachineStockBuffing) == null;
                 case 2:
-                    if (RoadMachine2InTaskQueue.Count == 0) return false;
+                    if (RoadMachine2InTaskQueue.Count == 0) return true;
                     return RoadMachine2InTaskQueue.ToArray().
                         FirstOrDefault(s => (s as StockTaskItem).State == StockTaskState.RoadMachineStockBuffing) == null;
                 default:

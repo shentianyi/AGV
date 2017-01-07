@@ -44,7 +44,7 @@ namespace TestWPF
             {
                 for (int j = startColumn; j <= endColumn; j++)
                 {
-                    for (int k = startFloor; k <= endFloor; k++)
+                    for (int k = 13; k <= 13; k++)
                     {
                         Position position = new Position()
                         {
