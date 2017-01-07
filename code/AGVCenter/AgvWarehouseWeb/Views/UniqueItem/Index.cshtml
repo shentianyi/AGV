@@ -41,10 +41,10 @@
             </th>
             <th>
                 BoxType
-            </th>
-            <th>
-                PartNr
-            </th>
+            </th><th>
+    QR
+</th>
+           
             <th>
                 KNr
             </th>
@@ -58,7 +58,7 @@
                 KskNr
             </th>
             <th>
-                QR
+                PartNr
             </th>
             <th>
                 State
@@ -81,10 +81,10 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BoxTypeStr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartNr)
-            </td>
+            </td><td>
+    @Html.DisplayFor(modelItem => item.QR)
+</td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.KNr)
             </td>
@@ -98,7 +98,7 @@
                 @Html.DisplayFor(modelItem => item.KskNr)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.QR)
+                @Html.DisplayFor(modelItem => item.PartNr)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StateStr)
