@@ -129,6 +129,7 @@
     <Compile Include="Enum\OPC\CanonicalDataType.cs" />
     <Compile Include="Enum\PickListState.cs" />
     <Compile Include="Enum\RemoteActionType.cs" />
+    <Compile Include="Enum\RoadMachineTaskModel.cs" />
     <Compile Include="Enum\StockMovementType.cs" />
     <Compile Include="Enum\StockTaskActionFlag.cs" />
     <Compile Include="Enum\StockTaskState.cs" />

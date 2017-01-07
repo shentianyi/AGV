@@ -18,6 +18,9 @@ namespace AGVCenterLib.Model.ViewModel
         public int? RoadMachineIndex { get; set; }
         [DataMember]
         public int? BoxType { get; set; }
+
+        [DataMember]
+        public string BoxTypeStr { get; set; }
         [DataMember]
         public string PositionNr { get; set; }
         [DataMember]

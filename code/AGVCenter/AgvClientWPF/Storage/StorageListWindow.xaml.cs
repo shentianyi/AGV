@@ -113,7 +113,8 @@ namespace AgvClientWPF.Storage
             //}
             if (storages.Count > 0)
             {
-                new CreatePickListWindow(storages.Select(s => s.UniqItemNr).ToList()).Show();
+                new CreatePickListWindow(storages.Select(s => s.UniqItemNr)
+                    .ToList()).Show();
             }
         }
 
@@ -132,9 +133,18 @@ namespace AgvClientWPF.Storage
                     if (!this.pickStorageDG.Items.Contains(ll))
                     {
                         this.pickStorageDG.Items.Add(ll);
+                        this.SetCount();
                     }
                 }
             }
+        }
+
+
+        private void SetCount()
+        {
+            BigCountLab.Content = this.pickStorageDG.Items.OfType<StorageUniqueItemViewModel>().Count(s => s.UniqueItemBoxTypeId == 1);
+
+            SmallCountLab.Content = this.pickStorageDG.Items.OfType<StorageUniqueItemViewModel>().Count(s => s.UniqueItemBoxTypeId == 2);
         }
 
         /// <summary>
@@ -152,6 +162,7 @@ namespace AgvClientWPF.Storage
                     if (this.pickStorageDG.Items.Contains(ll))
                     {
                         this.pickStorageDG.Items.Remove(ll);
+                        this.SetCount();
                     }
                 }
             }

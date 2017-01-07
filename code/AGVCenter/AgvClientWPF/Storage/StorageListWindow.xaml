@@ -133,13 +133,23 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Label x:Name="label3" Content="大箱数量："  VerticalAlignment="Center" />
+                <Label Name="BigCountLab" Content="0" FontSize="26.667" FontWeight="Bold" VerticalAlignment="Center"></Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Label x:Name="label4" Content="小箱数量："  VerticalAlignment="Center" />
+                <Label Name="SmallCountLab" Content="0" FontSize="26.667" FontWeight="Bold" VerticalAlignment="Center"></Label>
+            </StackPanel>
+            
             <Button x:Name="createDeliveryListBtn" Content="创建运单" 
                         Margin="0,10,0,0" Visibility="Collapsed"
                         Width="100" Height="40" Click="createDeliveryListBtn_Click"/>
             <Button x:Name="addToPickListBtn" Content="添加》" 
-                        Margin="0,10,0,0"
+                        Margin="40,10,0,0"
                         Width="100" Height="40" Click="addToPickListBtn_Click"/>
             <Button x:Name="removeFromPickListBtn" Content="《移除" 
                         Margin="10,10,0,0"
@@ -148,6 +158,7 @@
                         Margin="10,10,0,0"
                         Width="100" Height="40" Click="createPickListBtn_Click"/>
         </StackPanel>
+
     </Grid>
 
 </Window>
