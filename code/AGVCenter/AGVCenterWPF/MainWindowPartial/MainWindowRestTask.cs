@@ -596,5 +596,15 @@ namespace AGVCenterWPF
             }
         }
         #endregion
+
+
+
+
+
+        private void clearCenterDisplayQueueBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.TaskCenterForDisplayQueue.Clear();
+            this.CenterStockTaskDisplayDG.Items.Clear();
+        }
     }
 }
