@@ -571,5 +571,15 @@ private void resetXDJ1InIsBuff_Click(object sender, RoutedEventArgs e)
             }
         }
         #endregion
+
+
+
+
+
+        private void clearCenterDisplayQueueBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.TaskCenterForDisplayQueue.Clear();
+            this.CenterStockTaskDisplayDG.Items.Clear();
+        }
     }
 }

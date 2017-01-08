@@ -555,6 +555,7 @@ namespace AGVCenterWPF
                                 }
                                 else
                                 {
+                                    this.currentScanedBarcode.Content = OPCCheckInStockBarcodeData.ScanedBarcode;
                                     this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
                                 }
                             }
