@@ -603,8 +603,11 @@ namespace AGVCenterWPF
 
         private void clearCenterDisplayQueueBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.TaskCenterForDisplayQueue.Clear();
-            this.CenterStockTaskDisplayDG.Items.Clear();
+            if (MessageBox.Show("确认清除？", "确认清除？", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                this.TaskCenterForDisplayQueue.Clear();
+                this.CenterStockTaskDisplayDG.Items.Clear();
+            }
         }
     }
 }
