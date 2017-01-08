@@ -1416,11 +1416,11 @@ namespace AGVCenterWPF
             switch (roadMachineIndex)
             {
                 case 1:
-                    if (RoadMachine1TaskQueue.Count == 0) return false;
+                    if (RoadMachine1TaskQueue.Count == 0) return true;
                     return RoadMachine1TaskQueue.ToArray().
                          FirstOrDefault(s => (s as StockTaskItem).State == StockTaskState.RoadMachineStockBuffing) == null;
                 case 2:
-                    if (RoadMachine2TaskQueue.Count == 0) return false;
+                    if (RoadMachine2TaskQueue.Count == 0) return true;
                     return RoadMachine2TaskQueue.ToArray().
                         FirstOrDefault(s => (s as StockTaskItem).State == StockTaskState.RoadMachineStockBuffing) == null;
                 default:
