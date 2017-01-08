@@ -410,7 +410,7 @@ namespace AGVCenterWPF
                 StockTaskType = StockTaskType.IN,
                 RoadMachineIndex = int.Parse(RoadMachineIndexTB.Text),
                 State = StockTaskState.RoadMachineStockBuffing,
-                BoxType = (byte)1
+                BoxType = (byte)(int.Parse(boxTypeTB.Text))
             };
             taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
             UniqueItemService ui = new UniqueItemService(OPCConfig.DbString);
@@ -420,15 +420,16 @@ namespace AGVCenterWPF
                 ui.Create(new UniqueItem()
                 {
                     Nr = ScanedBarCodeTB.Text,
+                    KskNr= ScanedBarCodeTB.Text,
                     CheckCode = ScanedBarCodeTB.Text,
-                    BoxTypeId = 1
+                    BoxTypeId = (byte)(int.Parse(boxTypeTB.Text))
                 });
             }
 
             StockTaskService ts = new StockTaskService(OPCConfig.DbString);
             ts.CreateInStockTask(taskItem);
-            this.EnqueueAgvScanTaskQueue(taskItem);
-
+            //  this.EnqueueAgvScanTaskQueue(taskItem);
+            this.EnqueueRoadMachineTask(taskItem);
 
             AddOrUpdateItemToTaskDisplay(taskItem);
 
@@ -582,6 +583,7 @@ private void resetXDJ1InIsBuff_Click(object sender, RoutedEventArgs e)
             {
                 this.TaskCenterForDisplayQueue.Clear();
                 this.CenterStockTaskDisplayDG.Items.Clear();
+                this.CenterStockTaskDisplayDG.Items.Refresh();
             }
         }
     }

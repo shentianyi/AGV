@@ -65,16 +65,22 @@
                                   Click="RestOutTaskAndCleanBtn_Click" ToolTip="改变完成的出库任务状态，可重新加载使用，不需要其它操作"></Button>
 
 
-                        <Label x:Name="label3" Content="条码" Grid.Column="3"  HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label3" Content="条码" Grid.Column="3"  HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top"/>
 
                         <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left" 
-                             Height="26" Margin="45,11,0,0" Grid.Column="3"
-                		TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="95"/>
-
+                             Height="26" Margin="35,11,0,0" Grid.Column="3"
+                		TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70"/>
+                     
+                        <TextBox Grid.Column="3" Text="1" Margin="110,0,0,0"
+                                 Width="30" Height="25" Name="boxTypeTB" 
+                                 Grid.ColumnSpan="1" />
+                        
                         <Label Content="巷道机：" Grid.Column="4" Margin="0,11,0,0"/>
                         <TextBox Grid.Column="4" Text="1" Margin="0,0,0,0"
                                  Width="30" Height="25" Name="RoadMachineIndexTB" 
                                  Grid.ColumnSpan="1" />
+                       
+                        
                         <Button x:Name="createInStockBtn" Grid.Column="5"
                                 Content="手动生成入库任务" 
                                 HorizontalAlignment="Left" Margin="10,10,0,0" 
