@@ -254,11 +254,11 @@ namespace AGVCenterWPF
 
                     if (taskItem.RoadMachineIndex == 1)
                     {
-                        OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
+                      //  OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
                     }
                     else if (taskItem.RoadMachineIndex == 2)
                     {
-                        OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
+                     //   OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
                     }
                 }
 
