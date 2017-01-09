@@ -130,4 +130,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="CancelPickOutStockTask">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="taskIds" nillable="true" type="q10:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelPickOutStockTaskResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.Message" minOccurs="0" name="CancelPickOutStockTaskResult" nillable="true" type="q11:ResultMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

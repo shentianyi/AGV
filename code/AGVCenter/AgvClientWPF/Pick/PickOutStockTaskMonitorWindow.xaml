@@ -17,10 +17,62 @@
                 <DataTrigger Binding="{Binding State}" Value="121">
                     <Setter Property="Background" Value="Green"/>
                 </DataTrigger>
+
+
+                <DataTrigger Binding="{Binding State}" Value="800">
+                    <Setter Property="Background" Value="Gray"/>
+                </DataTrigger>
             </Style.Triggers>
         </Style>
+        <DataTemplate x:Key="CheckboxDataTemplate1">
+            <Grid>
+                <CheckBox x:Name="_chkSelected" 
+                        Click="_chkSelected_OnClick"
+                        IsThreeState="False"
+                        IsChecked="{Binding IsSelected, Mode=OneWay}"
+                        />
+            </Grid>
+        </DataTemplate>
+
+
+        <Style x:Key="DataGridCheckboxColumnHeaderStyle1" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="ContentTemplate" Value="{DynamicResource CheckboxDataTemplate1}"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+
+        <Style x:Key="DataGridCheckboxCellStyle1" TargetType="{x:Type DataGridCell}">
+            <!--<Setter Property="Padding" Value="20,0"/>-->
+            <Setter Property="ContentTemplate" Value="{DynamicResource CheckboxDataTemplate1}"/>
+            <!--<Setter Property="Background" Value="#FFC1C1C1"/>-->
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template" Value="{DynamicResource DataGridCheckboxCellControlTemplate1}"/>
+            <!--<Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#FFC1C1C1"/>
+                    <Setter Property="BorderBrush" Value="{x:Null}"/>
+                </Trigger>
+            </Style.Triggers>-->
+
+        </Style>
+
+        
+
+        <ControlTemplate x:Key="DataGridCheckboxCellControlTemplate1" TargetType="{x:Type DataGridCell}">
+            <Border
+                   BorderBrush="{TemplateBinding BorderBrush}"
+                   BorderThickness="{TemplateBinding BorderThickness}"
+                   Background="{TemplateBinding Background}"
+                   SnapsToDevicePixels="True">
+                <ContentPresenter 
+                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                      Content="{TemplateBinding Content}"
+                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+            </Border>
+        </ControlTemplate>
     </Window.Resources>
-    
     <Grid>
 
         <Grid.RowDefinitions>
@@ -36,6 +88,9 @@
                 <Button x:Name="loadOutStockTaskBtn" Content="加载出库任务" HorizontalAlignment="Left"
                 Margin="1,15,0,0" VerticalAlignment="Top" Width="92" Height="23" Click="loadOutStockTaskBtn_Click"/>
 
+                <Button x:Name="cancelStockTaskBtn" Content="取消出库任务" HorizontalAlignment="Left"
+                Margin="10,15,0,0" VerticalAlignment="Top" Width="92" Height="23" Click="cancelStockTaskBtn_Click"/>
+
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
@@ -45,12 +100,18 @@
             </Grid.ColumnDefinitions>
 
 
-            <DataGrid x:Name="deliveryStockTaskDG" AutoGenerateColumns="False" 
+            <DataGrid x:Name="picklistStockTaskDG" AutoGenerateColumns="False" 
                       CanUserAddRows="false" 
                   HorizontalAlignment="Stretch" Margin="1,1,0,0"  IsReadOnly="True"
                   VerticalAlignment="Stretch" MinHeight="356" MinWidth="482" 
                   RenderTransformOrigin="0.499,0.316" Grid.Column="1">
                 <DataGrid.Columns>
+                    <DataGridCheckBoxColumn 
+                        x:Name="_dtcSelected"
+                        Header="" 
+                        HeaderStyle="{StaticResource DataGridCheckboxColumnHeaderStyle1}" 
+                        CellStyle="{StaticResource DataGridCheckboxCellStyle1}"
+                        MinWidth="40" CanUserReorder="False" MaxWidth="60"/>
                     <DataGridTextColumn Header="任务号" Binding="{Binding Path=Id}"/>
                     <DataGridTextColumn Header="箱型" Binding="{Binding Path=BoxTypeStr}"/>
                     <DataGridTextColumn Header="产品KSK" Binding="{Binding Path=BarCode}"/>

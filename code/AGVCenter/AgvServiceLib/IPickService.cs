@@ -43,5 +43,7 @@ namespace AgvServiceLib
         [OperationContract]
         ResultMessage CanItemAddToPickList(string uniqNr);
 
+        [OperationContract]
+        ResultMessage CancelPickOutStockTask(List<int> taskIds);
     }
 }

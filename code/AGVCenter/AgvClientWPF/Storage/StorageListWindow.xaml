@@ -107,7 +107,7 @@
                         Header="" 
                         HeaderStyle="{StaticResource DataGridCheckboxColumnHeaderStyle1}" 
                         CellStyle="{StaticResource DataGridCheckboxCellStyle1}"
-                        MinWidth="60" CanUserReorder="False" MaxWidth="60"/>
+                        MinWidth="35" CanUserReorder="False" MaxWidth="60"/>
 
                     <DataGridTextColumn Header="KSK号" Binding="{Binding Path=UniqItemNr}"/>
                 <DataGridTextColumn Header="库位号" Binding="{Binding Path=PositionNr}"/>

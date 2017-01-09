@@ -21,6 +21,19 @@ namespace AGVCenterLib.Data
             StockTaskState.RoadMachineOutStocking
         };
 
+        public static List<StockTaskState> CanCancelStates= new List<StockTaskState>()
+        {
+            StockTaskState.Init,
+            StockTaskState.AgvWaitPassing,
+            StockTaskState.AgvInStcoking,
+            StockTaskState.RoadMachineStockBuffing,
+            StockTaskState.RoadMachineInStocking,
+            StockTaskState.RoadMachineOutStockInit,
+            StockTaskState.RoadMachineWaitOutStock,
+            StockTaskState.RoadMachineOutStocking
+        };
+
+
         public bool IsCannotInStockState
         {
             get { return CannotInStockStates.Contains((StockTaskState)this.State); }
@@ -40,6 +53,12 @@ namespace AGVCenterLib.Data
             {
                 return AGVCenterLib.Data.BoxType.GetStr(this.BoxType);
             }
+        }
+
+
+        public bool CanCancel
+        {
+            get { return CanCancelStates.Contains((StockTaskState)this.State); }
         }
     }
 }

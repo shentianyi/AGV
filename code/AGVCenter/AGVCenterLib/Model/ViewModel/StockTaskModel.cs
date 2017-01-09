@@ -9,7 +9,7 @@ namespace AGVCenterLib.Model.ViewModel
 {
 
     [DataContract]
-    public class StockTaskModel
+    public class StockTaskModel:BaseViewModel
     {
         [DataMember]
         public int Id { get; set; }

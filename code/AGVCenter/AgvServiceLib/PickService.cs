@@ -20,6 +20,7 @@ namespace AgvServiceLib
             ps = new AGVCenterLib.Service.PickListService(SqlHelper.ConnectStr);
         }
 
+
         public ResultMessage CanItemAddToPickList(string uniqNr)
         {
             return new PickListItemService(SqlHelper.ConnectStr).CanItemAddToPickList(uniqNr);
@@ -64,6 +65,11 @@ namespace AgvServiceLib
         public List<PickListModel> SearchList(PickListSearchModel searchModel, int limit)
         {
             return PickListModel.Converts(ps.SearchList(searchModel, limit));
+        }
+
+        public ResultMessage CancelPickOutStockTask(List<int> taskIds)
+        {
+            return new StockTaskService(SqlHelper.ConnectStr).CancelTasks(taskIds);
         }
     }
 }

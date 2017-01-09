@@ -41,6 +41,9 @@ namespace AgvClientWPF.AgvPickService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPickService/CanItemAddToPickList", ReplyAction="http://tempuri.org/IPickService/CanItemAddToPickListResponse")]
         AGVCenterLib.Model.Message.ResultMessage CanItemAddToPickList(string uniqNr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPickService/CancelPickOutStockTask", ReplyAction="http://tempuri.org/IPickService/CancelPickOutStockTaskResponse")]
+        AGVCenterLib.Model.Message.ResultMessage CancelPickOutStockTask(int[] taskIds);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -104,6 +107,10 @@ namespace AgvClientWPF.AgvPickService {
         
         public AGVCenterLib.Model.Message.ResultMessage CanItemAddToPickList(string uniqNr) {
             return base.Channel.CanItemAddToPickList(uniqNr);
+        }
+        
+        public AGVCenterLib.Model.Message.ResultMessage CancelPickOutStockTask(int[] taskIds) {
+            return base.Channel.CancelPickOutStockTask(taskIds);
         }
     }
 }

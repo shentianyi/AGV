@@ -1477,8 +1477,6 @@ namespace AGVCenterLib.Data
 		
 		private EntityRef<Position> _Position;
 		
-		private EntityRef<Part> _Part;
-		
 		private EntityRef<UniqueItem> _UniqueItem;
 		
     #region 可扩展性方法定义
@@ -1504,7 +1502,6 @@ namespace AGVCenterLib.Data
 		public Storage()
 		{
 			this._Position = default(EntityRef<Position>);
-			this._Part = default(EntityRef<Part>);
 			this._UniqueItem = default(EntityRef<UniqueItem>);
 			OnCreated();
 		}
@@ -1564,10 +1561,6 @@ namespace AGVCenterLib.Data
 			{
 				if ((this._PartNr != value))
 				{
-					if (this._Part.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnPartNrChanging(value);
 					this.SendPropertyChanging();
 					this._PartNr = value;
@@ -1691,40 +1684,6 @@ namespace AGVCenterLib.Data
 						this._PositionNr = default(string);
 					}
 					this.SendPropertyChanged("Position");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Part_Storage", Storage="_Part", ThisKey="PartNr", OtherKey="Nr", IsForeignKey=true)]
-		public Part Part
-		{
-			get
-			{
-				return this._Part.Entity;
-			}
-			set
-			{
-				Part previousValue = this._Part.Entity;
-				if (((previousValue != value) 
-							|| (this._Part.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Part.Entity = null;
-						previousValue.Storage.Remove(this);
-					}
-					this._Part.Entity = value;
-					if ((value != null))
-					{
-						value.Storage.Add(this);
-						this._PartNr = value.Nr;
-					}
-					else
-					{
-						this._PartNr = default(string);
-					}
-					this.SendPropertyChanged("Part");
 				}
 			}
 		}
@@ -4369,8 +4328,6 @@ namespace AGVCenterLib.Data
 		
 		private System.Nullable<int> _BoxType;
 		
-		private EntitySet<Storage> _Storage;
-		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -4383,7 +4340,6 @@ namespace AGVCenterLib.Data
 		
 		public Part()
 		{
-			this._Storage = new EntitySet<Storage>(new Action<Storage>(this.attach_Storage), new Action<Storage>(this.detach_Storage));
 			OnCreated();
 		}
 		
@@ -4427,19 +4383,6 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Part_Storage", Storage="_Storage", ThisKey="Nr", OtherKey="PartNr")]
-		public EntitySet<Storage> Storage
-		{
-			get
-			{
-				return this._Storage;
-			}
-			set
-			{
-				this._Storage.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -4458,18 +4401,6 @@ namespace AGVCenterLib.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Storage(Storage entity)
-		{
-			this.SendPropertyChanging();
-			entity.Part = this;
-		}
-		
-		private void detach_Storage(Storage entity)
-		{
-			this.SendPropertyChanging();
-			entity.Part = null;
 		}
 	}
 	

@@ -130,7 +130,7 @@ namespace AGVCenterLib.Service
           //  return null;
             ResultMessage message = new ResultMessage();
             IUniqueItemRepository itemRep = new UniqueItemRepository(this.Context);
-            UniqueItem item = itemRep.FindByCheckCode(barcode);
+            UniqueItem item = itemRep.FindByNr(barcode);
 
             if (item == null)
             {

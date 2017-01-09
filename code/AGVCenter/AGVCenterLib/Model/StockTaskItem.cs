@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
+using AGVCenterLib.Data;
 using AGVCenterLib.Enum;
 using Brilliantech.Framwork.Utils.EnumUtil;
 
@@ -62,26 +63,8 @@ namespace AGVCenterLib.Model
             StockTaskState.ManOutStocked
         };
 
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //public void OnPropertyChanged(PropertyChangedEventArgs e)
-        //{
-        //    if (PropertyChanged != null)
-        //    {
-        //        PropertyChanged(this, e);
-        //    }
-        //}
+        public static List<StockTaskState> CanCancelStates = StockTask.CanCancelStates;
 
-        public static List<StockTaskState> CanCancelStates = new List<StockTaskState>()
-        {
-            StockTaskState.Init,
-            StockTaskState.AgvWaitPassing,
-            StockTaskState.AgvInStcoking,
-            StockTaskState.RoadMachineStockBuffing,
-            StockTaskState.RoadMachineInStocking,
-            StockTaskState.RoadMachineOutStockInit,
-            StockTaskState.RoadMachineWaitOutStock,
-            StockTaskState.RoadMachineOutStocking
-        };
 
         public static List<StockTaskState> ShouldLoadFromDbStates = new List<StockTaskState>()
         {

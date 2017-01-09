@@ -96,6 +96,7 @@ namespace AGVCenterLib.Service
             return true;
         }
 
+       
         /// <summary>
         /// 根据运单生成出库任务，写入MSMQ
         /// </summary>
@@ -417,6 +418,32 @@ namespace AGVCenterLib.Service
         public IQueryable<StockTask> Search(StockTaskSearchModel searchModel)
         {
             return new StockTaskRepository(this.Context).Search(searchModel);
+        }
+
+
+        public ResultMessage CancelTasks(List<int> taskIds)
+        {
+            ResultMessage msg = new ResultMessage();
+            try
+            {
+                IStockTaskRepository stockTaskRep = new StockTaskRepository(this.Context);
+                foreach (var id in taskIds)
+                {
+                    StockTask st = stockTaskRep.FindById(id);
+                    if (st != null && st.CanCancel)
+                    {
+                        st.State = (int)StockTaskState.Canceled;
+                    }
+                }
+                msg.Success = true;
+                this.Context.SaveAll();
+            }
+            catch (Exception ex)
+            {
+                msg.Content = ex.Message;
+                LogUtil.Logger.Error(ex.Message, ex);
+            }
+            return msg;
         }
     }
 }

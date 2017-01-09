@@ -69,7 +69,6 @@
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="Position_Storage" Member="Position" ThisKey="PositionNr" OtherKey="Nr" Type="Position" IsForeignKey="true" />
-      <Association Name="Part_Storage" Member="Part" ThisKey="PartNr" OtherKey="Nr" Type="Part" IsForeignKey="true" />
       <Association Name="UniqueItem_Storage" Member="UniqueItem" ThisKey="UniqItemNr" OtherKey="Nr" Type="UniqueItem" IsForeignKey="true" />
     </Type>
   </Table>
@@ -228,7 +227,6 @@
     <Type Name="Part">
       <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="BoxType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Part_Storage" Member="Storage" ThisKey="Nr" OtherKey="PartNr" Type="Storage" />
     </Type>
   </Table>
   <Table Name="dbo.UniqueItem" Member="UniqueItem">
