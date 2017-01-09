@@ -30,7 +30,7 @@ namespace AgvWarehouseWeb.Controllers
         }
 
 
-        public ActionResult Search([Bind(Include = "Nr")]  DeliverySearchModel q)
+        public ActionResult Search([Bind(Include = "Nr,CreatedAtStart,CreatedAtEnd")]  DeliverySearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);

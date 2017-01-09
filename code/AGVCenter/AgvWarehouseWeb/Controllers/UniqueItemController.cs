@@ -31,7 +31,7 @@ namespace AgvWarehouseWeb.Controllers
             return View(items);
         }
 
-        public ActionResult Search([Bind(Include = "Nr,KNr")]  UniqueItemSearchModel q)
+        public ActionResult Search([Bind(Include = "Nr,KNr,CreatedAtStart,CreatedAtEnd")]  UniqueItemSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);

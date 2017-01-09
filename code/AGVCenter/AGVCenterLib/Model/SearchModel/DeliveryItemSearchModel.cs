@@ -7,7 +7,7 @@ using System.Text;
 namespace AGVCenterLib.Model.SearchModel
 {
     [DataContract]
-    public class DeliveryItemSearchModel
+    public class DeliveryItemSearchModel:SearchModelBase
     {
         [DataMember]
         public string Nr { get; set; }

@@ -30,7 +30,7 @@ namespace AgvWarehouseWeb.Controllers
         }
 
 
-        public ActionResult Search([Bind(Include = "Nr")]  PickListSearchModel q)
+        public ActionResult Search([Bind(Include = "Nr,CreatedAtStart,CreatedAtEnd")]  PickListSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);

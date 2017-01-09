@@ -71,6 +71,17 @@ namespace AGVCenterLib.Data.Repository.Implement
                 q = q.Where(s => s.TrayItemTrayNr == searchModel.TrayNrAct);
             }
 
+
+            if (searchModel.CreatedAtStart.HasValue)
+            {
+                q = q.Where(s => s.CreatedAt >= searchModel.CreatedAtStart);
+            }
+
+            if (searchModel.CreatedAtEnd.HasValue)
+            {
+                q = q.Where(s => s.CreatedAt <= searchModel.CreatedAtEnd);
+            }
+
             return q;
         }
     }

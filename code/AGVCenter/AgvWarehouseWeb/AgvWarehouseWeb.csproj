@@ -329,6 +329,7 @@
     <Content Include="Views\StockTaskLog\Index.cshtml" />
     <Content Include="Views\PickList\Index.cshtml" />
     <Content Include="Views\PickListItem\Index.cshtml" />
+    <Content Include="Views\Shared\Search\_CreatedAtSearchPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

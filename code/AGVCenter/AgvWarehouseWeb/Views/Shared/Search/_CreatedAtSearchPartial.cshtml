@@ -1,0 +1,16 @@
+﻿<div>
+    <div class="marco-igroup-primary">
+        <span>创建时间</span>
+        <input type="text" name="CreatedAtStart" id="CreatedAtStart" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.CreatedAtStart" />
+        <span style="margin-left: 5px;"> ~ </span>
+        <input type="text" name="CreatedAtEnd" id="CreatedAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.CreatedAtEnd" />
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('.datetimepicker').datetimepicker({
+        format: 'Y-m-d H:i'
+    });
+
+</script>

@@ -25,20 +25,20 @@ namespace AgvWarehouseWeb.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Charlot-PC\\MSSQLSERVER20082;Initial Catalog=AgvWarehoueDb;Persist Sec" +
-            "urity Info=True;User ID=sa;Password=123456@")]
-        public string db {
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int pageSize {
             get {
-                return ((string)(this["db"]));
+                return ((int)(this["pageSize"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public int pageSize {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.0.99;Initial Catalog=AgvWarehouseDb;Persist Security Info=Tru" +
+            "e;User ID=sa;Password=123456@")]
+        public string db {
             get {
-                return ((int)(this["pageSize"]));
+                return ((string)(this["db"]));
             }
         }
     }

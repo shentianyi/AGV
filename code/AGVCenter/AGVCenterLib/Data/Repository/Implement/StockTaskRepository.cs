@@ -103,7 +103,16 @@ namespace AGVCenterLib.Data.Repository.Implement
                 q = q.Where(s => s.PositionNr.Contains(searchModel.PositionNr));
             }
 
-            
+            if (searchModel.CreatedAtStart.HasValue)
+            {
+                q = q.Where(s => s.CreatedAt >= searchModel.CreatedAtStart);
+            }
+
+            if (searchModel.CreatedAtEnd.HasValue)
+            {
+                q = q.Where(s => s.CreatedAt <= searchModel.CreatedAtEnd);
+            }
+
 
             return q;
         }

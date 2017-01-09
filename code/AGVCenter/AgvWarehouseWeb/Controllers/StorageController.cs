@@ -30,7 +30,7 @@ namespace AgvWarehouseWeb.Controllers
             return View(items);
         }
 
-        public ActionResult Search([Bind(Include = "Nr,KNr,PositionNr")]  StorageSearchModel q)
+        public ActionResult Search([Bind(Include = "Nr,KNr,PositionNr,FIFOStart,FIFOEnd,CreatedAtStart,CreatedAtEnd")]  StorageSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);

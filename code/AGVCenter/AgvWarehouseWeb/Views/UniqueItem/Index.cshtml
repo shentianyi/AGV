@@ -27,6 +27,9 @@
                 <i class="glyphicon glyphicon-search"></i>
                 搜索
             </button>
+
+             @Html.Partial("Search/_CreatedAtSearchPartial")
+            
         </form>
 
     </div>
@@ -127,18 +130,23 @@
         <div class="clearfix pagination">
             <div class="pagination-inner">
                 @if (Model != null)
-            {
-                if (ViewBag.Query != null)
                 {
-                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
-                         .Options(o => o.AddRouteValue("KNr", ViewBag.Query.KNr));
+                    if (ViewBag.Query != null)
+                    {
+                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                            .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
+                             .Options(o => o.AddRouteValue("KNr", ViewBag.Query.KNr))
+                             .Options(o => o.AddRouteValue("CreatedAtStart", ViewBag.Query.CreatedAtStart))
+                             .Options(o => o.AddRouteValue("CreatedAtEnd", ViewBag.Query.CreatedAtEnd));
                         @html
                     }
                     else
                     {
                         @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
                     }
+                    <br />
+                    <span>总数： @Model.TotalItemCount</span>
+                    <br />
                 }
             </div>
         </div>

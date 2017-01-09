@@ -579,11 +579,19 @@ private void resetXDJ1InIsBuff_Click(object sender, RoutedEventArgs e)
 
         private void clearCenterDisplayQueueBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("确认清除？", "确认清除？", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            try
             {
-                this.TaskCenterForDisplayQueue.Clear();
-                this.CenterStockTaskDisplayDG.Items.Clear();
-                this.CenterStockTaskDisplayDG.Items.Refresh();
+                if (MessageBox.Show("确认清除？", "确认清除？", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    this.TaskCenterForDisplayQueue.Clear();
+                    // this.CenterStockTaskDisplayDG.Items.Clear();
+                    this.CenterStockTaskDisplayDG.Items.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                LogUtil.Logger.Error(ex.Message, ex);
             }
         }
     }

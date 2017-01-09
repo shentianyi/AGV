@@ -14,14 +14,16 @@
                 <div class="marco-igroup-primary">
                     <span>运单号</span>
                     <input type="text" name="Nr" id="Nr" placeholder="运单号" value="@ViewBag.Query.Nr" />
-               
-
-                    <button type="submit" class="marco-btn-success" style="margin-left:0;">
-                        <i class="glyphicon glyphicon-search"></i>
-                        搜索
-                    </button>
                  </div>
             </div>
+            <button type="submit" class="marco-btn-success" style="margin-left:0;">
+                <i class="glyphicon glyphicon-search"></i>
+                搜索
+            </button>
+
+            @Html.Partial("Search/_CreatedAtSearchPartial")
+
+
         </form>
     </div>
 </div>
@@ -84,13 +86,20 @@
                 if (ViewBag.Query != null)
                 {
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr));
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
+                          .Options(o => o.AddRouteValue("CreatedAtStart", ViewBag.Query.CreatedAtStart))
+                             .Options(o => o.AddRouteValue("CreatedAtEnd", ViewBag.Query.CreatedAtEnd));
                     @html
                 }
                 else
                 {
                     @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
                 }
+
+
+                <br />
+                    <span>总数： @Model.TotalItemCount</span>
+                    <br />
             }
         </div>
     </div>

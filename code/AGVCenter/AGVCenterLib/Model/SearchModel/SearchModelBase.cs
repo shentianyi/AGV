@@ -7,13 +7,12 @@ using System.Text;
 namespace AGVCenterLib.Model.SearchModel
 {
     [DataContract]
-    public class PickListSearchModel:SearchModelBase
+    public class SearchModelBase
     {
         [DataMember]
-        public string Nr { get; set; }
-
+        public DateTime? CreatedAtStart { get; set; }
 
         [DataMember]
-        public string NrAct { get; set; }
+        public DateTime? CreatedAtEnd { get; set; }
     }
 }

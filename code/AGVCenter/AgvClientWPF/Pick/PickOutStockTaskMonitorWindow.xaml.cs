@@ -33,11 +33,11 @@ namespace AgvClientWPF.Pick
         {
             InitializeComponent();
         }
-
+        private string pickListNr = string.Empty;
         public PickOutStockTaskMonitorWindow(string deliveryNr)
         {
             InitializeComponent();
-            this.pickListNrTB.Text = deliveryNr;
+            this.pickListNrTB.Text =pickListNr= deliveryNr;
             InitLoadTask();
         }
 
@@ -45,17 +45,28 @@ namespace AgvClientWPF.Pick
         {
             if (!string.IsNullOrEmpty(pickListNrTB.Text))
             {
+                pickListNr = pickListNrTB.Text;
                 InitLoadTask();
             }
         }
 
+
+        List<StockTaskModel> tasks = new List<StockTaskModel>();
         private void InitLoadTask()
         {
-            this.LoadPickOutStockTask(pickListNrTB.Text);
+            this.picklistStockTaskDG.ItemsSource = null;
             if (loadTaskTimer != null)
             {
                 loadTaskTimer.Stop();
             }
+
+            tasks.Clear();
+            this.picklistStockTaskDG.ItemsSource = this.tasks;
+            //      picklistStockTaskDG.Items.Clear();
+            //  picklistStockTaskDG.Items.Refresh();
+
+            this.LoadPickOutStockTask(this.pickListNr);
+
             loadTaskTimer = new Timer();
             loadTaskTimer.Interval = 2000;
             loadTaskTimer.Enabled = true;
@@ -68,13 +79,12 @@ namespace AgvClientWPF.Pick
 
             this.Dispatcher.Invoke(new Action(() =>
             {
-                LoadPickOutStockTask(pickListNrTB.Text);
+                LoadPickOutStockTask(this.pickListNr);
             }));
 
             loadTaskTimer.Start();
         }
 
-        List<StockTaskModel> tasks = new List<StockTaskModel>();
         private void LoadPickOutStockTask(string pickListNr)
         {
             if (string.IsNullOrEmpty(pickListNr))
@@ -83,14 +93,13 @@ namespace AgvClientWPF.Pick
             }
             try
             {
-
                 PickServiceClient dsc = new PickServiceClient();
                 List<StockTaskModel> stockTasks = dsc.GetPickListOutStockTasks(pickListNr).ToList();
-                    picklistStockTaskDG.ItemsSource = stockTasks;
+                   // picklistStockTaskDG.ItemsSource = stockTasks;
 
                 foreach (var st in stockTasks)
                 {
-                    var t = tasks.FirstOrDefault(s => s.Id == s.Id);
+                    var t = tasks.FirstOrDefault(s => s.Id == st.Id);
                     if (t == null)
                     {
                         tasks.Add(st);
@@ -98,10 +107,11 @@ namespace AgvClientWPF.Pick
                     else
                     {
                         t.State = st.State;
+                        t.StateStr = st.StateStr;
                     }
                 }
 
-                picklistStockTaskDG.ItemsSource = tasks;
+               // picklistStockTaskDG.ItemsSource = tasks;
                 outStockedNumLab.Content = stockTasks.Count(s => s.State==(int)StockTaskState.ManOutStocked || s.State == (int)StockTaskState.OutStocked);
 
                 totalDeliveryItemNumLab.Content = stockTasks.Count();
@@ -172,7 +182,7 @@ namespace AgvClientWPF.Pick
             try
             {
                 List<StockTaskModel> tasks = GetSelectedTasks();
-                if (tasks.Count > 0)
+                if (tasks.Count > 0 && MessageBox.Show("确认取消任务？\n 且取消后需按照指定的操作流程操作。", "确认取消任务？", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     PickServiceClient psc = new PickServiceClient();
                     ResultMessage msg = psc.CancelPickOutStockTask(tasks.Select(s => s.Id).ToArray());
@@ -198,5 +208,9 @@ namespace AgvClientWPF.Pick
                  .ToList();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+           // this.picklistStockTaskDG.ItemsSource = this.tasks;
+        }
     }
 }

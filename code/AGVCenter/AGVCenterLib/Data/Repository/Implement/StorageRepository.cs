@@ -73,6 +73,17 @@ namespace AGVCenterLib.Data.Repository.Implement
             {
                 q = q.Where(s => s.PositionRoadMachineIndex == searchModel.RoadMachineIndex);
             }
+
+            if (searchModel.FIFOStart.HasValue)
+            {
+                q = q.Where(s => s.FIFO >= searchModel.FIFOStart);
+            }
+
+            if (searchModel.FIFOEnd.HasValue)
+            {
+                q = q.Where(s => s.FIFO <= searchModel.FIFOEnd);
+            }
+
             return q;
         }
 

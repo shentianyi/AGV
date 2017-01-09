@@ -63,6 +63,17 @@ namespace AGVCenterLib.Data.Repository.Implement
                 q = q.Where(s => s.PickListNr.Contains(searchModel.PickListNr));
             }
 
+
+            if (searchModel.CreatedAtStart.HasValue)
+            {
+                q = q.Where(s => s.CreatedAt >= searchModel.CreatedAtStart);
+            }
+
+            if (searchModel.CreatedAtEnd.HasValue)
+            {
+                q = q.Where(s => s.CreatedAt <= searchModel.CreatedAtEnd);
+            }
+
             return q;
         }
 

@@ -7,7 +7,7 @@ using System.Text;
 namespace AGVCenterLib.Model.SearchModel
 {
     [DataContract]
-    public class StorageSearchModel
+    public class StorageSearchModel:SearchModelBase
     {
         [DataMember]
         public string Nr { get; set; }
@@ -19,5 +19,11 @@ namespace AGVCenterLib.Model.SearchModel
         public int? BoxTypeId { get; set; }
         [DataMember]
         public int? RoadMachineIndex { get; set; }
+
+        [DataMember]
+        public DateTime? FIFOStart { get; set; }
+
+        [DataMember]
+        public DateTime? FIFOEnd { get; set; }
     }
 }

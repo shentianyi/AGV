@@ -30,7 +30,7 @@ namespace AgvWarehouseWeb.Controllers
         }
 
 
-        public ActionResult Search([Bind(Include = "UniqItemNr,PositionNr,StockTaskId")]  StockTaskLogSearchModel q)
+        public ActionResult Search([Bind(Include = "UniqItemNr,PositionNr,StockTaskId,CreatedAtStart,CreatedAtEnd")]  StockTaskLogSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);

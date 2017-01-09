@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -37,8 +38,18 @@ namespace AGVCenterLib.Model.ViewModel
 
         [DataMember]
         public string BarCode { get; set; }
+
+        private int? state;
         [DataMember]
-        public int? State { get; set; }
+        public int? State { get {
+                return this.state;
+            } set
+            {
+                this.state = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("State"));
+                OnPropertyChanged(new PropertyChangedEventArgs("StateStr"));
+            }
+        }
         [DataMember]
         public int? Type { get; set; }
         [DataMember]
@@ -57,10 +68,16 @@ namespace AGVCenterLib.Model.ViewModel
         public DateTime? CreatedAt { get; set; }
         [DataMember]
         public DateTime? UpdatedAt { get; set; }
-         
 
+        private string stateStr;
         [DataMember]
-        public string StateStr { get; set; }
+        public string StateStr { get {
+                return stateStr;
+            } set {
+                stateStr = value;
+
+                OnPropertyChanged(new PropertyChangedEventArgs("StateStr"));
+            } }
 
         public static List<StockTaskModel> Converts(List<StockTask> stockTasks)
         {

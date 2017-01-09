@@ -7,7 +7,7 @@ using System.Text;
 namespace AGVCenterLib.Model.SearchModel
 {
     [DataContract]
-    public class StockTaskSearchModel
+    public class StockTaskSearchModel:SearchModelBase
     {
         [DataMember]
         public string UniqItemNr { get; set; }
