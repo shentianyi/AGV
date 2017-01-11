@@ -72,7 +72,15 @@ namespace AgvClientWPF.Product
             }
             if (!string.IsNullOrEmpty(message.Content))
             {
-                MessageBox.Show(message.Content);
+                if (message.Success)
+                {
+                    //MessageBox.Show(message.Content);
+                    SuccessMsg(message.Content);
+                }
+                else
+                { 
+                    MistakerMsg(message.Content);
+                }
             }
             this.RestInput();
         }
@@ -107,7 +115,9 @@ namespace AgvClientWPF.Product
             }
             else
             {
-                MessageBox.Show("大小箱设置错误！请设置,\n 1为大箱，2为小箱");
+                //  MessageBox.Show("大小箱设置错误！请设置,\n 1为大箱，2为小箱");
+
+                MistakerMsg("大小箱设置错误！请设置,\n 1为大箱，2为小箱");
                 return 0;
             }
         }
@@ -152,7 +162,9 @@ namespace AgvClientWPF.Product
             }
             else
             {
-                MessageBox.Show("未能通过CrossCheck!");
+             //   MessageBox.Show("未能通过CrossCheck!");
+                MistakerMsg("未能通过CrossCheck!");
+
                 RestInput();
                 return false;
             }
@@ -172,7 +184,8 @@ namespace AgvClientWPF.Product
             {
                 BoxTypeLRB.IsChecked = false;
                 BoxTypeSRB.IsChecked = false;
-                MessageBox.Show("大小箱设置错误！请设置,\n 1为大箱，2为小箱");
+               // MessageBox.Show("大小箱设置错误！请设置,\n 1为大箱，2为小箱");
+                MistakerMsg("大小箱设置错误！请设置,\n 1为大箱，2为小箱");
             }
             if (Settings.Default.TestModel)
             {
@@ -277,14 +290,16 @@ namespace AgvClientWPF.Product
         {
             if (string.IsNullOrEmpty(QrTB.Text))
             {
-                MessageBox.Show("电测二维码不可以为空");
+                //MessageBox.Show("电测二维码不可以为空");
+                MistakerMsg("电测二维码不可以为空");
                 return false;
             }
             else
             {
                 if (!new Regex(Settings.Default.QrReg).IsMatch(QrTB.Text))
                 {
-                    MessageBox.Show("请扫描电测二维码");
+                   // MessageBox.Show("请扫描电测二维码");
+                    MistakerMsg("请扫描电测二维码");
                     return false;
                 }
             }
@@ -295,14 +310,16 @@ namespace AgvClientWPF.Product
         {
             if (string.IsNullOrEmpty(KnrTB.Text))
             {
-                MessageBox.Show("大众生产号不可以为空");
+               // MessageBox.Show("大众生产号不可以为空");
+                MistakerMsg("大众生产号不可以为空");
                 return false;
             }
             else
             {
                 if (!new Regex(Settings.Default.KnrReg).IsMatch(KnrTB.Text))
                 {
-                    MessageBox.Show("请扫描大众生产号");
+                    //  MessageBox.Show("请扫描大众生产号");
+                    MistakerMsg("请扫描大众生产号");
                     return false;
                 }
             }
@@ -332,14 +349,16 @@ namespace AgvClientWPF.Product
         {
             if (string.IsNullOrEmpty(CheckCodeTB.Text))
             {
-                MessageBox.Show("验证码不可以为空");
+               // MessageBox.Show("验证码不可以为空");
+                MistakerMsg("验证码不可以为空");
                 return false;
             }
             else
             {
                 if (!new Regex(Settings.Default.CheckCodeReg).IsMatch(CheckCodeTB.Text))
                 {
-                    MessageBox.Show("请扫描验证码");
+                    // MessageBox.Show("请扫描验证码");
+                    MistakerMsg("请扫描验证码");
                     return false;
                 }
             }
@@ -351,14 +370,17 @@ namespace AgvClientWPF.Product
         {
             if (string.IsNullOrEmpty(KskNrTB.Text))
             {
-                MessageBox.Show("KSK号不可以为空");
+               // MessageBox.Show("KSK号不可以为空");
+                MistakerMsg("KSK号不可以为空");
                 return false;
             }
             else
             {
                 if (!new Regex(Settings.Default.KskRge).IsMatch(KskNrTB.Text))
                 {
-                    MessageBox.Show("请扫描KSK号");
+                  //  MessageBox.Show("请扫描KSK号");
+                    MistakerMsg("请扫描KSK号");
+
                     return false;
                 }
             }
@@ -369,18 +391,39 @@ namespace AgvClientWPF.Product
         {
             if (string.IsNullOrEmpty(LayoutNrTB.Text))
             {
-                MessageBox.Show("配置代码不可以为空");
+               // MessageBox.Show("配置代码不可以为空");
+                MistakerMsg("配置代码不可以为空");
                 return false;
             }
             else
             {
                 if (!new Regex(Settings.Default.LayoutReg).IsMatch(LayoutNrTB.Text))
                 {
-                    MessageBox.Show("请扫描配置代码");
+                    //  MessageBox.Show("请扫描配置代码");
+                    MistakerMsg("请扫描配置代码");
                     return false;
                 }
             }
             return true;
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(GetBoxTypeId().ToString());
+            MsgDialog.CMsgDlg(MsgLevel.Info,"",true,null,3).ShowDialog();
+            MsgDialog.CMsgDlg(MsgLevel.Mistake, "", true).ShowDialog();
+            MsgDialog.CMsgDlg(MsgLevel.Successful, "", true).ShowDialog();
+            MsgDialog.CMsgDlg(MsgLevel.Warning, "", true).ShowDialog();
+        }
+
+        public void MistakerMsg(string msg)
+        {
+            MsgDialog.CMsgDlg(MsgLevel.Mistake, msg, true).ShowDialog();
+        }
+
+        public void SuccessMsg(string msg)
+        {
+            MsgDialog.CMsgDlg(MsgLevel.Successful, msg, true).ShowDialog();
         }
     }
 }

@@ -42,6 +42,7 @@ namespace AGVCenterLib.Service
                     item.UpdatedAt = DateTime.Now;
                     rep.Create(item);
                     this.Context.SaveAll();
+                    messge.Success = true;
                     messge.Content = "创建成功";
                 }
             }

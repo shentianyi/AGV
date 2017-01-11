@@ -21,8 +21,8 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
             <Label Content="大小箱:" Width="104" VerticalContentAlignment="Center"></Label>
-            <RadioButton GroupName="BoxTypeRB" Name="BoxTypeLRB" Content="大箱" Width="53" IsChecked="True"/>
-            <RadioButton GroupName="BoxTypeRB" Name="BoxTypeSRB" Content="小箱" Width="53"/>
+            <RadioButton  IsChecked="True" IsEnabled="False" GroupName="BoxTypeRB" Name="BoxTypeLRB" Content="大箱" Width="53" />
+            <RadioButton IsEnabled="False" GroupName="BoxTypeRB" Name="BoxTypeSRB" Content="小箱" Width="53"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
             <Label Content="电测二维码:" Width="104" VerticalContentAlignment="Center"></Label>
@@ -53,5 +53,6 @@
             <Button Content="确 认" Width="103" FontSize="15" Name="ConfirmBtn" Click="ConfirmBtn_Click" Margin="0,0,0,34">
             </Button>
         </StackPanel>
+        <Button x:Name="button" Content="Button" Click="button_Click" HorizontalAlignment="Left" Margin="97,39,0,0" Grid.Row="6" Width="75" Height="22" VerticalAlignment="Top"/>
     </Grid>
 </Window>

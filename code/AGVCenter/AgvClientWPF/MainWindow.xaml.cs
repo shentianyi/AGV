@@ -32,7 +32,7 @@ namespace AgvClientWPF
 
         private void productOffLineBtn_Click(object sender, RoutedEventArgs e)
         {
-            new ProductFinishWindow().Show();
+            new ProductFinishWindow().ShowDialog();
         }
 
         private void createDevlieryBtn_Click(object sender, RoutedEventArgs e)
