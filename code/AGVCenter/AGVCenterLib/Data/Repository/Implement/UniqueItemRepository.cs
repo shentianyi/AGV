@@ -90,6 +90,11 @@ namespace AGVCenterLib.Data.Repository.Implement
                 q = q.Where(s => s.CreatedAt <= searchModel.CreatedAtEnd);
             }
 
+            if (searchModel.BoxTypeId.HasValue && searchModel.BoxTypeId.Value>0)
+            {
+                q = q.Where(s => s.BoxTypeId == searchModel.BoxTypeId);
+            }
+
             return q;
         }
     }

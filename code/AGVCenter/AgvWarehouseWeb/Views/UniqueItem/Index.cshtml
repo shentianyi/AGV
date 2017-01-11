@@ -23,6 +23,35 @@
                     <input type="text" name="KNr" id="KNr" placeholder="大众KNr" value="@ViewBag.Query.KNr" />
                 </div>
             </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>箱型</span>
+                    <select name="BoxTypeId" id="BoxTypeId">
+                        @if (ViewBag.Query.BoxTypeId == null)
+                        {
+                        <option selected></option>
+                        <option value="1">大箱</option>
+                        <option value="2">小箱</option>
+                        }
+                        else if (ViewBag.Query.BoxTypeId == 1)
+                        {
+                            <option></option>
+                            <option selected value="1">大箱</option>
+                            <option value="2">小箱</option>
+                        }
+                        else
+                        {
+                            <option></option>
+                            <option value="1">大箱</option>
+                            <option selected value="2">小箱</option>
+                        }
+
+
+
+                    </select>
+                    @*<input type="text" name="BoxTypeId" id="BoxTypeId" placeholder="大众KNr" value="@ViewBag.Query.KNr" />*@
+                </div>
+            </div>
             <button type="submit" class="marco-btn-success" style="margin-left:0;">
                 <i class="glyphicon glyphicon-search"></i>
                 搜索
@@ -137,7 +166,8 @@
                             .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
                              .Options(o => o.AddRouteValue("KNr", ViewBag.Query.KNr))
                              .Options(o => o.AddRouteValue("CreatedAtStart", ViewBag.Query.CreatedAtStart))
-                             .Options(o => o.AddRouteValue("CreatedAtEnd", ViewBag.Query.CreatedAtEnd));
+                             .Options(o => o.AddRouteValue("CreatedAtEnd", ViewBag.Query.CreatedAtEnd))
+                             .Options(o => o.AddRouteValue("BoxTypeId", ViewBag.Query.BoxTypeId));
                         @html
                     }
                     else
