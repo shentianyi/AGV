@@ -51,7 +51,7 @@
                             <Label Name="currentScanedBarcode" Height="25" FontWeight="Bold" Foreground="Red" Content=""></Label>
                         </StackPanel>
                         <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
-                            <Button Content="清空监控列表" Name="clearCenterDisplayQueueBtn" Height="25" Width="120"  Background="LightBlue"></Button>
+                            <Button Content="清空监控列表" Name="clearCenterDisplayQueueBtn" Height="25" Width="120"  Background="LightBlue" Click="clearCenterDisplayQueueBtn_Click"></Button>
                         </StackPanel>
                         <Button  Visibility="Collapsed"   Name="RestAllDataAndCleanBtn" Grid.Column="0"
                                 Content="重置所有数据" Margin="5"   ToolTip="删除所有出入库任务、库存、运单，但保持唯一码、库位" Click="RestAllDataAndCleanBtn_Click"></Button>
