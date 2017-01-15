@@ -130,7 +130,7 @@ namespace AgvClientWPF.Storage
             {
                 foreach (var ll in l)
                 {
-                    if (!this.pickStorageDG.Items.Contains(ll))
+                    if (!this.pickStorageDG.Items.OfType<StorageUniqueItemViewModel>().Select(s=>s.UniqItemNr).Contains(ll.UniqItemNr))
                     {
                         this.pickStorageDG.Items.Add(ll);
                         this.SetCount();

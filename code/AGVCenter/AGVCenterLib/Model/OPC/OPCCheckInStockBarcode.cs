@@ -32,6 +32,7 @@ namespace AGVCenterLib.Model.OPC
         public string ScanedBarcode { get { return scanedBarcode; } set {
                 scanedBarcodeWas = scanedBarcode;
                 scanedBarcode = value;
+                  
             } }
 
 

@@ -64,9 +64,9 @@ namespace AGVCenterLib.Model.OPC
 
 
         #region 读写标记
-        private byte? opcRwFlagWas;
+        protected byte? opcRwFlagWas;
         public byte? OPCRwFlagWas { get; set; }
-        private byte? opcRwFlag;
+        protected byte? opcRwFlag;
         /// <summary>
         /// 读写标记 1
         /// </summary>

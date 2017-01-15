@@ -528,6 +528,7 @@ namespace AGVCenterWPF
 
 
         private string firstBarIgnore = string.Empty;
+        private object scanLocker = new object();
         /// <summary>
         /// 读取入库条码信息读写标记改变处理
         /// </summary>
@@ -535,48 +536,51 @@ namespace AGVCenterWPF
         /// <param name="toFlag"></param>
         private void OPCCheckInStockBarcodeData_RwFlagChangedEvent(OPCDataBase b, byte toFlag)
         {
-            if (b.CanRead)
+            lock (scanLocker)
             {
-                // 读取条码，获取放行信息写入队列
-                LogUtil.Logger.InfoFormat("【根据-条码-判断放行】{0}", OPCCheckInStockBarcodeData.ScanedBarcode);
-                if (BaseConfig.IsOPCConnector)
+                if (b.CanRead)
                 {
-                    try
+                    // 读取条码，获取放行信息写入队列
+                    LogUtil.Logger.InfoFormat("【根据-条码-判断放行】{0}", OPCCheckInStockBarcodeData.ScanedBarcode);
+                    if (BaseConfig.IsOPCConnector)
                     {
-                        LogUtil.Logger.InfoFormat("【扫描到条码内容】{0}:", OPCCheckInStockBarcodeData.ScanedBarcode);
-                        if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode))
+                        try
                         {
-                            if (new Regex(BaseConfig.BarcodeReg).IsMatch(OPCCheckInStockBarcodeData.ScanedBarcode))
+                            LogUtil.Logger.InfoFormat("【扫描到条码内容】{0}:", OPCCheckInStockBarcodeData.ScanedBarcode);
+                            if (!string.IsNullOrEmpty(OPCCheckInStockBarcodeData.ScanedBarcode))
                             {
-                                if (string.IsNullOrEmpty(firstBarIgnore))
+                                if (new Regex(BaseConfig.BarcodeReg).IsMatch(OPCCheckInStockBarcodeData.ScanedBarcode))
                                 {
-                                    firstBarIgnore = OPCCheckInStockBarcodeData.ScanedBarcode;
-                                    // BaseConfig.PreScanBar = firstBarIgnore;
+                                    if (string.IsNullOrEmpty(firstBarIgnore))
+                                    {
+                                        firstBarIgnore = OPCCheckInStockBarcodeData.ScanedBarcode;
+                                        // BaseConfig.PreScanBar = firstBarIgnore;
+                                    }
+                                    else
+                                    {
+                                        this.currentScanedBarcode.Content = OPCCheckInStockBarcodeData.ScanedBarcode;
+                                        this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+                                    }
                                 }
                                 else
                                 {
-                                    this.currentScanedBarcode.Content = OPCCheckInStockBarcodeData.ScanedBarcode;
-                                    this.CreateInTaskIntoAgvScanTaskQueue(OPCCheckInStockBarcodeData.ScanedBarcode);
+                                    LogUtil.Logger.Info("【扫描到条码内容】不符合规范！");
                                 }
                             }
                             else
                             {
-                                LogUtil.Logger.Info("【扫描到条码内容】不符合规范！");
+                                LogUtil.Logger.Info("【扫描到条码内容】为空！");
                             }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            LogUtil.Logger.Info("【扫描到条码内容】为空！");
+                            LogUtil.Logger.Error(ex.Message, ex);
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogUtil.Logger.Error(ex.Message, ex);
-                    }
-                    finally
-                    {
-                        // 置为可写
-                        this.OPCCheckInStockBarcodeData.SyncSetWriteableFlag(OPCCheckInstockBarcodeOPCGroup);
+                        finally
+                        {
+                            // 置为可写
+                            this.OPCCheckInStockBarcodeData.SyncSetWriteableFlag(OPCCheckInstockBarcodeOPCGroup);
+                        }
                     }
                 }
             }

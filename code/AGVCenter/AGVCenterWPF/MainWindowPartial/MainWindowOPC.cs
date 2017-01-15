@@ -330,6 +330,8 @@ namespace AGVCenterWPF
         {
             try
             {
+                LogUtil.Logger.InfoFormat("【旧数据】【入库扫描条码】读写标记:{0},条码内容:{1}", OPCCheckInStockBarcodeData.OPCRwFlag, OPCCheckInStockBarcodeData.ScanedBarcode);
+
                 // 从1开始
                 for (var i = 1; i <= NumItems; i++)
                 {
@@ -338,6 +340,7 @@ namespace AGVCenterWPF
                         ItemValues.GetValue(i));
                 }
                 OPCCheckInStockBarcodeData.SetValue(NumItems, ClientHandles, ItemValues);
+                this.OPCCheckInStockBarcodeData_RwFlagChangedEvent(OPCCheckInStockBarcodeData, OPCCheckInStockBarcodeData.OPCRwFlag.HasValue ? OPCCheckInStockBarcodeData.OPCRwFlag.Value : (byte)1);
                 try {
                     this.label_scan_get_inposi_rw_flag.Content = OPCCheckInStockBarcodeData.OPCRwFlag;
                     this.label_scan_get_inposi_barcode.Content = OPCCheckInStockBarcodeData.ScanedBarcode;
