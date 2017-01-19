@@ -86,7 +86,8 @@ namespace AgvClientWPF.Pick
             var d = GetPickListModelItem();
             if (d != null)
             {
-                new CreatePickOutStockTaskWindow(d.Nr).Show();
+                new CreatePickOutStockTaskWindow(d.Nr).ShowDialog();
+                LoadPickList();
             }
         } 
 

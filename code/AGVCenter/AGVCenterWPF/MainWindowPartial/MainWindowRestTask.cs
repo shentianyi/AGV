@@ -399,51 +399,66 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void createInStockBtn_Click(object sender, RoutedEventArgs e)
         {
-            //  return;
-            if (IncreaseBarcodeCheckBox.IsChecked.Value)
+            if (!string.IsNullOrEmpty(ScanedBarCodeTB.Text))
             {
-                ScanedBarCodeTB.Text = (int.Parse(ScanedBarCodeTB.Text) + 1).ToString();
-            }
-            StockTaskItem taskItem = new StockTaskItem(this.uiContext)
-            {
-                Barcode = ScanedBarCodeTB.Text,
-                StockTaskType = StockTaskType.IN,
-                RoadMachineIndex = int.Parse(RoadMachineIndexTB.Text),
-                State = StockTaskState.RoadMachineStockBuffing,
-                BoxType = (byte)(int.Parse(boxTypeTB.Text))
-            };
-            taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
-            UniqueItemService ui = new UniqueItemService(OPCConfig.DbString);
-            //if (ui.FindByCheckCode(taskItem.Barcode) == null)
-            if (ui.FindByNr(taskItem.Barcode) == null)
-            {
-                ui.Create(new UniqueItem()
+                if (ScanedBarCodeTB.Text.Contains("PR"))
                 {
-                    Nr = ScanedBarCodeTB.Text,
-                    KskNr= ScanedBarCodeTB.Text,
-                    CheckCode = ScanedBarCodeTB.Text,
-                    BoxTypeId = (byte)(int.Parse(boxTypeTB.Text))
-                });
-            }
+                    boxTypeTB.Text = "1";
+                }
+                else if (ScanedBarCodeTB.Text.Contains("EN"))
+                {
+                    boxTypeTB.Text = "2";
+                }
+                UniqueItemService ui = new UniqueItemService(OPCConfig.DbString);
+                //if (ui.FindByCheckCode(taskItem.Barcode) == null)
+                if (ui.FindByNr(ScanedBarCodeTB.Text) == null)
+                {
+                    //ui.Create(new UniqueItem()
+                    //{
+                    //    Nr = ScanedBarCodeTB.Text,
+                    //    KskNr= ScanedBarCodeTB.Text,
+                    //    CheckCode = ScanedBarCodeTB.Text,
+                    //    BoxTypeId = (byte)(int.Parse(boxTypeTB.Text))
+                    //});
+                    MessageBox.Show("条码不存在,不可入库！");
+                    return;
+                }
 
-            StockTaskService ts = new StockTaskService(OPCConfig.DbString);
-            ts.CreateInStockTask(taskItem);
-            //  this.EnqueueAgvScanTaskQueue(taskItem);
-            this.EnqueueRoadMachineTask(taskItem);
 
-            AddOrUpdateItemToTaskDisplay(taskItem);
+                //  return;
+                if (IncreaseBarcodeCheckBox.IsChecked.Value)
+                {
+                    ScanedBarCodeTB.Text = (int.Parse(ScanedBarCodeTB.Text) + 1).ToString();
+                }
+                StockTaskItem taskItem = new StockTaskItem(this.uiContext)
+                {
+                    Barcode = ScanedBarCodeTB.Text,
+                    StockTaskType = StockTaskType.IN,
+                    RoadMachineIndex = int.Parse(RoadMachineIndexTB.Text),
+                    State = StockTaskState.RoadMachineStockBuffing,
+                    BoxType = (byte)(int.Parse(boxTypeTB.Text))
+                };
+                taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
+              
+                StockTaskService ts = new StockTaskService(OPCConfig.DbString);
+                ts.CreateInStockTask(taskItem);
+                //  this.EnqueueAgvScanTaskQueue(taskItem);
+                this.EnqueueRoadMachineTask(taskItem);
 
-            if (LipRoadMachineCheckBox.IsChecked.Value)
-            {
-                RoadMachineIndexTB.Text = RoadMachineIndexTB.Text == "1" ? "2" : "1";
-            }
-            if (RoadMachineIndexTB.Text == "1")
-            {
-                OPCDataResetData.ResetXdj1InPaltformIsBuff(this.OPCDataResetOPCGroup);
-            }
-            else
-            {
-                OPCDataResetData.ResetXdj2InPaltformIsBuff(this.OPCDataResetOPCGroup);
+                AddOrUpdateItemToTaskDisplay(taskItem);
+
+                if (LipRoadMachineCheckBox.IsChecked.Value)
+                {
+                    RoadMachineIndexTB.Text = RoadMachineIndexTB.Text == "1" ? "2" : "1";
+                }
+                if (RoadMachineIndexTB.Text == "1")
+                {
+                    OPCDataResetData.ResetXdj1InPaltformIsBuff(this.OPCDataResetOPCGroup);
+                }
+                else
+                {
+                    OPCDataResetData.ResetXdj2InPaltformIsBuff(this.OPCDataResetOPCGroup);
+                }
             }
             //# RefreshList();
         }

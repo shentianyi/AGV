@@ -268,12 +268,29 @@ namespace AGVCenterLib.Service
                     List<PickListStorageView> pickListStoragesByBoxType = new List<PickListStorageView>();
 
                     List<PickListStorageView> roadMachine1Tasks =
-                        deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id
-                        && s.PositionRoadMachineIndex == 1).OrderBy(s => s.StoragePositionNr).ToList();
+                       deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id
+                       && s.PositionRoadMachineIndex == 1)
+                       .OrderBy(s=>s.PositionFloor)
+                       .ThenByDescending(s=>s.PositionColumn)
+                       .ThenBy(s=>s.PositionRow)
+                       .ThenBy(s=>s.StorageFIFO)
+                       .ToList();
 
                     List<PickListStorageView> roadMachine2Tasks =
                         deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id
-                        && s.PositionRoadMachineIndex == 2).OrderBy(s => s.StoragePositionNr).ToList();
+                        && s.PositionRoadMachineIndex == 2)
+                        .OrderBy(s => s.PositionFloor)
+                       .ThenByDescending(s => s.PositionColumn)
+                       .ThenBy(s => s.PositionRow)
+                       .ThenBy(s => s.StorageFIFO).ToList();
+
+                    //List<PickListStorageView> roadMachine1Tasks =
+                    //    deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id
+                    //    && s.PositionRoadMachineIndex == 1).OrderBy(s => s.StoragePositionNr).ToList();
+
+                    //List<PickListStorageView> roadMachine2Tasks =
+                    //    deliveryStorages.Where(s => s.UniqueItemBoxTypeId == boxType.Id
+                    //    && s.PositionRoadMachineIndex == 2).OrderBy(s => s.StoragePositionNr).ToList();
 
                     int count = roadMachine1Tasks.Count > roadMachine2Tasks.Count ? roadMachine1Tasks.Count : roadMachine2Tasks.Count;
 
@@ -444,6 +461,12 @@ namespace AGVCenterLib.Service
                 LogUtil.Logger.Error(ex.Message, ex);
             }
             return msg;
+        }
+
+        public StockTask UniqLastSotck(string uniqItemNr)
+        {
+            IStockTaskRepository stockTaskRep = new StockTaskRepository(this.Context);
+            return stockTaskRep.FindLastByNr(uniqItemNr);
         }
     }
 }

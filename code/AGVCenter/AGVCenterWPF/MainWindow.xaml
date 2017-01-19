@@ -65,22 +65,21 @@
                                   Click="RestOutTaskAndCleanBtn_Click" ToolTip="改变完成的出库任务状态，可重新加载使用，不需要其它操作"></Button>
 
 
-                        <Label x:Name="label3" Content="条码" Grid.Column="3"  HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label3" Content="条码" Grid.ColumnSpan="2"
+                               Grid.Column="3"  HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top"/>
 
-                        <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left" 
+                        <TextBox x:Name="ScanedBarCodeTB" HorizontalAlignment="Left"  Grid.ColumnSpan="2"
                              Height="26" Margin="35,11,0,0" Grid.Column="3"
-                		TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70"/>
-                     
-                        <TextBox Grid.Column="3" Text="1" Margin="110,0,0,0"
-                                 Width="30" Height="25" Name="boxTypeTB" 
-                                 Grid.ColumnSpan="1" />
-                        
-                        <Label Content="巷道机：" Grid.Column="4" Margin="0,11,0,0"/>
-                        <TextBox Grid.Column="4" Text="1" Margin="0,0,0,0"
-                                 Width="30" Height="25" Name="RoadMachineIndexTB" 
-                                 Grid.ColumnSpan="1" />
-                       
-                        
+                		TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="124"/>
+
+                        <TextBox Grid.Column="4" Text="1" Margin="24,12,85,13"  ToolTip="大箱小箱"
+                                 Width="30" Height="25" Name="boxTypeTB" />
+
+                        <Label Content="巷道机：" Grid.Column="4" Margin="50,10,44,1"/>
+                        <TextBox Grid.Column="4" Text="1" Margin="99,12,10,13"
+                                 Width="30" Height="25" Name="RoadMachineIndexTB" />
+
+
                         <Button x:Name="createInStockBtn" Grid.Column="5"
                                 Content="手动生成入库任务" 
                                 HorizontalAlignment="Left" Margin="10,10,0,0" 
@@ -147,7 +146,7 @@
                                 Grid.Column="3" HorizontalAlignment="Left"
                                 Margin="5,10,0,0" VerticalAlignment="Top" Height="22" Click="goOnInButton_Click"/>
 
-                        
+
                         <Button x:Name="goOnOutButton" Content="继续未取货出库" 
                                 Width="108" ToolTip="巷道机在前往出库库位的过程中报警，先置为继续，然后打巷道机手动再切换自动"
                                 Grid.Column="4" HorizontalAlignment="Left"
@@ -353,7 +352,7 @@
                     <CheckBox x:Name="showRescanErrorBarcodeCB" Grid.Row="2" Grid.Column="2" Content="显示重复扫描错误" ToolTip="是否显示重复扫描错，因为重复扫描可能很多次，都加入显示的话不利于观察 但是利于分析数据接收情况" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
                                 Click="SettingOPCCB_Checked"/>
 
- 
+
                     <StackPanel  Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center"   Orientation="Horizontal">
                         <Label Content="巷道机1模式:"></Label>
                         <ComboBox x:Name="roadMachine1ModeCB" SelectedValuePath="Value" 
@@ -382,58 +381,58 @@
             <TabItem Header="OPC 变量监控" >
                 <ScrollViewer>
                     <Grid VerticalAlignment="Stretch">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="25"></RowDefinition>
+                        <Grid.RowDefinitions>
                             <RowDefinition Height="25"></RowDefinition>
                             <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
                             <RowDefinition Height="25"></RowDefinition>
                             <RowDefinition Height="25"></RowDefinition>
                             <RowDefinition Height="25"></RowDefinition>
@@ -467,117 +466,117 @@
                             <RowDefinition Height="25"></RowDefinition>
                             <RowDefinition Height="25"></RowDefinition>
                         </Grid.RowDefinitions>
-               
-                    <Label Content="条码扫描：" FontSize="13" Background="LightGreen" Grid.Row="0"/>
-                    <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B0.scan_get_inposi_rw_flag" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_scan_get_inposi_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【扫描条码内容】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B2.254.String.scan_get_inposi_barcode" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_scan_get_inposi_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    
-                    <Label Content="AGV放行：" FontSize="13" Background="LightGreen" Grid.Row="3"/>
-                    <StackPanel Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B258.stock_pass_agv_rw_flag" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_pass_agv_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【放行结果】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B259.stock_pass_agv_flag" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_pass_agv_flag" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
 
-                    <Label Content="入库机械手任务：" FontSize="13" Background="LightGreen" Grid.Row="6"/>
-                    <StackPanel Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B260.inrobot_pick_rw_flag" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_inrobot_pick_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        <Label Content="条码扫描：" FontSize="13" Background="LightGreen" Grid.Row="0"/>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B0.scan_get_inposi_rw_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_scan_get_inposi_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【扫描条码内容】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B2.254.String.scan_get_inposi_barcode" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_scan_get_inposi_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+
+                        <Label Content="AGV放行：" FontSize="13" Background="LightGreen" Grid.Row="3"/>
+                        <StackPanel Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B258.stock_pass_agv_rw_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_pass_agv_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【放行结果】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B259.stock_pass_agv_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_pass_agv_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+
+                        <Label Content="入库机械手任务：" FontSize="13" Background="LightGreen" Grid.Row="6"/>
+                        <StackPanel Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B260.inrobot_pick_rw_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_inrobot_pick_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
                             <Button Content="重置" Name="restInRobotRWFlagFlag" Click="restInRobotRWFlagFlag_Click"/>
-                     </StackPanel>
-                    <StackPanel Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【箱型】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B261.inrobot_pick_box_type" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_inrobot_pick_box_type" MinWidth="50" Background="LightSkyBlue"></Label>
-                      
-                    </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【箱型】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B261.inrobot_pick_box_type" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_inrobot_pick_box_type" MinWidth="50" Background="LightSkyBlue"></Label>
 
-                    <Label Content="巷道机1库存任务：" FontSize="13" Background="LightGreen" Grid.Row="9"/>
-                    <StackPanel Grid.Row="10" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B262.stock_xdj1_rw_flag" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="11" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【任务类型】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B263.stock_xdj1_action_type" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_action_type" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="12" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【层】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B264.int.stock_xdj1_position1" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_position1" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="13" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【列】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B266.int.stock_xdj1_position2" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_position2" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="14" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【排】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B268.int.stock_xdj1_position3" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_position3" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="15" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【箱型】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B270.stock_xdj1_box_type" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_box_type" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="16" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【入库重置标记】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B271.stock_xdj1_reset_position_flag" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_reset_position_flag" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="17" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【托倒数序号】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B272.Int.stock_xdj1_tray_reverse_no" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_tray_reverse_no" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="18" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【整托量】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B274.Int.stock_xdj1_tray_num" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_tray_num" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="19" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【整运单量】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B276.Int.stock_xdj1_delivery_num" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_delivery_num" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="20" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【条码】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB308,B278.254.String.stock_xdj1_barcode" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_stock_xdj1_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
-                    </StackPanel>
-                    <StackPanel Grid.Row="21" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【入库平台有货】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB68,X10.0.xdj1_in_platform_is_buff" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_xdj1_in_paltform_is_buff" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+
+                        <Label Content="巷道机1库存任务：" FontSize="13" Background="LightGreen" Grid.Row="9"/>
+                        <StackPanel Grid.Row="10" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【读写标记】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B262.stock_xdj1_rw_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="11" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【任务类型】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B263.stock_xdj1_action_type" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_action_type" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="12" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【层】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B264.int.stock_xdj1_position1" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_position1" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="13" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【列】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B266.int.stock_xdj1_position2" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_position2" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="14" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【排】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B268.int.stock_xdj1_position3" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_position3" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="15" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【箱型】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B270.stock_xdj1_box_type" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_box_type" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="16" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【入库重置标记】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B271.stock_xdj1_reset_position_flag" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_reset_position_flag" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="17" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【托倒数序号】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B272.Int.stock_xdj1_tray_reverse_no" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_tray_reverse_no" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="18" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【整托量】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B274.Int.stock_xdj1_tray_num" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_tray_num" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="19" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【整运单量】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B276.Int.stock_xdj1_delivery_num" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_delivery_num" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="20" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【条码】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB308,B278.254.String.stock_xdj1_barcode" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_stock_xdj1_barcode" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="21" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【入库平台有货】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB68,X10.0.xdj1_in_platform_is_buff" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_in_paltform_is_buff" MinWidth="50" Background="LightSkyBlue"></Label>
                             <Button Content="重置" Name="resetXDJ1InIsBuff" Click="resetXDJ1InIsBuff_Click" ></Button>
-                    </StackPanel>
-                    <StackPanel Grid.Row="22" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【出库平台有大箱】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB10,X24.0.xdj1_out_platform_is_buff_big" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_xdj1_out_platform_is_buff_big" MinWidth="50" Background="LightSkyBlue"></Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="22" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【出库平台有大箱】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB10,X24.0.xdj1_out_platform_is_buff_big" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_out_platform_is_buff_big" MinWidth="50" Background="LightSkyBlue"></Label>
                             <Button Content="重置" Name="resetXDJ1OutIsBuffBig" Click="resetXDJ1OutIsBuffBig_Click"></Button>
                         </StackPanel>
-                    <StackPanel Grid.Row="23" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
-                        <Label Content="【出库平台有小箱】" Background="LightBlue" Width="150"></Label>
-                        <Label Content="S7:[S7 connection_1]DB10,X24.1.xdj1_out_platform_is_buff_small" Width="450" Background="LightYellow"></Label>
-                        <Label Content="" Name="label_xdj1_out_platform_is_buff_small" MinWidth="50" Background="LightSkyBlue"></Label>
+                        <StackPanel Grid.Row="23" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                            <Label Content="【出库平台有小箱】" Background="LightBlue" Width="150"></Label>
+                            <Label Content="S7:[S7 connection_1]DB10,X24.1.xdj1_out_platform_is_buff_small" Width="450" Background="LightYellow"></Label>
+                            <Label Content="" Name="label_xdj1_out_platform_is_buff_small" MinWidth="50" Background="LightSkyBlue"></Label>
                             <Button Content="重置" Name="resetXDJ1OutIsBuffSmall" Click="resetXDJ1OutIsBuffSmall_Click"></Button>
                         </StackPanel>
 
@@ -667,7 +666,7 @@
                             <Label Content="S7:[S7 connection_1]DB308,B1878.outrobot_pick_rw_flag" Width="450" Background="LightYellow"></Label>
                             <Label Content="" Name="label_outrobot_pick_rw_flag" MinWidth="50" Background="LightSkyBlue"></Label>
                             <Button Content="重置可写" Name="restOutRobotRWFlagFlag" Click="restOutRobotRWFlagFlag_Click"/>
-                          
+
                             <Button Content="重置可读" Name="restOutRobotRWFlagFlag1" Click="restOutRobotRWFlagFlag1_Click"/>
 
                         </StackPanel>

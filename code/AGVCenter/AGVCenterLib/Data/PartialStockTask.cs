@@ -34,11 +34,20 @@ namespace AGVCenterLib.Data
         };
 
 
+        public static List<StockTaskState> IgnoreRescanStates = new List<StockTaskState>()
+        {
+           StockTaskState.ErrorUniqNotExsits
+        };
+
         public bool IsCannotInStockState
         {
             get { return CannotInStockStates.Contains((StockTaskState)this.State); }
         }
-
+        
+        public bool IsIgnoreRescanState
+        {
+            get { return IgnoreRescanStates.Contains((StockTaskState)this.State); }
+        }
         public string StateStr
         {
             get

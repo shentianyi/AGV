@@ -104,13 +104,13 @@ namespace AGVCenterLib.Enum
         Canceled =800,
 
         // Error
-        [Description("无库位错误")]
+        [Description("【AGV放行失败】无库位错误")]
         ErrorNoPositoin = 930,
-        [Description("唯一码不存在")]
+        [Description("【AGV放行失败】唯一码不存在")]
         ErrorUniqNotExsits = 940,
-        [Description("唯一码无法入库")]
+        [Description("【AGV放行失败】唯一码不可入库")]
         ErrorUniqCannotInStock = 950,
-        [Description("创建数据库任务失败")]
+        [Description("【AGV放行失败】创建数据库任务失败")]
         ErrorCreateDbTask = 960,
         [Description("重复扫描")]
         ErrorBarcodeReScan = 970,
