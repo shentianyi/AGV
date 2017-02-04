@@ -7,6 +7,7 @@ using AGVCenterLib.Data;
 using AGVCenterLib.Enum;
 using AGVCenterLib.Model;
 using AGVCenterWPF.Config;
+using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace AGVCenterWPF
 {
@@ -241,46 +242,82 @@ namespace AGVCenterWPF
         /// <param name="roadMacineIndex"></param>
         private void CancelRoadMachineTask(StockTaskItem taskItem)
         {
-            lock (roadMachineTaskQueueLocker)
+            try {
+                lock (roadMachineTaskQueueLocker)
+                {
+                    if (taskItem.RoadMachineIndex == 1)
+                    {
+                        var t = RoadMachine1CenterTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                        if (t != null)
+                        {
+                            (t as StockTaskItem).State = StockTaskState.Canceled;
+
+                            if ((RoadMachine1CenterTaskQueue.Peek() as StockTaskItem).ShouldDequeueStockTask)
+                            {
+                                RoadMachine1CenterTaskQueue.Dequeue();
+                            }
+                        }
+                        t = RoadMachine1InTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                        if (t != null)
+                        {
+                            (t as StockTaskItem).State = StockTaskState.Canceled;
+
+                            if ((RoadMachine1InTaskQueue.Peek() as StockTaskItem).ShouldDequeueStockTask)
+                            {
+                                RoadMachine1InTaskQueue.Dequeue();
+                            }
+
+                        }
+                        t = RoadMachine1OutTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                        if (t != null)
+                        {
+                            (t as StockTaskItem).State = StockTaskState.Canceled;
+
+                            if ((RoadMachine1OutTaskQueue.Peek() as StockTaskItem).ShouldDequeueStockTask)
+                            {
+                                RoadMachine1OutTaskQueue.Dequeue();
+                            }
+                        }
+                    }
+                    else if (taskItem.RoadMachineIndex == 2)
+                    {
+                        var t = RoadMachine2CenterTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                        if (t != null)
+                        {
+                            (t as StockTaskItem).State = StockTaskState.Canceled;
+                            if ((RoadMachine2CenterTaskQueue.Peek() as StockTaskItem).ShouldDequeueStockTask)
+                            {
+                                RoadMachine2CenterTaskQueue.Dequeue();
+                            }
+                        }
+                        t = RoadMachine2InTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                        if (t != null)
+                        {
+                            (t as StockTaskItem).State = StockTaskState.Canceled;
+                            if ((RoadMachine2InTaskQueue.Peek() as StockTaskItem).ShouldDequeueStockTask)
+                            {
+                                RoadMachine2InTaskQueue.Dequeue();
+                            }
+                        }
+                        t = RoadMachine2OutTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                        if (t != null)
+                        {
+                            (t as StockTaskItem).State = StockTaskState.Canceled;
+                            if ((RoadMachine2OutTaskQueue.Peek() as StockTaskItem).ShouldDequeueStockTask)
+                            {
+                                RoadMachine2OutTaskQueue.Dequeue();
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
             {
-                if (taskItem.RoadMachineIndex == 1)
-                {
-                    var t = RoadMachine1CenterTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                    if (t != null)
-                    {
-                        (t as StockTaskItem).State = StockTaskState.Canceled;
-                    }
-                    t = RoadMachine1InTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                    if (t != null)
-                    {
-                        (t as StockTaskItem).State = StockTaskState.Canceled;
-                    }
-                    t = RoadMachine1OutTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                    if (t != null)
-                    {
-                        (t as StockTaskItem).State = StockTaskState.Canceled;
-                    }
-                }
-                else if (taskItem.RoadMachineIndex == 2)
-                {
-                    var t = RoadMachine2CenterTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                    if (t != null)
-                    {
-                        (t as StockTaskItem).State = StockTaskState.Canceled;
-                    }
-                    t = RoadMachine2InTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                    if (t != null)
-                    {
-                        (t as StockTaskItem).State = StockTaskState.Canceled;
-                    }
-                    t = RoadMachine2OutTaskQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                    if (t != null)
-                    {
-                        (t as StockTaskItem).State = StockTaskState.Canceled;
-                    }
 
-                }
-
+                LogUtil.Logger.Error(ex.Message, ex);
+                
             }
         }
         /// <summary>
