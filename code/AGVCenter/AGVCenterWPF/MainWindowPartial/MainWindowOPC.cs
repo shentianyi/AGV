@@ -125,16 +125,19 @@ namespace AGVCenterWPF
             {
                 ConnectedOPCServer = new OPCServer();
                 //  ConnectedOPCServer.ServerShutDown += ConnectedOPCServer_ServerShutDown;
-
+              
                 ConnectedOPCServer.Connect(OPCServerTB.Text, OPCNodeNameTB.Text);
                 ConnectedOPCServer.OPCGroups.DefaultGroupIsActive = true;
                 ConnectedOPCServer.OPCGroups.DefaultGroupDeadband = 0;
 
-                /// 初始化OPC组
-                if (InitOPCGroup())
+                if (ConnectedOPCServer.ServerState == (int)OPCServerState.OPCRunning)
                 {
-                    ConnectOPCServerBtn.IsEnabled = false;
-                    StartComponents();
+                    /// 初始化OPC组
+                    if (InitOPCGroup())
+                    {
+                        ConnectOPCServerBtn.IsEnabled = false;
+                        StartComponents();
+                    }
                 }
             }
             catch (Exception ex)
