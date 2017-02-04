@@ -115,7 +115,7 @@ namespace AGVCenterWPF
             {
                 LogUtil.Logger.Info("【执行-重置出库任务状态】");
                 SqlHelper.ExecuteNonQuery(OPCConfig.DbString,
-                    CommandType.StoredProcedure, "TASK_RestAllOutTaskToWaitingState",new SqlParameter("@toState",(int)StockTaskState.RoadMachineWaitOutStock));
+                    CommandType.StoredProcedure, "TASK_RestAllOutTaskToWaitingState", new SqlParameter("@toState", (int)StockTaskState.RoadMachineWaitOutStock));
             }
             catch (Exception ex)
             {
@@ -162,46 +162,55 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void CancelTaskBtn_Click(object sender, RoutedEventArgs e)
         {
-            //prevScanedBarcode = string.Empty;
-            if (CenterStockTaskDisplayDG.SelectedIndex > -1)
+            try
             {
-                StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
-                if (BaseConfig.IsOPCConnector)
+                //prevScanedBarcode = string.Empty;
+                if (CenterStockTaskDisplayDG.SelectedIndex > -1)
                 {
-                    AgvScanTaskQueue.Remove(taskItem.Barcode);
-                    if (taskItem.IsCanCancel)
+                    StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
+                    if (BaseConfig.IsOPCConnector)
                     {
-                        if (taskItem.State == StockTaskState.AgvWaitPassing)
+                        AgvScanTaskQueue.Remove(taskItem.Barcode);
+                        if (taskItem.IsCanCancel)
                         {
-                            var t1 = AgvInStockPassQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                            if (t1 != null)
+                            if (taskItem.State == StockTaskState.AgvWaitPassing)
                             {
-                                (t1 as StockTaskItem).State = StockTaskState.Canceled;
-                            }
+                                var t1 = AgvInStockPassQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                                if (t1 != null)
+                                {
+                                    (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                                }
 
-                        }
-                        else if (taskItem.State == StockTaskState.AgvInStcoking)
-                        {
-                            var t1 = InRobootPickQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
-                            if (t1 != null)
+                            }
+                            else if (taskItem.State == StockTaskState.AgvInStcoking)
                             {
-                                (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                                var t1 = InRobootPickQueue.ToArray().FirstOrDefault(s => (s as StockTaskItem).DbId == taskItem.DbId);
+                                if (t1 != null)
+                                {
+                                    (t1 as StockTaskItem).State = StockTaskState.Canceled;
+                                }
+                            }
+                            else
+                            {
+                                this.CancelRoadMachineTask(taskItem);
                             }
                         }
-                        else
+                    }
+                    else
+                    {
+                        if (taskItem.IsCanCancel)
                         {
-                            this.CancelRoadMachineTask(taskItem);
+                            taskItem.State = StockTaskState.Canceled;
+                            this.MonitorUpdateTaskState(taskItem);
                         }
                     }
                 }
-                else
-                {
-                    if (taskItem.IsCanCancel)
-                    {
-                        taskItem.State = StockTaskState.Canceled;
-                        this.MonitorUpdateTaskState(taskItem);
-                    }
-                }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -213,25 +222,34 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void manInButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CenterStockTaskDisplayDG.SelectedIndex > -1)
+            try
             {
-                StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
-
-                if (taskItem.IsCanCancel || taskItem.IsCanceled)
+                if (CenterStockTaskDisplayDG.SelectedIndex > -1)
                 {
-                   // this.prevScanedBarcode = string.Empty;
-                    taskItem.State = StockTaskState.ManInStocked;
-                  //  this.UpdateDbTask(taskItem);
-                    //if (taskItem.RoadMachineIndex == 1)
-                    //{
-                       // RoadMachine1TaskQueue.Dequeue();
-                   // }
-                    //else if (taskItem.RoadMachineIndex == 2)
-                    //{
-                    //    RoadMachine2TaskQueue.Dequeue();
-                    //}
-                }
+                    StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
 
+                    if (taskItem.IsCanCancel || taskItem.IsCanceled)
+                    {
+                        // this.prevScanedBarcode = string.Empty;
+                        taskItem.State = StockTaskState.ManInStocked;
+                        //  this.UpdateDbTask(taskItem);
+                        //if (taskItem.RoadMachineIndex == 1)
+                        //{
+                        // RoadMachine1TaskQueue.Dequeue();
+                        // }
+                        //else if (taskItem.RoadMachineIndex == 2)
+                        //{
+                        //    RoadMachine2TaskQueue.Dequeue();
+                        //}
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -243,27 +261,36 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void manOutButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CenterStockTaskDisplayDG.SelectedIndex > -1)
+            try
             {
-                StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
-
-                if (taskItem.IsCanCancel)
+                if (CenterStockTaskDisplayDG.SelectedIndex > -1)
                 {
-                    taskItem.State = StockTaskState.ManOutStocked;
-                   // this.UpdateDbTask(taskItem);
+                    StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
 
-                    if (taskItem.RoadMachineIndex == 1)
+                    if (taskItem.IsCanCancel)
                     {
-                      //  OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
-                    }
-                    else if (taskItem.RoadMachineIndex == 2)
-                    {
-                     //   OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
+                        taskItem.State = StockTaskState.ManOutStocked;
+                        // this.UpdateDbTask(taskItem);
+
+                        if (taskItem.RoadMachineIndex == 1)
+                        {
+                            //  OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
+                        }
+                        else if (taskItem.RoadMachineIndex == 2)
+                        {
+                            //   OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup);
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
 
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
+        
 
 
 
@@ -274,6 +301,7 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void goOnInButton_Click(object sender, RoutedEventArgs e)
         {
+            try { 
             if (CenterStockTaskDisplayDG.SelectedIndex > -1)
             {
                 StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
@@ -282,6 +310,13 @@ namespace AGVCenterWPF
                 {
                     taskItem.State = StockTaskState.RoadMachineStockBuffing;
                 }
+            }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -293,14 +328,22 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void goOnOutButton_Click(object sender, RoutedEventArgs e)
         {
+            try { 
             if (CenterStockTaskDisplayDG.SelectedIndex > -1)
             {
                 StockTaskItem taskItem = CenterStockTaskDisplayDG.SelectedItem as StockTaskItem;
 
-                if (taskItem.State==StockTaskState.RoadMachineOutStocking)
+                if (taskItem.State == StockTaskState.RoadMachineOutStocking)
                 {
                     taskItem.State = StockTaskState.RoadMachineWaitOutStock;
                 }
+            }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
         /// <summary>
@@ -310,9 +353,17 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void ResetBuff1InStockBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes)
+            try { 
+            if (MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 OPCDataResetData.ResetXdj1InPaltformIsBuff(OPCDataResetOPCGroup);
+            }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -324,9 +375,17 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void ResetBuff2InStockBtn_Click(object sender, RoutedEventArgs e)
         {
+            try { 
             if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 OPCDataResetData.ResetXdj2InPaltformIsBuff(OPCDataResetOPCGroup);
+            }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
         #endregion
@@ -372,22 +431,31 @@ namespace AGVCenterWPF
 
         private void ClearTaskQueue()
         {
-          //  prevScanedBarcode = string.Empty;
-            if (AgvInStockPassQueue != null)
+            try
             {
-                AgvInStockPassQueue.Clear();
-            }
-           
-            if (AgvScanTaskQueue != null)
-            {
-                AgvScanTaskQueue.Clear();
-            } 
-            if (TaskCenterForDisplayQueue != null)
-            {
-                TaskCenterForDisplayQueue.Clear();
-            }
+                //  prevScanedBarcode = string.Empty;
+                if (AgvInStockPassQueue != null)
+                {
+                    AgvInStockPassQueue.Clear();
+                }
 
-            RefreshList();
+                if (AgvScanTaskQueue != null)
+                {
+                    AgvScanTaskQueue.Clear();
+                }
+                if (TaskCenterForDisplayQueue != null)
+                {
+                    TaskCenterForDisplayQueue.Clear();
+                }
+
+                RefreshList();
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
@@ -399,66 +467,75 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void createInStockBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(ScanedBarCodeTB.Text))
+            try
             {
-                if (ScanedBarCodeTB.Text.Contains("PR"))
+                if (!string.IsNullOrEmpty(ScanedBarCodeTB.Text))
                 {
-                    boxTypeTB.Text = "1";
-                }
-                else if (ScanedBarCodeTB.Text.Contains("EN"))
-                {
-                    boxTypeTB.Text = "2";
-                }
-                UniqueItemService ui = new UniqueItemService(OPCConfig.DbString);
-                //if (ui.FindByCheckCode(taskItem.Barcode) == null)
-                if (ui.FindByNr(ScanedBarCodeTB.Text) == null)
-                {
-                    //ui.Create(new UniqueItem()
-                    //{
-                    //    Nr = ScanedBarCodeTB.Text,
-                    //    KskNr= ScanedBarCodeTB.Text,
-                    //    CheckCode = ScanedBarCodeTB.Text,
-                    //    BoxTypeId = (byte)(int.Parse(boxTypeTB.Text))
-                    //});
-                    MessageBox.Show("条码不存在,不可入库！");
-                    return;
-                }
+                    if (ScanedBarCodeTB.Text.Contains("PR"))
+                    {
+                        boxTypeTB.Text = "1";
+                    }
+                    else if (ScanedBarCodeTB.Text.Contains("EN"))
+                    {
+                        boxTypeTB.Text = "2";
+                    }
+                    UniqueItemService ui = new UniqueItemService(OPCConfig.DbString);
+                    //if (ui.FindByCheckCode(taskItem.Barcode) == null)
+                    if (ui.FindByNr(ScanedBarCodeTB.Text) == null)
+                    {
+                        //ui.Create(new UniqueItem()
+                        //{
+                        //    Nr = ScanedBarCodeTB.Text,
+                        //    KskNr= ScanedBarCodeTB.Text,
+                        //    CheckCode = ScanedBarCodeTB.Text,
+                        //    BoxTypeId = (byte)(int.Parse(boxTypeTB.Text))
+                        //});
+                        MessageBox.Show("条码不存在,不可入库！");
+                        return;
+                    }
 
 
-                //  return;
-                if (IncreaseBarcodeCheckBox.IsChecked.Value)
-                {
-                    ScanedBarCodeTB.Text = (int.Parse(ScanedBarCodeTB.Text) + 1).ToString();
-                }
-                StockTaskItem taskItem = new StockTaskItem(this.uiContext)
-                {
-                    Barcode = ScanedBarCodeTB.Text,
-                    StockTaskType = StockTaskType.IN,
-                    RoadMachineIndex = int.Parse(RoadMachineIndexTB.Text),
-                    State = StockTaskState.RoadMachineStockBuffing,
-                    BoxType = (byte)(int.Parse(boxTypeTB.Text))
-                };
-                taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
-              
-                StockTaskService ts = new StockTaskService(OPCConfig.DbString);
-                ts.CreateInStockTask(taskItem);
-                //  this.EnqueueAgvScanTaskQueue(taskItem);
-                this.EnqueueRoadMachineTask(taskItem);
+                    //  return;
+                    if (IncreaseBarcodeCheckBox.IsChecked.Value)
+                    {
+                        ScanedBarCodeTB.Text = (int.Parse(ScanedBarCodeTB.Text) + 1).ToString();
+                    }
+                    StockTaskItem taskItem = new StockTaskItem(this.uiContext)
+                    {
+                        Barcode = ScanedBarCodeTB.Text,
+                        StockTaskType = StockTaskType.IN,
+                        RoadMachineIndex = int.Parse(RoadMachineIndexTB.Text),
+                        State = StockTaskState.RoadMachineStockBuffing,
+                        BoxType = (byte)(int.Parse(boxTypeTB.Text))
+                    };
+                    taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
 
-                AddOrUpdateItemToTaskDisplay(taskItem);
+                    StockTaskService ts = new StockTaskService(OPCConfig.DbString);
+                    ts.CreateInStockTask(taskItem);
+                    //  this.EnqueueAgvScanTaskQueue(taskItem);
+                    this.EnqueueRoadMachineTask(taskItem);
 
-                if (LipRoadMachineCheckBox.IsChecked.Value)
-                {
-                    RoadMachineIndexTB.Text = RoadMachineIndexTB.Text == "1" ? "2" : "1";
+                    AddOrUpdateItemToTaskDisplay(taskItem);
+
+                    if (LipRoadMachineCheckBox.IsChecked.Value)
+                    {
+                        RoadMachineIndexTB.Text = RoadMachineIndexTB.Text == "1" ? "2" : "1";
+                    }
+                    if (RoadMachineIndexTB.Text == "1")
+                    {
+                        OPCDataResetData.ResetXdj1InPaltformIsBuff(this.OPCDataResetOPCGroup);
+                    }
+                    else
+                    {
+                        OPCDataResetData.ResetXdj2InPaltformIsBuff(this.OPCDataResetOPCGroup);
+                    }
                 }
-                if (RoadMachineIndexTB.Text == "1")
-                {
-                    OPCDataResetData.ResetXdj1InPaltformIsBuff(this.OPCDataResetOPCGroup);
-                }
-                else
-                {
-                    OPCDataResetData.ResetXdj2InPaltformIsBuff(this.OPCDataResetOPCGroup);
-                }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
             //# RefreshList();
         }
@@ -494,31 +571,58 @@ namespace AGVCenterWPF
         }
 
 
-         /// <summary>
-          /// 重置出库机械手
-          /// </summary>
-          /// <param name="sender"></param>
-         /// <param name="e"></param>
-          private void restOutRobotRWFlagFlag_Click(object sender, RoutedEventArgs e)
-          {
-             OPCOutRobootPickData.ResetReadWriteFlag(OPCOutRobootPickOPCGroup,(byte)2);
-              //OPCInRobootPickData.ResetReadWriteFlag(OPCInRobootPickOPCGroup);
-          }
-          private void restOutRobotRWFlagFlag1_Click(object sender, RoutedEventArgs e)
-          {
-             OPCOutRobootPickData.ResetReadWriteFlag(OPCOutRobootPickOPCGroup, (byte)1);
-          }
-
-/// <summary>
-/// 重置巷道机1入库平台是否有货
-/// </summary>
-/// <param name="sender"></param>
-/// <param name="e"></param>
-private void resetXDJ1InIsBuff_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 重置出库机械手
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void restOutRobotRWFlagFlag_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            try
             {
-                OPCDataResetData.ResetXdj1InPaltformIsBuff(OPCDataResetOPCGroup);
+                OPCOutRobootPickData.ResetReadWriteFlag(OPCOutRobootPickOPCGroup, (byte)2);
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
+            }
+            //OPCInRobootPickData.ResetReadWriteFlag(OPCInRobootPickOPCGroup);
+        }
+        private void restOutRobotRWFlagFlag1_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OPCOutRobootPickData.ResetReadWriteFlag(OPCOutRobootPickOPCGroup, (byte)1);
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 重置巷道机1入库平台是否有货
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void resetXDJ1InIsBuff_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    OPCDataResetData.ResetXdj1InPaltformIsBuff(OPCDataResetOPCGroup);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -526,17 +630,35 @@ private void resetXDJ1InIsBuff_Click(object sender, RoutedEventArgs e)
 
         private void resetXDJ1OutIsBuffBig_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            try
             {
-                OPCDataResetData.ResetXdj1OutPaltformIsBuffBig(OPCDataResetOPCGroup);
+                if (MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    OPCDataResetData.ResetXdj1OutPaltformIsBuffBig(OPCDataResetOPCGroup);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void resetXDJ1OutIsBuffSmall_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            try
             {
-                OPCDataResetData.ResetXdj1OutPaltformIsBuffSmall(OPCDataResetOPCGroup);
+                if (MessageBox.Show("确定重置1？", "确定重置1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    OPCDataResetData.ResetXdj1OutPaltformIsBuffSmall(OPCDataResetOPCGroup);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -547,25 +669,52 @@ private void resetXDJ1InIsBuff_Click(object sender, RoutedEventArgs e)
         /// <param name="e"></param>
         private void resetXDJ2InIsBuff_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            try
             {
-                OPCDataResetData.ResetXdj2InPaltformIsBuff(OPCDataResetOPCGroup);
+                if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    OPCDataResetData.ResetXdj2InPaltformIsBuff(OPCDataResetOPCGroup);
+                }
             }
-        } 
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         private void resetXDJ2OutIsBuffBig_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            try
             {
-                OPCDataResetData.ResetXdj2OutPaltformIsBuffBig(OPCDataResetOPCGroup);
+                if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    OPCDataResetData.ResetXdj2OutPaltformIsBuffBig(OPCDataResetOPCGroup);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void resetXDJ2OutIsBuffSmall_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            try
             {
-                OPCDataResetData.ResetXdj2OutPaltformIsBuffSmall(OPCDataResetOPCGroup);
+                if (MessageBox.Show("确定重置2？", "确定重置2?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    OPCDataResetData.ResetXdj2OutPaltformIsBuffSmall(OPCDataResetOPCGroup);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -573,17 +722,35 @@ private void resetXDJ1InIsBuff_Click(object sender, RoutedEventArgs e)
 
         private void reseOutrootPickCountIncrBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("确定加1？", "确定加1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            try
             {
-                OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup,1);
+                if (MessageBox.Show("确定加1？", "确定加1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup, 1);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void reseOutrootPickCountDecrBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("确定减1？", "确定减1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            try
             {
-                OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup, -1);
+                if (MessageBox.Show("确定减1？", "确定减1?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    OPCDataResetData.IncrOutrootPickCount(OPCDataResetOPCGroup, -1);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                LogUtil.Logger.Error(ex.Message, ex);
+                MessageBox.Show(ex.Message);
             }
         }
         #endregion

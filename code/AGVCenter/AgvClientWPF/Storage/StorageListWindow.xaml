@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Storage"
         mc:Ignorable="d"
-        Title="StorageListWindow" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="StorageListWindow" Height="600" Width="850" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <DataTemplate x:Key="CheckboxDataTemplate1">
@@ -24,7 +24,7 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
         </Style>
-        
+
         <Style x:Key="DataGridCheckboxCellStyle1" TargetType="{x:Type DataGridCell}">
             <!--<Setter Property="Padding" Value="20,0"/>-->
             <Setter Property="ContentTemplate" Value="{DynamicResource CheckboxDataTemplate1}"/>
@@ -38,7 +38,7 @@
                     <Setter Property="BorderBrush" Value="{x:Null}"/>
                 </Trigger>
             </Style.Triggers>-->
-   
+
         </Style>
 
         <Style TargetType="DataGridCell">
@@ -65,43 +65,48 @@
                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
             </Border>
         </ControlTemplate>
-      </Window.Resources>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="90*"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
-          
-            <Grid Grid.Row="0">
-            <StackPanel Grid.Row="0" Orientation="Horizontal"> 
-            <Label x:Name="label" Content="巷道机：" HorizontalAlignment="Left" 
+
+        <Grid Grid.Row="0">
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Label x:Name="label" Content="巷道机：" HorizontalAlignment="Left" 
                    Margin="19,15,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="RoadMachineIndexCB" DisplayMemberPath="Text" 
-                      SelectedValuePath="Value" HorizontalAlignment="Left" Margin="7,15,0,0" VerticalAlignment="Top" Width="120"/>
-            <Label x:Name="label1" Content="箱型："  HorizontalAlignment="Left" 
+                <ComboBox x:Name="RoadMachineIndexCB" DisplayMemberPath="Text" 
+                      SelectedValuePath="Value" HorizontalAlignment="Left" Margin="7,15,0,0" VerticalAlignment="Top" Width="79"/>
+                <Label x:Name="label1" Content="箱型："  HorizontalAlignment="Left" 
                    Margin="5,15,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="BoxTypeCB" HorizontalAlignment="Left" DisplayMemberPath="Text" SelectedValuePath="Value"
-                      Margin="5,15,0,0" VerticalAlignment="Top" Width="120"/>
-             <Label x:Name="label2" Content="KSK号："  HorizontalAlignment="Left" 
+                <ComboBox x:Name="BoxTypeCB" HorizontalAlignment="Left" DisplayMemberPath="Text" SelectedValuePath="Value"
+                      Margin="5,15,0,0" VerticalAlignment="Top" Width="94"/>
+                <Label x:Name="label5" Content="配置号："  HorizontalAlignment="Left" 
+                   Margin="5,15,0,0" VerticalAlignment="Top"/>
+                <TextBox Height="25" Width="123" Name="PartNrTB" Margin="0,14,0,13"/>
+
+                <Label x:Name="label2" Content="KSK号："  HorizontalAlignment="Left" 
                    Margin="5,15,0,0" VerticalAlignment="Top"/>
                 <TextBox Height="25" Width="150" Name="KskNrTB"/>
+
                 <Button x:Name="loadStorageBtn" Content="加载库存" HorizontalAlignment="Left"
                 Margin="5,15,0,0" VerticalAlignment="Top" 
                 Width="75" Click="loadStorageBtn_Click"/>
             </StackPanel>
         </Grid>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60*"></ColumnDefinition>
                 <ColumnDefinition Width="10"></ColumnDefinition>
                 <ColumnDefinition Width="40*"></ColumnDefinition>
-                </Grid.ColumnDefinitions> 
-                <DataGrid x:Name="storageDG"  Grid.Column="0" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="false"  
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="storageDG"  Grid.Column="0" IsReadOnly="True"  AutoGenerateColumns="False" CanUserAddRows="false"  
                      HorizontalAlignment="Stretch"  Margin="10,10,0,0"  VerticalAlignment="Stretch" MinHeight="487"
                           MinWidth="282" 
                   RenderTransformOrigin="0.499,0.316">
-            <DataGrid.Columns>
+                <DataGrid.Columns>
                     <DataGridCheckBoxColumn 
                         x:Name="_dtcSelected"
                         Header="" 
@@ -109,15 +114,16 @@
                         CellStyle="{StaticResource DataGridCheckboxCellStyle1}"
                         MinWidth="35" CanUserReorder="False" MaxWidth="60"/>
 
+                    <DataGridTextColumn Header="配置号" Binding="{Binding Path=UniqueItemPartNr}"/>
                     <DataGridTextColumn Header="KSK号" Binding="{Binding Path=UniqItemNr}"/>
-                <DataGridTextColumn Header="库位号" Binding="{Binding Path=PositionNr}"/>
-                <DataGridTextColumn Header="FIFO" Binding="{Binding Path=FIFO}"/>
+                    <DataGridTextColumn Header="库位号" Binding="{Binding Path=PositionNr}"/>
+                    <DataGridTextColumn Header="FIFO" Binding="{Binding Path=FIFO}"/>
                     <DataGridTextColumn Header="箱型" Binding="{Binding Path=BoxTypeStr}"/>
                     <DataGridTextColumn Header="巷道机" Binding="{Binding Path=PositionRoadMachineIndex}"/>
                 </DataGrid.Columns>
-        </DataGrid> 
+            </DataGrid>
             <StackPanel  Grid.Column="1" Background="LightGreen" Opacity="0.4">
-                
+
             </StackPanel>
 
             <DataGrid x:Name="pickStorageDG" Grid.Column="2"  IsReadOnly="True"
@@ -125,6 +131,7 @@
                      HorizontalAlignment="Stretch"  Margin="0,10,0,0"  VerticalAlignment="Stretch" MinHeight="487" MinWidth="282" 
                   RenderTransformOrigin="0.499,0.316">
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="配置号" Binding="{Binding Path=UniqueItemPartNr}"/>
                     <DataGridTextColumn Header="KSK号" Binding="{Binding Path=UniqItemNr}"/>
                     <DataGridTextColumn Header="库位号" Binding="{Binding Path=PositionNr}"/>
                     <DataGridTextColumn Header="FIFO" Binding="{Binding Path=FIFO}"/>
@@ -136,7 +143,7 @@
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-            <Label x:Name="label3" Content="大箱数量："  VerticalAlignment="Center" />
+                <Label x:Name="label3" Content="大箱数量："  VerticalAlignment="Center" />
                 <Label Name="BigCountLab" Content="0" FontSize="26.667" FontWeight="Bold" VerticalAlignment="Center"></Label>
             </StackPanel>
 
@@ -144,7 +151,7 @@
                 <Label x:Name="label4" Content="小箱数量："  VerticalAlignment="Center" />
                 <Label Name="SmallCountLab" Content="0" FontSize="26.667" FontWeight="Bold" VerticalAlignment="Center"></Label>
             </StackPanel>
-            
+
             <Button x:Name="createDeliveryListBtn" Content="创建运单" 
                         Margin="0,10,0,0" Visibility="Collapsed"
                         Width="100" Height="40" Click="createDeliveryListBtn_Click"/>

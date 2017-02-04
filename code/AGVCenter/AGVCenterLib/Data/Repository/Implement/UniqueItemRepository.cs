@@ -80,6 +80,11 @@ namespace AGVCenterLib.Data.Repository.Implement
                 q = q.Where(s => s.KNr.Contains(searchModel.KNr));
             }
 
+            if (!string.IsNullOrEmpty(searchModel.PartNrAct))
+            {
+                q = q.Where(s => s.PartNr==searchModel.PartNrAct);
+            }
+
             if (searchModel.CreatedAtStart.HasValue)
             {
                 q = q.Where(s => s.CreatedAt >= searchModel.CreatedAtStart);

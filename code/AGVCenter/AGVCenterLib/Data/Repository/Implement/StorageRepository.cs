@@ -59,6 +59,11 @@ namespace AGVCenterLib.Data.Repository.Implement
                 q = q.Where(s => s.UniqueItemKNr.Contains(searchModel.KNr));
             }
 
+            if (!string.IsNullOrEmpty(searchModel.PartNrAct))
+            {
+                q = q.Where(s => s.PartNr==searchModel.PartNrAct);
+            }
+
             if (!string.IsNullOrEmpty(searchModel.PositionNr))
             {
                 q = q.Where(s => s.PositionNr.Contains(searchModel.PositionNr));

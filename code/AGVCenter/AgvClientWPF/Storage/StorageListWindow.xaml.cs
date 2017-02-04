@@ -69,7 +69,10 @@ namespace AgvClientWPF.Storage
                 {
                     q.Nr = KskNrTB.Text;
                 }
-
+                if (!string.IsNullOrEmpty(PartNrTB.Text))
+                {
+                    q.PartNrAct = PartNrTB.Text;
+                }
                 StorageServiceClient dsc = new StorageServiceClient();
           
                 storages = dsc.SearchDetail(q).ToList();

@@ -15,5 +15,7 @@ namespace AGVCenterLib.Model.SearchModel
         public string KNr { get; set; }
         [DataMember]
         public int? BoxTypeId { get; set; }
+        [DataMember]
+        public string PartNrAct { get; set; }
     }
 }
