@@ -104,6 +104,34 @@
     </div>
 
         </form>
+
+        @*<form>
+            <div>
+                <button type="submit" class="marco-btn-success" style="margin-left:0;">
+    <i class="glyphicon glyphicon-export"></i>
+    导出库存
+</button> 
+            </div>
+        </form>*@
+
+
+        <div>
+            @Html.ActionLink("导出库存", "Export", new
+       {
+           RoadMachineIndex=ViewBag.Query.RoadMachineIndex,
+           BoxTypeId=ViewBag.Query.BoxTypeId,
+           PartNrAct = ViewBag.Query.PartNrAct,
+           Nr=ViewBag.Query.Nr,
+           KNr=ViewBag.Query.KNr,
+           FIFOStart=ViewBag.Query.FIFOStart,
+           FIFOEnd=ViewBag.Query.FIFOEnd,
+           PositionNr =ViewBag.Query.PositionNr
+       }, new { @style = "width:150px; margin-top:10px;margin-left:30px;",
+           @class = "btn btn-success",
+           @title = "export searched results",
+           data_toggle = "tooltip",
+           data_placement = "bottom" })
+        </div>
     </div>
 </div>
 

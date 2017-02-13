@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using AGVCenterLib.Data;
@@ -46,6 +48,55 @@ namespace AgvWarehouseWeb.Controllers
 
             return View("Index", items);
         }
+
+        public void Export([Bind(Include = "Nr,KNr,PartNrAct,BoxTypeId,RoadMachineIndex,PositionNr,FIFOStart,FIFOEnd,CreatedAtStart,CreatedAtEnd")]  StorageSearchModel q)
+        {
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            StorageService ps = new StorageService(Settings.Default.db);
+
+            List<StorageUniqueItemView> items =
+                ps.SearchDetail(q)
+              .ToList();
+
+            ViewBag.Query = q;
+
+
+            MemoryStream ms = new MemoryStream();
+            using (StreamWriter sw = new StreamWriter(ms, Encoding.UTF8))
+            {
+                List<string> head = new List<string> { "配置号", "大众K号", "莱尼内部K号", "验证码", "库位号", "FIFO", "箱型", "巷道机号" };
+                sw.WriteLine(string.Join(",", head));
+
+                for (var i = 0; i < items.Count; i++)
+                {
+                    List<string> ii = new List<string>();
+                   // ii.Add((i + 1).ToString());
+                    ii.Add(items[i].UniqueItemPartNr);
+                    ii.Add(items[i].UniqueItemKNr);
+                    ii.Add(items[i].UniqueItemKskNr);
+                    ii.Add(items[i].UniqueItemCheckCode);
+                    ii.Add(items[i].PositionNr);
+                    ii.Add(items[i].FIFOStr);
+                    ii.Add(items[i].BoxTypeStr);
+                    ii.Add(items[i].PositionRoadMachineIndex.ToString());
+                    sw.WriteLine(string.Join(",", ii.ToArray()));
+                }
+                //sw.WriteLine(max);
+            }
+            var filename = "Storage_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".csv";
+            var contenttype = "text/csv";
+            Response.Clear();
+            Response.ContentEncoding = Encoding.UTF8;
+            Response.ContentType = contenttype;
+            Response.AddHeader("content-disposition", "attachment;filename=" + filename);
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.BinaryWrite(ms.ToArray());
+            Response.End();
+        }
+
         // GET: Storage/Details/5
         public ActionResult Details(int id)
         {
