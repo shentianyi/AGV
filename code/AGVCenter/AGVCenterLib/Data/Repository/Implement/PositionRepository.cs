@@ -47,11 +47,26 @@ namespace AGVCenterLib.Data.Repository.Implement
             //    && (s.StorageId==null && s.isLocked==false))
             //    .OrderBy(s => s.Row).ThenBy(s => s.Column).ThenBy(s => s.Floor).FirstOrDefault();
 
+            //PositionStorageView ps = this.context.PositionStorageView
+            //  .Where(s => (!exceptsNrs.Contains(s.Nr))
+            //  && s.RoadMachineIndex == roadMachineIndex
+            //  && (s.StorageId == null && s.isLocked == false))
+            //  .OrderByDescending(s => s.Column)
+            //  .ThenBy(s => s.Row)
+            //  .ThenBy(s => s.Floor)
+            //  .FirstOrDefault();
+
+
             PositionStorageView ps = this.context.PositionStorageView
               .Where(s => (!exceptsNrs.Contains(s.Nr))
               && s.RoadMachineIndex == roadMachineIndex
               && (s.StorageId == null && s.isLocked == false))
-              .OrderByDescending(s => s.Column).ThenBy(s => s.Row).ThenBy(s => s.Floor).FirstOrDefault();
+              .OrderBy(s => s.Floor)
+              .ThenByDescending(s => s.Column)
+              .ThenBy(s => s.Row)
+              .FirstOrDefault();
+
+
             if (ps != null)
             {
                 if (lockPosition)

@@ -9,7 +9,9 @@ namespace AgvWarehouseWeb
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                  "~/Scripts/jquery-{version}.js",
+                  "~/Scripts/jquery-ui-1.9.1.custom.min.js"
+                  ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -28,9 +30,14 @@ namespace AgvWarehouseWeb
             bundles.Add(new ScriptBundle("~/bundles/basic").Include(
                    "~/Scripts/basics.js"));
 
+       
+
             bundles.Add(new ScriptBundle("~/bundles/jquery-plug-in").Include(
                      "~/Scripts/jquery-popModal.js",
-                     "~/Scripts/filter.js"
+                     "~/Scripts/filter.js",
+                     "~/Scripts/jquery.file.upload/jquery.fileupload.js",
+                   "~/Scripts/jquery.file.upload/jquery.iframe-transport.js",
+                   "~/Scripts/jquery.file.upload/upload.file.data.js"
                      ));
 
             bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(

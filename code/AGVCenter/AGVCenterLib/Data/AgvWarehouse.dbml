@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AgvWarehouseDb" Class="AgvWarehouseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=192.168.0.99;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa" SettingsObjectName="AGVCenterLib.Properties.Settings" SettingsPropertyName="AgvWarehouseDbConnectionString2" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa" SettingsObjectName="AGVCenterLib.Properties.Settings" SettingsPropertyName="AgvWarehouseDbConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BoxType" Member="BoxType">
     <Type Name="BoxType">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -68,8 +68,8 @@
       <Column Name="UniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="Position_Storage" Member="Position" ThisKey="PositionNr" OtherKey="Nr" Type="Position" IsForeignKey="true" />
       <Association Name="UniqueItem_Storage" Member="UniqueItem" ThisKey="UniqItemNr" OtherKey="Nr" Type="UniqueItem" IsForeignKey="true" />
+      <Association Name="Position_Storage" Member="Position" ThisKey="PositionNr" OtherKey="Nr" Type="Position" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.StockMovement" Member="StockMovement">
@@ -189,20 +189,6 @@
       <Column Name="TrayItemState" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TrayItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="TrayItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Position" Member="Position">
-    <Type Name="Position">
-      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="WarehouseNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Floor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="[Column]" Member="Column" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="isLocked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="Position_Storage" Member="Storage" ThisKey="Nr" OtherKey="PositionNr" Type="Storage" />
-      <Association Name="Warehouse_Position" Member="Warehouse" ThisKey="WarehouseNr" OtherKey="Nr" Type="Warehouse" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PositionStorageView" Member="PositionStorageView">
@@ -408,6 +394,21 @@
       <Column Name="PositionColumn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PositionFloor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PositionWarehouseNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Position" Member="Position">
+    <Type Name="Position">
+      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WarehouseNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Floor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Column]" Member="Column" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isLocked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="InStorePriority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Position_Storage" Member="Storage" ThisKey="Nr" OtherKey="PositionNr" Type="Storage" />
+      <Association Name="Warehouse_Position" Member="Warehouse" ThisKey="WarehouseNr" OtherKey="Nr" Type="Warehouse" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

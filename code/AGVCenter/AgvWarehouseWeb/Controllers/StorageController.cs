@@ -6,10 +6,14 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using AGVCenterLib.Data;
+using AGVCenterLib.Model.Message;
 using AGVCenterLib.Model.SearchModel;
 using AGVCenterLib.Service;
 using AgvWarehouseWeb.Helpers;
+using AgvWarehouseWeb.Models;
 using AgvWarehouseWeb.Properties;
+using CsvHelper;
+using CsvHelper.Configuration;
 using MvcPaging;
 
 namespace AgvWarehouseWeb.Controllers
@@ -96,6 +100,101 @@ namespace AgvWarehouseWeb.Controllers
             Response.BinaryWrite(ms.ToArray());
             Response.End();
         }
+
+
+        public ActionResult ImportOutStock(){
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public ActionResult DoImportOutStock(HttpPostedFileBase partFile)
+        {
+
+              partFile = Request.Files[0];
+
+            if (partFile == null)
+            {
+                //TODO: Parts 上传， 如果没有路径，在此处进行友好处理
+                throw new Exception("No file is uploaded to system");
+            }
+
+            var appData = Server.MapPath("~/TmpFile/");
+            var filename = Path.Combine(appData,
+                DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + Path.GetFileName(partFile.FileName));
+
+            partFile.SaveAs(filename);
+            string ex = Path.GetExtension(filename);
+
+            List<MoveStockImportModel> records = new List<MoveStockImportModel>();
+            string msgContent = "";
+            ResultMessage rmsg = new ResultMessage();
+            if (ex.Equals(".csv"))
+            {
+                CsvConfiguration configuration = new CsvConfiguration();
+                configuration.Delimiter = ",";
+                configuration.HasHeaderRecord = true;
+                configuration.SkipEmptyRecords = true;
+                configuration.RegisterClassMap<MoveStockImportModelCsvMap>();
+                configuration.TrimHeaders = true;
+                configuration.TrimFields = true;
+
+                try
+                {
+                    using (TextReader treader = System.IO.File.OpenText(filename))
+                    {
+                        CsvReader csvReader = new CsvReader(treader, configuration);
+                        records = csvReader.GetRecords<MoveStockImportModel>().ToList();
+                    }
+                }
+                catch (Exception e)
+                {
+                    //ViewBag.TextExpMsg = "<-------------Read Csv File Exception!,Please Check.------------->" + e;
+                    // ViewBag.TextExpMsg = "<-------------读取CSV文件异常，请查看原因：------------->" + e;
+                    rmsg.Content = "<-------------读取CSV文件异常，请查看原因：------------->," + e.Message;
+                }
+
+                List<Dictionary<string, string>> ActionNullErrorDic = new List<Dictionary<string, string>>();
+
+                try
+                {
+                    if (records.Count > 0)
+                    {
+
+                        foreach (var record in records)
+                        {
+                            StorageService ps = new StorageService(Settings.Default.db);
+                            var msg = ps.OutStockByBarCode(record.莱尼内部K号);
+                            record.Success = msg.Success;
+                            record.Message = msg.Content;
+                        }
+                        rmsg.Success = true;
+                        rmsg.Content = "导入成功";
+                    }
+                    else
+                    {
+                        //ViewBag.NotCheckedData = "No Data Checked. Please Check Delimiter or Column Name.";
+                        rmsg.Content = "没有检测到数据。请检查分隔符和列名。";
+                    }
+                }
+                catch (Exception exx)
+                {
+                    rmsg.Content = "导入失败，" + exx.Message;
+                }
+            }
+            else
+            {
+                //ViewBag.NotCsv = "Your File is not .Csv File, Please Check FileName.";
+                rmsg.Content = "你上传的文件不是.CSV格式。请检查文件名。";
+            }
+
+
+
+            return Json(rmsg, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         // GET: Storage/Details/5
         public ActionResult Details(int id)

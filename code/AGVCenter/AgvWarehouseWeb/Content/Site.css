@@ -1,4 +1,54 @@
-﻿body {
+﻿
+/*处理提示框*/
+#dialog-overlay {
+    display: none;
+    background: black /*{bgColorOverlay}*/ 50% /*{bgOverlayXPos}*/ 50% /*{bgOverlayYPos}*/ repeat-x /*{bgOverlayRepeat}*/;
+    opacity: .2;
+    filter: Alpha(Opacity=20) /*{opacityOverlay}*/;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 888889;
+}
+
+#fullpage-overlay {
+    display: none;
+    background: black /*{bgColorOverlay}*/ 50% /*{bgOverlayXPos}*/ 50% /*{bgOverlayYPos}*/ repeat-x /*{bgOverlayRepeat}*/;
+    opacity: .5;
+    filter: Alpha(Opacity=50) /*{opacityOverlay}*/;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom:0;
+    right:0;
+    width: 100%;
+    height: 100%;
+    z-index: 888889;
+}
+
+#handle-dialog-modal {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 300px;
+    overflow: hidden;
+    display: none;
+    z-index: 888899;
+}
+
+#handle-dialog-modal .handle-dialog-modal-content {
+    background: #ffffff;
+    height: 150px;
+}
+
+#handle-dialog-modal .handle-dialog-modal-content p {
+    padding: 40px 0px 0px 60px;
+}
+
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     min-width:1000px;

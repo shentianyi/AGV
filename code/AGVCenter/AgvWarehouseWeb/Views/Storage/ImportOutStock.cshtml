@@ -1,0 +1,25 @@
+@{
+    ViewBag.Title = "ImportOutStock";
+}
+
+<div id="dialog_content" class="import_content">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        Import File to Out Stock
+    </div>
+    <div class="dialogModal_content">
+        <strong>Choose file:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/Storage/DoImportOutStock" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <!--<a href="~/Template/考勤记录导入文件模板.xlsx" target="_blank">下载文件模板</a>-->
+    </div>
+    @*<div class="dialogModal_footer">
+            <button type="submit" class="btn btn-primary ff" style="width:200px;"  >OK</button>
+        </div>*@
+</div>
+
+
+<script type="text/javascript">
+    data_upload(".item-data-uploader");
+</script>
