@@ -104,7 +104,7 @@ namespace AGVCenterLib.Service
         public void LockUnlockPosotion(string positionNr)
         {
             Position p = new PositionRepository(this.Context).FindByNr(positionNr);
-            p.isLocked =! p.isLocked;
+            p.IsLocked = ! p.IsLocked;
             this.Context.SaveAll();
         }
     }

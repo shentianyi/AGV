@@ -16,11 +16,25 @@ namespace AGVCenterLib.Data
                 UniqueItemState.OutStocked
             };
 
+        public static List<UniqueItemState>
+            CanMoveStockStates = new List<UniqueItemState>()
+            {
+                UniqueItemState.InStocked
+            };
+
         public bool IsCanInStockState
         {
             get
             {
              return CanInStockStates.Contains((UniqueItemState)this.State);
+            }
+        }
+
+        public bool IsCanMoveStockState
+        {
+            get
+            {
+                return CanMoveStockStates.Contains((UniqueItemState)this.State);
             }
         }
 

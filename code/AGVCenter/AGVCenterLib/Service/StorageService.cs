@@ -29,9 +29,9 @@ namespace AGVCenterLib.Service
         /// 入库
         /// </summary>
         /// <param name="positionNr">库位号</param>
-        /// <param name="barCode">产品标签码</param>
+        /// <param name="uniqItemNr">产品标签码</param>
         /// <returns></returns>
-        public ResultMessage InStockByCheckCode(string positionNr, string barCode)
+        public ResultMessage InStockByUniqItemNr(string positionNr, string uniqItemNr)
         {
             ResultMessage message = new ResultMessage();
             IPositionRepository posiRep = new PositionRepository(this.Context);
@@ -44,10 +44,10 @@ namespace AGVCenterLib.Service
 
             IUniqueItemRepository itemRep = new UniqueItemRepository(this.Context);
             //  UniqueItem item = itemRep.FindByCheckCode(barCode);
-            UniqueItem item = itemRep.FindByNr(barCode);
+            UniqueItem item = itemRep.FindByNr(uniqItemNr);
             if (item == null)
             {
-                message.Content = string.Format("产品{0}不存在", barCode);
+                message.Content = string.Format("产品{0}不存在", uniqItemNr);
                 return message;
             }
             message = this.InStock(posi, item);
@@ -123,18 +123,18 @@ namespace AGVCenterLib.Service
         /// <summary>
         /// 根据产品标签码出库
         /// </summary>
-        /// <param name="barcode">产品标签码</param>
+        /// <param name="uniqItemNr">产品标签码</param>
         /// <returns></returns>
-        public ResultMessage OutStockByBarCode(string barcode)
+        public ResultMessage OutStockByUniqItemNr(string uniqItemNr)
         {
           //  return null;
             ResultMessage message = new ResultMessage();
             IUniqueItemRepository itemRep = new UniqueItemRepository(this.Context);
-            UniqueItem item = itemRep.FindByNr(barcode);
+            UniqueItem item = itemRep.FindByNr(uniqItemNr);
 
             if (item == null)
             {
-                message.Content = string.Format("产品{0}不存在", barcode);
+                message.Content = string.Format("产品{0}不存在", uniqItemNr);
                 return message;
             }
 
@@ -142,7 +142,7 @@ namespace AGVCenterLib.Service
             Storage storage = storageRep.FindByUniqNr(item.Nr);
             if (storage == null)
             {
-                message.Content = string.Format("产品{0}未入库，不可出库", barcode);
+                message.Content = string.Format("产品{0}未入库，不可出库", uniqItemNr);
                 return message;
             }
 
@@ -198,7 +198,7 @@ namespace AGVCenterLib.Service
 
                 item.State = (int)UniqueItemState.OutStocked;
                 item.UpdatedAt = DateTime.Now;
-                position.isLocked = false;
+                position.IsLocked = false;
 
                 #region 
                 StockMovement movement = new StockMovement()
@@ -226,6 +226,98 @@ namespace AGVCenterLib.Service
                 message.MessageType = MessageType.Exception;
             }
             return message;
+        }
+
+        public ResultMessage MoveStockByUniqItemNr(string uniqItemNr, string toPositionNr)
+        {
+            ResultMessage message = new ResultMessage();
+            IUniqueItemRepository itemRep = new UniqueItemRepository(this.Context);
+            UniqueItem item = itemRep.FindByNr(uniqItemNr);
+
+            if (item == null )
+            {
+                message.Content = string.Format("产品{0}不存在", uniqItemNr);
+                return message;
+            }
+
+            if (!item.IsCanMoveStockState)
+            {
+                message.Content = string.Format("产品{0}当前状态为:{1}, 不可移库", uniqItemNr, item.StateStr);
+                return message;
+            }
+
+            IStorageRepository storageRep = new StorageRepository(this.Context);
+            Storage storage = storageRep.FindByUniqNr(item.Nr);
+            if (storage == null)
+            {
+                message.Content = string.Format("产品{0}未入库，不可移库", uniqItemNr);
+                return message;
+            }
+
+            IPositionRepository posiRep = new PositionRepository(this.Context);
+            Position posi = posiRep.FindByNr(toPositionNr);
+            if (posi == null)
+            {
+                message.Content = string.Format("库位{0}不存在", toPositionNr);
+                return message;
+            }
+
+           
+            Storage targetStorage = storageRep.FindByPositionNr(toPositionNr);
+            if (targetStorage != null)
+            {
+                message.Content = string.Format("库位{0}已使用，不可入库！", posi.Nr);
+                return message;
+            }
+
+            message = this.MoveStock(storage, posi);
+
+            return message;
+        }
+
+        public ResultMessage MoveStock(Storage  storage, Position toPosition)
+        {
+            ResultMessage message = new ResultMessage();
+            try
+            {
+                IStorageRepository storageRep = new StorageRepository(this.Context);
+                IStockMovementRepository smRep = new StockMovementRepository(this.Context);
+
+                UniqueItem item = storage.UniqueItem;
+                Position fromPosition = new PositionRepository(this.Context).FindByNr(storage.PositionNr); //storage.Position;
+                
+                item.UpdatedAt = DateTime.Now;
+
+                fromPosition.IsLocked = false;
+                toPosition.IsLocked = true;
+                storage.PositionNr = toPosition.Nr;
+
+                #region 
+                StockMovement movement = new StockMovement()
+                {
+                    UniqItemNr = item.Nr,
+                    SourcePosition = fromPosition.Nr,
+                    AimedPosition= toPosition.Nr,
+                    Type = (int)StockMovementType.Move,
+                    Time = DateTime.Now,
+                    CreatedAt = DateTime.Now
+                };
+                #endregion
+                
+                smRep.Create(movement);
+
+                this.Context.SaveAll();
+                message.Success = true;
+                message.MessageType = MessageType.OK;
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+                message.Content = ex.Message;
+                message.MessageType = MessageType.Exception;
+            }
+            return message;
+
         }
 
         /// <summary>

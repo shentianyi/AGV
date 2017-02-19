@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AgvWarehouseDb" Class="AgvWarehouseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa" SettingsObjectName="AGVCenterLib.Properties.Settings" SettingsPropertyName="AgvWarehouseDbConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=CHARLOT-PC\MSSQLSERVER2008R;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa" SettingsObjectName="AGVCenterLib.Properties.Settings" SettingsPropertyName="AgvWarehouseDbConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BoxType" Member="BoxType">
     <Type Name="BoxType">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -57,6 +57,7 @@
       <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="AgvId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Warehouse_Position" Member="Position" ThisKey="Nr" OtherKey="WarehouseNr" Type="Position" />
+      <Association Name="Warehouse_WarehouseArea" Member="WarehouseArea" ThisKey="Nr" OtherKey="WarehouseNr" Type="WarehouseArea" />
     </Type>
   </Table>
   <Table Name="dbo.Storage" Member="Storage">
@@ -191,24 +192,6 @@
       <Column Name="TrayItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PositionStorageView" Member="PositionStorageView">
-    <Type Name="PositionStorageView">
-      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="WarehouseNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Floor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="[Column]" Member="Column" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="isLocked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="StorageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoragePositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="StoragePartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="StorageFIFO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="StorageUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="StorageCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Part" Member="Part">
     <Type Name="Part">
       <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -252,42 +235,6 @@
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="PickList_PickListItem" Member="PickListItem" ThisKey="Nr" OtherKey="PickListNr" Type="PickListItem" />
-    </Type>
-  </Table>
-  <Table Name="dbo.PickListStorageView" Member="PickListStorageView">
-    <Type Name="PickListStorageView">
-      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="PickListItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="PickListItemPickListNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="PickListItemUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="PickListItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="PickListItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UniqueItemNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="UniqueItemBoxTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UniqueItemPartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemKNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemKNrWithYear" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemCheckCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemKskNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemQR" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UniqueItemState" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UniqueItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UniqueItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="StorageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoragePositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="StoragePartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="StorageFIFO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="StorageUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="StorageCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="StorageUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="PositionWarehouseNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="PositionFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PositionColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PositionRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PositionState" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PositionRoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.StockTaskLog" Member="StockTaskLog">
@@ -367,6 +314,54 @@
       <Column Name="StorageUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Position" Member="Position">
+    <Type Name="Position">
+      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WarehouseNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Floor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Column]" Member="Column" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsLocked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="InStorePriority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WarehouseAreaNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Position_Storage" Member="Storage" ThisKey="Nr" OtherKey="PositionNr" Type="Storage" />
+      <Association Name="Warehouse_Position" Member="Warehouse" ThisKey="WarehouseNr" OtherKey="Nr" Type="Warehouse" IsForeignKey="true" />
+      <Association Name="WarehouseArea_Position" Member="WarehouseArea" ThisKey="WarehouseAreaNr" OtherKey="Nr" Type="WarehouseArea" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WarehouseArea" Member="WarehouseArea">
+    <Type Name="WarehouseArea">
+      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IsLocked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="InStorePriority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WarehouseNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="WarehouseArea_Position" Member="Position" ThisKey="Nr" OtherKey="WarehouseAreaNr" Type="Position" />
+      <Association Name="Warehouse_WarehouseArea" Member="Warehouse" ThisKey="WarehouseNr" OtherKey="Nr" Type="Warehouse" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PositionStorageView" Member="PositionStorageView">
+    <Type Name="PositionStorageView">
+      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="WarehouseNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Floor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Column]" Member="Column" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsLocked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="WarehouseAreaNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StorageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoragePositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StoragePartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StorageFIFO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StorageUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StorageCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.StorageUniqueItemView" Member="StorageUniqueItemView">
     <Type Name="StorageUniqueItemView">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -394,21 +389,44 @@
       <Column Name="PositionColumn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PositionFloor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="PositionWarehouseNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PositionWarehouseAreaNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Position" Member="Position">
-    <Type Name="Position">
-      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="WarehouseNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Floor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="[Column]" Member="Column" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Row" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="isLocked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="InStorePriority" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Position_Storage" Member="Storage" ThisKey="Nr" OtherKey="PositionNr" Type="Storage" />
-      <Association Name="Warehouse_Position" Member="Warehouse" ThisKey="WarehouseNr" OtherKey="Nr" Type="Warehouse" IsForeignKey="true" />
+  <Table Name="dbo.PickListStorageView" Member="PickListStorageView">
+    <Type Name="PickListStorageView">
+      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PickListItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PickListItemPickListNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PickListItemUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PickListItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PickListItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UniqueItemNr" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UniqueItemBoxTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UniqueItemPartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemKNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemKNrWithYear" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemCheckCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemKskNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemQR" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UniqueItemState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UniqueItemCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UniqueItemUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StorageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoragePositionNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StoragePartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StorageFIFO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StorageUniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StorageCreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StorageUpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PositionWarehouseNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PositionFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionState" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionRoadMachineIndex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionWarehouseAreaNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

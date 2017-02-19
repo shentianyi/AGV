@@ -81,11 +81,13 @@ namespace AGVCenterLib.Service
                     && t.State.HasValue
                     && t.State.Value == (int)StockTaskState.ManOutStocked)
                 {
-                    new StorageService(this.Context).OutStockByBarCode(t.BarCode);
+                  var msg= new StorageService(this.Context).OutStockByUniqItemNr(t.BarCode);
+                    LogUtil.Logger.Info(msg.Content);
                 }
                 else if (t.Type.Value == (int)StockTaskType.IN && t.State.HasValue && t.State.Value == (int)StockTaskState.ManInStocked)
                 {
-                    new StorageService(this.Context).InStockByCheckCode(taskStock.PositionNr, t.BarCode);
+                   var msg= new StorageService(this.Context).InStockByUniqItemNr(taskStock.PositionNr, t.BarCode);
+                    LogUtil.Logger.Info(msg.Content);
                 }
                 this.Context.SaveAll();
 

@@ -60,7 +60,7 @@ namespace AGVCenterLib.Data.Repository.Implement
             PositionStorageView ps = this.context.PositionStorageView
               .Where(s => (!exceptsNrs.Contains(s.Nr))
               && s.RoadMachineIndex == roadMachineIndex
-              && (s.StorageId == null && s.isLocked == false))
+              && (s.StorageId == null && s.IsLocked == false))
               .OrderBy(s => s.Floor)
               .ThenByDescending(s => s.Column)
               .ThenBy(s => s.Row)
@@ -74,7 +74,7 @@ namespace AGVCenterLib.Data.Repository.Implement
                     Position p = this.context.Position.FirstOrDefault(s => s.Nr == ps.Nr);
                     if (p != null)
                     {
-                        p.isLocked = true;
+                        p.IsLocked = true;
                         this.context.SubmitChanges();
                     }
                 }
@@ -87,7 +87,7 @@ namespace AGVCenterLib.Data.Repository.Implement
                     RoadMachineIndex = ps.RoadMachineIndex,
                     State = ps.State,
                     WarehouseNr = ps.WarehouseNr,
-                    isLocked=ps.isLocked
+                    IsLocked = ps.IsLocked
                 };
             }
             else
@@ -112,7 +112,7 @@ namespace AGVCenterLib.Data.Repository.Implement
 
             if (searchModel.IsLocked.HasValue)
             {
-                q = q.Where(s => s.isLocked == searchModel.IsLocked);
+                q = q.Where(s => s.IsLocked == searchModel.IsLocked);
             }
 
             return q;

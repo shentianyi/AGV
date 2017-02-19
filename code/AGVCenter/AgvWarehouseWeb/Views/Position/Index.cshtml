@@ -121,7 +121,7 @@
             </td>
             <td>
                 @*@Html.DisplayFor(modelItem => item.isLocked)*@
-                @if (item.isLocked)
+                @if (item.IsLocked)
                 {
                     <a href="#" class="option-icon-danger" title="点击解锁" onclick="lock('@item.Nr')">
                         <i class="fa fa-lock"></i>

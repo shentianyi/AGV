@@ -62,11 +62,11 @@ namespace TestCon
 
             // var d = new DeliveryService(Settings.Default.db).SearchList(new AGVCenterLib.Model.SearchModel.DeliverySearchModel(), 50);
             // var d = new DeliveryService(Settings.Default.db).GetDeliveryStorageByNr("20161219134802");
-          var p=  new PingTest();
-            p.Test();
-
+            //var p=  new PingTest();
+            //  p.Test();
+            TestStorageService.TestMoveStock();
             Console.Read();
-            p.EndTest();
+       
         }
 
         public void C()

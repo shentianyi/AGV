@@ -165,7 +165,7 @@ namespace AgvWarehouseWeb.Controllers
                         foreach (var record in records)
                         {
                             StorageService ps = new StorageService(Settings.Default.db);
-                            var msg = ps.OutStockByBarCode(record.莱尼内部K号);
+                            var msg = ps.OutStockByUniqItemNr(record.莱尼内部K号);
                             record.Success = msg.Success;
                             record.Message = msg.Content;
                         }

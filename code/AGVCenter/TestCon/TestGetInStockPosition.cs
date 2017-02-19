@@ -27,7 +27,7 @@ namespace TestCon
                     if (doInStock)
                     {
                         StorageService ss = new StorageService(Settings.Default.db);
-                        var m = ss.InStockByCheckCode(p.Nr, i.ToString());
+                        var m = ss.InStockByUniqItemNr(p.Nr, i.ToString());
                         Console.WriteLine(m.Content);
                     }
                     Console.WriteLine(p.Nr);

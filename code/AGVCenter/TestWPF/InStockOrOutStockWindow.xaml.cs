@@ -29,7 +29,7 @@ namespace TestWPF
         private void inStockBtn_Click(object sender, RoutedEventArgs e)
         {
             StorageService ss = new StorageService(Settings.Default.db);
-            ResultMessage message = ss.InStockByCheckCode(positionNrTB.Text, checkCodeTB.Text);
+            ResultMessage message = ss.InStockByUniqItemNr(positionNrTB.Text, checkCodeTB.Text);
             if (message.Success)
             {
                 MessageBox.Show("In OK");
@@ -43,7 +43,7 @@ namespace TestWPF
         private void outStockBtn_Click(object sender, RoutedEventArgs e)
         {
             StorageService ss = new StorageService(Settings.Default.db);
-            ResultMessage message = ss.OutStockByBarCode(checkCodeTB.Text);
+            ResultMessage message = ss.OutStockByUniqItemNr(checkCodeTB.Text);
             if (message.Success)
             {
                 MessageBox.Show("Out OK");

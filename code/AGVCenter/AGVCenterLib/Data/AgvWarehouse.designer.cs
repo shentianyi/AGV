@@ -78,10 +78,13 @@ namespace AGVCenterLib.Data
     partial void InsertPosition(Position instance);
     partial void UpdatePosition(Position instance);
     partial void DeletePosition(Position instance);
+    partial void InsertWarehouseArea(WarehouseArea instance);
+    partial void UpdateWarehouseArea(WarehouseArea instance);
+    partial void DeleteWarehouseArea(WarehouseArea instance);
     #endregion
 		
 		public AgvWarehouseDataContext() : 
-				base(global::AGVCenterLib.Properties.Settings.Default.AgvWarehouseDbConnectionString, mappingSource)
+				base(global::AGVCenterLib.Properties.Settings.Default.AgvWarehouseDbConnectionString3, mappingSource)
 		{
 			OnCreated();
 		}
@@ -206,14 +209,6 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<PositionStorageView> PositionStorageView
-		{
-			get
-			{
-				return this.GetTable<PositionStorageView>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Part> Part
 		{
 			get
@@ -246,14 +241,6 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<PickListStorageView> PickListStorageView
-		{
-			get
-			{
-				return this.GetTable<PickListStorageView>();
-			}
-		}
-		
 		public System.Data.Linq.Table<StockTaskLog> StockTaskLog
 		{
 			get
@@ -278,6 +265,30 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
+		public System.Data.Linq.Table<Position> Position
+		{
+			get
+			{
+				return this.GetTable<Position>();
+			}
+		}
+		
+		public System.Data.Linq.Table<WarehouseArea> WarehouseArea
+		{
+			get
+			{
+				return this.GetTable<WarehouseArea>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PositionStorageView> PositionStorageView
+		{
+			get
+			{
+				return this.GetTable<PositionStorageView>();
+			}
+		}
+		
 		public System.Data.Linq.Table<StorageUniqueItemView> StorageUniqueItemView
 		{
 			get
@@ -286,11 +297,11 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<Position> Position
+		public System.Data.Linq.Table<PickListStorageView> PickListStorageView
 		{
 			get
 			{
-				return this.GetTable<Position>();
+				return this.GetTable<PickListStorageView>();
 			}
 		}
 	}
@@ -1353,6 +1364,8 @@ namespace AGVCenterLib.Data
 		
 		private EntitySet<Position> _Position;
 		
+		private EntitySet<WarehouseArea> _WarehouseArea;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1366,6 +1379,7 @@ namespace AGVCenterLib.Data
 		public Warehouse()
 		{
 			this._Position = new EntitySet<Position>(new Action<Position>(this.attach_Position), new Action<Position>(this.detach_Position));
+			this._WarehouseArea = new EntitySet<WarehouseArea>(new Action<WarehouseArea>(this.attach_WarehouseArea), new Action<WarehouseArea>(this.detach_WarehouseArea));
 			OnCreated();
 		}
 		
@@ -1422,6 +1436,19 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Warehouse_WarehouseArea", Storage="_WarehouseArea", ThisKey="Nr", OtherKey="WarehouseNr")]
+		public EntitySet<WarehouseArea> WarehouseArea
+		{
+			get
+			{
+				return this._WarehouseArea;
+			}
+			set
+			{
+				this._WarehouseArea.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1449,6 +1476,18 @@ namespace AGVCenterLib.Data
 		}
 		
 		private void detach_Position(Position entity)
+		{
+			this.SendPropertyChanging();
+			entity.Warehouse = null;
+		}
+		
+		private void attach_WarehouseArea(WarehouseArea entity)
+		{
+			this.SendPropertyChanging();
+			entity.Warehouse = this;
+		}
+		
+		private void detach_WarehouseArea(WarehouseArea entity)
 		{
 			this.SendPropertyChanging();
 			entity.Warehouse = null;
@@ -3758,267 +3797,6 @@ namespace AGVCenterLib.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PositionStorageView")]
-	public partial class PositionStorageView
-	{
-		
-		private string _Nr;
-		
-		private string _WarehouseNr;
-		
-		private int _Floor;
-		
-		private int _Column;
-		
-		private int _Row;
-		
-		private System.Nullable<int> _State;
-		
-		private System.Nullable<int> _RoadMachineIndex;
-		
-		private bool _isLocked;
-		
-		private System.Nullable<int> _StorageId;
-		
-		private string _StoragePositionNr;
-		
-		private string _StoragePartNr;
-		
-		private System.Nullable<System.DateTime> _StorageFIFO;
-		
-		private string _StorageUniqItemNr;
-		
-		private System.Nullable<System.DateTime> _StorageCreatedAt;
-		
-		public PositionStorageView()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nr
-		{
-			get
-			{
-				return this._Nr;
-			}
-			set
-			{
-				if ((this._Nr != value))
-				{
-					this._Nr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WarehouseNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string WarehouseNr
-		{
-			get
-			{
-				return this._WarehouseNr;
-			}
-			set
-			{
-				if ((this._WarehouseNr != value))
-				{
-					this._WarehouseNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Floor", DbType="Int NOT NULL")]
-		public int Floor
-		{
-			get
-			{
-				return this._Floor;
-			}
-			set
-			{
-				if ((this._Floor != value))
-				{
-					this._Floor = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Column]", Storage="_Column", DbType="Int NOT NULL")]
-		public int Column
-		{
-			get
-			{
-				return this._Column;
-			}
-			set
-			{
-				if ((this._Column != value))
-				{
-					this._Column = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Row", DbType="Int NOT NULL")]
-		public int Row
-		{
-			get
-			{
-				return this._Row;
-			}
-			set
-			{
-				if ((this._Row != value))
-				{
-					this._Row = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
-		public System.Nullable<int> State
-		{
-			get
-			{
-				return this._State;
-			}
-			set
-			{
-				if ((this._State != value))
-				{
-					this._State = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoadMachineIndex", DbType="Int")]
-		public System.Nullable<int> RoadMachineIndex
-		{
-			get
-			{
-				return this._RoadMachineIndex;
-			}
-			set
-			{
-				if ((this._RoadMachineIndex != value))
-				{
-					this._RoadMachineIndex = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isLocked", DbType="Bit NOT NULL")]
-		public bool isLocked
-		{
-			get
-			{
-				return this._isLocked;
-			}
-			set
-			{
-				if ((this._isLocked != value))
-				{
-					this._isLocked = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageId", DbType="Int")]
-		public System.Nullable<int> StorageId
-		{
-			get
-			{
-				return this._StorageId;
-			}
-			set
-			{
-				if ((this._StorageId != value))
-				{
-					this._StorageId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoragePositionNr", DbType="VarChar(50)")]
-		public string StoragePositionNr
-		{
-			get
-			{
-				return this._StoragePositionNr;
-			}
-			set
-			{
-				if ((this._StoragePositionNr != value))
-				{
-					this._StoragePositionNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoragePartNr", DbType="VarChar(50)")]
-		public string StoragePartNr
-		{
-			get
-			{
-				return this._StoragePartNr;
-			}
-			set
-			{
-				if ((this._StoragePartNr != value))
-				{
-					this._StoragePartNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageFIFO", DbType="DateTime")]
-		public System.Nullable<System.DateTime> StorageFIFO
-		{
-			get
-			{
-				return this._StorageFIFO;
-			}
-			set
-			{
-				if ((this._StorageFIFO != value))
-				{
-					this._StorageFIFO = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageUniqItemNr", DbType="VarChar(50)")]
-		public string StorageUniqItemNr
-		{
-			get
-			{
-				return this._StorageUniqItemNr;
-			}
-			set
-			{
-				if ((this._StorageUniqItemNr != value))
-				{
-					this._StorageUniqItemNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageCreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> StorageCreatedAt
-		{
-			get
-			{
-				return this._StorageCreatedAt;
-			}
-			set
-			{
-				if ((this._StorageCreatedAt != value))
-				{
-					this._StorageCreatedAt = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Part")]
 	public partial class Part : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -4914,591 +4692,6 @@ namespace AGVCenterLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.PickList = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PickListStorageView")]
-	public partial class PickListStorageView
-	{
-		
-		private string _Nr;
-		
-		private System.Nullable<System.DateTime> _CreatedAt;
-		
-		private System.Nullable<System.DateTime> _UpdatedAt;
-		
-		private int _PickListItemId;
-		
-		private string _PickListItemPickListNr;
-		
-		private string _PickListItemUniqItemNr;
-		
-		private System.Nullable<System.DateTime> _PickListItemCreatedAt;
-		
-		private System.Nullable<System.DateTime> _PickListItemUpdatedAt;
-		
-		private string _UniqueItemNr;
-		
-		private System.Nullable<int> _UniqueItemBoxTypeId;
-		
-		private string _UniqueItemPartNr;
-		
-		private string _UniqueItemKNr;
-		
-		private string _UniqueItemKNrWithYear;
-		
-		private string _UniqueItemCheckCode;
-		
-		private string _UniqueItemKskNr;
-		
-		private string _UniqueItemQR;
-		
-		private System.Nullable<int> _UniqueItemState;
-		
-		private System.Nullable<System.DateTime> _UniqueItemCreatedAt;
-		
-		private System.Nullable<System.DateTime> _UniqueItemUpdatedAt;
-		
-		private System.Nullable<int> _StorageId;
-		
-		private string _StoragePositionNr;
-		
-		private string _StoragePartNr;
-		
-		private System.Nullable<System.DateTime> _StorageFIFO;
-		
-		private string _StorageUniqItemNr;
-		
-		private System.Nullable<System.DateTime> _StorageCreatedAt;
-		
-		private System.Nullable<System.DateTime> _StorageUpdatedAt;
-		
-		private string _PositionWarehouseNr;
-		
-		private System.Nullable<int> _PositionFloor;
-		
-		private System.Nullable<int> _PositionColumn;
-		
-		private System.Nullable<int> _PositionRow;
-		
-		private System.Nullable<int> _PositionState;
-		
-		private System.Nullable<int> _PositionRoadMachineIndex;
-		
-		public PickListStorageView()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nr
-		{
-			get
-			{
-				return this._Nr;
-			}
-			set
-			{
-				if ((this._Nr != value))
-				{
-					this._Nr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedAt
-		{
-			get
-			{
-				return this._CreatedAt;
-			}
-			set
-			{
-				if ((this._CreatedAt != value))
-				{
-					this._CreatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdatedAt
-		{
-			get
-			{
-				return this._UpdatedAt;
-			}
-			set
-			{
-				if ((this._UpdatedAt != value))
-				{
-					this._UpdatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemId", DbType="Int NOT NULL")]
-		public int PickListItemId
-		{
-			get
-			{
-				return this._PickListItemId;
-			}
-			set
-			{
-				if ((this._PickListItemId != value))
-				{
-					this._PickListItemId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemPickListNr", DbType="VarChar(50)")]
-		public string PickListItemPickListNr
-		{
-			get
-			{
-				return this._PickListItemPickListNr;
-			}
-			set
-			{
-				if ((this._PickListItemPickListNr != value))
-				{
-					this._PickListItemPickListNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemUniqItemNr", DbType="VarChar(50)")]
-		public string PickListItemUniqItemNr
-		{
-			get
-			{
-				return this._PickListItemUniqItemNr;
-			}
-			set
-			{
-				if ((this._PickListItemUniqItemNr != value))
-				{
-					this._PickListItemUniqItemNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemCreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> PickListItemCreatedAt
-		{
-			get
-			{
-				return this._PickListItemCreatedAt;
-			}
-			set
-			{
-				if ((this._PickListItemCreatedAt != value))
-				{
-					this._PickListItemCreatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemUpdatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> PickListItemUpdatedAt
-		{
-			get
-			{
-				return this._PickListItemUpdatedAt;
-			}
-			set
-			{
-				if ((this._PickListItemUpdatedAt != value))
-				{
-					this._PickListItemUpdatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string UniqueItemNr
-		{
-			get
-			{
-				return this._UniqueItemNr;
-			}
-			set
-			{
-				if ((this._UniqueItemNr != value))
-				{
-					this._UniqueItemNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemBoxTypeId", DbType="Int")]
-		public System.Nullable<int> UniqueItemBoxTypeId
-		{
-			get
-			{
-				return this._UniqueItemBoxTypeId;
-			}
-			set
-			{
-				if ((this._UniqueItemBoxTypeId != value))
-				{
-					this._UniqueItemBoxTypeId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemPartNr", DbType="VarChar(50)")]
-		public string UniqueItemPartNr
-		{
-			get
-			{
-				return this._UniqueItemPartNr;
-			}
-			set
-			{
-				if ((this._UniqueItemPartNr != value))
-				{
-					this._UniqueItemPartNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKNr", DbType="VarChar(50)")]
-		public string UniqueItemKNr
-		{
-			get
-			{
-				return this._UniqueItemKNr;
-			}
-			set
-			{
-				if ((this._UniqueItemKNr != value))
-				{
-					this._UniqueItemKNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKNrWithYear", DbType="VarChar(50)")]
-		public string UniqueItemKNrWithYear
-		{
-			get
-			{
-				return this._UniqueItemKNrWithYear;
-			}
-			set
-			{
-				if ((this._UniqueItemKNrWithYear != value))
-				{
-					this._UniqueItemKNrWithYear = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemCheckCode", DbType="VarChar(50)")]
-		public string UniqueItemCheckCode
-		{
-			get
-			{
-				return this._UniqueItemCheckCode;
-			}
-			set
-			{
-				if ((this._UniqueItemCheckCode != value))
-				{
-					this._UniqueItemCheckCode = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKskNr", DbType="VarChar(50)")]
-		public string UniqueItemKskNr
-		{
-			get
-			{
-				return this._UniqueItemKskNr;
-			}
-			set
-			{
-				if ((this._UniqueItemKskNr != value))
-				{
-					this._UniqueItemKskNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemQR", DbType="VarChar(50)")]
-		public string UniqueItemQR
-		{
-			get
-			{
-				return this._UniqueItemQR;
-			}
-			set
-			{
-				if ((this._UniqueItemQR != value))
-				{
-					this._UniqueItemQR = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemState", DbType="Int")]
-		public System.Nullable<int> UniqueItemState
-		{
-			get
-			{
-				return this._UniqueItemState;
-			}
-			set
-			{
-				if ((this._UniqueItemState != value))
-				{
-					this._UniqueItemState = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemCreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UniqueItemCreatedAt
-		{
-			get
-			{
-				return this._UniqueItemCreatedAt;
-			}
-			set
-			{
-				if ((this._UniqueItemCreatedAt != value))
-				{
-					this._UniqueItemCreatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemUpdatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UniqueItemUpdatedAt
-		{
-			get
-			{
-				return this._UniqueItemUpdatedAt;
-			}
-			set
-			{
-				if ((this._UniqueItemUpdatedAt != value))
-				{
-					this._UniqueItemUpdatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageId", DbType="Int")]
-		public System.Nullable<int> StorageId
-		{
-			get
-			{
-				return this._StorageId;
-			}
-			set
-			{
-				if ((this._StorageId != value))
-				{
-					this._StorageId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoragePositionNr", DbType="VarChar(50)")]
-		public string StoragePositionNr
-		{
-			get
-			{
-				return this._StoragePositionNr;
-			}
-			set
-			{
-				if ((this._StoragePositionNr != value))
-				{
-					this._StoragePositionNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoragePartNr", DbType="VarChar(50)")]
-		public string StoragePartNr
-		{
-			get
-			{
-				return this._StoragePartNr;
-			}
-			set
-			{
-				if ((this._StoragePartNr != value))
-				{
-					this._StoragePartNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageFIFO", DbType="DateTime")]
-		public System.Nullable<System.DateTime> StorageFIFO
-		{
-			get
-			{
-				return this._StorageFIFO;
-			}
-			set
-			{
-				if ((this._StorageFIFO != value))
-				{
-					this._StorageFIFO = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageUniqItemNr", DbType="VarChar(50)")]
-		public string StorageUniqItemNr
-		{
-			get
-			{
-				return this._StorageUniqItemNr;
-			}
-			set
-			{
-				if ((this._StorageUniqItemNr != value))
-				{
-					this._StorageUniqItemNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageCreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> StorageCreatedAt
-		{
-			get
-			{
-				return this._StorageCreatedAt;
-			}
-			set
-			{
-				if ((this._StorageCreatedAt != value))
-				{
-					this._StorageCreatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageUpdatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> StorageUpdatedAt
-		{
-			get
-			{
-				return this._StorageUpdatedAt;
-			}
-			set
-			{
-				if ((this._StorageUpdatedAt != value))
-				{
-					this._StorageUpdatedAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionWarehouseNr", DbType="VarChar(50)")]
-		public string PositionWarehouseNr
-		{
-			get
-			{
-				return this._PositionWarehouseNr;
-			}
-			set
-			{
-				if ((this._PositionWarehouseNr != value))
-				{
-					this._PositionWarehouseNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionFloor", DbType="Int")]
-		public System.Nullable<int> PositionFloor
-		{
-			get
-			{
-				return this._PositionFloor;
-			}
-			set
-			{
-				if ((this._PositionFloor != value))
-				{
-					this._PositionFloor = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionColumn", DbType="Int")]
-		public System.Nullable<int> PositionColumn
-		{
-			get
-			{
-				return this._PositionColumn;
-			}
-			set
-			{
-				if ((this._PositionColumn != value))
-				{
-					this._PositionColumn = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRow", DbType="Int")]
-		public System.Nullable<int> PositionRow
-		{
-			get
-			{
-				return this._PositionRow;
-			}
-			set
-			{
-				if ((this._PositionRow != value))
-				{
-					this._PositionRow = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionState", DbType="Int")]
-		public System.Nullable<int> PositionState
-		{
-			get
-			{
-				return this._PositionState;
-			}
-			set
-			{
-				if ((this._PositionState != value))
-				{
-					this._PositionState = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRoadMachineIndex", DbType="Int")]
-		public System.Nullable<int> PositionRoadMachineIndex
-		{
-			get
-			{
-				return this._PositionRoadMachineIndex;
-			}
-			set
-			{
-				if ((this._PositionRoadMachineIndex != value))
-				{
-					this._PositionRoadMachineIndex = value;
-				}
-			}
 		}
 	}
 	
@@ -7009,6 +6202,924 @@ namespace AGVCenterLib.Data
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Position")]
+	public partial class Position : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Nr;
+		
+		private string _WarehouseNr;
+		
+		private int _Floor;
+		
+		private int _Column;
+		
+		private int _Row;
+		
+		private System.Nullable<int> _State;
+		
+		private System.Nullable<int> _RoadMachineIndex;
+		
+		private bool _IsLocked;
+		
+		private System.Nullable<int> _InStorePriority;
+		
+		private string _WarehouseAreaNr;
+		
+		private EntitySet<Storage> _Storage;
+		
+		private EntityRef<Warehouse> _Warehouse;
+		
+		private EntityRef<WarehouseArea> _WarehouseArea;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNrChanging(string value);
+    partial void OnNrChanged();
+    partial void OnWarehouseNrChanging(string value);
+    partial void OnWarehouseNrChanged();
+    partial void OnFloorChanging(int value);
+    partial void OnFloorChanged();
+    partial void OnColumnChanging(int value);
+    partial void OnColumnChanged();
+    partial void OnRowChanging(int value);
+    partial void OnRowChanged();
+    partial void OnStateChanging(System.Nullable<int> value);
+    partial void OnStateChanged();
+    partial void OnRoadMachineIndexChanging(System.Nullable<int> value);
+    partial void OnRoadMachineIndexChanged();
+    partial void OnIsLockedChanging(bool value);
+    partial void OnIsLockedChanged();
+    partial void OnInStorePriorityChanging(System.Nullable<int> value);
+    partial void OnInStorePriorityChanged();
+    partial void OnWarehouseAreaNrChanging(string value);
+    partial void OnWarehouseAreaNrChanged();
+    #endregion
+		
+		public Position()
+		{
+			this._Storage = new EntitySet<Storage>(new Action<Storage>(this.attach_Storage), new Action<Storage>(this.detach_Storage));
+			this._Warehouse = default(EntityRef<Warehouse>);
+			this._WarehouseArea = default(EntityRef<WarehouseArea>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Nr
+		{
+			get
+			{
+				return this._Nr;
+			}
+			set
+			{
+				if ((this._Nr != value))
+				{
+					this.OnNrChanging(value);
+					this.SendPropertyChanging();
+					this._Nr = value;
+					this.SendPropertyChanged("Nr");
+					this.OnNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WarehouseNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string WarehouseNr
+		{
+			get
+			{
+				return this._WarehouseNr;
+			}
+			set
+			{
+				if ((this._WarehouseNr != value))
+				{
+					if (this._Warehouse.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnWarehouseNrChanging(value);
+					this.SendPropertyChanging();
+					this._WarehouseNr = value;
+					this.SendPropertyChanged("WarehouseNr");
+					this.OnWarehouseNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Floor", DbType="Int NOT NULL")]
+		public int Floor
+		{
+			get
+			{
+				return this._Floor;
+			}
+			set
+			{
+				if ((this._Floor != value))
+				{
+					this.OnFloorChanging(value);
+					this.SendPropertyChanging();
+					this._Floor = value;
+					this.SendPropertyChanged("Floor");
+					this.OnFloorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Column]", Storage="_Column", DbType="Int NOT NULL")]
+		public int Column
+		{
+			get
+			{
+				return this._Column;
+			}
+			set
+			{
+				if ((this._Column != value))
+				{
+					this.OnColumnChanging(value);
+					this.SendPropertyChanging();
+					this._Column = value;
+					this.SendPropertyChanged("Column");
+					this.OnColumnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Row", DbType="Int NOT NULL")]
+		public int Row
+		{
+			get
+			{
+				return this._Row;
+			}
+			set
+			{
+				if ((this._Row != value))
+				{
+					this.OnRowChanging(value);
+					this.SendPropertyChanging();
+					this._Row = value;
+					this.SendPropertyChanged("Row");
+					this.OnRowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
+		public System.Nullable<int> State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this.OnStateChanging(value);
+					this.SendPropertyChanging();
+					this._State = value;
+					this.SendPropertyChanged("State");
+					this.OnStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoadMachineIndex", DbType="Int")]
+		public System.Nullable<int> RoadMachineIndex
+		{
+			get
+			{
+				return this._RoadMachineIndex;
+			}
+			set
+			{
+				if ((this._RoadMachineIndex != value))
+				{
+					this.OnRoadMachineIndexChanging(value);
+					this.SendPropertyChanging();
+					this._RoadMachineIndex = value;
+					this.SendPropertyChanged("RoadMachineIndex");
+					this.OnRoadMachineIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsLocked", DbType="Bit NOT NULL")]
+		public bool IsLocked
+		{
+			get
+			{
+				return this._IsLocked;
+			}
+			set
+			{
+				if ((this._IsLocked != value))
+				{
+					this.OnIsLockedChanging(value);
+					this.SendPropertyChanging();
+					this._IsLocked = value;
+					this.SendPropertyChanged("IsLocked");
+					this.OnIsLockedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InStorePriority", DbType="Int")]
+		public System.Nullable<int> InStorePriority
+		{
+			get
+			{
+				return this._InStorePriority;
+			}
+			set
+			{
+				if ((this._InStorePriority != value))
+				{
+					this.OnInStorePriorityChanging(value);
+					this.SendPropertyChanging();
+					this._InStorePriority = value;
+					this.SendPropertyChanged("InStorePriority");
+					this.OnInStorePriorityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WarehouseAreaNr", DbType="VarChar(50)")]
+		public string WarehouseAreaNr
+		{
+			get
+			{
+				return this._WarehouseAreaNr;
+			}
+			set
+			{
+				if ((this._WarehouseAreaNr != value))
+				{
+					if (this._WarehouseArea.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnWarehouseAreaNrChanging(value);
+					this.SendPropertyChanging();
+					this._WarehouseAreaNr = value;
+					this.SendPropertyChanged("WarehouseAreaNr");
+					this.OnWarehouseAreaNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Position_Storage", Storage="_Storage", ThisKey="Nr", OtherKey="PositionNr")]
+		public EntitySet<Storage> Storage
+		{
+			get
+			{
+				return this._Storage;
+			}
+			set
+			{
+				this._Storage.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Warehouse_Position", Storage="_Warehouse", ThisKey="WarehouseNr", OtherKey="Nr", IsForeignKey=true)]
+		public Warehouse Warehouse
+		{
+			get
+			{
+				return this._Warehouse.Entity;
+			}
+			set
+			{
+				Warehouse previousValue = this._Warehouse.Entity;
+				if (((previousValue != value) 
+							|| (this._Warehouse.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Warehouse.Entity = null;
+						previousValue.Position.Remove(this);
+					}
+					this._Warehouse.Entity = value;
+					if ((value != null))
+					{
+						value.Position.Add(this);
+						this._WarehouseNr = value.Nr;
+					}
+					else
+					{
+						this._WarehouseNr = default(string);
+					}
+					this.SendPropertyChanged("Warehouse");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WarehouseArea_Position", Storage="_WarehouseArea", ThisKey="WarehouseAreaNr", OtherKey="Nr", IsForeignKey=true)]
+		public WarehouseArea WarehouseArea
+		{
+			get
+			{
+				return this._WarehouseArea.Entity;
+			}
+			set
+			{
+				WarehouseArea previousValue = this._WarehouseArea.Entity;
+				if (((previousValue != value) 
+							|| (this._WarehouseArea.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._WarehouseArea.Entity = null;
+						previousValue.Position.Remove(this);
+					}
+					this._WarehouseArea.Entity = value;
+					if ((value != null))
+					{
+						value.Position.Add(this);
+						this._WarehouseAreaNr = value.Nr;
+					}
+					else
+					{
+						this._WarehouseAreaNr = default(string);
+					}
+					this.SendPropertyChanged("WarehouseArea");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Storage(Storage entity)
+		{
+			this.SendPropertyChanging();
+			entity.Position = this;
+		}
+		
+		private void detach_Storage(Storage entity)
+		{
+			this.SendPropertyChanging();
+			entity.Position = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.WarehouseArea")]
+	public partial class WarehouseArea : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Nr;
+		
+		private bool _IsLocked;
+		
+		private string _Remark;
+		
+		private string _Color;
+		
+		private int _InStorePriority;
+		
+		private string _WarehouseNr;
+		
+		private EntitySet<Position> _Position;
+		
+		private EntityRef<Warehouse> _Warehouse;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNrChanging(string value);
+    partial void OnNrChanged();
+    partial void OnIsLockedChanging(bool value);
+    partial void OnIsLockedChanged();
+    partial void OnRemarkChanging(string value);
+    partial void OnRemarkChanged();
+    partial void OnColorChanging(string value);
+    partial void OnColorChanged();
+    partial void OnInStorePriorityChanging(int value);
+    partial void OnInStorePriorityChanged();
+    partial void OnWarehouseNrChanging(string value);
+    partial void OnWarehouseNrChanged();
+    #endregion
+		
+		public WarehouseArea()
+		{
+			this._Position = new EntitySet<Position>(new Action<Position>(this.attach_Position), new Action<Position>(this.detach_Position));
+			this._Warehouse = default(EntityRef<Warehouse>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Nr
+		{
+			get
+			{
+				return this._Nr;
+			}
+			set
+			{
+				if ((this._Nr != value))
+				{
+					this.OnNrChanging(value);
+					this.SendPropertyChanging();
+					this._Nr = value;
+					this.SendPropertyChanged("Nr");
+					this.OnNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsLocked", DbType="Bit NOT NULL")]
+		public bool IsLocked
+		{
+			get
+			{
+				return this._IsLocked;
+			}
+			set
+			{
+				if ((this._IsLocked != value))
+				{
+					this.OnIsLockedChanging(value);
+					this.SendPropertyChanging();
+					this._IsLocked = value;
+					this.SendPropertyChanged("IsLocked");
+					this.OnIsLockedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Remark", DbType="VarChar(50)")]
+		public string Remark
+		{
+			get
+			{
+				return this._Remark;
+			}
+			set
+			{
+				if ((this._Remark != value))
+				{
+					this.OnRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._Remark = value;
+					this.SendPropertyChanged("Remark");
+					this.OnRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="VarChar(50)")]
+		public string Color
+		{
+			get
+			{
+				return this._Color;
+			}
+			set
+			{
+				if ((this._Color != value))
+				{
+					this.OnColorChanging(value);
+					this.SendPropertyChanging();
+					this._Color = value;
+					this.SendPropertyChanged("Color");
+					this.OnColorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InStorePriority", DbType="Int NOT NULL")]
+		public int InStorePriority
+		{
+			get
+			{
+				return this._InStorePriority;
+			}
+			set
+			{
+				if ((this._InStorePriority != value))
+				{
+					this.OnInStorePriorityChanging(value);
+					this.SendPropertyChanging();
+					this._InStorePriority = value;
+					this.SendPropertyChanged("InStorePriority");
+					this.OnInStorePriorityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WarehouseNr", DbType="VarChar(50)")]
+		public string WarehouseNr
+		{
+			get
+			{
+				return this._WarehouseNr;
+			}
+			set
+			{
+				if ((this._WarehouseNr != value))
+				{
+					if (this._Warehouse.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnWarehouseNrChanging(value);
+					this.SendPropertyChanging();
+					this._WarehouseNr = value;
+					this.SendPropertyChanged("WarehouseNr");
+					this.OnWarehouseNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WarehouseArea_Position", Storage="_Position", ThisKey="Nr", OtherKey="WarehouseAreaNr")]
+		public EntitySet<Position> Position
+		{
+			get
+			{
+				return this._Position;
+			}
+			set
+			{
+				this._Position.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Warehouse_WarehouseArea", Storage="_Warehouse", ThisKey="WarehouseNr", OtherKey="Nr", IsForeignKey=true)]
+		public Warehouse Warehouse
+		{
+			get
+			{
+				return this._Warehouse.Entity;
+			}
+			set
+			{
+				Warehouse previousValue = this._Warehouse.Entity;
+				if (((previousValue != value) 
+							|| (this._Warehouse.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Warehouse.Entity = null;
+						previousValue.WarehouseArea.Remove(this);
+					}
+					this._Warehouse.Entity = value;
+					if ((value != null))
+					{
+						value.WarehouseArea.Add(this);
+						this._WarehouseNr = value.Nr;
+					}
+					else
+					{
+						this._WarehouseNr = default(string);
+					}
+					this.SendPropertyChanged("Warehouse");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Position(Position entity)
+		{
+			this.SendPropertyChanging();
+			entity.WarehouseArea = this;
+		}
+		
+		private void detach_Position(Position entity)
+		{
+			this.SendPropertyChanging();
+			entity.WarehouseArea = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PositionStorageView")]
+	public partial class PositionStorageView
+	{
+		
+		private string _Nr;
+		
+		private string _WarehouseNr;
+		
+		private int _Floor;
+		
+		private int _Column;
+		
+		private int _Row;
+		
+		private System.Nullable<int> _State;
+		
+		private System.Nullable<int> _RoadMachineIndex;
+		
+		private bool _IsLocked;
+		
+		private string _WarehouseAreaNr;
+		
+		private System.Nullable<int> _StorageId;
+		
+		private string _StoragePositionNr;
+		
+		private string _StoragePartNr;
+		
+		private System.Nullable<System.DateTime> _StorageFIFO;
+		
+		private string _StorageUniqItemNr;
+		
+		private System.Nullable<System.DateTime> _StorageCreatedAt;
+		
+		public PositionStorageView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nr
+		{
+			get
+			{
+				return this._Nr;
+			}
+			set
+			{
+				if ((this._Nr != value))
+				{
+					this._Nr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WarehouseNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string WarehouseNr
+		{
+			get
+			{
+				return this._WarehouseNr;
+			}
+			set
+			{
+				if ((this._WarehouseNr != value))
+				{
+					this._WarehouseNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Floor", DbType="Int NOT NULL")]
+		public int Floor
+		{
+			get
+			{
+				return this._Floor;
+			}
+			set
+			{
+				if ((this._Floor != value))
+				{
+					this._Floor = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Column]", Storage="_Column", DbType="Int NOT NULL")]
+		public int Column
+		{
+			get
+			{
+				return this._Column;
+			}
+			set
+			{
+				if ((this._Column != value))
+				{
+					this._Column = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Row", DbType="Int NOT NULL")]
+		public int Row
+		{
+			get
+			{
+				return this._Row;
+			}
+			set
+			{
+				if ((this._Row != value))
+				{
+					this._Row = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
+		public System.Nullable<int> State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this._State = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoadMachineIndex", DbType="Int")]
+		public System.Nullable<int> RoadMachineIndex
+		{
+			get
+			{
+				return this._RoadMachineIndex;
+			}
+			set
+			{
+				if ((this._RoadMachineIndex != value))
+				{
+					this._RoadMachineIndex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsLocked", DbType="Bit NOT NULL")]
+		public bool IsLocked
+		{
+			get
+			{
+				return this._IsLocked;
+			}
+			set
+			{
+				if ((this._IsLocked != value))
+				{
+					this._IsLocked = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WarehouseAreaNr", DbType="VarChar(50)")]
+		public string WarehouseAreaNr
+		{
+			get
+			{
+				return this._WarehouseAreaNr;
+			}
+			set
+			{
+				if ((this._WarehouseAreaNr != value))
+				{
+					this._WarehouseAreaNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageId", DbType="Int")]
+		public System.Nullable<int> StorageId
+		{
+			get
+			{
+				return this._StorageId;
+			}
+			set
+			{
+				if ((this._StorageId != value))
+				{
+					this._StorageId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoragePositionNr", DbType="VarChar(50)")]
+		public string StoragePositionNr
+		{
+			get
+			{
+				return this._StoragePositionNr;
+			}
+			set
+			{
+				if ((this._StoragePositionNr != value))
+				{
+					this._StoragePositionNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoragePartNr", DbType="VarChar(50)")]
+		public string StoragePartNr
+		{
+			get
+			{
+				return this._StoragePartNr;
+			}
+			set
+			{
+				if ((this._StoragePartNr != value))
+				{
+					this._StoragePartNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageFIFO", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StorageFIFO
+		{
+			get
+			{
+				return this._StorageFIFO;
+			}
+			set
+			{
+				if ((this._StorageFIFO != value))
+				{
+					this._StorageFIFO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageUniqItemNr", DbType="VarChar(50)")]
+		public string StorageUniqItemNr
+		{
+			get
+			{
+				return this._StorageUniqItemNr;
+			}
+			set
+			{
+				if ((this._StorageUniqItemNr != value))
+				{
+					this._StorageUniqItemNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageCreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StorageCreatedAt
+		{
+			get
+			{
+				return this._StorageCreatedAt;
+			}
+			set
+			{
+				if ((this._StorageCreatedAt != value))
+				{
+					this._StorageCreatedAt = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StorageUniqueItemView")]
 	public partial class StorageUniqueItemView
 	{
@@ -7062,6 +7173,8 @@ namespace AGVCenterLib.Data
 		private int _PositionFloor;
 		
 		private string _PositionWarehouseNr;
+		
+		private string _PositionWarehouseAreaNr;
 		
 		public StorageUniqueItemView()
 		{
@@ -7466,68 +7579,99 @@ namespace AGVCenterLib.Data
 				}
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionWarehouseAreaNr", DbType="VarChar(50)")]
+		public string PositionWarehouseAreaNr
+		{
+			get
+			{
+				return this._PositionWarehouseAreaNr;
+			}
+			set
+			{
+				if ((this._PositionWarehouseAreaNr != value))
+				{
+					this._PositionWarehouseAreaNr = value;
+				}
+			}
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Position")]
-	public partial class Position : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PickListStorageView")]
+	public partial class PickListStorageView
 	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private string _Nr;
 		
-		private string _WarehouseNr;
+		private System.Nullable<System.DateTime> _CreatedAt;
 		
-		private int _Floor;
+		private System.Nullable<System.DateTime> _UpdatedAt;
 		
-		private int _Column;
+		private int _PickListItemId;
 		
-		private int _Row;
+		private string _PickListItemPickListNr;
 		
-		private System.Nullable<int> _State;
+		private string _PickListItemUniqItemNr;
 		
-		private System.Nullable<int> _RoadMachineIndex;
+		private System.Nullable<System.DateTime> _PickListItemCreatedAt;
 		
-		private bool _isLocked;
+		private System.Nullable<System.DateTime> _PickListItemUpdatedAt;
 		
-		private System.Nullable<int> _InStorePriority;
+		private string _UniqueItemNr;
 		
-		private EntitySet<Storage> _Storage;
+		private System.Nullable<int> _UniqueItemBoxTypeId;
 		
-		private EntityRef<Warehouse> _Warehouse;
+		private string _UniqueItemPartNr;
 		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnNrChanging(string value);
-    partial void OnNrChanged();
-    partial void OnWarehouseNrChanging(string value);
-    partial void OnWarehouseNrChanged();
-    partial void OnFloorChanging(int value);
-    partial void OnFloorChanged();
-    partial void OnColumnChanging(int value);
-    partial void OnColumnChanged();
-    partial void OnRowChanging(int value);
-    partial void OnRowChanged();
-    partial void OnStateChanging(System.Nullable<int> value);
-    partial void OnStateChanged();
-    partial void OnRoadMachineIndexChanging(System.Nullable<int> value);
-    partial void OnRoadMachineIndexChanged();
-    partial void OnisLockedChanging(bool value);
-    partial void OnisLockedChanged();
-    partial void OnInStorePriorityChanging(System.Nullable<int> value);
-    partial void OnInStorePriorityChanged();
-    #endregion
+		private string _UniqueItemKNr;
 		
-		public Position()
+		private string _UniqueItemKNrWithYear;
+		
+		private string _UniqueItemCheckCode;
+		
+		private string _UniqueItemKskNr;
+		
+		private string _UniqueItemQR;
+		
+		private System.Nullable<int> _UniqueItemState;
+		
+		private System.Nullable<System.DateTime> _UniqueItemCreatedAt;
+		
+		private System.Nullable<System.DateTime> _UniqueItemUpdatedAt;
+		
+		private System.Nullable<int> _StorageId;
+		
+		private string _StoragePositionNr;
+		
+		private string _StoragePartNr;
+		
+		private System.Nullable<System.DateTime> _StorageFIFO;
+		
+		private string _StorageUniqItemNr;
+		
+		private System.Nullable<System.DateTime> _StorageCreatedAt;
+		
+		private System.Nullable<System.DateTime> _StorageUpdatedAt;
+		
+		private string _PositionWarehouseNr;
+		
+		private System.Nullable<int> _PositionFloor;
+		
+		private System.Nullable<int> _PositionColumn;
+		
+		private System.Nullable<int> _PositionRow;
+		
+		private System.Nullable<int> _PositionState;
+		
+		private System.Nullable<int> _PositionRoadMachineIndex;
+		
+		private string _PositionWarehouseAreaNr;
+		
+		public PickListStorageView()
 		{
-			this._Storage = new EntitySet<Storage>(new Action<Storage>(this.attach_Storage), new Action<Storage>(this.detach_Storage));
-			this._Warehouse = default(EntityRef<Warehouse>);
-			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string Nr
 		{
 			get
@@ -7538,256 +7682,521 @@ namespace AGVCenterLib.Data
 			{
 				if ((this._Nr != value))
 				{
-					this.OnNrChanging(value);
-					this.SendPropertyChanging();
 					this._Nr = value;
-					this.SendPropertyChanged("Nr");
-					this.OnNrChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WarehouseNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string WarehouseNr
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
 		{
 			get
 			{
-				return this._WarehouseNr;
+				return this._CreatedAt;
 			}
 			set
 			{
-				if ((this._WarehouseNr != value))
+				if ((this._CreatedAt != value))
 				{
-					if (this._Warehouse.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnWarehouseNrChanging(value);
-					this.SendPropertyChanging();
-					this._WarehouseNr = value;
-					this.SendPropertyChanged("WarehouseNr");
-					this.OnWarehouseNrChanged();
+					this._CreatedAt = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Floor", DbType="Int NOT NULL")]
-		public int Floor
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedAt
 		{
 			get
 			{
-				return this._Floor;
+				return this._UpdatedAt;
 			}
 			set
 			{
-				if ((this._Floor != value))
+				if ((this._UpdatedAt != value))
 				{
-					this.OnFloorChanging(value);
-					this.SendPropertyChanging();
-					this._Floor = value;
-					this.SendPropertyChanged("Floor");
-					this.OnFloorChanged();
+					this._UpdatedAt = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Column]", Storage="_Column", DbType="Int NOT NULL")]
-		public int Column
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemId", DbType="Int NOT NULL")]
+		public int PickListItemId
 		{
 			get
 			{
-				return this._Column;
+				return this._PickListItemId;
 			}
 			set
 			{
-				if ((this._Column != value))
+				if ((this._PickListItemId != value))
 				{
-					this.OnColumnChanging(value);
-					this.SendPropertyChanging();
-					this._Column = value;
-					this.SendPropertyChanged("Column");
-					this.OnColumnChanged();
+					this._PickListItemId = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Row", DbType="Int NOT NULL")]
-		public int Row
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemPickListNr", DbType="VarChar(50)")]
+		public string PickListItemPickListNr
 		{
 			get
 			{
-				return this._Row;
+				return this._PickListItemPickListNr;
 			}
 			set
 			{
-				if ((this._Row != value))
+				if ((this._PickListItemPickListNr != value))
 				{
-					this.OnRowChanging(value);
-					this.SendPropertyChanging();
-					this._Row = value;
-					this.SendPropertyChanged("Row");
-					this.OnRowChanged();
+					this._PickListItemPickListNr = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
-		public System.Nullable<int> State
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemUniqItemNr", DbType="VarChar(50)")]
+		public string PickListItemUniqItemNr
 		{
 			get
 			{
-				return this._State;
+				return this._PickListItemUniqItemNr;
 			}
 			set
 			{
-				if ((this._State != value))
+				if ((this._PickListItemUniqItemNr != value))
 				{
-					this.OnStateChanging(value);
-					this.SendPropertyChanging();
-					this._State = value;
-					this.SendPropertyChanged("State");
-					this.OnStateChanged();
+					this._PickListItemUniqItemNr = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoadMachineIndex", DbType="Int")]
-		public System.Nullable<int> RoadMachineIndex
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemCreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> PickListItemCreatedAt
 		{
 			get
 			{
-				return this._RoadMachineIndex;
+				return this._PickListItemCreatedAt;
 			}
 			set
 			{
-				if ((this._RoadMachineIndex != value))
+				if ((this._PickListItemCreatedAt != value))
 				{
-					this.OnRoadMachineIndexChanging(value);
-					this.SendPropertyChanging();
-					this._RoadMachineIndex = value;
-					this.SendPropertyChanged("RoadMachineIndex");
-					this.OnRoadMachineIndexChanged();
+					this._PickListItemCreatedAt = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isLocked", DbType="Bit NOT NULL")]
-		public bool isLocked
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PickListItemUpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> PickListItemUpdatedAt
 		{
 			get
 			{
-				return this._isLocked;
+				return this._PickListItemUpdatedAt;
 			}
 			set
 			{
-				if ((this._isLocked != value))
+				if ((this._PickListItemUpdatedAt != value))
 				{
-					this.OnisLockedChanging(value);
-					this.SendPropertyChanging();
-					this._isLocked = value;
-					this.SendPropertyChanged("isLocked");
-					this.OnisLockedChanged();
+					this._PickListItemUpdatedAt = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InStorePriority", DbType="Int")]
-		public System.Nullable<int> InStorePriority
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string UniqueItemNr
 		{
 			get
 			{
-				return this._InStorePriority;
+				return this._UniqueItemNr;
 			}
 			set
 			{
-				if ((this._InStorePriority != value))
+				if ((this._UniqueItemNr != value))
 				{
-					this.OnInStorePriorityChanging(value);
-					this.SendPropertyChanging();
-					this._InStorePriority = value;
-					this.SendPropertyChanged("InStorePriority");
-					this.OnInStorePriorityChanged();
+					this._UniqueItemNr = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Position_Storage", Storage="_Storage", ThisKey="Nr", OtherKey="PositionNr")]
-		public EntitySet<Storage> Storage
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemBoxTypeId", DbType="Int")]
+		public System.Nullable<int> UniqueItemBoxTypeId
 		{
 			get
 			{
-				return this._Storage;
+				return this._UniqueItemBoxTypeId;
 			}
 			set
 			{
-				this._Storage.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Warehouse_Position", Storage="_Warehouse", ThisKey="WarehouseNr", OtherKey="Nr", IsForeignKey=true)]
-		public Warehouse Warehouse
-		{
-			get
-			{
-				return this._Warehouse.Entity;
-			}
-			set
-			{
-				Warehouse previousValue = this._Warehouse.Entity;
-				if (((previousValue != value) 
-							|| (this._Warehouse.HasLoadedOrAssignedValue == false)))
+				if ((this._UniqueItemBoxTypeId != value))
 				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Warehouse.Entity = null;
-						previousValue.Position.Remove(this);
-					}
-					this._Warehouse.Entity = value;
-					if ((value != null))
-					{
-						value.Position.Add(this);
-						this._WarehouseNr = value.Nr;
-					}
-					else
-					{
-						this._WarehouseNr = default(string);
-					}
-					this.SendPropertyChanged("Warehouse");
+					this._UniqueItemBoxTypeId = value;
 				}
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemPartNr", DbType="VarChar(50)")]
+		public string UniqueItemPartNr
 		{
-			if ((this.PropertyChanging != null))
+			get
 			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
+				return this._UniqueItemPartNr;
+			}
+			set
+			{
+				if ((this._UniqueItemPartNr != value))
+				{
+					this._UniqueItemPartNr = value;
+				}
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(String propertyName)
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKNr", DbType="VarChar(50)")]
+		public string UniqueItemKNr
 		{
-			if ((this.PropertyChanged != null))
+			get
 			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this._UniqueItemKNr;
+			}
+			set
+			{
+				if ((this._UniqueItemKNr != value))
+				{
+					this._UniqueItemKNr = value;
+				}
 			}
 		}
 		
-		private void attach_Storage(Storage entity)
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKNrWithYear", DbType="VarChar(50)")]
+		public string UniqueItemKNrWithYear
 		{
-			this.SendPropertyChanging();
-			entity.Position = this;
+			get
+			{
+				return this._UniqueItemKNrWithYear;
+			}
+			set
+			{
+				if ((this._UniqueItemKNrWithYear != value))
+				{
+					this._UniqueItemKNrWithYear = value;
+				}
+			}
 		}
 		
-		private void detach_Storage(Storage entity)
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemCheckCode", DbType="VarChar(50)")]
+		public string UniqueItemCheckCode
 		{
-			this.SendPropertyChanging();
-			entity.Position = null;
+			get
+			{
+				return this._UniqueItemCheckCode;
+			}
+			set
+			{
+				if ((this._UniqueItemCheckCode != value))
+				{
+					this._UniqueItemCheckCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemKskNr", DbType="VarChar(50)")]
+		public string UniqueItemKskNr
+		{
+			get
+			{
+				return this._UniqueItemKskNr;
+			}
+			set
+			{
+				if ((this._UniqueItemKskNr != value))
+				{
+					this._UniqueItemKskNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemQR", DbType="VarChar(50)")]
+		public string UniqueItemQR
+		{
+			get
+			{
+				return this._UniqueItemQR;
+			}
+			set
+			{
+				if ((this._UniqueItemQR != value))
+				{
+					this._UniqueItemQR = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemState", DbType="Int")]
+		public System.Nullable<int> UniqueItemState
+		{
+			get
+			{
+				return this._UniqueItemState;
+			}
+			set
+			{
+				if ((this._UniqueItemState != value))
+				{
+					this._UniqueItemState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemCreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UniqueItemCreatedAt
+		{
+			get
+			{
+				return this._UniqueItemCreatedAt;
+			}
+			set
+			{
+				if ((this._UniqueItemCreatedAt != value))
+				{
+					this._UniqueItemCreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UniqueItemUpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UniqueItemUpdatedAt
+		{
+			get
+			{
+				return this._UniqueItemUpdatedAt;
+			}
+			set
+			{
+				if ((this._UniqueItemUpdatedAt != value))
+				{
+					this._UniqueItemUpdatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageId", DbType="Int")]
+		public System.Nullable<int> StorageId
+		{
+			get
+			{
+				return this._StorageId;
+			}
+			set
+			{
+				if ((this._StorageId != value))
+				{
+					this._StorageId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoragePositionNr", DbType="VarChar(50)")]
+		public string StoragePositionNr
+		{
+			get
+			{
+				return this._StoragePositionNr;
+			}
+			set
+			{
+				if ((this._StoragePositionNr != value))
+				{
+					this._StoragePositionNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoragePartNr", DbType="VarChar(50)")]
+		public string StoragePartNr
+		{
+			get
+			{
+				return this._StoragePartNr;
+			}
+			set
+			{
+				if ((this._StoragePartNr != value))
+				{
+					this._StoragePartNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageFIFO", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StorageFIFO
+		{
+			get
+			{
+				return this._StorageFIFO;
+			}
+			set
+			{
+				if ((this._StorageFIFO != value))
+				{
+					this._StorageFIFO = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageUniqItemNr", DbType="VarChar(50)")]
+		public string StorageUniqItemNr
+		{
+			get
+			{
+				return this._StorageUniqItemNr;
+			}
+			set
+			{
+				if ((this._StorageUniqItemNr != value))
+				{
+					this._StorageUniqItemNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageCreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StorageCreatedAt
+		{
+			get
+			{
+				return this._StorageCreatedAt;
+			}
+			set
+			{
+				if ((this._StorageCreatedAt != value))
+				{
+					this._StorageCreatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StorageUpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StorageUpdatedAt
+		{
+			get
+			{
+				return this._StorageUpdatedAt;
+			}
+			set
+			{
+				if ((this._StorageUpdatedAt != value))
+				{
+					this._StorageUpdatedAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionWarehouseNr", DbType="VarChar(50)")]
+		public string PositionWarehouseNr
+		{
+			get
+			{
+				return this._PositionWarehouseNr;
+			}
+			set
+			{
+				if ((this._PositionWarehouseNr != value))
+				{
+					this._PositionWarehouseNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionFloor", DbType="Int")]
+		public System.Nullable<int> PositionFloor
+		{
+			get
+			{
+				return this._PositionFloor;
+			}
+			set
+			{
+				if ((this._PositionFloor != value))
+				{
+					this._PositionFloor = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionColumn", DbType="Int")]
+		public System.Nullable<int> PositionColumn
+		{
+			get
+			{
+				return this._PositionColumn;
+			}
+			set
+			{
+				if ((this._PositionColumn != value))
+				{
+					this._PositionColumn = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRow", DbType="Int")]
+		public System.Nullable<int> PositionRow
+		{
+			get
+			{
+				return this._PositionRow;
+			}
+			set
+			{
+				if ((this._PositionRow != value))
+				{
+					this._PositionRow = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionState", DbType="Int")]
+		public System.Nullable<int> PositionState
+		{
+			get
+			{
+				return this._PositionState;
+			}
+			set
+			{
+				if ((this._PositionState != value))
+				{
+					this._PositionState = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionRoadMachineIndex", DbType="Int")]
+		public System.Nullable<int> PositionRoadMachineIndex
+		{
+			get
+			{
+				return this._PositionRoadMachineIndex;
+			}
+			set
+			{
+				if ((this._PositionRoadMachineIndex != value))
+				{
+					this._PositionRoadMachineIndex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionWarehouseAreaNr", DbType="VarChar(50)")]
+		public string PositionWarehouseAreaNr
+		{
+			get
+			{
+				return this._PositionWarehouseAreaNr;
+			}
+			set
+			{
+				if ((this._PositionWarehouseAreaNr != value))
+				{
+					this._PositionWarehouseAreaNr = value;
+				}
+			}
 		}
 	}
 }

@@ -661,7 +661,7 @@ namespace AGVCenterWPF
                 {
                     case StockTaskActionFlag.InSuccess:
                         taskItem.State = StockTaskState.InStocked;
-                        new StorageService(OPCConfig.DbString).InStockByCheckCode(taskItem.PositionNr, taskItem.Barcode);
+                        new StorageService(OPCConfig.DbString).InStockByUniqItemNr(taskItem.PositionNr, taskItem.Barcode);
                         //dicQ.Remove(barcode);
                         dicQ.Dequeue();
                         break;
@@ -671,7 +671,7 @@ namespace AGVCenterWPF
                         break;
                     case StockTaskActionFlag.OutSuccess:
                         taskItem.State = StockTaskState.OutStocked;
-                        new StorageService(OPCConfig.DbString).OutStockByBarCode(taskItem.Barcode);
+                        new StorageService(OPCConfig.DbString).OutStockByUniqItemNr(taskItem.Barcode);
                         dicQ.Dequeue();
                         break;
                     case StockTaskActionFlag.OutFailStoreNotFound:
@@ -692,7 +692,7 @@ namespace AGVCenterWPF
                             if (TestConfig.InStockCreateStorage)
                             {
                                 new StorageService(OPCConfig.DbString)
-                                    .InStockByCheckCode(taskItem.PositionNr, taskItem.Barcode);
+                                    .InStockByUniqItemNr(taskItem.PositionNr, taskItem.Barcode);
                             }
                             dicQ.Dequeue();
                         }
@@ -701,7 +701,7 @@ namespace AGVCenterWPF
                             taskItem.State = StockTaskState.OutStocked;
                             if (TestConfig.OutStockTaskDelStorage)
                             {
-                                new StorageService(OPCConfig.DbString).OutStockByBarCode(taskItem.Barcode);
+                                new StorageService(OPCConfig.DbString).OutStockByUniqItemNr(taskItem.Barcode);
                             }
                             dicQ.Dequeue();
                         }
