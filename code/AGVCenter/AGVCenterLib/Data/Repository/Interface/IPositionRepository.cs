@@ -17,7 +17,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         /// <param name="exceptsNrs">不包含的库位号列表</param>
         /// <param name="lockPosition">是否锁定返回的库位，默认为false</param>
         /// <returns></returns>
-        Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs,bool lockPosition=false,bool byInStorePriority=false);
+        Position FindAvaliableByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs,bool lockPosition=false,bool byInStorePriority=false);
 
         Position FindByNr(string nr);
 
@@ -28,6 +28,14 @@ namespace AGVCenterLib.Data.Repository.Interface
         void DeleteAll();
 
         IQueryable<Position> Search(PositionSearchModel searchModel);
+
+        /// <summary>
+        /// 根据分区、巷道机并且进行优先级从高到低排序，获取库位
+        /// </summary>
+        /// <param name="roadMachineIndex"></param>
+        /// <param name="warehouseAreaNr"></param>
+        /// <returns></returns>
+          Position FindByRoadMachineBySortPrority(int roadMachineIndex, string warehouseAreaNr);
 
     }
 }

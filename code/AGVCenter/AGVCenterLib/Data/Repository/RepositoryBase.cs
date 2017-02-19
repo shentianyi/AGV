@@ -18,6 +18,8 @@ namespace AGVCenterLib.Data.Repository
             _dataContextFactory = dataContextFactory;
         }
 
+
+
         public System.Data.Linq.Table<T> GetTable
         {
             get { return _dataContextFactory.Context.GetTable<T>(); }

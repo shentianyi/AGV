@@ -18,6 +18,7 @@ namespace AGVCenterLib.Data.Repository.Implement
             this.context = dataContextFactory.Context as AgvWarehouseDataContext;
         }
 
+
         public void Create(Position entity)
         {
             this.context.Position.InsertOnSubmit(entity);
@@ -39,7 +40,23 @@ namespace AGVCenterLib.Data.Repository.Implement
             return this.context.Position.FirstOrDefault(s => s.Nr == nr);
         }
 
-        public Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs, bool lockPosition = false,bool byInStorePriority=false)
+        public Position FindByRoadMachineBySortPrority(int roadMachineIndex, string warehouseAreaNr)
+        {
+            var ps = this.context.PositionStorageView
+                   .Where(s => s.RoadMachineIndex == roadMachineIndex
+                   && (s.StorageId == null && s.IsLocked == false) 
+                   && s.WarehouseAreaIsLocked == false 
+                   && s.WarehouseAreaNr == warehouseAreaNr)
+                   .OrderByDescending(s => s.InStorePriority)
+                   .FirstOrDefault();
+
+            return this.ConvertPositionViewToPosition(ps);
+        }
+
+        public Position FindAvaliableByRoadMachineAndSort(int roadMachineIndex,
+            List<string> exceptsNrs,
+            bool lockPosition = false,
+            bool byInStorePriority=false)
         {
 
             var q = this.context.PositionStorageView
@@ -54,7 +71,9 @@ namespace AGVCenterLib.Data.Repository.Implement
                 var warehouseAreas = q.Select(s => new { WarehouseAreaNr = s.WarehouseAreaNr, WarehouseAreaInStorePriority = s.WarehouseAreaInStorePriority })
                     .ToList()
                     .Distinct().OrderByDescending(s=>s.WarehouseAreaInStorePriority).ToList() ;
-                 
+                
+                var firstArea = warehouseAreas.OrderBy(s => s.WarehouseAreaInStorePriority).FirstOrDefault();
+
                 foreach(var area in warehouseAreas)
                 {
                     var storage = this.context.StorageUniqueItemView.FirstOrDefault(s => s.PositionWarehouseAreaNr == area.WarehouseAreaNr);
@@ -65,7 +84,7 @@ namespace AGVCenterLib.Data.Repository.Implement
                         .FirstOrDefault();
                         break;
                     }
-                    else if (warehouseAreas.LastOrDefault().WarehouseAreaNr == area.WarehouseAreaNr)
+                    else if (firstArea.WarehouseAreaNr == area.WarehouseAreaNr)
                     {
                         ps = q.Where(s => s.WarehouseAreaNr == area.WarehouseAreaNr)
                            .OrderByDescending(s => s.InStorePriority)
@@ -104,6 +123,21 @@ namespace AGVCenterLib.Data.Repository.Implement
                         this.context.SubmitChanges();
                     }
                 }
+
+              return  this.ConvertPositionViewToPosition(ps);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private Position ConvertPositionViewToPosition(PositionStorageView ps)
+        {
+            if (ps == null)
+                return null;
+            else
+            {
                 return new Position()
                 {
                     Nr = ps.Nr,
@@ -114,13 +148,9 @@ namespace AGVCenterLib.Data.Repository.Implement
                     State = ps.State,
                     WarehouseNr = ps.WarehouseNr,
                     IsLocked = ps.IsLocked,
-                    WarehouseAreaNr=ps.WarehouseAreaNr,
-                    InStorePriority=ps.InStorePriority
+                    WarehouseAreaNr = ps.WarehouseAreaNr,
+                    InStorePriority = ps.InStorePriority
                 };
-            }
-            else
-            {
-                return null;
             }
         }
 

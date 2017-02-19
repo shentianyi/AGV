@@ -48,7 +48,7 @@ namespace AGVCenterLib.Service
                 dispatchedPositions = new List<string>();
             }
             IPositionRepository posiRep = new PositionRepository(this.Context);
-            return posiRep.FindByRoadMachineAndSort(roadMachineIndex, dispatchedPositions, lockPosition, byInStorePriority);
+            return posiRep.FindAvaliableByRoadMachineAndSort(roadMachineIndex, dispatchedPositions, lockPosition, byInStorePriority);
         }
 
         /// <summary>
