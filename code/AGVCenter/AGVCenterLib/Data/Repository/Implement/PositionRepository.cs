@@ -54,15 +54,25 @@ namespace AGVCenterLib.Data.Repository.Implement
                 var warehouseAreas = q.Select(s => new { WarehouseAreaNr = s.WarehouseAreaNr, WarehouseAreaInStorePriority = s.WarehouseAreaInStorePriority })
                     .ToList()
                     .Distinct().OrderByDescending(s=>s.WarehouseAreaInStorePriority).ToList() ;
+                 
                 foreach(var area in warehouseAreas)
                 {
                     var storage = this.context.StorageUniqueItemView.FirstOrDefault(s => s.PositionWarehouseAreaNr == area.WarehouseAreaNr);
                     if (storage != null)
                     {
-                        ps = q.Where(s => s.WarehouseAreaNr == area.WarehouseAreaNr).OrderByDescending(s => s.InStorePriority).FirstOrDefault();
+                        ps = q.Where(s => s.WarehouseAreaNr == area.WarehouseAreaNr)
+                            .OrderByDescending(s => s.InStorePriority)
+                        .FirstOrDefault();
                         break;
                     }
+                    else if (warehouseAreas.LastOrDefault().WarehouseAreaNr == area.WarehouseAreaNr)
+                    {
+                        ps = q.Where(s => s.WarehouseAreaNr == area.WarehouseAreaNr)
+                           .OrderByDescending(s => s.InStorePriority)
+                       .FirstOrDefault();
+                    }
                 }
+
             }
             else
             {

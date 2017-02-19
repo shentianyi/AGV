@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AGVCenterLib.Model;
 using AGVCenterLib.Model.SearchModel;
 
 namespace AGVCenterLib.Data.Repository.Interface
@@ -19,5 +20,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         IQueryable<StorageUniqueItemView> SearchDetail(StorageSearchModel searchModel);
 
         List<Storage> All();
+
+        MoveStockModel FindMoveStockForMove(int roadmachineIndex); 
     }
 }

@@ -100,11 +100,10 @@ FROM         dbo.Position LEFT OUTER JOIN
 GO
 
 ------------------------------------------------------------------------------------------------------------------------
-
 USE [AgvWarehouseDb]
 GO
 
-/****** Object:  View [dbo].[StorageUniqueItemView]    Script Date: 02/19/2017 13:08:43 ******/
+/****** Object:  View [dbo].[StorageUniqueItemView]    Script Date: 02/20/2017 00:04:37 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -117,14 +116,20 @@ SELECT     dbo.Storage.Id, dbo.Storage.PositionNr, dbo.Storage.PartNr, dbo.Stora
                       dbo.UniqueItem.Nr AS UniqueItemNr, dbo.UniqueItem.BoxTypeId AS UniqueItemBoxTypeId, dbo.UniqueItem.PartNr AS UniqueItemPartNr, 
                       dbo.UniqueItem.KNr AS UniqueItemKNr, dbo.UniqueItem.KNrWithYear AS UniqueItemKNrWithYear, dbo.UniqueItem.CheckCode AS UniqueItemCheckCode, 
                       dbo.UniqueItem.KskNr AS UniqueItemKskNr, dbo.UniqueItem.QR AS UniqueItemQR, dbo.UniqueItem.State AS UniqueItemState, 
-                      dbo.UniqueItem.CreatedAt AS UniqueItemCreatedAt, dbo.UniqueItem.UpdatedAt AS UniqueItemUpdatedAt, dbo.Position.isLocked AS PositionIsLocked, 
+                      dbo.UniqueItem.CreatedAt AS UniqueItemCreatedAt, dbo.UniqueItem.UpdatedAt AS UniqueItemUpdatedAt, dbo.Position.IsLocked AS PositionIsLocked, 
                       dbo.Position.RoadMachineIndex AS PositionRoadMachineIndex, dbo.Position.State AS PositionState, dbo.Position.Row AS PositionRow, 
-                      dbo.Position.[Column] AS PositionColumn, dbo.Position.Floor AS PositionFloor, dbo.Position.WarehouseNr AS PositionWarehouseNr,dbo.Position.WarehouseAreaNr as PositionWarehouseAreaNr
+                      dbo.Position.[Column] AS PositionColumn, dbo.Position.Floor AS PositionFloor, dbo.Position.WarehouseNr AS PositionWarehouseNr, 
+                      dbo.Position.WarehouseAreaNr AS PositionWarehouseAreaNr, dbo.Position.InStorePriority AS PositionInStorePriority, 
+                      dbo.WarehouseArea.IsLocked AS WarehouseAreaIsLocked, dbo.WarehouseArea.Remark AS WarehouseAreaRemark, 
+                      dbo.WarehouseArea.Color AS WarehouseAreaColor, dbo.WarehouseArea.InStorePriority AS WarehouseAreaInStorePriority, 
+                      dbo.WarehouseArea.WarehouseNr AS WarehouseAreaWarehouseNr
 FROM         dbo.Storage INNER JOIN
                       dbo.UniqueItem ON dbo.Storage.UniqItemNr = dbo.UniqueItem.Nr INNER JOIN
-                      dbo.Position ON dbo.Storage.PositionNr = dbo.Position.Nr
+                      dbo.Position ON dbo.Storage.PositionNr = dbo.Position.Nr LEFT OUTER JOIN
+                      dbo.WarehouseArea ON dbo.WarehouseArea.Nr = dbo.Position.WarehouseAreaNr
 
 GO
+
 
 ------------------------------------------------------------------------------------------------------------------------
 USE [AgvWarehouseDb]

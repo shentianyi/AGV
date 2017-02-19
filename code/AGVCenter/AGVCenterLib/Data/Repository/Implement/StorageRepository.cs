@@ -96,5 +96,12 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             return this.context.Storage.ToList();
         }
+
+        public MoveStockModel FindMoveStockForMove(int roadmachineIndex)
+        {
+            MoveStockModel moveModel = new MoveStockModel();
+
+            throw new NotImplementedException();
+        }
     }
 }
