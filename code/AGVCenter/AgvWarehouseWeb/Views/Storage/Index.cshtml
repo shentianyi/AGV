@@ -143,7 +143,9 @@
         <th>&nbsp;</th>
         <th>
             RoadMachine
-        </th>
+        </th><th>
+                 WarehouseAreaNr
+</th>
         <th>
             PositionNr
         </th>
@@ -174,8 +176,11 @@
     foreach (var item in Model)
     {
         <tr>
-            <td>@(i += 1)</td><td>
+            <td>@(i += 1)</td>
+            <td>
     @Html.DisplayFor(modelItem => item.PositionRoadMachineIndex)
+</td><td>
+    @Html.DisplayFor(modelItem => item.PositionWarehouseAreaNr)
 </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PositionNr)

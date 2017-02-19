@@ -158,3 +158,29 @@ FROM         dbo.PickList INNER JOIN
 GO
 
 
+---------------------------------------------------------------------------------------------------------
+USE [AgvWarehouseDb]
+GO
+
+/****** Object:  View [dbo].[PositionStorageView]    Script Date: 02/19/2017 16:11:44 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER VIEW [dbo].[PositionStorageView]
+AS
+SELECT     dbo.Position.Nr, dbo.Position.WarehouseNr, dbo.Position.Floor, dbo.Position.[Column], dbo.Position.Row, dbo.Position.State, dbo.Position.RoadMachineIndex, 
+                      dbo.Position.IsLocked, dbo.Position.InStorePriority, dbo.Position.WarehouseAreaNr, dbo.Storage.Id AS StorageId, dbo.Storage.PositionNr AS StoragePositionNr, 
+                      dbo.Storage.PartNr AS StoragePartNr, dbo.Storage.FIFO AS StorageFIFO, dbo.Storage.UniqItemNr AS StorageUniqItemNr, dbo.Storage.CreatedAt AS StorageCreatedAt, 
+                      dbo.WarehouseArea.IsLocked AS WarehouseAreaIsLocked, dbo.WarehouseArea.Remark AS WarehouseAreaRemark, 
+                      dbo.WarehouseArea.Color AS WarehouseAreaColor, dbo.WarehouseArea.InStorePriority AS WarehouseAreaInStorePriority, 
+                      dbo.WarehouseArea.WarehouseNr AS WarehouseAreaWarehouseNr
+FROM         dbo.Position LEFT OUTER JOIN
+                      dbo.Storage ON dbo.Position.Nr = dbo.Storage.PositionNr LEFT OUTER JOIN
+                      dbo.WarehouseArea ON dbo.WarehouseArea.Nr = dbo.Position.WarehouseAreaNr
+
+GO
+
+

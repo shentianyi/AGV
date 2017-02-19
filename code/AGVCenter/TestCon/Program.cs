@@ -64,7 +64,8 @@ namespace TestCon
             // var d = new DeliveryService(Settings.Default.db).GetDeliveryStorageByNr("20161219134802");
             //var p=  new PingTest();
             //  p.Test();
-            TestStorageService.TestMoveStock();
+            //  TestStorageService.TestMoveStock();
+            TestPositionService.TestFindPostinToStock();
             Console.Read();
        
         }

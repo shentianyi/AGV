@@ -39,32 +39,48 @@ namespace AGVCenterLib.Data.Repository.Implement
             return this.context.Position.FirstOrDefault(s => s.Nr == nr);
         }
 
-        public Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs, bool lockPosition = false)
+        public Position FindByRoadMachineAndSort(int roadMachineIndex, List<string> exceptsNrs, bool lockPosition = false,bool byInStorePriority=false)
         {
-            //PositionStorageView ps = this.context.PositionStorageView
-            //    .Where(s => (!exceptsNrs.Contains(s.Nr))
-            //    && s.RoadMachineIndex==roadMachineIndex
-            //    && (s.StorageId==null && s.isLocked==false))
-            //    .OrderBy(s => s.Row).ThenBy(s => s.Column).ThenBy(s => s.Floor).FirstOrDefault();
+
+            var q = this.context.PositionStorageView
+                  .Where(s => (!exceptsNrs.Contains(s.Nr))
+                  && s.RoadMachineIndex == roadMachineIndex
+                  && (s.StorageId == null && s.IsLocked == false) && s.WarehouseAreaIsLocked==false);
+
+            PositionStorageView ps = null;
+            if (byInStorePriority)
+            {
+                // ps = q.OrderByDescending(s => s.InStorePriority).FirstOrDefault();
+                var warehouseAreas = q.Select(s => new { WarehouseAreaNr = s.WarehouseAreaNr, WarehouseAreaInStorePriority = s.WarehouseAreaInStorePriority })
+                    .ToList()
+                    .Distinct().OrderByDescending(s=>s.WarehouseAreaInStorePriority).ToList() ;
+                foreach(var area in warehouseAreas)
+                {
+                    var storage = this.context.StorageUniqueItemView.FirstOrDefault(s => s.PositionWarehouseAreaNr == area.WarehouseAreaNr);
+                    if (storage != null)
+                    {
+                        ps = q.Where(s => s.WarehouseAreaNr == area.WarehouseAreaNr).OrderByDescending(s => s.InStorePriority).FirstOrDefault();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                ps = q
+                   .OrderByDescending(s => s.Column)
+                   .ThenBy(s => s.Row)
+                   .ThenBy(s => s.Floor)
+                   .FirstOrDefault();
+            }
 
             //PositionStorageView ps = this.context.PositionStorageView
             //  .Where(s => (!exceptsNrs.Contains(s.Nr))
             //  && s.RoadMachineIndex == roadMachineIndex
-            //  && (s.StorageId == null && s.isLocked == false))
-            //  .OrderByDescending(s => s.Column)
+            //  && (s.StorageId == null && s.IsLocked == false))
+            //  .OrderBy(s => s.Floor)
+            //  .ThenByDescending(s => s.Column)
             //  .ThenBy(s => s.Row)
-            //  .ThenBy(s => s.Floor)
             //  .FirstOrDefault();
-
-
-            PositionStorageView ps = this.context.PositionStorageView
-              .Where(s => (!exceptsNrs.Contains(s.Nr))
-              && s.RoadMachineIndex == roadMachineIndex
-              && (s.StorageId == null && s.IsLocked == false))
-              .OrderBy(s => s.Floor)
-              .ThenByDescending(s => s.Column)
-              .ThenBy(s => s.Row)
-              .FirstOrDefault();
 
 
             if (ps != null)
@@ -87,7 +103,9 @@ namespace AGVCenterLib.Data.Repository.Implement
                     RoadMachineIndex = ps.RoadMachineIndex,
                     State = ps.State,
                     WarehouseNr = ps.WarehouseNr,
-                    IsLocked = ps.IsLocked
+                    IsLocked = ps.IsLocked,
+                    WarehouseAreaNr=ps.WarehouseAreaNr,
+                    InStorePriority=ps.InStorePriority
                 };
             }
             else

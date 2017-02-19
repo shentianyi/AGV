@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="TestCreateProduct.cs" />
     <Compile Include="TestGetInStockPosition.cs" />
+    <Compile Include="TestPositionService.cs" />
     <Compile Include="TestStorageService.cs" />
   </ItemGroup>
   <ItemGroup>

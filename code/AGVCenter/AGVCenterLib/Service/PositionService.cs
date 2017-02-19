@@ -40,14 +40,15 @@ namespace AGVCenterLib.Service
         /// <returns></returns>
         public Position FindInStockPosition(int roadMachineIndex,
             List<string> dispatchedPositions = null,
-            bool lockPosition = false)
+            bool lockPosition = false,
+            bool byInStorePriority = false)
         {
             if (dispatchedPositions == null)
             {
                 dispatchedPositions = new List<string>();
             }
             IPositionRepository posiRep = new PositionRepository(this.Context);
-            return posiRep.FindByRoadMachineAndSort(roadMachineIndex, dispatchedPositions, lockPosition);
+            return posiRep.FindByRoadMachineAndSort(roadMachineIndex, dispatchedPositions, lockPosition, byInStorePriority);
         }
 
         /// <summary>
