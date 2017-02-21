@@ -9,6 +9,8 @@ namespace AGVCenterLib.Model
     public class MoveStockModel
     {
         public StorageUniqueItemView FromStorage { get; set; }
+        public Position FromPosition{get;set;}
         public Position ToPosition { get; set; }
+
     }
 }
