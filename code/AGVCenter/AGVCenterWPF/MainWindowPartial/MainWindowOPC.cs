@@ -482,6 +482,12 @@ namespace AGVCenterWPF
                     this.label_stock_xdj1_tray_num.Content = OPCSetStockTaskRoadMachine1Data.TrayNum;
                     this.label_stock_xdj1_delivery_num.Content = OPCSetStockTaskRoadMachine1Data.DeliveryItemNum;
                     this.label_stock_xdj1_barcode.Content = OPCSetStockTaskRoadMachine1Data.Barcode;
+
+
+                    this.label_stock_xdj1_to_position1.Content = OPCSetStockTaskRoadMachine1Data.ToPositionFloor;
+                    this.label_stock_xdj1_to_position2.Content = OPCSetStockTaskRoadMachine1Data.ToPositionColumn;
+                    this.label_stock_xdj1_to_position3.Content = OPCSetStockTaskRoadMachine1Data.ToPositionRow;
+
                 }
                 catch (Exception exx)
                 {
@@ -533,6 +539,13 @@ namespace AGVCenterWPF
                     this.label_stock_xdj2_tray_num.Content = OPCSetStockTaskRoadMachine2Data.TrayNum;
                     this.label_stock_xdj2_delivery_num.Content = OPCSetStockTaskRoadMachine2Data.DeliveryItemNum;
                     this.label_stock_xdj2_barcode.Content = OPCSetStockTaskRoadMachine2Data.Barcode;
+
+
+
+
+                    this.label_stock_xdj2_to_position1.Content = OPCSetStockTaskRoadMachine2Data.ToPositionFloor;
+                    this.label_stock_xdj2_to_position2.Content = OPCSetStockTaskRoadMachine2Data.ToPositionColumn;
+                    this.label_stock_xdj2_to_position3.Content = OPCSetStockTaskRoadMachine2Data.ToPositionRow;
                 }
                 catch (Exception exx)
                 {

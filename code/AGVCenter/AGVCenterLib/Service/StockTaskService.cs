@@ -51,6 +51,7 @@ namespace AGVCenterLib.Service
             new StockTaskLogService(this.DbString).CreateByStockTask(st);
             return true;
         }
+
         public void CreateTask(StockTask st)
         {
             IStockTaskRepository stRep = new StockTaskRepository(this.Context);
@@ -71,11 +72,24 @@ namespace AGVCenterLib.Service
             {
                 t.State = (int)taskStock.State;
 
+                
                 t.RoadMachineIndex = taskStock.RoadMachineIndex;
+
+                // 如果是移库，这是是来源地址
                 t.PositionNr = taskStock.PositionNr;
                 t.PositionFloor = taskStock.PositionFloor;
                 t.PositionColumn = taskStock.PositionColumn;
                 t.PositionRow = taskStock.PositionRow;
+
+                // 如果是移库，这个是目的地址
+                t.ToPositionNr = taskStock.ToPositionNr;
+                t.ToPositionFloor = taskStock.ToPositionFloor;
+                t.ToPositionColumn = taskStock.ToPositionColumn;
+                t.ToPositionRow = taskStock.ToPositionRow;
+                 
+
+
+
                 t.UpdatedAt = DateTime.Now;
                 if (t.Type.Value == (int)StockTaskType.OUT
                     && t.State.HasValue
@@ -87,6 +101,10 @@ namespace AGVCenterLib.Service
                 else if (t.Type.Value == (int)StockTaskType.IN && t.State.HasValue && t.State.Value == (int)StockTaskState.ManInStocked)
                 {
                    var msg= new StorageService(this.Context).InStockByUniqItemNr(taskStock.PositionNr, t.BarCode);
+                    LogUtil.Logger.Info(msg.Content);
+                }else if(t.Type.Value == (int)StockTaskType.MOVE && t.State.HasValue && t.State.Value == (int)StockTaskState.ManMoveStocked)
+                {
+                    var msg = new StorageService(this.Context).MoveStockByUniqItemNr(taskStock.BarCode, t.ToPositionNr);
                     LogUtil.Logger.Info(msg.Content);
                 }
                 this.Context.SaveAll();
@@ -469,6 +487,45 @@ namespace AGVCenterLib.Service
         {
             IStockTaskRepository stockTaskRep = new StockTaskRepository(this.Context);
             return stockTaskRep.FindLastByNr(uniqItemNr);
+        }
+
+        public StockTask CreateAutoMoveStockTask(int roadMachineIndex, bool isSelfAreaMove = false)
+        {
+            MoveStockModel ms = new StorageRepository(this.Context).FindMoveStockForAutoMove(roadMachineIndex, isSelfAreaMove);
+            StockTask st = null;
+            if (ms != null)
+            {
+                st = new StockTask()
+                {
+                    BoxType = ms.FromStorage.UniqueItemBoxTypeId,
+                    RoadMachineIndex = ms.FromStorage.PositionRoadMachineIndex,
+
+                    PositionNr = ms.FromStorage.PositionNr,
+                    PositionFloor = ms.FromStorage.PositionFloor,
+                    PositionColumn = ms.FromStorage.PositionColumn,
+                    PositionRow = ms.FromStorage.PositionRow,
+                     
+                    BarCode = ms.FromStorage.UniqueItemNr,
+                    State = (int)StockTaskState.RoadMachineMoveStockInit,
+
+                    Type = (int)StockTaskType.AUTO_MOVE,
+
+                    ToPositionNr = ms.ToPosition.Nr,
+                    ToPositionFloor = ms.ToPosition.Floor,
+                    ToPositionColumn = ms.ToPosition.Column,
+                    ToPositionRow = ms.ToPosition.Row,
+
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+                };
+                IStockTaskRepository stRep = new StockTaskRepository(this.Context);
+                stRep.Create(st);
+                this.Context.SaveAll(); 
+
+                new StockTaskLogService(this.DbString).CreateByStockTask(st);
+              
+            }
+            return st;
         }
     }
 }

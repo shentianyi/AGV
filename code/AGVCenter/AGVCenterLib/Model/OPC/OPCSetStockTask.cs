@@ -29,17 +29,17 @@ namespace AGVCenterLib.Model.OPC
         public byte StockTaskType { get; set; }
 
         /// <summary>
-        /// 库位，层，3
+        /// 库位，层，3，移库中是来源库位
         /// </summary>
         public int PositionFloor { get; set; }
 
         /// <summary>
-        /// 库位，列，4
+        /// 库位，列，4，移库中是来源库位
         /// </summary>
         public int PositionColumn { get; set; }
 
         /// <summary>
-        /// 库位，排，5
+        /// 库位，排，5，移库中是来源库位
         /// </summary>
         public int PositionRow { get; set; }
 
@@ -76,10 +76,33 @@ namespace AGVCenterLib.Model.OPC
         /// </summary>
         public string Barcode { get; set; }
 
+
+
+        /// <summary>
+        /// 目标库位，层，12，移库中是目标库位
+        /// </summary>
+        public int ToPositionFloor { get; set; }
+
+        /// <summary>
+        /// 库位，列，13，移库中是目标库位
+        /// </summary>
+        public int ToPositionColumn { get; set; }
+
+        /// <summary>
+        /// 库位，排，14，移库中是目标库位
+        /// </summary>
+        public int ToPositionRow { get; set; }
+
+
+
         /// <summary>
         /// 巷道机编号，不写入OPC
         /// </summary>
         public int RoadMachineIndex { get; set; }
+
+
+
+
         
         #region 写入值
         /// <summary>
@@ -104,6 +127,10 @@ namespace AGVCenterLib.Model.OPC
             SyncItemServerHandles[8] = (int)this.ItemServerHandles.GetValue(9);
             SyncItemServerHandles[9] = (int)this.ItemServerHandles.GetValue(10);
             SyncItemServerHandles[10] = (int)this.ItemServerHandles.GetValue(11);
+            // 目标库位
+            SyncItemServerHandles[11] = (int)this.ItemServerHandles.GetValue(12);
+            SyncItemServerHandles[12] = (int)this.ItemServerHandles.GetValue(13);
+            SyncItemServerHandles[13] = (int)this.ItemServerHandles.GetValue(14);
 
             SyncItemValues[1] = this.StockTaskType;
             SyncItemValues[2] = this.PositionFloor;
@@ -115,8 +142,15 @@ namespace AGVCenterLib.Model.OPC
             SyncItemValues[8] = this.TrayNum;
             SyncItemValues[9] = this.DeliveryItemNum;
             SyncItemValues[10] = this.Barcode;
+            // 目标库位
+            SyncItemValues[11] = this.ToPositionFloor;
+            SyncItemValues[12] = this.ToPositionColumn;
+            SyncItemValues[13] = this.ToPositionRow;
 
-            group.SyncWrite(10, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
+
+            //   group.SyncWrite(10, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
+            group.SyncWrite(13, SyncItemServerHandles, SyncItemValues, out SyncItemServerErrors);
+
             if (SyncItemServerErrors != null && ((int)SyncItemServerErrors.GetValue(1) == 0))
             {
                 if (this.SyncSetReadableFlag(group))
@@ -173,6 +207,16 @@ namespace AGVCenterLib.Model.OPC
                         break;
                     case 11:
                         this.Barcode = ParseBarcode(ItemValues.GetValue(i));
+                        break;
+                        // 目标库位
+                    case 12:
+                        this.ToPositionFloor = int.Parse(ItemValues.GetValue(i).ToString());
+                        break;
+                    case 13:
+                        this.ToPositionColumn = int.Parse(ItemValues.GetValue(i).ToString());
+                        break;
+                    case 14:
+                        this.ToPositionRow = int.Parse(ItemValues.GetValue(i).ToString());
                         break;
                     default:
                         break;

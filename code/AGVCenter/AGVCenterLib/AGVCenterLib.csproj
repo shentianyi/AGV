@@ -133,6 +133,7 @@
     <Compile Include="Enum\StockMovementType.cs" />
     <Compile Include="Enum\StockTaskActionFlag.cs" />
     <Compile Include="Enum\StockTaskState.cs" />
+    <Compile Include="Enum\StockTaskType.cs" />
     <Compile Include="Enum\UniqueItemState.cs" />
     <Compile Include="Model\Message\ResultMessage.cs" />
     <Compile Include="Model\MoveStockModel.cs" />

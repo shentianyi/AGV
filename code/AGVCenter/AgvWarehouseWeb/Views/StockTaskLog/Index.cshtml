@@ -90,6 +90,18 @@
             TrayBatchId
         </th>
         <th>
+            ToPositionNr
+        </th>
+        <th>
+            ToPositionFloor
+        </th>
+        <th>
+            ToPositionColumn
+        </th>
+        <th>
+            ToPositionRow
+        </th>
+        <th>
             CreatedAt
         </th>
         <th>
@@ -153,6 +165,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TrayBatchId)
             </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ToPositionNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToPositionFloor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToPositionColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToPositionRow)
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedAt)
             </td>

@@ -776,5 +776,6 @@ namespace AGVCenterWPF
                 LogUtil.Logger.Error(ex.Message, ex);
             }
         }
+
     }
 }

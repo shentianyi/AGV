@@ -14,7 +14,7 @@ namespace AGVCenterWPF
     public partial class MainWindow
     {
 
-       
+
 
         private void SettingTabItem_Loaded(object sender, RoutedEventArgs e)
         {
@@ -30,6 +30,9 @@ namespace AGVCenterWPF
             this.showRescanErrorBarcodeCB.IsChecked = TestConfig.ShowRescanErrorBarcode;
             this.LoadRMWorkModeSetting();
             this.barcodeRegex.Text = BaseConfig.BarcodeReg;
+            this.isUsePositionPriorityCB.IsChecked = BaseConfig.IsUsePositionPriority;
+
+            this.isSelfAreaMoveCB.IsChecked = BaseConfig.IsSelfAreaMove;
         }
 
 
@@ -108,6 +111,14 @@ namespace AGVCenterWPF
                     break;
                 case "showRescanErrorBarcodeCB":
                     TestConfig.ShowRescanErrorBarcode = this.showRescanErrorBarcodeCB.IsChecked.Value;
+                    break;
+                case "isUsePositionPriorityCB":
+                    BaseConfig.IsUsePositionPriority = this.isUsePositionPriorityCB.IsChecked.Value;
+                    break;
+                case "isSelfAreaMoveCB":
+                    BaseConfig.IsSelfAreaMove = this.isSelfAreaMoveCB.IsChecked.Value;
+                    break;
+                default:
                     break;
             }
         }
