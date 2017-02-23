@@ -18,23 +18,11 @@ namespace AGVCenterWPF
 
         private void SettingTabItem_Loaded(object sender, RoutedEventArgs e)
         {
-            this.autoConnectOPCCB.IsChecked = BaseConfig.AutoConnectOPC;
-            this.autoLoadDbTaskOnStartCB.IsChecked = BaseConfig.AutoLoadDbTaskOnStart;
-
-            this.roadMacine1EnabledCB.IsChecked = BaseConfig.RoadMachine1Enabled;
-            this.roadMacine2EnabledCB.IsChecked = BaseConfig.RoadMachine2Enabled;
-
-
-            this.inStockCreateStorageCB.IsChecked = TestConfig.InStockCreateStorage;
-            this.outStockTaskDelStorageCB.IsChecked = TestConfig.OutStockTaskDelStorage;
-            this.showRescanErrorBarcodeCB.IsChecked = TestConfig.ShowRescanErrorBarcode;
+            this.LoadBasicConfig();
             this.LoadRMWorkModeSetting();
-            this.barcodeRegex.Text = BaseConfig.BarcodeReg;
-            this.isUsePositionPriorityCB.IsChecked = BaseConfig.IsUsePositionPriority;
-
-            this.isSelfAreaMoveCB.IsChecked = BaseConfig.IsSelfAreaMove;
         }
 
+        
 
 
         private void SaveBarcodeRegBtn_Click(object sender, RoutedEventArgs e)
@@ -43,6 +31,9 @@ namespace AGVCenterWPF
         }
 
 
+        /// <summary>
+        /// 加载工作模式
+        /// </summary>
         private void LoadRMWorkModeSetting()
         {
             /// load roadmahine setting
@@ -74,7 +65,32 @@ namespace AGVCenterWPF
             }
         }
 
+        /// <summary>
+        /// 加载基本设置
+        /// </summary>
+        /// <returns></returns>
+        private void LoadBasicConfig()
+        {
 
+            this.autoConnectOPCCB.IsChecked = BaseConfig.AutoConnectOPC;
+            this.autoLoadDbTaskOnStartCB.IsChecked = BaseConfig.AutoLoadDbTaskOnStart;
+
+            this.roadMacine1EnabledCB.IsChecked = BaseConfig.RoadMachine1Enabled;
+            this.roadMacine2EnabledCB.IsChecked = BaseConfig.RoadMachine2Enabled;
+
+
+            this.inStockCreateStorageCB.IsChecked = TestConfig.InStockCreateStorage;
+            this.outStockTaskDelStorageCB.IsChecked = TestConfig.OutStockTaskDelStorage;
+            this.showRescanErrorBarcodeCB.IsChecked = TestConfig.ShowRescanErrorBarcode;
+
+            this.barcodeRegex.Text = BaseConfig.BarcodeReg;
+            this.isUsePositionPriorityCB.IsChecked = BaseConfig.IsUsePositionPriority;
+
+            this.isSelfAreaMoveCB.IsChecked = BaseConfig.IsSelfAreaMove;
+
+
+
+        }
 
         private void roadMachine1ModeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
