@@ -22,9 +22,6 @@ namespace AGVCenterWPF
             this.LoadRMWorkModeSetting();
         }
 
-        
-
-
         private void SaveBarcodeRegBtn_Click(object sender, RoutedEventArgs e)
         {
             BaseConfig.BarcodeReg = this.barcodeRegex.Text; 

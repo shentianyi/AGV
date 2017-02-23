@@ -99,7 +99,7 @@ namespace AGVCenterLib.Data.Repository.Implement
 
         public MoveStockModel FindMoveStockForAutoMove(int roadmachineIndex, bool isSelfAreaMove = false)
         {
-            MoveStockModel moveModel = null();
+            MoveStockModel moveModel = null;
             var warehouseAreas = this.context.StorageUniqueItemView
                 .Select(s => new
                 {

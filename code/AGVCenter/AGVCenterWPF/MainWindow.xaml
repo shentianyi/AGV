@@ -484,6 +484,15 @@
                             <RowDefinition Height="25"></RowDefinition>
                             <RowDefinition Height="25"></RowDefinition>
                             <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
                         </Grid.RowDefinitions>
 
                         <Label Content="条码扫描：" FontSize="13" Background="LightGreen" Grid.Row="0" Grid.ColumnSpan="2"/>
