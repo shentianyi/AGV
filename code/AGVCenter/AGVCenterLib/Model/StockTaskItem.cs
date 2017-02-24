@@ -378,6 +378,61 @@ namespace AGVCenterLib.Model
             }
         }
 
+
+        /// <summary>
+        /// 目标库位编号
+        /// </summary>
+        private string toPositionNr;
+        public string ToPositionNr
+        {
+            get { return this.toPositionNr; }
+            set
+            {
+                this.positionNr = value;
+                OnPropertyChanged("ToPositionNr");
+            }
+        }
+
+        private int toPositionFloor = 0;
+        /// <summary>
+        /// 目标库位，层，12，移库中是目标库位
+        /// </summary>
+        public int ToPositionFloor { get {
+                return this.toPositionFloor;
+            } set {
+                this.toPositionFloor = value;
+                OnPropertyChanged("ToPositionFloor");
+            }
+        }
+
+        private int toPositionColumn = 0;
+        /// <summary>
+        /// 库位，列，13，移库中是目标库位
+        /// </summary>
+        public int ToPositionColumn { get { return this.toPositionColumn; } set {
+                this.toPositionColumn = value;
+                OnPropertyChanged("ToPositionColumn");
+            } }
+
+        private int toPositionRow = 0;
+        /// <summary>
+        /// 库位，排，14，移库中是目标库位
+        /// </summary>
+        public int ToPositionRow
+        {
+            get
+            {
+                return this.toPositionRow;
+            }
+            set
+            {
+                this.toPositionRow = value;
+                OnPropertyChanged("ToPositionRow");
+            }
+        }
+
+
+
         public bool IsInBuffingState
         {
             get
@@ -410,6 +465,9 @@ namespace AGVCenterLib.Model
                 return ShouldDequeueStockTaskStates.Contains(this.state);
             }
         }
+
+
+
 
         /// <summary>
         /// DB id

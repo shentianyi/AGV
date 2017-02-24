@@ -6,29 +6,6 @@ using System.Text;
 
 namespace AGVCenterLib.Enum
 {
-    public enum StockTaskType
-    {
-        /// <summary>
-        /// 无动作
-        /// </summary>
-        [Description("初始")]
-        NONE =0,
-        /// <summary>
-        /// OUT
-        /// </summary>
-        [Description("出库")]
-        OUT =1,
-        /// <summary>
-        /// IN
-        /// </summary>
-        [Description("入库")]
-        IN =2,
-        /// <summary>
-        /// CHECK
-        /// </summary>
-        [Description("盘点")]
-        CHECK =3
-    }
 
     public enum StockTaskState
     {
@@ -97,6 +74,23 @@ namespace AGVCenterLib.Enum
         [Description("手动出库成功")]
         ManOutStocked=121,
 
+
+
+        [Description("巷道机移库初始")]
+        RoadMachineMoveStockInit = 200,
+
+        [Description("巷道机移库中")]
+        RoadMachineMoveStocking = 210,
+
+        [Description("巷道机移库成功")]
+        RoadMachineMoveStocked= 220,
+
+        [Description("手动移库成功")]
+        ManMoveStocked = 221,
+
+
+
+
         /// <summary>
         /// 取消
         /// </summary>
@@ -118,7 +112,10 @@ namespace AGVCenterLib.Enum
         [Description("入库失败")]
         ErrorInStock = 980,
         [Description("出库失败")]
-        ErrorOutStock = 990
+        ErrorOutStock = 990,
+        [Description("自动移库失败")]
+        ErrorAutoMoveStock = 1000
+
     }
 
 

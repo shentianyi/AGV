@@ -54,15 +54,24 @@ namespace AGVCenterLib
                 {
                     { "stock_xdj1_rw_flag","S7:[S7 connection_1]DB308,B262.stock_xdj1_rw_flag"},
                     { "stock_xdj1_action_type","S7:[S7 connection_1]DB308,B263.stock_xdj1_action_type"},
+
                     { "stock_xdj1_position1","S7:[S7 connection_1]DB308,B264.int.stock_xdj1_position1"},
                     { "stock_xdj1_position2","S7:[S7 connection_1]DB308,B266.int.stock_xdj1_position2"},
                     { "stock_xdj1_position3","S7:[S7 connection_1]DB308,B268.int.stock_xdj1_position3"},
+
+
+
                     { "stock_xdj1_box_type","S7:[S7 connection_1]DB308,B270.stock_xdj1_box_type"},
                     { "stock_xdj1_reset_position_flag","S7:[S7 connection_1]DB308,B271.stock_xdj1_reset_position_flag"},
                     { "stock_xdj1_tray_reverse_no","S7:[S7 connection_1]DB308,B272.Int.stock_xdj1_tray_reverse_no"},
                     { "stock_xdj1_tray_num","S7:[S7 connection_1]DB308,B274.Int.stock_xdj1_tray_num"},
                     { "stock_xdj1_delivery_num","S7:[S7 connection_1]DB308,B276.Int.stock_xdj1_delivery_num"},
-                    { "stock_xdj1_barcode","S7:[S7 connection_1]DB308,B278.254.String.stock_xdj1_barcode"}
+                    { "stock_xdj1_barcode","S7:[S7 connection_1]DB308,B278.254.String.stock_xdj1_barcode"},
+
+
+                    { "stock_xdj1_to_position1","S7:[S7 connection_1]DB308,B264.int.stock_xdj1_to_position1"},
+                    { "stock_xdj1_to_position2","S7:[S7 connection_1]DB308,B266.int.stock_xdj1_to_position2"},
+                    { "stock_xdj1_to_position3","S7:[S7 connection_1]DB308,B268.int.stock_xdj1_to_position3"}
                 }
             },
            #endregion
@@ -74,15 +83,24 @@ namespace AGVCenterLib
                 {
                    { "stock_xdj2_rw_flag","S7:[S7 connection_1]DB308,B534.stock_xdj2_rw_flag"},
                     { "stock_xdj2_action_type","S7:[S7 connection_1]DB308,B535.stock_xdj2_action_type"},
+
                     { "stock_xdj2_position1","S7:[S7 connection_1]DB308,B536.int.stock_xdj2_position1"},
                     { "stock_xdj2_position2","S7:[S7 connection_1]DB308,B538.int.stock_xdj2_position2"},
                     { "stock_xdj2_position3","S7:[S7 connection_1]DB308,B540.int.stock_xdj2_position3"},
+
+                  
+
                     { "stock_xdj2_box_type","S7:[S7 connection_1]DB308,B542.stock_xdj2_box_type"},
                     { "stock_xdj2_reset_position_flag","S7:[S7 connection_1]DB308,B543.stock_xdj2_reset_position_flag"},
                     { "stock_xdj2_tray_reverse_no","S7:[S7 connection_1]DB308,B544.Int.stock_xdj2_tray_reverse_no"},
                     { "stock_xdj2_tray_num","S7:[S7 connection_1]DB308,B546.Int.stock_xdj2_tray_num"},
                     { "stock_xdj2_delivery_num","S7:[S7 connection_1]DB308,B548.Int.stock_xdj2_devlivery_num"},
-                    { "stock_xdj2_barcode","S7:[S7 connection_1]DB308,B550.String.254.stock_xdj2_barcode"}
+                    { "stock_xdj2_barcode","S7:[S7 connection_1]DB308,B550.String.254.stock_xdj2_barcode"},
+
+                      { "stock_xdj2_to_position1","S7:[S7 connection_1]DB308,B536.int.stock_xdj2_to_position1"},
+                    { "stock_xdj2_to_position2","S7:[S7 connection_1]DB308,B538.int.stock_xdj2_to_position2"},
+                    { "stock_xdj2_to_position3","S7:[S7 connection_1]DB308,B540.int.stock_xdj2_to_position3"}
+
                 }
             },
            #endregion

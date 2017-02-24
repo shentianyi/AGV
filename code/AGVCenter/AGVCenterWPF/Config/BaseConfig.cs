@@ -20,7 +20,9 @@ namespace AGVCenterWPF.Config
         private static string preScanBar = string.Empty;
         private static bool isOPCConnector = true;
         private static string barcodeReg = "^[0-9]{10}[A-Z]{2}$";
-
+        // 是否使用库存入库优先级
+        private static bool isUsePositionPriority = false;
+        private static bool isSelfAreaMove = false;
         static BaseConfig()
         {
             try
@@ -37,6 +39,10 @@ namespace AGVCenterWPF.Config
                 preScanBar = config.Get("preScanBar");
                 isOPCConnector = bool.Parse(config.Get("isOPCConnector"));
                 barcodeReg = config.Get("barcodeReg");
+
+                isUsePositionPriority = bool.Parse(config.Get("isUsePositionPriority"));
+
+                isSelfAreaMove = bool.Parse(config.Get("isSelfAreaMove"));
             }
             catch (Exception ex)
             {
@@ -179,5 +185,37 @@ namespace AGVCenterWPF.Config
                 config.Save();
             }
         }
+
+        public static bool IsUsePositionPriority
+        {
+            get
+            {
+                return isUsePositionPriority;
+            }
+
+            set
+            {
+                isUsePositionPriority = value;
+                config.Set("isUsePositionPriority", value);
+                config.Save();
+            }
+        }
+
+        public static bool IsSelfAreaMove
+        {
+            get
+            {
+                return isSelfAreaMove;
+            }
+
+            set
+            {
+                isSelfAreaMove = value;
+                config.Set("isSelfAreaMove", value);
+                config.Save();
+            }
+        }
+
+
     }
 }

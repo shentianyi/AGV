@@ -80,6 +80,12 @@ namespace AGVCenterLib.Service
                 PickBatchId = task.PickBatchId,
                 TrayBatchId = task.TrayBatchId,
                 PickListItemId=task.PickListItemId,
+
+                ToPositionNr = task.ToPositionNr,
+                ToPositionFloor = task.ToPositionFloor,
+                ToPositionColumn = task.ToPositionColumn,
+                ToPositionRow = task.ToPositionRow,
+
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };

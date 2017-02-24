@@ -97,7 +97,7 @@ namespace AGVCenterLib.Data.Repository.Implement
             return this.context.Storage.ToList();
         }
 
-        public MoveStockModel FindMoveStockForMove(int roadmachineIndex, bool isSelfAreaMove = false)
+        public MoveStockModel FindMoveStockForAutoMove(int roadmachineIndex, bool isSelfAreaMove = false)
         {
             MoveStockModel moveModel = null;
             var warehouseAreas = this.context.StorageUniqueItemView
@@ -151,9 +151,12 @@ namespace AGVCenterLib.Data.Repository.Implement
             var toPosition = positionRepo.FindByRoadMachineBySortPrority(roadmachineIndex, toAreaNr);
             if (storage != null && toPosition != null)
             {
-               return new MoveStockModel()
+                var fromPosition = new PositionRepository(this._dataContextFactory).FindByNr(storage.PositionNr);
+
+                return new MoveStockModel()
                 {
                     FromStorage = storage,
+                    FromPosition = fromPosition,
                     ToPosition = toPosition
                 };
             }

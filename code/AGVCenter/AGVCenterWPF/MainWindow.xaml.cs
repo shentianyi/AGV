@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using AGVCenterLib.Data;
 using AGVCenterLib.Enum;
 using AGVCenterLib.Model;
+using AGVCenterLib.Model.Message;
 using AGVCenterLib.Model.OPC;
 using AGVCenterLib.Service;
 using AGVCenterWPF.Config;
@@ -413,6 +414,13 @@ namespace AGVCenterWPF
 
 
                     OPCSetStockTaskRoadMachine1Data.Barcode = taskItem.Barcode;
+
+
+                    OPCSetStockTaskRoadMachine1Data.ToPositionFloor = taskItem.ToPositionFloor;
+                    OPCSetStockTaskRoadMachine1Data.PositionColumn = taskItem.ToPositionColumn;
+                    OPCSetStockTaskRoadMachine1Data.ToPositionRow = taskItem.ToPositionRow;
+
+
                     if (OPCSetStockTaskRoadMachine1Data.SyncWrite(OPCSetStockTaskRoadMachine1OPCGroup))
                     {
                         if (taskItem.StockTaskType == StockTaskType.IN)
@@ -422,6 +430,10 @@ namespace AGVCenterWPF
                         else if (taskItem.StockTaskType == StockTaskType.OUT)
                         {
                             taskItem.State = StockTaskState.RoadMachineOutStocking;
+                        }
+                        else if (taskItem.StockTaskType == StockTaskType.AUTO_MOVE)
+                        {
+                            taskItem.State = StockTaskState.RoadMachineMoveStocking;
                         }
                     }
                 }
@@ -453,6 +465,11 @@ namespace AGVCenterWPF
 
 
                     OPCSetStockTaskRoadMachine2Data.Barcode = taskItem.Barcode;
+
+                    OPCSetStockTaskRoadMachine2Data.ToPositionFloor = taskItem.ToPositionFloor;
+                    OPCSetStockTaskRoadMachine2Data.PositionColumn = taskItem.ToPositionColumn;
+                    OPCSetStockTaskRoadMachine2Data.ToPositionRow = taskItem.ToPositionRow;
+
                     if (OPCSetStockTaskRoadMachine2Data.SyncWrite(OPCSetStockTaskRoadMachine2OPCGroup))
                     {
                         if (taskItem.StockTaskType == StockTaskType.IN)
@@ -462,6 +479,9 @@ namespace AGVCenterWPF
                         else if (taskItem.StockTaskType == StockTaskType.OUT)
                         {
                             taskItem.State = StockTaskState.RoadMachineOutStocking;
+                        }else if (taskItem.StockTaskType == StockTaskType.AUTO_MOVE)
+                        {
+                            taskItem.State = StockTaskState.RoadMachineMoveStocking;
                         }
 
                     }
@@ -685,14 +705,15 @@ namespace AGVCenterWPF
                         LogUtil.Logger.InfoFormat("条码: {0}---DbId:{1} -- 库位:{2}", taskItem.Barcode, taskItem.DbId, taskItem.PositionNr);
                         LogUtil.Logger.Info("********************************************************************");
 
+                        var msg = new ResultMessage();
 
                         if (taskItem.StockTaskType == StockTaskType.IN)
                         {
                             taskItem.State = StockTaskState.InStocked;
                             if (TestConfig.InStockCreateStorage)
                             {
-                                new StorageService(OPCConfig.DbString)
-                                    .InStockByUniqItemNr(taskItem.PositionNr, taskItem.Barcode);
+                                msg = new StorageService(OPCConfig.DbString)
+                                      .InStockByUniqItemNr(taskItem.PositionNr, taskItem.Barcode);
                             }
                             dicQ.Dequeue();
                         }
@@ -701,10 +722,19 @@ namespace AGVCenterWPF
                             taskItem.State = StockTaskState.OutStocked;
                             if (TestConfig.OutStockTaskDelStorage)
                             {
-                                new StorageService(OPCConfig.DbString).OutStockByUniqItemNr(taskItem.Barcode);
+                                msg = new StorageService(OPCConfig.DbString).OutStockByUniqItemNr(taskItem.Barcode);
                             }
                             dicQ.Dequeue();
                         }
+                        else if (taskItem.StockTaskType == StockTaskType.AUTO_MOVE)
+                        {
+                            taskItem.State = StockTaskState.RoadMachineMoveStocked;
+                            msg = new StorageService(OPCConfig.DbString).MoveStockByUniqItemNr(taskItem.Barcode, taskItem.ToPositionNr);
+                            dicQ.Dequeue();
+                        }
+
+                        LogUtil.Logger.InfoFormat("【巷道机任务执行操作库存返回消息】{0}----{1}",msg.Success,msg.Content);
+
                         break;
                     case StockTaskActionFlag.Fail:
                         if (taskItem.StockTaskType == StockTaskType.IN)
@@ -715,6 +745,10 @@ namespace AGVCenterWPF
                         else if (taskItem.StockTaskType == StockTaskType.OUT)
                         {
                             taskItem.State = StockTaskState.ErrorOutStock;
+                            dicQ.Dequeue();
+                        }else if (taskItem.StockTaskType == StockTaskType.AUTO_MOVE)
+                        {
+                            taskItem.State = StockTaskState.ErrorAutoMoveStock;
                             dicQ.Dequeue();
                         }
                         break;
@@ -985,6 +1019,13 @@ namespace AGVCenterWPF
                 updatedStockTask.PositionFloor = taskItem.PositionFloor;
                 updatedStockTask.PositionColumn = taskItem.PositionColumn;
                 updatedStockTask.PositionRow = taskItem.PositionRow;
+
+                updatedStockTask.ToPositionNr = taskItem.ToPositionNr;
+                updatedStockTask.ToPositionFloor = taskItem.ToPositionFloor;
+                updatedStockTask.ToPositionColumn = taskItem.ToPositionColumn;
+                updatedStockTask.ToPositionRow = taskItem.ToPositionRow;
+
+
 
                 receiveMessageQueue.Enqueue(updatedStockTask);
                 receivedEvent.Set();
@@ -1282,25 +1323,7 @@ namespace AGVCenterWPF
                             foreach (var st in stockTasks)
                             {
 
-                                StockTaskItem taskItem = new StockTaskItem(this.uiContext)
-                                {
-                                    StockTaskType = StockTaskType.OUT,
-                                    Barcode = st.BarCode,
-                                    BoxType = (byte)st.BoxType,
-                                    PositionNr = st.PositionNr,
-                                    PositionFloor = (byte)st.PositionFloor,
-                                    PositionColumn = (byte)st.PositionColumn,
-                                    PositionRow = (byte)st.PositionRow,
-                                    RoadMachineIndex = st.RoadMachineIndex.Value,
-
-                                    TrayReverseNo = st.TrayReverseNo.HasValue ? st.TrayReverseNo.Value : 0,
-                                    TrayNum = st.TrayNum.HasValue ? st.TrayNum.Value : 0,
-                                    PickItemNum = st.PickItemNum.HasValue ? st.PickItemNum.Value : 0,
-                                    State = (StockTaskState)st.State,
-                                    DbId = st.Id,
-                                    IsInProcessing = true
-                                };
-                                taskItem.TaskStateChangeEvent += new StockTaskItem.TaskStateChangeEventHandler(TaskItem_TaskStateChangeEvent);
+                                StockTaskItem taskItem = this.InitTaskItemByStockTask(st, true);
 
                                 taskItem.State = StockTaskState.RoadMachineWaitOutStockDispatch;
                                 ///
@@ -1472,6 +1495,7 @@ namespace AGVCenterWPF
                         i.PositionFloor = taskItem.PositionFloor;
                         i.PositionColumn = taskItem.PositionColumn;
                         i.PositionRow = taskItem.PositionRow;
+
                         i.AgvPassFlag = taskItem.AgvPassFlag;
                         i.RestPositionFlag = taskItem.RestPositionFlag;
                         i.Barcode = taskItem.Barcode;
@@ -1482,6 +1506,13 @@ namespace AGVCenterWPF
                         i.PickItemNum = taskItem.PickItemNum;
                         i.DbId = taskItem.DbId;
                         i.CreatedAt = taskItem.CreatedAt;
+
+
+                        i.ToPositionNr = taskItem.ToPositionNr;
+                        i.ToPositionFloor = taskItem.ToPositionFloor;
+                        i.ToPositionColumn = taskItem.ToPositionColumn;
+                        i.ToPositionRow = taskItem.ToPositionRow;
+
                         i.IsInProcessing = true;
                     }
                     else
@@ -1507,7 +1538,9 @@ namespace AGVCenterWPF
             lock (getPostionLocker)
             {
                 PositionService ps = new PositionService(OPCConfig.DbString);
-                Position position = ps.FindInStockPosition(roadMachineIndex,null, true);
+
+                Position position = ps.FindInStockPosition(roadMachineIndex,null, true,BaseConfig.IsUsePositionPriority);
+
                 return position;
             }
         }

@@ -33,6 +33,12 @@ namespace AGVCenterLib.Enum
         /// 只入库
         /// </summary>
         [Description("只入库")]
-        OnlyIn = 400
+        OnlyIn = 400,
+
+        /// <summary>
+        /// 只自动理货
+        /// </summary>
+        [Description("只自动理货")]
+        AutoMoveOnly=500
     }
 }
