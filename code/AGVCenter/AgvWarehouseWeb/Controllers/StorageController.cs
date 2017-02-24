@@ -15,6 +15,8 @@ using AgvWarehouseWeb.Properties;
 using CsvHelper;
 using CsvHelper.Configuration;
 using MvcPaging;
+using AGVCenterLib.Data.Repository.Implement;
+using AGVCenterWPF;
 
 namespace AgvWarehouseWeb.Controllers
 {
@@ -101,6 +103,15 @@ namespace AgvWarehouseWeb.Controllers
             Response.End();
         }
 
+        //public ActionResult TestMove()
+        //{
+        //    int roadmachineIndex = 1;
+        //    StockTaskService ts = new StockTaskService(OPCConfig.DbString);
+
+        //    ts.CreateAutoMoveStockTask(roadmachineIndex);
+            
+        //    return View();
+        //}
 
         public ActionResult ImportOutStock(){
             return View();

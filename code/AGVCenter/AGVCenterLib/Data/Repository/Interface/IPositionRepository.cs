@@ -37,5 +37,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         /// <returns></returns>
           Position FindByRoadMachineBySortPrority(int roadMachineIndex, string warehouseAreaNr);
 
+        IQueryable<Position> GetSortedPositionsList();
+
     }
 }

@@ -175,5 +175,15 @@ namespace AGVCenterLib.Data.Repository.Implement
 
             return q;
         }
+
+        public IQueryable<Position> GetSortedPositionsList()
+        {
+            var q = this.context.Position as IQueryable<Position>;
+
+            q = q.Where(s => s.IsLocked == false)
+                .OrderBy(s => s.WarehouseAreaNr).ThenBy(s => s.Floor).ThenBy(s => s.Column);
+
+            return q;
+        }
     }
 }

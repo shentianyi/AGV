@@ -108,6 +108,11 @@ namespace AGVCenterLib.Service
             p.IsLocked = ! p.IsLocked;
             this.Context.SaveAll();
         }
+
+        public IQueryable<Position> GetSortedPositionsList()
+        {
+            return new PositionRepository(this.Context).GetSortedPositionsList();
+        }
     }
 
 

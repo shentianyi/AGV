@@ -43,8 +43,8 @@ namespace AGVCenterWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.0.99;Initial Catalog=AgvWarehouseDb;Persist Security Info=Tru" +
-            "e;User ID=sa;Password=123456@")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DELL-PC\\SQLEXPRESS;Initial Catalog=AgvWarehouseDb;Persist Security Info=Tru" +
+            "e;User ID=sa;Password=sa")]
         public string dbString {
             get {
                 return ((string)(this["dbString"]));

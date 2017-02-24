@@ -368,6 +368,10 @@
       <Project>{7c1b913a-0c42-4535-8032-24a86c7f24d1}</Project>
       <Name>AGVCenterLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AGVCenterWPF\AGVCenterWPF.csproj">
+      <Project>{1CA7279E-B19E-4A38-9F1D-71F42303DABE}</Project>
+      <Name>AGVCenterWPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
