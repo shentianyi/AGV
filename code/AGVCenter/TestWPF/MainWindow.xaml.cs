@@ -95,5 +95,31 @@ namespace TestWPF
             t.Enabled = false;
             t.Stop();
         }
+
+        private void updatePositionPriority_Click(object sender, RoutedEventArgs e)
+        {
+            for (int j = 1; j< 3; j++)
+            {
+                AgvWarehouseDataContext context = new AgvWarehouseDataContext(Settings.Default.db);
+                var ps = context.PositionStorageView
+                    .Where(s => s.RoadMachineIndex==j)
+                    .OrderBy(s => s.WarehouseAreaInStorePriority)
+                    .ThenByDescending(s => s.Column)
+                   
+                    .ThenBy(s => s.Floor) .ThenBy(s => s.Row).ToList();
+                var i = 1;
+                foreach (var pss in ps)
+                {
+                    AgvWarehouseDataContext context1 = new AgvWarehouseDataContext(Settings.Default.db);
+
+                    var p = context1.Position.FirstOrDefault(s => s.Nr == pss.Nr);
+                    p.InStorePriority = i++;
+                    context1.SubmitChanges();
+                    
+                }
+            }
+            MessageBox.Show("OK");
+
+        }
     }
 }

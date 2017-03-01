@@ -113,6 +113,11 @@ namespace AGVCenterLib.Service
         {
             return new PositionRepository(this.Context).GetSortedPositionsList();
         }
+
+        public Position FindByNr(string positionNr)
+        {
+            return new PositionRepository(this.Context).FindByNr(positionNr);
+        }
     }
 
 

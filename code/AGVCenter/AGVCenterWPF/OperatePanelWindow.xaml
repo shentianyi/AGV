@@ -1,0 +1,40 @@
+﻿<Window x:Class="AGVCenterWPF.OperatePanelWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AGVCenterWPF"
+        mc:Ignorable="d"
+        Title="OperatePanelWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <TabControl x:Name="tabControl"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <TabItem Header="库存操作" Height="23" VerticalAlignment="Bottom">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">   
+                                <Label x:Name="label2" Content="巷道机" Width="50"/>
+                                <TextBox Name="roadMachineTB" Width="50"></TextBox>
+                                <Label x:Name="label" Content="源库位"  Width="50"/>
+                                <TextBox x:Name="fromPositionTB" Width="120"/>
+                                <Label x:Name="label1" Content="目标库位"  Width="60" />
+                                <TextBox x:Name="toPositionTB" Width="120"/>
+                                <Button x:Name="button" Content="移 库" Width="60" Click="button_Click"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </Grid>
+                   
+                    
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

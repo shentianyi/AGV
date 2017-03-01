@@ -489,10 +489,24 @@ namespace AGVCenterLib.Service
             return stockTaskRep.FindLastByNr(uniqItemNr);
         }
 
+
         public StockTask CreateAutoMoveStockTask(int roadMachineIndex, bool isSelfAreaMove = false)
         {
-            MoveStockModel ms = new StorageRepository(this.Context).FindMoveStockForAutoMove(roadMachineIndex, isSelfAreaMove);
+            MoveStockModel ms = new StorageRepository(this.Context)
+                .FindMoveStockForAutoMove(roadMachineIndex, isSelfAreaMove);
+            
+            return this.InitStockTaskByMoveModel(ms);
+        }
+
+        public StockTask CreateAutoMoveStockTask(MoveStockModel ms)
+        {
+            return this.InitStockTaskByMoveModel(ms);
+        }
+
+        private StockTask InitStockTaskByMoveModel(MoveStockModel ms)
+        {
             StockTask st = null;
+
             if (ms != null)
             {
                 st = new StockTask()
@@ -504,7 +518,7 @@ namespace AGVCenterLib.Service
                     PositionFloor = ms.FromStorage.PositionFloor,
                     PositionColumn = ms.FromStorage.PositionColumn,
                     PositionRow = ms.FromStorage.PositionRow,
-                     
+
                     BarCode = ms.FromStorage.UniqueItemNr,
                     State = (int)StockTaskState.RoadMachineMoveStockInit,
 
@@ -520,10 +534,9 @@ namespace AGVCenterLib.Service
                 };
                 IStockTaskRepository stRep = new StockTaskRepository(this.Context);
                 stRep.Create(st);
-                this.Context.SaveAll(); 
+                this.Context.SaveAll();
 
                 new StockTaskLogService(this.DbString).CreateByStockTask(st);
-              
             }
             return st;
         }

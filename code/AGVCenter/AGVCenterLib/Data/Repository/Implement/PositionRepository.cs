@@ -40,14 +40,28 @@ namespace AGVCenterLib.Data.Repository.Implement
             return this.context.Position.FirstOrDefault(s => s.Nr == nr);
         }
 
-        public Position FindByRoadMachineBySortPrority(int roadMachineIndex, string warehouseAreaNr)
+        public Position FindCanInStockByRoadMachineAndSortPrority(int roadMachineIndex, string warehouseAreaNr)
         {
             var ps = this.context.PositionStorageView
                    .Where(s => s.RoadMachineIndex == roadMachineIndex
                    && (s.StorageId == null && s.IsLocked == false) 
                    && s.WarehouseAreaIsLocked == false 
                    && s.WarehouseAreaNr == warehouseAreaNr)
-                   .OrderByDescending(s => s.InStorePriority)
+                   .OrderBy(s => s.InStorePriority)
+                   .FirstOrDefault();
+
+            return this.ConvertPositionViewToPosition(ps);
+        }
+
+        public Position FindCanInStockByRoadMachineAndSortPrority(int roadMachineIndex, List<string> warehouseAreaNrs)
+        {
+            var ps = this.context.PositionStorageView
+                   .Where(s => s.RoadMachineIndex == roadMachineIndex
+                   && (s.StorageId == null && s.IsLocked == false)
+                   && s.WarehouseAreaIsLocked == false
+                   &&  warehouseAreaNrs.Contains(s.WarehouseAreaNr))
+                   .OrderBy(s=>s.WarehouseAreaInStorePriority)
+                   .ThenBy(s => s.InStorePriority)
                    .FirstOrDefault();
 
             return this.ConvertPositionViewToPosition(ps);
@@ -70,24 +84,28 @@ namespace AGVCenterLib.Data.Repository.Implement
                 // ps = q.OrderByDescending(s => s.InStorePriority).FirstOrDefault();
                 var warehouseAreas = q.Select(s => new { WarehouseAreaNr = s.WarehouseAreaNr, WarehouseAreaInStorePriority = s.WarehouseAreaInStorePriority })
                     .ToList()
-                    .Distinct().OrderByDescending(s=>s.WarehouseAreaInStorePriority).ToList() ;
+                    .Distinct()
+                    .OrderByDescending(s=>s.WarehouseAreaInStorePriority).ToList() ;
                 
                 var firstArea = warehouseAreas.OrderBy(s => s.WarehouseAreaInStorePriority).FirstOrDefault();
 
                 foreach(var area in warehouseAreas)
                 {
-                    var storage = this.context.StorageUniqueItemView.FirstOrDefault(s => s.PositionWarehouseAreaNr == area.WarehouseAreaNr);
+                    var storage = this.context
+                        .StorageUniqueItemView
+                        .FirstOrDefault(s => s.PositionWarehouseAreaNr == area.WarehouseAreaNr);
                     if (storage != null)
                     {
                         ps = q.Where(s => s.WarehouseAreaNr == area.WarehouseAreaNr)
-                            .OrderByDescending(s => s.InStorePriority)
+                            .OrderBy(s => s.InStorePriority)
                         .FirstOrDefault();
                         break;
                     }
                     else if (firstArea.WarehouseAreaNr == area.WarehouseAreaNr)
                     {
+                        // 仓库库存量为0时，找到第一个库位
                         ps = q.Where(s => s.WarehouseAreaNr == area.WarehouseAreaNr)
-                           .OrderByDescending(s => s.InStorePriority)
+                           .OrderBy(s => s.InStorePriority)
                        .FirstOrDefault();
                     }
                 }

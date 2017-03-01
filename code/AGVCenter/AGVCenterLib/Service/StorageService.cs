@@ -55,6 +55,17 @@ namespace AGVCenterLib.Service
             return message;
         }
 
+        public Storage FindByPositionNr(string positionNr)
+        {
+            return new StorageRepository(this.Context).FindByPositionNr(positionNr);
+        }
+
+
+        public StorageUniqueItemView FindViewByPositionNr(string positionNr)
+        {
+            return new StorageRepository(this.Context).FindViewByPositionNr(positionNr);
+        }
+
         /// <summary>
         /// 入库
         /// </summary>

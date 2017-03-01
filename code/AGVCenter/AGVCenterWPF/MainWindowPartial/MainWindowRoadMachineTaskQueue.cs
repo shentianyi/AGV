@@ -127,6 +127,10 @@ namespace AGVCenterWPF
                         {
                             RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1InTaskQueue.Dequeue());
                         }
+                        else if (this.RoadMachine1MoveTaskQueue.Count > 0)
+                        {
+                            RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1MoveTaskQueue.Dequeue());
+                        }
                     }
                     else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.InHigherThanOut)
                     {
@@ -137,6 +141,10 @@ namespace AGVCenterWPF
                         else if (RoadMachine1OutTaskQueue.Count > 0)
                         {
                             RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1OutTaskQueue.Dequeue());
+                        }
+                        else if (this.RoadMachine1MoveTaskQueue.Count > 0)
+                        {
+                            RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1MoveTaskQueue.Dequeue());
                         }
                     }
                     else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.OnlyOut)
@@ -155,19 +163,22 @@ namespace AGVCenterWPF
                     }
                     else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.AutoMoveOnly)
                     {
-                        // 生成自动移库任务，如到MOVE的任务列表
-                        StockTask st = new StockTaskService(OPCConfig.DbString)
-                            .CreateAutoMoveStockTask(roadMachineIndex, BaseConfig.IsSelfAreaMove);
-                        if (st != null)
+                        if (RoadMachine1MoveTaskQueue.Count == 0)
                         {
-                            var taskItem = this.InitTaskItemByStockTask(st, true);
-                            // 加入移库队列
-                            this.EnqueueRoadMachineTask(taskItem);
-                            // 再出栈
-                            if (this.RoadMachine1MoveTaskQueue.Count > 0)
+                            // 生成自动移库任务，如到MOVE的任务列表
+                            StockTask st = new StockTaskService(OPCConfig.DbString)
+                                .CreateAutoMoveStockTask(roadMachineIndex, BaseConfig.IsSelfAreaMove);
+                            if (st != null)
                             {
-                                RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1MoveTaskQueue.Dequeue());
+                                var taskItem = this.InitTaskItemByStockTask(st, true);
+                                // 加入移库队列
+                                this.EnqueueRoadMachineTask(taskItem);
                             }
+                        }
+                        // 再出栈
+                        if (this.RoadMachine1MoveTaskQueue.Count > 0)
+                        {
+                            RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1MoveTaskQueue.Dequeue());
                         }
                     }
                     #endregion
@@ -180,11 +191,14 @@ namespace AGVCenterWPF
                         if (RoadMachine2OutTaskQueue.Count > 0)
                         {
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2OutTaskQueue.Dequeue());
-
                         }
                         else if (RoadMachine2InTaskQueue.Count > 0)
                         {
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2InTaskQueue.Dequeue());
+                        }
+                        else if (this.RoadMachine2MoveTaskQueue.Count > 0)
+                        {
+                            RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2MoveTaskQueue.Dequeue());
                         }
                     }
                     else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.InHigherThanOut)
@@ -196,6 +210,10 @@ namespace AGVCenterWPF
                         else if (RoadMachine2OutTaskQueue.Count > 0)
                         {
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2OutTaskQueue.Dequeue());
+                        }
+                        else if (this.RoadMachine2MoveTaskQueue.Count > 0)
+                        {
+                            RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2MoveTaskQueue.Dequeue());
                         }
                     }
                     else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.OnlyOut)
@@ -214,20 +232,25 @@ namespace AGVCenterWPF
                     }
                     else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.AutoMoveOnly)
                     {
-                        // 生成自动移库任务，如到MOVE的任务列表
-                        StockTask st = new StockTaskService(OPCConfig.DbString)
-                            .CreateAutoMoveStockTask(roadMachineIndex, BaseConfig.IsSelfAreaMove);
-                        if (st != null)
+                        if (RoadMachine2MoveTaskQueue.Count == 0)
                         {
-                            var taskItem = this.InitTaskItemByStockTask(st, true);
-                            // 加入移库队列
-                            this.EnqueueRoadMachineTask(taskItem);
-                            // 再出栈
-                            if (this.RoadMachine2MoveTaskQueue.Count > 0)
+                            // 生成自动移库任务，如到MOVE的任务列表
+                            StockTask st = new StockTaskService(OPCConfig.DbString)
+                                .CreateAutoMoveStockTask(roadMachineIndex, BaseConfig.IsSelfAreaMove);
+                            if (st != null)
                             {
-                                RoadMachine2CenterTaskQueue.Enqueue(RoadMachine1MoveTaskQueue.Dequeue());
+                                var taskItem = this.InitTaskItemByStockTask(st, true);
+                                // 加入移库队列
+                                this.EnqueueRoadMachineTask(taskItem);
+                                
                             }
                         }
+                        // 再出栈
+                        if (this.RoadMachine2MoveTaskQueue.Count > 0)
+                        {
+                            RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2MoveTaskQueue.Dequeue());
+                        }
+
                     }
                     #endregion
                 }

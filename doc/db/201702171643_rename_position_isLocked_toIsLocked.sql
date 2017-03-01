@@ -45,7 +45,6 @@ GO
 
 
 
-
 ---- 修改列名称
 use AgvWarehouseDb
 go
@@ -61,6 +60,26 @@ go
 alter table Position Add WarehouseAreaNr varchar(50);
 
 go
+
+alter table StockTask add ToPositionNr varchar(50);
+go
+alter table StockTask add ToPositionFloor int;
+go
+alter table StockTask add ToPositionColumn int;
+go
+alter table StockTask add ToPositionRow int;
+go
+
+
+alter table StockTaskLog add ToPositionNr varchar(50);
+go
+alter table StockTaskLog add ToPositionFloor int;
+go
+alter table StockTaskLog add ToPositionColumn int;
+go
+alter table StockTaskLog add ToPositionRow int;
+go
+
 -- 添加外键
 
 USE [AgvWarehouseDb]

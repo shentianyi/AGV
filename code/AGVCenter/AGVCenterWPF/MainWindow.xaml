@@ -13,7 +13,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabControl"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,-10,-10">
+        <TabControl x:Name="tabControl"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
             <TabItem Header="OPC 服务配置" Height="23" VerticalAlignment="Bottom">
                 <Grid Background="#FFE5E5E5"  VerticalAlignment="Stretch">
                     <Label x:Name="label" Content="OPC服务列表:" HorizontalAlignment="Left" Margin="26,49,0,0" VerticalAlignment="Top"/>
@@ -83,7 +83,7 @@
                         <Button x:Name="createInStockBtn" Grid.Column="5"
                                 Content="手动生成入库任务" 
                                 HorizontalAlignment="Left" Margin="10,10,0,0" 
-                                VerticalAlignment="Top" Width="104" Height="40"
+                                VerticalAlignment="Top" Width="104" Height="30"
                                 Click="createInStockBtn_Click"/>
                         <CheckBox x:Name="IncreaseBarcodeCheckBox"
                                 
@@ -152,6 +152,12 @@
                                 Grid.Column="4" HorizontalAlignment="Left"
                                 Margin="5,10,0,0" VerticalAlignment="Top" Height="22" Click="goOnOutButton_Click"/>
 
+                        <Button x:Name="operatePanelButton" Content="操作面板" 
+                                Width="108" 
+                                Grid.Column="5" HorizontalAlignment="Left"
+                                Margin="5,10,0,0" VerticalAlignment="Top" Height="22"/>
+
+                        
                         <Button x:Name="CancelTaskBtn" Content="取消任务"
                                 Width="60" Click="CancelTaskBtn_Click"
                                 Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="22"/>

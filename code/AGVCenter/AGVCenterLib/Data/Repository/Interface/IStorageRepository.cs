@@ -14,6 +14,7 @@ namespace AGVCenterLib.Data.Repository.Interface
         void Delete(Storage entity);
 
         Storage FindByPositionNr(string positionNr);
+        StorageUniqueItemView FindViewByPositionNr(string positionNr);
         Storage FindByUniqNr(string uniqNr);
         Storage FindByPositionNrOrUniqNr(string positionNr, string uniqNr);
 
@@ -24,5 +25,6 @@ namespace AGVCenterLib.Data.Repository.Interface
         MoveStockModel FindMoveStockForAutoMove(int roadmachineIndex,bool isSelfAreaMove=false);
 
         StorageUniqueItemView FindFirstStorageByWarehouseAreaNr(string warehouseAreaNr);
+        StorageUniqueItemView FindFirstStorageByWarehouseAreaNrs(List<string> warehouseAreaNrs);
     }
 }

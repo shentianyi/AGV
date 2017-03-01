@@ -34,6 +34,11 @@ namespace AGVCenterLib.Data.Repository.Implement
             return this.context.Storage.FirstOrDefault(s => s.PositionNr == positionNr);
         }
 
+        public StorageUniqueItemView FindViewByPositionNr(string positionNr)
+        {
+            return this.context.StorageUniqueItemView.FirstOrDefault(s => s.PositionNr == positionNr);
+        }
+
         public Storage FindByUniqNr(string uniqNr)
         {
             return this.context.Storage.FirstOrDefault(s => s.UniqItemNr == uniqNr);
@@ -97,90 +102,79 @@ namespace AGVCenterLib.Data.Repository.Implement
             return this.context.Storage.ToList();
         }
 
-        public MoveStockModel FindMoveStockForAutoMove(int roadmachineIndex, bool isSelfAreaMove = false)
-        {
-            IPositionRepository positionRepo = new PositionRepository(this._dataContextFactory);
-
-            MoveStockModel moveModel = null;
-            StorageUniqueItemView storageUniqueItemView = null;
-            Position storagePosition = null;
-            WarehouseArea storageWarehouseArea = null;
-
-            var storagePositionList = this.context.StoragePositionView.ToList()
-                .Select(s => new
-                {
-                    Id = s.Id,
-                    PositionNr = s.PositionNr,
-                    Fifo = s.FIFO,
-                    WarehouseAreaNr = s.WarehouseAreaNr,
-                    Floor = s.Floor,
-                    Cloumn = s.Column
-                })
-                .Distinct().ToList().OrderBy(s => s.Fifo).ToList();
-
-            var firstEmptyPosition = this.context.PositionStorageView.ToList()
-                .Where(s => (s.StorageId == null) && (s.IsLocked == false))
-                .OrderBy(s => s.WarehouseAreaNr).ThenBy(s => s.Floor).ThenBy(s => s.Column).FirstOrDefault();
-
-            Position toPosition = positionRepo.FindByNr(firstEmptyPosition.Nr);
-            WarehouseArea toPositionWarehouseArea = toPosition.WarehouseArea;
-
-            foreach (var storage in storagePositionList)
-            {
-                // 判断当前库存是否需要调库至该轮最优库位
-                storagePosition = positionRepo.FindByNr(storage.PositionNr);
-                storageWarehouseArea = storagePosition.WarehouseArea;
-
-                if (!this.IsStorageBestPosition(storagePosition, storageWarehouseArea, toPosition, toPositionWarehouseArea))
-                {
-                    storageUniqueItemView = this.context.StorageUniqueItemView.Where(s => s.Id == storage.Id).FirstOrDefault();
-                    moveModel = new MoveStockModel()
-                    {
-                        FromStorage = storageUniqueItemView,
-                        FromPosition = storagePosition,
-                        ToPosition = toPosition
-                    };
-                }
-            }
-
-            return moveModel;
-        }
         //public MoveStockModel FindMoveStockForAutoMove(int roadmachineIndex, bool isSelfAreaMove = false)
         //{
-        //    MoveStockModel moveModel = null;
-        //    var warehouseAreas = this.context.StorageUniqueItemView
-        //        .Select(s => new
-        //        {
-        //            WarehouseAreaNr = s.PositionWarehouseAreaNr,
-        //            WarehouseAreaInStorePriority = s.WarehouseAreaInStorePriority
-        //        })
-        //        .Distinct().ToList().OrderBy(s => s.WarehouseAreaInStorePriority).ToList();
+        //    //IPositionRepository positionRepo = new PositionRepository(this._dataContextFactory);
 
-        //    var firstArea = warehouseAreas.OrderBy(s => s.WarehouseAreaInStorePriority).FirstOrDefault();
+        //    //MoveStockModel moveModel = null;
+        //    //StorageUniqueItemView storageUniqueItemView = null;
+        //    //Position storagePosition = null;
+        //    //WarehouseArea storageWarehouseArea = null;
 
-        //    IPositionRepository positionRepo = new PositionRepository(this._dataContextFactory);
+        //    //var storagePositionList = this.context.StoragePositionView.ToList()
+        //    //    .Select(s => new
+        //    //    {
+        //    //        Id = s.Id,
+        //    //        PositionNr = s.PositionNr,
+        //    //        Fifo = s.FIFO,
+        //    //        WarehouseAreaNr = s.WarehouseAreaNr,
+        //    //        Floor = s.Floor,
+        //    //        Cloumn = s.Column
+        //    //    })
+        //    //    .Distinct().ToList().OrderBy(s => s.Fifo).ToList();
 
-        //    foreach (var area in warehouseAreas)
-        //    {
-        //        // 最高级进行是否自我移库的判断
-        //        if (firstArea.WarehouseAreaNr == area.WarehouseAreaNr)
-        //        {
-        //            if (isSelfAreaMove)
-        //            {
-        //                moveModel= this.FindFromStorageAndToPosition(area.WarehouseAreaNr, area.WarehouseAreaNr, roadmachineIndex);
-        //                break;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            var highAreas = this.context.WarehouseArea
-        //                .Where(s => s.InStorePriority < area.WarehouseAreaInStorePriority)
-        //                .OrderBy(s => s.InStorePriority).ToList();
+        //    //var firstEmptyPosition = this.context.PositionStorageView.ToList()
+        //    //    .Where(s => (s.StorageId == null) && (s.IsLocked == false))
+        //    //    .OrderBy(s => s.WarehouseAreaNr).ThenBy(s => s.Floor).ThenBy(s => s.Column).FirstOrDefault();
 
-        //        }
-        //    }
-        //    return moveModel;
+        //    //Position toPosition = positionRepo.FindByNr(firstEmptyPosition.Nr);
+        //    //WarehouseArea toPositionWarehouseArea = toPosition.WarehouseArea;
+
+        //    //foreach (var storage in storagePositionList)
+        //    //{
+        //    //    // 判断当前库存是否需要调库至该轮最优库位
+        //    //    storagePosition = positionRepo.FindByNr(storage.PositionNr);
+        //    //    storageWarehouseArea = storagePosition.WarehouseArea;
+
+        //    //    if (!this.IsStorageBestPosition(storagePosition, storageWarehouseArea, toPosition, toPositionWarehouseArea))
+        //    //    {
+        //    //        storageUniqueItemView = this.context.StorageUniqueItemView.Where(s => s.Id == storage.Id).FirstOrDefault();
+        //    //        moveModel = new MoveStockModel()
+        //    //        {
+        //    //            FromStorage = storageUniqueItemView,
+        //    //            FromPosition = storagePosition,
+        //    //            ToPosition = toPosition
+        //    //        };
+        //    //    }
+        //    //}
+
+        //    //return moveModel;
         //}
+
+        public MoveStockModel FindMoveStockForAutoMove(int roadmachineIndex, bool isSelfAreaMove = false)
+        {
+            MoveStockModel moveModel = null;
+            var warehouseAreas = this.context.WarehouseArea.OrderBy(s => s.InStorePriority).ToList();
+
+            IPositionRepository positionRepo = new PositionRepository(this._dataContextFactory);
+
+            foreach (var area in warehouseAreas)
+            {
+
+                List<string> toAreas = warehouseAreas.Where(s => s.InStorePriority < area.InStorePriority).Select(s => s.Nr).ToList();
+                List<string> fromAreas = warehouseAreas.Where(s => s.InStorePriority >= area.InStorePriority).Select(s => s.Nr).ToList();
+
+                if (toAreas.Count > 0 && fromAreas.Count > 0)
+                {
+                    moveModel = this.FindFromStorageAndToPosition(fromAreas, toAreas, roadmachineIndex);
+                    if (moveModel != null)
+                    {
+                        break;
+                    }
+                }
+            }
+            return moveModel;
+        }
 
         public StorageUniqueItemView FindFirstStorageByWarehouseAreaNr(string warehouseAreaNr)
         {
@@ -190,6 +184,16 @@ namespace AGVCenterLib.Data.Repository.Implement
                 .FirstOrDefault();
             
         }
+
+        public StorageUniqueItemView FindFirstStorageByWarehouseAreaNrs(List<string> warehouseAreaNrs)
+        {
+            return this.context.StorageUniqueItemView
+                .Where(s => warehouseAreaNrs.Contains(s.PositionWarehouseAreaNr))
+                .OrderBy(s => s.FIFO)
+                .FirstOrDefault();
+        }
+
+
 
         private bool IsStorageBestPosition(Position storagePosition, WarehouseArea storageWarehouseArea,
             Position toPosition, WarehouseArea toPositionWarehouseArea)
@@ -224,22 +228,54 @@ namespace AGVCenterLib.Data.Repository.Implement
             return null;
         }
 
-        private MoveStockModel FindFromStorageAndToPosition(string fromAreaNr,string toAreaNr,int roadmachineIndex)
+        private MoveStockModel FindFromStorageAndToPosition(List<string> fromAreaNrs,
+            List<string> toAreaNrs,
+            int roadmachineIndex)
         {
-            IPositionRepository positionRepo = new PositionRepository(this._dataContextFactory);
+            PositionRepository positionRepo = new PositionRepository(this._dataContextFactory);
+
+            var storage = this.FindFirstStorageByWarehouseAreaNrs(fromAreaNrs);
+            var toPosition = positionRepo.FindCanInStockByRoadMachineAndSortPrority(roadmachineIndex, toAreaNrs);
+
+            if (storage != null && toPosition != null
+                && storage.PositionNr != toPosition.Nr
+                && storage.PositionWarehouseAreaNr != toPosition.WarehouseAreaNr)
+            {
+                var fromPosition = positionRepo.FindByNr(storage.PositionNr);
+                if (toPosition.InStorePriority <= fromPosition.InStorePriority)
+                {
+                    return new MoveStockModel()
+                    {
+                        FromStorage = storage,
+                        FromPosition = fromPosition,
+                        ToPosition = toPosition
+                    };
+                }
+            }
+            return null;
+
+        }
+
+        private MoveStockModel FindFromStorageAndToPosition(string fromAreaNr,
+            string toAreaNr,
+            int roadmachineIndex)
+        {
+            PositionRepository positionRepo = new PositionRepository(this._dataContextFactory);
 
             var storage = this.FindFirstStorageByWarehouseAreaNr(fromAreaNr);
-            var toPosition = positionRepo.FindByRoadMachineBySortPrority(roadmachineIndex, toAreaNr);
-            if (storage != null && toPosition != null)
+            var toPosition = positionRepo.FindCanInStockByRoadMachineAndSortPrority(roadmachineIndex, toAreaNr);
+            if (storage != null && toPosition != null && storage.PositionNr != toPosition.Nr)
             {
-                var fromPosition = new PositionRepository(this._dataContextFactory).FindByNr(storage.PositionNr);
-
-                return new MoveStockModel()
+                var fromPosition = positionRepo.FindByNr(storage.PositionNr);
+                if (fromAreaNr != toAreaNr || toPosition.InStorePriority <= fromPosition.InStorePriority)
                 {
-                    FromStorage = storage,
-                    FromPosition = fromPosition,
-                    ToPosition = toPosition
-                };
+                    return new MoveStockModel()
+                    {
+                        FromStorage = storage,
+                        FromPosition = fromPosition,
+                        ToPosition = toPosition
+                    };
+                }
             }
             return null;
         }
