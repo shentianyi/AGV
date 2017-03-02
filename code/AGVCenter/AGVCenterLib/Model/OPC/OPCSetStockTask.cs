@@ -112,8 +112,12 @@ namespace AGVCenterLib.Model.OPC
         public override bool SyncWrite(OPCGroup group, bool resetReadableFlag = true)
         {
             /// 写入条码信息
-            int[] SyncItemServerHandles = new int[11];
-            object[] SyncItemValues = new object[11];
+            //int[] SyncItemServerHandles = new int[11];
+            //object[] SyncItemValues = new object[11];
+
+            int[] SyncItemServerHandles = new int[14];
+            object[] SyncItemValues = new object[14];
+
             Array SyncItemServerErrors;
 
             // 库位，层 index 是2

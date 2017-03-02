@@ -69,9 +69,9 @@ namespace AGVCenterLib
                     { "stock_xdj1_barcode","S7:[S7 connection_1]DB308,B278.254.String.stock_xdj1_barcode"},
 
 
-                    { "stock_xdj1_to_position1","S7:[S7 connection_1]DB308,B264.int.stock_xdj1_to_position1"},
-                    { "stock_xdj1_to_position2","S7:[S7 connection_1]DB308,B266.int.stock_xdj1_to_position2"},
-                    { "stock_xdj1_to_position3","S7:[S7 connection_1]DB308,B268.int.stock_xdj1_to_position3"}
+                    { "stock_xdj1_to_position1","S7:[S7 connection_1]DB308,B1888.int.stock_xdj1_to_position1"},
+                    { "stock_xdj1_to_position2","S7:[S7 connection_1]DB308,B1890.int.stock_xdj1_to_position2"},
+                    { "stock_xdj1_to_position3","S7:[S7 connection_1]DB308,B1892.int.stock_xdj1_to_position3"}
                 }
             },
            #endregion
@@ -97,9 +97,9 @@ namespace AGVCenterLib
                     { "stock_xdj2_delivery_num","S7:[S7 connection_1]DB308,B548.Int.stock_xdj2_devlivery_num"},
                     { "stock_xdj2_barcode","S7:[S7 connection_1]DB308,B550.String.254.stock_xdj2_barcode"},
 
-                      { "stock_xdj2_to_position1","S7:[S7 connection_1]DB308,B536.int.stock_xdj2_to_position1"},
-                    { "stock_xdj2_to_position2","S7:[S7 connection_1]DB308,B538.int.stock_xdj2_to_position2"},
-                    { "stock_xdj2_to_position3","S7:[S7 connection_1]DB308,B540.int.stock_xdj2_to_position3"}
+                    { "stock_xdj2_to_position1","S7:[S7 connection_1]DB308,B1902.int.stock_xdj2_to_position1"},
+                    { "stock_xdj2_to_position2","S7:[S7 connection_1]DB308,B1904.int.stock_xdj2_to_position2"},
+                    { "stock_xdj2_to_position3","S7:[S7 connection_1]DB308,B1906.int.stock_xdj2_to_position3"}
 
                 }
             },

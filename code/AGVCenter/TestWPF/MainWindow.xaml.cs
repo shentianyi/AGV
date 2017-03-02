@@ -105,8 +105,7 @@ namespace TestWPF
                     .Where(s => s.RoadMachineIndex==j)
                     .OrderBy(s => s.WarehouseAreaInStorePriority)
                     .ThenByDescending(s => s.Column)
-                   
-                    .ThenBy(s => s.Floor) .ThenBy(s => s.Row).ToList();
+                    .ThenBy(s => s.Floor).ThenBy(s => s.Row).ToList();
                 var i = 1;
                 foreach (var pss in ps)
                 {

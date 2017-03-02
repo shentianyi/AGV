@@ -253,7 +253,7 @@ namespace AGVCenterLib.Service
 
             if (!item.IsCanMoveStockState)
             {
-                message.Content = string.Format("产品{0}当前状态为:{1}, 不可移库", uniqItemNr, item.StateStr);
+                message.Content = string.Format("产品:{0}当前状态为:{1}, 不可移库", uniqItemNr, item.StateStr);
                 return message;
             }
 
@@ -261,7 +261,7 @@ namespace AGVCenterLib.Service
             Storage storage = storageRep.FindByUniqNr(item.Nr);
             if (storage == null)
             {
-                message.Content = string.Format("产品{0}未入库，不可移库", uniqItemNr);
+                message.Content = string.Format("产品:{0}未入库，不可移库", uniqItemNr);
                 return message;
             }
 
@@ -269,7 +269,7 @@ namespace AGVCenterLib.Service
             Position posi = posiRep.FindByNr(toPositionNr);
             if (posi == null)
             {
-                message.Content = string.Format("库位{0}不存在", toPositionNr);
+                message.Content = string.Format("库位:{0}不存在", toPositionNr);
                 return message;
             }
 
@@ -277,7 +277,7 @@ namespace AGVCenterLib.Service
             Storage targetStorage = storageRep.FindByPositionNr(toPositionNr);
             if (targetStorage != null)
             {
-                message.Content = string.Format("库位{0}已使用，不可入库！", posi.Nr);
+                message.Content = string.Format("库位:{0}已使用，不可入库！", posi.Nr);
                 return message;
             }
 

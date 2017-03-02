@@ -155,7 +155,7 @@
                         <Button x:Name="operatePanelButton" Content="操作面板" 
                                 Width="108" 
                                 Grid.Column="5" HorizontalAlignment="Left"
-                                Margin="5,10,0,0" VerticalAlignment="Top" Height="22"/>
+                                Margin="5,10,0,0" VerticalAlignment="Top" Height="22" Click="operatePanelButton_Click"/>
 
                         
                         <Button x:Name="CancelTaskBtn" Content="取消任务"
@@ -200,7 +200,7 @@
                             <DataGridTextColumn Header="层" Binding="{Binding Path=PositionFloor}"/>
                             <DataGridTextColumn Header="列" Binding="{Binding Path=PositionColumn}"/>
                             <DataGridTextColumn Header="排" Binding="{Binding Path=PositionRow}"/>
-                           
+
                             <DataGridTextColumn Header="目标库位" Binding="{Binding Path=ToPositionNr}"/>
                             <DataGridTextColumn Header="目标层" Binding="{Binding Path=ToPositionFloor}"/>
                             <DataGridTextColumn Header="目标列" Binding="{Binding Path=ToPositionColumn}"/>

@@ -388,7 +388,7 @@ namespace AGVCenterLib.Model
             get { return this.toPositionNr; }
             set
             {
-                this.positionNr = value;
+                this.toPositionNr = value;
                 OnPropertyChanged("ToPositionNr");
             }
         }
@@ -438,7 +438,8 @@ namespace AGVCenterLib.Model
             get
             {
                 return this.State == StockTaskState.RoadMachineStockBuffing
-                    || this.State == StockTaskState.RoadMachineWaitOutStock;
+                    || this.State == StockTaskState.RoadMachineWaitOutStock
+                    || this.State== StockTaskState.RoadMachineMoveStockInit;
             }
         }
 

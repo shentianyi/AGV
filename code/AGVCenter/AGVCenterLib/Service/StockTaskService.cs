@@ -102,7 +102,7 @@ namespace AGVCenterLib.Service
                 {
                    var msg= new StorageService(this.Context).InStockByUniqItemNr(taskStock.PositionNr, t.BarCode);
                     LogUtil.Logger.Info(msg.Content);
-                }else if(t.Type.Value == (int)StockTaskType.MOVE && t.State.HasValue && t.State.Value == (int)StockTaskState.ManMoveStocked)
+                }else if(t.Type.Value == (int)StockTaskType.AUTO_MOVE && t.State.HasValue && t.State.Value == (int)StockTaskState.ManMoveStocked)
                 {
                     var msg = new StorageService(this.Context).MoveStockByUniqItemNr(taskStock.BarCode, t.ToPositionNr);
                     LogUtil.Logger.Info(msg.Content);

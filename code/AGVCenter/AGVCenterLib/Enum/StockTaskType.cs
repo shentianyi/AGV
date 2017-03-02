@@ -31,20 +31,20 @@ namespace AGVCenterLib.Enum
         /// <summary>
         /// MOVE
         /// </summary>
-        [Description("移库")]
-        MOVE = 3,
-
-        /// <summary>
-        /// AUTO_MOVE
-        /// </summary>
         [Description("自动移库")]
-        AUTO_MOVE=4,
+        AUTO_MOVE = 3,
+
+        ///// <summary>
+        ///// AUTO_MOVE
+        ///// </summary>
+        //[Description("自动移库")]
+        //AUTO_MOVE=3,
 
 
         /// <summary>
         /// CHECK
         /// </summary>
         [Description("盘点")]
-        CHECK = 4
+        CHECK = 5
     }
 }

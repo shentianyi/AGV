@@ -163,7 +163,7 @@ namespace AGVCenterWPF
                     }
                     else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.AutoMoveOnly)
                     {
-                        if (RoadMachine1MoveTaskQueue.Count == 0)
+                        if (RoadMachine1MoveTaskQueue.Count == 0 && RoadMachine1CenterTaskQueue.Count==0)
                         {
                             // 生成自动移库任务，如到MOVE的任务列表
                             StockTask st = new StockTaskService(OPCConfig.DbString)
@@ -173,6 +173,8 @@ namespace AGVCenterWPF
                                 var taskItem = this.InitTaskItemByStockTask(st, true);
                                 // 加入移库队列
                                 this.EnqueueRoadMachineTask(taskItem);
+                                this.AddOrUpdateItemToTaskDisplay(taskItem);
+
                             }
                         }
                         // 再出栈
@@ -232,7 +234,7 @@ namespace AGVCenterWPF
                     }
                     else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.AutoMoveOnly)
                     {
-                        if (RoadMachine2MoveTaskQueue.Count == 0)
+                        if (RoadMachine2MoveTaskQueue.Count == 0 && RoadMachine2CenterTaskQueue.Count==0)
                         {
                             // 生成自动移库任务，如到MOVE的任务列表
                             StockTask st = new StockTaskService(OPCConfig.DbString)
@@ -242,7 +244,7 @@ namespace AGVCenterWPF
                                 var taskItem = this.InitTaskItemByStockTask(st, true);
                                 // 加入移库队列
                                 this.EnqueueRoadMachineTask(taskItem);
-                                
+                                this.AddOrUpdateItemToTaskDisplay(taskItem);
                             }
                         }
                         // 再出栈

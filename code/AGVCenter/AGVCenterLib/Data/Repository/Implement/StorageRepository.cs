@@ -176,19 +176,19 @@ namespace AGVCenterLib.Data.Repository.Implement
             return moveModel;
         }
 
-        public StorageUniqueItemView FindFirstStorageByWarehouseAreaNr(string warehouseAreaNr)
+        public StorageUniqueItemView FindFirstStorageByWarehouseAreaNr(string warehouseAreaNr, int roadMachineIndex)
         {
             return this.context.StorageUniqueItemView
-                .Where(s => s.PositionWarehouseAreaNr == warehouseAreaNr)
+                .Where(s => s.PositionWarehouseAreaNr == warehouseAreaNr && s.PositionRoadMachineIndex==roadMachineIndex)
                 .OrderBy(s => s.FIFO)
                 .FirstOrDefault();
             
         }
 
-        public StorageUniqueItemView FindFirstStorageByWarehouseAreaNrs(List<string> warehouseAreaNrs)
+        public StorageUniqueItemView FindFirstStorageByWarehouseAreaNrs(List<string> warehouseAreaNrs,int roadMachineIndex)
         {
             return this.context.StorageUniqueItemView
-                .Where(s => warehouseAreaNrs.Contains(s.PositionWarehouseAreaNr))
+                .Where(s => warehouseAreaNrs.Contains(s.PositionWarehouseAreaNr) && s.PositionRoadMachineIndex==roadMachineIndex)
                 .OrderBy(s => s.FIFO)
                 .FirstOrDefault();
         }
@@ -234,7 +234,7 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             PositionRepository positionRepo = new PositionRepository(this._dataContextFactory);
 
-            var storage = this.FindFirstStorageByWarehouseAreaNrs(fromAreaNrs);
+            var storage = this.FindFirstStorageByWarehouseAreaNrs(fromAreaNrs,roadmachineIndex);
             var toPosition = positionRepo.FindCanInStockByRoadMachineAndSortPrority(roadmachineIndex, toAreaNrs);
 
             if (storage != null && toPosition != null
@@ -262,7 +262,7 @@ namespace AGVCenterLib.Data.Repository.Implement
         {
             PositionRepository positionRepo = new PositionRepository(this._dataContextFactory);
 
-            var storage = this.FindFirstStorageByWarehouseAreaNr(fromAreaNr);
+            var storage = this.FindFirstStorageByWarehouseAreaNr(fromAreaNr,roadmachineIndex);
             var toPosition = positionRepo.FindCanInStockByRoadMachineAndSortPrority(roadmachineIndex, toAreaNr);
             if (storage != null && toPosition != null && storage.PositionNr != toPosition.Nr)
             {

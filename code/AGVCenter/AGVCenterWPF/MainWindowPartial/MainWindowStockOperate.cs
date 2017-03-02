@@ -34,7 +34,7 @@ namespace AGVCenterWPF
                     MessageBox.Show("源库位不存在！");
                     return false;
                 }
-                if (toPosition != null)
+                if (toPosition == null)
                 {
                     MessageBox.Show("目标库位不存在！");
                     return false;
@@ -50,6 +50,8 @@ namespace AGVCenterWPF
                 var taskItem = this.InitTaskItemByStockTask(st, true);
                 // 加入移库队列
                 this.EnqueueRoadMachineTask(taskItem);
+                this.AddOrUpdateItemToTaskDisplay(taskItem);
+
                 return true;
             }catch(Exception ex)
             {

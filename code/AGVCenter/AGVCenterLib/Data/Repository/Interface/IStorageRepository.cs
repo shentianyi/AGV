@@ -24,7 +24,7 @@ namespace AGVCenterLib.Data.Repository.Interface
 
         MoveStockModel FindMoveStockForAutoMove(int roadmachineIndex,bool isSelfAreaMove=false);
 
-        StorageUniqueItemView FindFirstStorageByWarehouseAreaNr(string warehouseAreaNr);
-        StorageUniqueItemView FindFirstStorageByWarehouseAreaNrs(List<string> warehouseAreaNrs);
+        StorageUniqueItemView FindFirstStorageByWarehouseAreaNr(string warehouseAreaNr, int roadMachineIndex);
+        StorageUniqueItemView FindFirstStorageByWarehouseAreaNrs(List<string> warehouseAreaNrs, int roadMachineIndex);
     }
 }

@@ -398,7 +398,7 @@ namespace AGVCenterWPF
                 }
                 else if (taskItem.IsInBuffingState)
                 {
-                    OPCSetStockTaskRoadMachine1Data.StockTaskType = (byte)taskItem.StockTaskType;
+                    OPCSetStockTaskRoadMachine1Data.StockTaskType = (byte)(taskItem.StockTaskType);//(byte)( taskItem.StockTaskType== StockTaskType.MOVE ? StockTaskType.AUTO_MOVE : taskItem.StockTaskType);
 
                     OPCSetStockTaskRoadMachine1Data.BoxType = taskItem.BoxType;
                     OPCSetStockTaskRoadMachine1Data.PositionFloor = taskItem.PositionFloor;
@@ -417,7 +417,7 @@ namespace AGVCenterWPF
 
 
                     OPCSetStockTaskRoadMachine1Data.ToPositionFloor = taskItem.ToPositionFloor;
-                    OPCSetStockTaskRoadMachine1Data.PositionColumn = taskItem.ToPositionColumn;
+                    OPCSetStockTaskRoadMachine1Data.ToPositionColumn = taskItem.ToPositionColumn;
                     OPCSetStockTaskRoadMachine1Data.ToPositionRow = taskItem.ToPositionRow;
 
 
@@ -449,7 +449,7 @@ namespace AGVCenterWPF
                 }
                 else if (taskItem.IsInBuffingState)
                 {
-                    OPCSetStockTaskRoadMachine2Data.StockTaskType = (byte)taskItem.StockTaskType;
+                    OPCSetStockTaskRoadMachine2Data.StockTaskType = (byte)(taskItem.StockTaskType);//(byte)(taskItem.StockTaskType == StockTaskType.MOVE ? StockTaskType.AUTO_MOVE : taskItem.StockTaskType);
 
                     OPCSetStockTaskRoadMachine2Data.BoxType = taskItem.BoxType;
                     OPCSetStockTaskRoadMachine2Data.PositionFloor = taskItem.PositionFloor;
@@ -467,7 +467,7 @@ namespace AGVCenterWPF
                     OPCSetStockTaskRoadMachine2Data.Barcode = taskItem.Barcode;
 
                     OPCSetStockTaskRoadMachine2Data.ToPositionFloor = taskItem.ToPositionFloor;
-                    OPCSetStockTaskRoadMachine2Data.PositionColumn = taskItem.ToPositionColumn;
+                    OPCSetStockTaskRoadMachine2Data.ToPositionColumn = taskItem.ToPositionColumn;
                     OPCSetStockTaskRoadMachine2Data.ToPositionRow = taskItem.ToPositionRow;
 
                     if (OPCSetStockTaskRoadMachine2Data.SyncWrite(OPCSetStockTaskRoadMachine2OPCGroup))
@@ -649,7 +649,7 @@ namespace AGVCenterWPF
 
             //}
         }
-
+        
 
         /// <summary>
         /// 根据巷道机反馈返回
@@ -729,6 +729,8 @@ namespace AGVCenterWPF
                         else if (taskItem.StockTaskType == StockTaskType.AUTO_MOVE)
                         {
                             taskItem.State = StockTaskState.RoadMachineMoveStocked;
+                            LogUtil.Logger.InfoFormat("【移库】{0}：{1}---->{2}",taskItem.Barcode,taskItem.PositionNr, taskItem.ToPositionNr);
+
                             msg = new StorageService(OPCConfig.DbString).MoveStockByUniqItemNr(taskItem.Barcode, taskItem.ToPositionNr);
                             dicQ.Dequeue();
                         }
@@ -1555,7 +1557,8 @@ namespace AGVCenterWPF
             {
                 if ((BaseConfig.RoadMachine2Enabled
                     && (!OPCDataResetData.Xdj2InPaltformIsBuff)
-                    && (ModeConfig.RoadMachine2TaskMode != RoadMachineTaskModel.OnlyOut))
+                    && (ModeConfig.RoadMachine2TaskMode != RoadMachineTaskModel.OnlyOut)
+                    && (ModeConfig.RoadMachine2TaskMode != RoadMachineTaskModel.AutoMoveOnly))
                     && this.NotHasRoadMachineBuffingTask(roadMachineIndex))
                 {
                     can = true;
@@ -1565,13 +1568,19 @@ namespace AGVCenterWPF
             {
                 if ((BaseConfig.RoadMachine1Enabled
                       && (!OPCDataResetData.Xdj1InPaltformIsBuff)
-                      && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskModel.OnlyOut))
+                      && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskModel.OnlyOut)
+                    && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskModel.AutoMoveOnly))
                       && this.NotHasRoadMachineBuffingTask(roadMachineIndex))
-                {
+                { 
                     can = true;
                 }
             }
             return can;
+        }
+
+        private void operatePanelButton_Click(object sender, RoutedEventArgs e)
+        {
+            new OperatePanelWindow(this).Show();
         }
     }
 }
