@@ -232,7 +232,7 @@ namespace AGVCenterWPF
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2InTaskQueue.Dequeue());
                         }
                     }
-                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.AutoMoveOnly)
+                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.AutoMoveOnly)
                     {
                         if (RoadMachine2MoveTaskQueue.Count == 0 && RoadMachine2CenterTaskQueue.Count==0)
                         {
@@ -437,15 +437,15 @@ namespace AGVCenterWPF
                 Barcode = st.BarCode,
                 BoxType = (byte)st.BoxType,
                 PositionNr = st.PositionNr,
-                PositionFloor = (byte)st.PositionFloor,
-                PositionColumn = (byte)st.PositionColumn,
-                PositionRow = (byte)st.PositionRow,
+                PositionFloor =  st.PositionFloor.HasValue ? (byte)st.PositionFloor : (byte)0,
+                PositionColumn = st.PositionColumn.HasValue ? (byte)st.PositionColumn : (byte)0,
+                PositionRow =  st.PositionRow.HasValue ? (byte)st.PositionRow : (byte)0,
                 RoadMachineIndex = st.RoadMachineIndex.Value,
 
                 ToPositionNr = st.ToPositionNr,
-                ToPositionFloor = (byte)st.ToPositionFloor,
-                ToPositionColumn = (byte)st.ToPositionColumn,
-                ToPositionRow = (byte)st.ToPositionRow,
+                ToPositionFloor =  st.ToPositionFloor.HasValue ? (byte)st.ToPositionFloor : (byte)0 ,
+                ToPositionColumn =  st.ToPositionColumn.HasValue ? (byte)st.ToPositionColumn : (byte)0,
+                ToPositionRow =  st.ToPositionRow.HasValue ? (byte)st.ToPositionRow : (byte)0,
 
                 TrayReverseNo = st.TrayReverseNo.HasValue ? st.TrayReverseNo.Value : 0,
                 TrayNum = st.TrayNum.HasValue ? st.TrayNum.Value : 0,
