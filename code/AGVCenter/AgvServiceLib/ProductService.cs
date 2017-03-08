@@ -28,7 +28,8 @@ namespace AgvServiceLib
                 CheckCode = item.CheckCode,
                 KskNr = item.KskNr,
                 BoxTypeId = item.BoxTypeId,
-                PartNr=item.PartNr
+                PartNr=item.PartNr,
+                CheckCode2=item.CheckCode2
             };
             message = service.Create(uitem);
 

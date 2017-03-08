@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AgvWarehouseDb" Class="AgvWarehouseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=DELL-PC\SQLEXPRESS;Initial Catalog=AgvWarehouseDb;Integrated Security=True" SettingsObjectName="AGVCenterLib.Properties.Settings" SettingsPropertyName="AgvWarehouseDbConnectionString4" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=CHARLOT-PC\MSSQLSERVER2008R;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa" SettingsObjectName="AGVCenterLib.Properties.Settings" SettingsPropertyName="AgvWarehouseDbConnectionString5" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BoxType" Member="BoxType">
     <Type Name="BoxType">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -69,8 +69,8 @@
       <Column Name="UniqItemNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="UniqueItem_Storage" Member="UniqueItem" ThisKey="UniqItemNr" OtherKey="Nr" Type="UniqueItem" IsForeignKey="true" />
       <Association Name="Position_Storage" Member="Position" ThisKey="PositionNr" OtherKey="Nr" Type="Position" IsForeignKey="true" />
+      <Association Name="UniqueItem_Storage" Member="UniqueItem" ThisKey="UniqItemNr" OtherKey="Nr" Type="UniqueItem" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.StockMovement" Member="StockMovement">
@@ -196,25 +196,6 @@
     <Type Name="Part">
       <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="BoxType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.UniqueItem" Member="UniqueItem">
-    <Type Name="UniqueItem">
-      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="BoxTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="KNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="KNrWithYear" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="CheckCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="KskNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="QR" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="UniqueItem_TrayItem" Member="TrayItem" ThisKey="Nr" OtherKey="UniqItemNr" Type="TrayItem" />
-      <Association Name="UniqueItem_Storage" Member="Storage" ThisKey="Nr" OtherKey="UniqItemNr" Type="Storage" />
-      <Association Name="UniqueItem_DeliveryItem" Member="DeliveryItem" ThisKey="Nr" OtherKey="UniqItemNr" Type="DeliveryItem" />
-      <Association Name="BoxType_UniqueItem" Member="BoxType" ThisKey="BoxTypeId" OtherKey="Id" Type="BoxType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PickListItem" Member="PickListItem">
@@ -447,6 +428,26 @@
       <Column Name="ToPositionFloor" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ToPositionColumn" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ToPositionRow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UniqueItem" Member="UniqueItem">
+    <Type Name="UniqueItem">
+      <Column Name="Nr" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BoxTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PartNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="KNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="KNrWithYear" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CheckCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="KskNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="QR" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CheckCode2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="UniqueItem_TrayItem" Member="TrayItem" ThisKey="Nr" OtherKey="UniqItemNr" Type="TrayItem" />
+      <Association Name="UniqueItem_Storage" Member="Storage" ThisKey="Nr" OtherKey="UniqItemNr" Type="Storage" />
+      <Association Name="UniqueItem_DeliveryItem" Member="DeliveryItem" ThisKey="Nr" OtherKey="UniqItemNr" Type="DeliveryItem" />
+      <Association Name="BoxType_UniqueItem" Member="BoxType" ThisKey="BoxTypeId" OtherKey="Id" Type="BoxType" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

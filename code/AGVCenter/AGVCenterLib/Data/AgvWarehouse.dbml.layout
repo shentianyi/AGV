@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 19.625, 23.75" name="AgvWarehouse">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 19.625, 23.5" name="AgvWarehouse">
   <DataContextMoniker Name="/AgvWarehouseDataContext" />
   <nestedChildShapes>
-    <classShape Id="93c99294-d12a-48ae-ba69-ec36b2c9eb65" absoluteBounds="3.75, 1, 2, 1.5715458170572916">
+    <classShape Id="93c99294-d12a-48ae-ba69-ec36b2c9eb65" absoluteBounds="3.75, 1, 2, 1.537305094401042">
       <DataClassMoniker Name="/AgvWarehouseDataContext/BoxType" />
       <nestedChildShapes>
-        <elementListCompartment Id="553cbdcc-86e4-4397-99e4-41d75da7de54" absoluteBounds="3.765, 1.46, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="553cbdcc-86e4-4397-99e4-41d75da7de54" absoluteBounds="3.765, 1.46, 1.9700000000000002, 0.97730509440104163" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="985aa035-e54e-4f10-a256-f15964587db3" absoluteBounds="7.375, 12.5, 2, 1.5715458170572916">
+    <classShape Id="985aa035-e54e-4f10-a256-f15964587db3" absoluteBounds="7.375, 12.5, 2, 1.5373050944010416">
       <DataClassMoniker Name="/AgvWarehouseDataContext/Delivery" />
       <nestedChildShapes>
-        <elementListCompartment Id="fba2251a-5784-4810-86ca-1086a9badddf" absoluteBounds="7.39, 12.96, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="fba2251a-5784-4810-86ca-1086a9badddf" absoluteBounds="7.39, 12.96, 1.9700000000000002, 0.97730509440104163" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="196df0ec-69f7-4f60-86d0-1dd384f9ddf2" absoluteBounds="10.125, 8.375, 2, 1.7625655110677094">
+    <classShape Id="196df0ec-69f7-4f60-86d0-1dd384f9ddf2" absoluteBounds="10.125, 8.375, 2, 1.7220992024739594">
       <DataClassMoniker Name="/AgvWarehouseDataContext/DeliveryTray" />
       <nestedChildShapes>
-        <elementListCompartment Id="8537d4f9-00f1-4f4c-9c68-b57353fafc4e" absoluteBounds="10.14, 8.835, 1.9700000000000002, 1.2025655110677083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8537d4f9-00f1-4f4c-9c68-b57353fafc4e" absoluteBounds="10.14, 8.835, 1.9700000000000002, 1.1620992024739583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="53324174-c640-4a0c-93ff-f26ba5bbf990" absoluteBounds="7.375, 9.5, 2, 1.5715458170572916">
+    <classShape Id="53324174-c640-4a0c-93ff-f26ba5bbf990" absoluteBounds="7.375, 9.5, 2, 1.5373050944010416">
       <DataClassMoniker Name="/AgvWarehouseDataContext/Tray" />
       <nestedChildShapes>
-        <elementListCompartment Id="994023ff-73f8-4414-82b8-846d456c696d" absoluteBounds="7.39, 9.96, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="994023ff-73f8-4414-82b8-846d456c696d" absoluteBounds="7.39, 9.96, 1.9700000000000002, 0.97730509440104163" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(9.375 : 13.6063155110677); (10.40625 : 13.6063155110677); (10.40625 : 10.1375655110677)]" fixedFrom="NotFixed" fixedTo="NotFixed">
@@ -40,41 +40,41 @@
         <classShapeMoniker Id="196df0ec-69f7-4f60-86d0-1dd384f9ddf2" />
       </nodes>
     </associationConnector>
-    <classShape Id="870a65d4-c644-4c7e-9309-f12c907b950d" absoluteBounds="10.75, 11.125, 2, 1.9535852050781251">
+    <classShape Id="870a65d4-c644-4c7e-9309-f12c907b950d" absoluteBounds="10.75, 11.125, 2, 1.9068933105468755">
       <DataClassMoniker Name="/AgvWarehouseDataContext/TrayItem" />
       <nestedChildShapes>
-        <elementListCompartment Id="84e67e40-966f-4bf9-8d68-c9e770fc07b8" absoluteBounds="10.765, 11.585, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="84e67e40-966f-4bf9-8d68-c9e770fc07b8" absoluteBounds="10.765, 11.585, 1.9700000000000002, 1.346893310546875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(9.375 : 10.6358056640625); (10.3229166666667 : 10.6358056640625 : JumpStart); (10.4895833333333 : 10.6358056640625 : JumpEnd); (12.46875 : 10.6358056640625); (12.46875 : 11.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.375 : 10.6358056640625); (12.46875 : 10.6358056640625); (12.46875 : 11.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/AgvWarehouseDataContext/Tray/Tray_TrayItem" />
       <nodes>
         <classShapeMoniker Id="53324174-c640-4a0c-93ff-f26ba5bbf990" />
         <classShapeMoniker Id="870a65d4-c644-4c7e-9309-f12c907b950d" />
       </nodes>
     </associationConnector>
-    <classShape Id="45a4a1ff-8246-48e4-8e98-8859b3766ddd" absoluteBounds="1.75, 7.125, 2, 1.1895064290364583">
+    <classShape Id="45a4a1ff-8246-48e4-8e98-8859b3766ddd" absoluteBounds="1.75, 7.125, 2, 1.1677168782552077">
       <DataClassMoniker Name="/AgvWarehouseDataContext/Warehouse" />
       <nestedChildShapes>
-        <elementListCompartment Id="740dd034-84e1-4527-b4c2-8188394bfba2" absoluteBounds="1.7650000000000001, 7.585, 1.9700000000000002, 0.62950642903645826" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="740dd034-84e1-4527-b4c2-8188394bfba2" absoluteBounds="1.7650000000000001, 7.585, 1.9700000000000002, 0.60771687825520826" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="79d08aa9-4318-4444-853b-d64ba2c85918" absoluteBounds="1.375, 1.625, 2, 2.1446048990885416">
+    <classShape Id="79d08aa9-4318-4444-853b-d64ba2c85918" absoluteBounds="1.375, 1.625, 2, 2.0916874186197916">
       <DataClassMoniker Name="/AgvWarehouseDataContext/Storage" />
       <nestedChildShapes>
-        <elementListCompartment Id="ca7434d7-22a8-4e31-b1c2-1b668ceecfbf" absoluteBounds="1.3900000000000001, 2.085, 1.9700000000000002, 1.5846048990885415" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ca7434d7-22a8-4e31-b1c2-1b668ceecfbf" absoluteBounds="1.3900000000000001, 2.085, 1.9700000000000002, 1.5316874186197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="b5e608a4-c613-49c7-acd0-e6e6eb86b846" absoluteBounds="4.25, 8.625, 2, 2.3356245930989585">
+    <classShape Id="b5e608a4-c613-49c7-acd0-e6e6eb86b846" absoluteBounds="4.25, 8.625, 2, 2.2764815266927094">
       <DataClassMoniker Name="/AgvWarehouseDataContext/StockMovement" />
       <nestedChildShapes>
-        <elementListCompartment Id="bf627104-9767-4e5e-a6b2-92f7baeac539" absoluteBounds="4.265, 9.085, 1.9700000000000002, 1.7756245930989585" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bf627104-9767-4e5e-a6b2-92f7baeac539" absoluteBounds="4.265, 9.085, 1.9700000000000002, 1.7164815266927083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a19a9be5-3661-48d0-81f1-4fdf9a7c1a71" absoluteBounds="9.125, 4.125, 2, 1.9535852050781251">
+    <classShape Id="a19a9be5-3661-48d0-81f1-4fdf9a7c1a71" absoluteBounds="9.125, 4.125, 2, 1.9068933105468746">
       <DataClassMoniker Name="/AgvWarehouseDataContext/DeliveryItem" />
       <nestedChildShapes>
-        <elementListCompartment Id="5f658e10-d0d7-4018-90ee-fc753035cf18" absoluteBounds="9.14, 4.585, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5f658e10-d0d7-4018-90ee-fc753035cf18" absoluteBounds="9.14, 4.585, 1.9700000000000002, 1.346893310546875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(9.375 : 13.3424478580729); (9.7500025 : 13.3424478580729); (9.7500025 : 6.07858520507813)]" fixedFrom="NotFixed" fixedTo="NotFixed">
@@ -84,74 +84,40 @@
         <classShapeMoniker Id="a19a9be5-3661-48d0-81f1-4fdf9a7c1a71" />
       </nodes>
     </associationConnector>
-    <classShape Id="7cdc40ac-6eae-45ac-b760-2fe03b90c35b" absoluteBounds="4, 15, 2, 8.4482548014322916">
+    <classShape Id="7cdc40ac-6eae-45ac-b760-2fe03b90c35b" absoluteBounds="4, 15, 2, 8.1898929850260451">
       <DataClassMoniker Name="/AgvWarehouseDataContext/DeliveryStorageView" />
       <nestedChildShapes>
-        <elementListCompartment Id="9deb7be9-14ab-42ad-ac6f-e58e063402b9" absoluteBounds="4.015, 15.46, 1.9700000000000002, 7.888254801432292" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9deb7be9-14ab-42ad-ac6f-e58e063402b9" absoluteBounds="4.015, 15.46, 1.9700000000000002, 7.6298929850260411" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="844f2d1e-9f76-498e-9a38-879e0e27c38f" absoluteBounds="11.75, 15.125, 2, 3.2907230631510416">
+    <classShape Id="844f2d1e-9f76-498e-9a38-879e0e27c38f" absoluteBounds="11.75, 15.125, 2, 3.2004520670572951">
       <DataClassMoniker Name="/AgvWarehouseDataContext/TrayDeliveryView" />
       <nestedChildShapes>
-        <elementListCompartment Id="29cd0232-7465-4e41-8e48-8bf99f511e0e" absoluteBounds="11.765, 15.585, 1.9700000000000002, 2.7307230631510415" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="29cd0232-7465-4e41-8e48-8bf99f511e0e" absoluteBounds="11.765, 15.585, 1.9700000000000002, 2.6404520670572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="e2951d87-138f-4bf0-ac4e-a0c9064cdbb8" absoluteBounds="6.625, 15.125, 2, 6.5380578613281246">
+    <classShape Id="e2951d87-138f-4bf0-ac4e-a0c9064cdbb8" absoluteBounds="6.625, 15.125, 2, 6.3419519042968773">
       <DataClassMoniker Name="/AgvWarehouseDataContext/DeliveryItemStorageView" />
       <nestedChildShapes>
-        <elementListCompartment Id="176df8c9-1658-42c8-9057-bee28a3c12fb" absoluteBounds="6.64, 15.585, 1.9700000000000002, 5.978057861328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="176df8c9-1658-42c8-9057-bee28a3c12fb" absoluteBounds="6.64, 15.585, 1.9700000000000002, 5.781951904296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="66b67ada-cd6d-442d-91fe-489f19a0bb8a" absoluteBounds="1.125, 4.5, 2, 1.1895064290364583">
+    <classShape Id="66b67ada-cd6d-442d-91fe-489f19a0bb8a" absoluteBounds="1.125, 4.5, 2, 1.1677168782552077">
       <DataClassMoniker Name="/AgvWarehouseDataContext/Part" />
       <nestedChildShapes>
-        <elementListCompartment Id="97942d6f-6ead-4d91-ac9a-6285912ad351" absoluteBounds="1.1400000000000001, 4.96, 1.9700000000000002, 0.62950642903645826" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="97942d6f-6ead-4d91-ac9a-6285912ad351" absoluteBounds="1.1400000000000001, 4.96, 1.9700000000000002, 0.60771687825520826" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="84bc61e6-f35f-426b-9054-6bd3fa0554a5" absoluteBounds="6.5, 4, 2, 2.9086836751302081">
-      <DataClassMoniker Name="/AgvWarehouseDataContext/UniqueItem" />
-      <nestedChildShapes>
-        <elementListCompartment Id="cd59a4d2-e76f-41a0-b0d3-c18b967ed115" absoluteBounds="6.515, 4.46, 1.9700000000000002, 2.348683675130208" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(6.90625 : 6.90868367513021); (6.90625 : 11.78125); (10.3229166666667 : 11.78125 : JumpStart); (10.4895833333333 : 11.78125 : JumpEnd); (10.75 : 11.78125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/AgvWarehouseDataContext/UniqueItem/UniqueItem_TrayItem" />
-      <nodes>
-        <classShapeMoniker Id="84bc61e6-f35f-426b-9054-6bd3fa0554a5" />
-        <classShapeMoniker Id="870a65d4-c644-4c7e-9309-f12c907b950d" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(6.5 : 6.844423828125); (3.28125 : 6.844423828125); (3.28125 : 3.76960489908854)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/AgvWarehouseDataContext/UniqueItem/UniqueItem_Storage" />
-      <nodes>
-        <classShapeMoniker Id="84bc61e6-f35f-426b-9054-6bd3fa0554a5" />
-        <classShapeMoniker Id="79d08aa9-4318-4444-853b-d64ba2c85918" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 5.10179260253906); (9.125 : 5.10179260253906)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/AgvWarehouseDataContext/UniqueItem/UniqueItem_DeliveryItem" />
-      <nodes>
-        <classShapeMoniker Id="84bc61e6-f35f-426b-9054-6bd3fa0554a5" />
-        <classShapeMoniker Id="a19a9be5-3661-48d0-81f1-4fdf9a7c1a71" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(3.84375 : 2.57154581705729); (3.84375 : 6.813171328125); (6.5 : 6.813171328125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/AgvWarehouseDataContext/BoxType/BoxType_UniqueItem" />
-      <nodes>
-        <classShapeMoniker Id="93c99294-d12a-48ae-ba69-ec36b2c9eb65" />
-        <classShapeMoniker Id="84bc61e6-f35f-426b-9054-6bd3fa0554a5" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="7a527591-75fa-4068-9df0-56c8e82328da" absoluteBounds="9.125, 0.875, 2, 1.9535852050781253">
+    <classShape Id="7a527591-75fa-4068-9df0-56c8e82328da" absoluteBounds="9.125, 0.875, 2, 1.9068933105468751">
       <DataClassMoniker Name="/AgvWarehouseDataContext/PickListItem" />
       <nestedChildShapes>
-        <elementListCompartment Id="54846c67-13bc-46c7-845f-6876a3784d8f" absoluteBounds="9.14, 1.335, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="54846c67-13bc-46c7-845f-6876a3784d8f" absoluteBounds="9.14, 1.335, 1.9700000000000002, 1.346893310546875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="3cd43c22-83f6-4fa9-96e3-605792375f76" absoluteBounds="6.625, 1.125, 2, 1.5715458170572916">
+    <classShape Id="3cd43c22-83f6-4fa9-96e3-605792375f76" absoluteBounds="6.625, 1.125, 2, 1.537305094401042">
       <DataClassMoniker Name="/AgvWarehouseDataContext/PickList" />
       <nestedChildShapes>
-        <elementListCompartment Id="0daee5d8-97e9-437e-8960-065b127ee38a" absoluteBounds="6.64, 1.585, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0daee5d8-97e9-437e-8960-065b127ee38a" absoluteBounds="6.64, 1.585, 1.9700000000000002, 0.97730509440104163" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(8.625 : 1.91077290852865); (9.125 : 1.91077290852865)]" fixedFrom="NotFixed" fixedTo="NotFixed">
@@ -161,16 +127,16 @@
         <classShapeMoniker Id="7a527591-75fa-4068-9df0-56c8e82328da" />
       </nodes>
     </associationConnector>
-    <classShape Id="3fdcd3e3-ef86-4a46-8048-54c9620dfd33" absoluteBounds="17.375, 15.125, 2, 5.2009200032552076">
+    <classShape Id="3fdcd3e3-ef86-4a46-8048-54c9620dfd33" absoluteBounds="17.375, 15.125, 2, 5.0483931477864594">
       <DataClassMoniker Name="/AgvWarehouseDataContext/PickListItemStorageView" />
       <nestedChildShapes>
-        <elementListCompartment Id="111a10b8-c8e3-459e-957b-62d9a77f7890" absoluteBounds="17.39, 15.585, 1.9700000000000002, 4.640920003255208" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="111a10b8-c8e3-459e-957b-62d9a77f7890" absoluteBounds="17.39, 15.585, 1.9700000000000002, 4.488393147786458" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="dcf0e9c9-04ba-403b-b7dc-e3ca8f197987" absoluteBounds="4, 4, 2, 2.7176639811197916">
+    <classShape Id="dcf0e9c9-04ba-403b-b7dc-e3ca8f197987" absoluteBounds="4, 4, 2, 2.6460697428385416">
       <DataClassMoniker Name="/AgvWarehouseDataContext/Position" />
       <nestedChildShapes>
-        <elementListCompartment Id="959cb5ec-8f82-4dae-a06b-ed800dcbfcfb" absoluteBounds="4.015, 4.46, 1.9700000000000002, 2.1576639811197915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="959cb5ec-8f82-4dae-a06b-ed800dcbfcfb" absoluteBounds="4.015, 4.46, 1.9700000000000002, 2.0860697428385415" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(4 : 6.20358270507812); (3.3125025 : 6.20358270507812); (3.3125025 : 3.76960489908854)]" fixedFrom="NotFixed" fixedTo="NotFixed">
@@ -187,13 +153,13 @@
         <classShapeMoniker Id="dcf0e9c9-04ba-403b-b7dc-e3ca8f197987" />
       </nodes>
     </associationConnector>
-    <classShape Id="19f37bf7-9644-4cf0-9967-781473762b6f" absoluteBounds="1.875, 8.75, 2, 1.9535852050781251">
+    <classShape Id="19f37bf7-9644-4cf0-9967-781473762b6f" absoluteBounds="1.875, 8.75, 2, 1.9068933105468755">
       <DataClassMoniker Name="/AgvWarehouseDataContext/WarehouseArea" />
       <nestedChildShapes>
-        <elementListCompartment Id="7efa7d87-53ef-4f5f-a4cc-10af134b0a74" absoluteBounds="1.8900000000000001, 9.21, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7efa7d87-53ef-4f5f-a4cc-10af134b0a74" absoluteBounds="1.8900000000000001, 9.21, 1.9700000000000002, 1.346893310546875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.875 : 8.75); (2.875 : 8.5); (4 : 8.5); (4 : 6.96766398111979); (3.375 : 6.96766398111979); (3.375 : 5.3275799905599); (4 : 5.3275799905599)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.875 : 8.75); (2.875 : 8.5); (4 : 8.5); (4 : 6.96766398111979); (3.92989735639268 : 6.96766398111979 : JumpStart); (3.76323068972602 : 6.96766398111979 : JumpEnd); (3.375 : 6.96766398111979); (3.375 : 5.3275799905599); (4 : 5.3275799905599)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/AgvWarehouseDataContext/WarehouseArea/WarehouseArea_Position" />
       <nodes>
         <classShapeMoniker Id="19f37bf7-9644-4cf0-9967-781473762b6f" />
@@ -207,35 +173,69 @@
         <classShapeMoniker Id="19f37bf7-9644-4cf0-9967-781473762b6f" />
       </nodes>
     </associationConnector>
-    <classShape Id="b4d04819-9a41-433d-aaec-601f6f1ed3a0" absoluteBounds="14.875, 15.25, 2, 7.1111169433593746">
+    <classShape Id="b4d04819-9a41-433d-aaec-601f6f1ed3a0" absoluteBounds="14.875, 15.25, 2, 6.8963342285156273">
       <DataClassMoniker Name="/AgvWarehouseDataContext/PickListStorageView" />
       <nestedChildShapes>
-        <elementListCompartment Id="a2a8ab07-39a6-4cdf-9c4f-03a2599982bc" absoluteBounds="14.89, 15.71, 1.9700000000000002, 6.551116943359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a2a8ab07-39a6-4cdf-9c4f-03a2599982bc" absoluteBounds="14.89, 15.71, 1.9700000000000002, 6.336334228515625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7bff1cb6-e698-4ddc-b0f9-41c93d01d411" absoluteBounds="1, 15.25, 2, 4.8188806152343746">
+    <classShape Id="7bff1cb6-e698-4ddc-b0f9-41c93d01d411" absoluteBounds="1, 15.25, 2, 4.6788049316406273">
       <DataClassMoniker Name="/AgvWarehouseDataContext/PositionStorageView" />
       <nestedChildShapes>
-        <elementListCompartment Id="24eea88f-c78b-4ef3-8d30-dbd02423dc6f" absoluteBounds="1.0150000000000001, 15.71, 1.9700000000000002, 4.258880615234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="24eea88f-c78b-4ef3-8d30-dbd02423dc6f" absoluteBounds="1.0150000000000001, 15.71, 1.9700000000000002, 4.118804931640625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="8d998f3b-b125-4a93-9e76-59b87ef4b0f7" absoluteBounds="9.5, 15.25, 2, 6.9200972493489576">
+    <classShape Id="8d998f3b-b125-4a93-9e76-59b87ef4b0f7" absoluteBounds="9.5, 15.25, 2, 6.7115401204427094">
       <DataClassMoniker Name="/AgvWarehouseDataContext/StorageUniqueItemView" />
       <nestedChildShapes>
-        <elementListCompartment Id="a2a2a272-c226-41f9-828f-997cbabf95db" absoluteBounds="9.515, 15.71, 1.9700000000000002, 6.360097249348958" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a2a2a272-c226-41f9-828f-997cbabf95db" absoluteBounds="9.515, 15.71, 1.9700000000000002, 6.151540120442708" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="d9bcd364-13fb-400a-ab1a-0c105b6efa40" absoluteBounds="12.5, 1.75, 2, 5.3919396972656246">
+    <classShape Id="d9bcd364-13fb-400a-ab1a-0c105b6efa40" absoluteBounds="12.5, 1.75, 2, 5.2331872558593746">
       <DataClassMoniker Name="/AgvWarehouseDataContext/StockTask" />
       <nestedChildShapes>
-        <elementListCompartment Id="94f6af3c-65d8-42c9-a86e-7997adefe6ac" absoluteBounds="12.515, 2.21, 1.9700000000000002, 4.831939697265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="94f6af3c-65d8-42c9-a86e-7997adefe6ac" absoluteBounds="12.515, 2.21, 1.9700000000000002, 4.673187255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="fcfd91b5-f22d-4815-97d2-ed494f9cc3c1" absoluteBounds="15, 1.75, 2, 5.7739790852864576">
+    <classShape Id="fcfd91b5-f22d-4815-97d2-ed494f9cc3c1" absoluteBounds="15, 1.75, 2, 5.6027754720052076">
       <DataClassMoniker Name="/AgvWarehouseDataContext/StockTaskLog" />
       <nestedChildShapes>
-        <elementListCompartment Id="c82030d2-2f35-48e1-b30a-9ed8302567a5" absoluteBounds="15.015, 2.21, 1.9700000000000002, 5.213979085286458" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c82030d2-2f35-48e1-b30a-9ed8302567a5" absoluteBounds="15.015, 2.21, 1.9700000000000002, 5.042775472005208" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="0e089ef0-b5cb-425a-be21-fb1af2ed11c9" absoluteBounds="6, 7.25, 2, 3.0156579589843751">
+      <DataClassMoniker Name="/AgvWarehouseDataContext/UniqueItem" />
+      <nestedChildShapes>
+        <elementListCompartment Id="35145c5e-edf3-4583-bf6a-4c202c6fd1b6" absoluteBounds="6.015, 7.71, 1.9700000000000002, 2.455657958984375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.8125 : 10.2656579589844); (6.8125 : 11.78125); (9.66666916666667 : 11.78125 : JumpStart); (9.83333583333333 : 11.78125 : JumpEnd); (10.3229166666667 : 11.78125 : JumpStart); (10.4895833333333 : 11.78125 : JumpEnd); (10.75 : 11.78125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AgvWarehouseDataContext/UniqueItem/UniqueItem_TrayItem" />
+      <nodes>
+        <classShapeMoniker Id="0e089ef0-b5cb-425a-be21-fb1af2ed11c9" />
+        <classShapeMoniker Id="870a65d4-c644-4c7e-9309-f12c907b950d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.3125 : 7.25); (6.3125 : 3.22074625651042); (6.23958083333333 : 3.22074625651042 : JumpStart); (6.07291416666667 : 3.22074625651042 : JumpEnd); (3.375 : 3.22074625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AgvWarehouseDataContext/UniqueItem/UniqueItem_Storage" />
+      <nodes>
+        <classShapeMoniker Id="0e089ef0-b5cb-425a-be21-fb1af2ed11c9" />
+        <classShapeMoniker Id="79d08aa9-4318-4444-853b-d64ba2c85918" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.1875025 : 7.25); (7.1875025 : 5.07844665527344); (9.125 : 5.07844665527344)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AgvWarehouseDataContext/UniqueItem/UniqueItem_DeliveryItem" />
+      <nodes>
+        <classShapeMoniker Id="0e089ef0-b5cb-425a-be21-fb1af2ed11c9" />
+        <classShapeMoniker Id="a19a9be5-3661-48d0-81f1-4fdf9a7c1a71" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 1.03125); (6.1562475 : 1.03125); (6.1562475 : 7.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AgvWarehouseDataContext/BoxType/BoxType_UniqueItem" />
+      <nodes>
+        <classShapeMoniker Id="93c99294-d12a-48ae-ba69-ec36b2c9eb65" />
+        <classShapeMoniker Id="0e089ef0-b5cb-425a-be21-fb1af2ed11c9" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

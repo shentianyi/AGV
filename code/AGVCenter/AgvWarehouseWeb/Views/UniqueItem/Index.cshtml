@@ -80,9 +80,11 @@
             <th>
                 BoxType
             </th><th>
-    QR
+    电测(二维码)
 </th>
-           
+            <th>
+                电测(一维码)
+            </th>
             <th>
                 KNr
             </th>
@@ -122,7 +124,10 @@
             </td><td>
     @Html.DisplayFor(modelItem => item.QR)
 </td>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckCode2)
+            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.KNr)
             </td>
@@ -132,6 +137,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CheckCode)
             </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.KskNr)
             </td>

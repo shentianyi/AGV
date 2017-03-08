@@ -60,9 +60,6 @@ namespace AGVCenterLib.Data
     partial void InsertPart(Part instance);
     partial void UpdatePart(Part instance);
     partial void DeletePart(Part instance);
-    partial void InsertUniqueItem(UniqueItem instance);
-    partial void UpdateUniqueItem(UniqueItem instance);
-    partial void DeleteUniqueItem(UniqueItem instance);
     partial void InsertPickListItem(PickListItem instance);
     partial void UpdatePickListItem(PickListItem instance);
     partial void DeletePickListItem(PickListItem instance);
@@ -81,10 +78,13 @@ namespace AGVCenterLib.Data
     partial void InsertStockTaskLog(StockTaskLog instance);
     partial void UpdateStockTaskLog(StockTaskLog instance);
     partial void DeleteStockTaskLog(StockTaskLog instance);
+    partial void InsertUniqueItem(UniqueItem instance);
+    partial void UpdateUniqueItem(UniqueItem instance);
+    partial void DeleteUniqueItem(UniqueItem instance);
     #endregion
 		
 		public AgvWarehouseDataContext() : 
-				base(global::AGVCenterLib.Properties.Settings.Default.AgvWarehouseDbConnectionString4, mappingSource)
+				base(global::AGVCenterLib.Properties.Settings.Default.AgvWarehouseDbConnectionString5, mappingSource)
 		{
 			OnCreated();
 		}
@@ -217,14 +217,6 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<UniqueItem> UniqueItem
-		{
-			get
-			{
-				return this.GetTable<UniqueItem>();
-			}
-		}
-		
 		public System.Data.Linq.Table<PickListItem> PickListItem
 		{
 			get
@@ -302,6 +294,14 @@ namespace AGVCenterLib.Data
 			get
 			{
 				return this.GetTable<StockTaskLog>();
+			}
+		}
+		
+		public System.Data.Linq.Table<UniqueItem> UniqueItem
+		{
+			get
+			{
+				return this.GetTable<UniqueItem>();
 			}
 		}
 	}
@@ -1514,9 +1514,9 @@ namespace AGVCenterLib.Data
 		
 		private System.Nullable<System.DateTime> _UpdatedAt;
 		
-		private EntityRef<UniqueItem> _UniqueItem;
-		
 		private EntityRef<Position> _Position;
+		
+		private EntityRef<UniqueItem> _UniqueItem;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -1540,8 +1540,8 @@ namespace AGVCenterLib.Data
 		
 		public Storage()
 		{
-			this._UniqueItem = default(EntityRef<UniqueItem>);
 			this._Position = default(EntityRef<Position>);
+			this._UniqueItem = default(EntityRef<UniqueItem>);
 			OnCreated();
 		}
 		
@@ -1693,40 +1693,6 @@ namespace AGVCenterLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_Storage", Storage="_UniqueItem", ThisKey="UniqItemNr", OtherKey="Nr", IsForeignKey=true)]
-		public UniqueItem UniqueItem
-		{
-			get
-			{
-				return this._UniqueItem.Entity;
-			}
-			set
-			{
-				UniqueItem previousValue = this._UniqueItem.Entity;
-				if (((previousValue != value) 
-							|| (this._UniqueItem.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._UniqueItem.Entity = null;
-						previousValue.Storage.Remove(this);
-					}
-					this._UniqueItem.Entity = value;
-					if ((value != null))
-					{
-						value.Storage.Add(this);
-						this._UniqItemNr = value.Nr;
-					}
-					else
-					{
-						this._UniqItemNr = default(string);
-					}
-					this.SendPropertyChanged("UniqueItem");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Position_Storage", Storage="_Position", ThisKey="PositionNr", OtherKey="Nr", IsForeignKey=true)]
 		public Position Position
 		{
@@ -1757,6 +1723,40 @@ namespace AGVCenterLib.Data
 						this._PositionNr = default(string);
 					}
 					this.SendPropertyChanged("Position");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_Storage", Storage="_UniqueItem", ThisKey="UniqItemNr", OtherKey="Nr", IsForeignKey=true)]
+		public UniqueItem UniqueItem
+		{
+			get
+			{
+				return this._UniqueItem.Entity;
+			}
+			set
+			{
+				UniqueItem previousValue = this._UniqueItem.Entity;
+				if (((previousValue != value) 
+							|| (this._UniqueItem.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._UniqueItem.Entity = null;
+						previousValue.Storage.Remove(this);
+					}
+					this._UniqueItem.Entity = value;
+					if ((value != null))
+					{
+						value.Storage.Add(this);
+						this._UniqItemNr = value.Nr;
+					}
+					else
+					{
+						this._UniqItemNr = default(string);
+					}
+					this.SendPropertyChanged("UniqueItem");
 				}
 			}
 		}
@@ -3880,433 +3880,6 @@ namespace AGVCenterLib.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UniqueItem")]
-	public partial class UniqueItem : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Nr;
-		
-		private System.Nullable<int> _BoxTypeId;
-		
-		private string _PartNr;
-		
-		private string _KNr;
-		
-		private string _KNrWithYear;
-		
-		private string _CheckCode;
-		
-		private string _KskNr;
-		
-		private string _QR;
-		
-		private System.Nullable<int> _State;
-		
-		private System.Nullable<System.DateTime> _CreatedAt;
-		
-		private System.Nullable<System.DateTime> _UpdatedAt;
-		
-		private EntitySet<TrayItem> _TrayItem;
-		
-		private EntitySet<Storage> _Storage;
-		
-		private EntitySet<DeliveryItem> _DeliveryItem;
-		
-		private EntityRef<BoxType> _BoxType;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnNrChanging(string value);
-    partial void OnNrChanged();
-    partial void OnBoxTypeIdChanging(System.Nullable<int> value);
-    partial void OnBoxTypeIdChanged();
-    partial void OnPartNrChanging(string value);
-    partial void OnPartNrChanged();
-    partial void OnKNrChanging(string value);
-    partial void OnKNrChanged();
-    partial void OnKNrWithYearChanging(string value);
-    partial void OnKNrWithYearChanged();
-    partial void OnCheckCodeChanging(string value);
-    partial void OnCheckCodeChanged();
-    partial void OnKskNrChanging(string value);
-    partial void OnKskNrChanged();
-    partial void OnQRChanging(string value);
-    partial void OnQRChanged();
-    partial void OnStateChanging(System.Nullable<int> value);
-    partial void OnStateChanged();
-    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedAtChanged();
-    partial void OnUpdatedAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnUpdatedAtChanged();
-    #endregion
-		
-		public UniqueItem()
-		{
-			this._TrayItem = new EntitySet<TrayItem>(new Action<TrayItem>(this.attach_TrayItem), new Action<TrayItem>(this.detach_TrayItem));
-			this._Storage = new EntitySet<Storage>(new Action<Storage>(this.attach_Storage), new Action<Storage>(this.detach_Storage));
-			this._DeliveryItem = new EntitySet<DeliveryItem>(new Action<DeliveryItem>(this.attach_DeliveryItem), new Action<DeliveryItem>(this.detach_DeliveryItem));
-			this._BoxType = default(EntityRef<BoxType>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Nr
-		{
-			get
-			{
-				return this._Nr;
-			}
-			set
-			{
-				if ((this._Nr != value))
-				{
-					this.OnNrChanging(value);
-					this.SendPropertyChanging();
-					this._Nr = value;
-					this.SendPropertyChanged("Nr");
-					this.OnNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoxTypeId", DbType="Int")]
-		public System.Nullable<int> BoxTypeId
-		{
-			get
-			{
-				return this._BoxTypeId;
-			}
-			set
-			{
-				if ((this._BoxTypeId != value))
-				{
-					if (this._BoxType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnBoxTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._BoxTypeId = value;
-					this.SendPropertyChanged("BoxTypeId");
-					this.OnBoxTypeIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartNr", DbType="VarChar(50)")]
-		public string PartNr
-		{
-			get
-			{
-				return this._PartNr;
-			}
-			set
-			{
-				if ((this._PartNr != value))
-				{
-					this.OnPartNrChanging(value);
-					this.SendPropertyChanging();
-					this._PartNr = value;
-					this.SendPropertyChanged("PartNr");
-					this.OnPartNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KNr", DbType="VarChar(50)")]
-		public string KNr
-		{
-			get
-			{
-				return this._KNr;
-			}
-			set
-			{
-				if ((this._KNr != value))
-				{
-					this.OnKNrChanging(value);
-					this.SendPropertyChanging();
-					this._KNr = value;
-					this.SendPropertyChanged("KNr");
-					this.OnKNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KNrWithYear", DbType="VarChar(50)")]
-		public string KNrWithYear
-		{
-			get
-			{
-				return this._KNrWithYear;
-			}
-			set
-			{
-				if ((this._KNrWithYear != value))
-				{
-					this.OnKNrWithYearChanging(value);
-					this.SendPropertyChanging();
-					this._KNrWithYear = value;
-					this.SendPropertyChanged("KNrWithYear");
-					this.OnKNrWithYearChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckCode", DbType="VarChar(50)")]
-		public string CheckCode
-		{
-			get
-			{
-				return this._CheckCode;
-			}
-			set
-			{
-				if ((this._CheckCode != value))
-				{
-					this.OnCheckCodeChanging(value);
-					this.SendPropertyChanging();
-					this._CheckCode = value;
-					this.SendPropertyChanged("CheckCode");
-					this.OnCheckCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KskNr", DbType="VarChar(50)")]
-		public string KskNr
-		{
-			get
-			{
-				return this._KskNr;
-			}
-			set
-			{
-				if ((this._KskNr != value))
-				{
-					this.OnKskNrChanging(value);
-					this.SendPropertyChanging();
-					this._KskNr = value;
-					this.SendPropertyChanged("KskNr");
-					this.OnKskNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QR", DbType="VarChar(50)")]
-		public string QR
-		{
-			get
-			{
-				return this._QR;
-			}
-			set
-			{
-				if ((this._QR != value))
-				{
-					this.OnQRChanging(value);
-					this.SendPropertyChanging();
-					this._QR = value;
-					this.SendPropertyChanged("QR");
-					this.OnQRChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
-		public System.Nullable<int> State
-		{
-			get
-			{
-				return this._State;
-			}
-			set
-			{
-				if ((this._State != value))
-				{
-					this.OnStateChanging(value);
-					this.SendPropertyChanging();
-					this._State = value;
-					this.SendPropertyChanged("State");
-					this.OnStateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedAt
-		{
-			get
-			{
-				return this._CreatedAt;
-			}
-			set
-			{
-				if ((this._CreatedAt != value))
-				{
-					this.OnCreatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedAt = value;
-					this.SendPropertyChanged("CreatedAt");
-					this.OnCreatedAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdatedAt
-		{
-			get
-			{
-				return this._UpdatedAt;
-			}
-			set
-			{
-				if ((this._UpdatedAt != value))
-				{
-					this.OnUpdatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._UpdatedAt = value;
-					this.SendPropertyChanged("UpdatedAt");
-					this.OnUpdatedAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_TrayItem", Storage="_TrayItem", ThisKey="Nr", OtherKey="UniqItemNr")]
-		public EntitySet<TrayItem> TrayItem
-		{
-			get
-			{
-				return this._TrayItem;
-			}
-			set
-			{
-				this._TrayItem.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_Storage", Storage="_Storage", ThisKey="Nr", OtherKey="UniqItemNr")]
-		public EntitySet<Storage> Storage
-		{
-			get
-			{
-				return this._Storage;
-			}
-			set
-			{
-				this._Storage.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_DeliveryItem", Storage="_DeliveryItem", ThisKey="Nr", OtherKey="UniqItemNr")]
-		public EntitySet<DeliveryItem> DeliveryItem
-		{
-			get
-			{
-				return this._DeliveryItem;
-			}
-			set
-			{
-				this._DeliveryItem.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BoxType_UniqueItem", Storage="_BoxType", ThisKey="BoxTypeId", OtherKey="Id", IsForeignKey=true)]
-		public BoxType BoxType
-		{
-			get
-			{
-				return this._BoxType.Entity;
-			}
-			set
-			{
-				BoxType previousValue = this._BoxType.Entity;
-				if (((previousValue != value) 
-							|| (this._BoxType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._BoxType.Entity = null;
-						previousValue.UniqueItem.Remove(this);
-					}
-					this._BoxType.Entity = value;
-					if ((value != null))
-					{
-						value.UniqueItem.Add(this);
-						this._BoxTypeId = value.Id;
-					}
-					else
-					{
-						this._BoxTypeId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("BoxType");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_TrayItem(TrayItem entity)
-		{
-			this.SendPropertyChanging();
-			entity.UniqueItem = this;
-		}
-		
-		private void detach_TrayItem(TrayItem entity)
-		{
-			this.SendPropertyChanging();
-			entity.UniqueItem = null;
-		}
-		
-		private void attach_Storage(Storage entity)
-		{
-			this.SendPropertyChanging();
-			entity.UniqueItem = this;
-		}
-		
-		private void detach_Storage(Storage entity)
-		{
-			this.SendPropertyChanging();
-			entity.UniqueItem = null;
-		}
-		
-		private void attach_DeliveryItem(DeliveryItem entity)
-		{
-			this.SendPropertyChanging();
-			entity.UniqueItem = this;
-		}
-		
-		private void detach_DeliveryItem(DeliveryItem entity)
-		{
-			this.SendPropertyChanging();
-			entity.UniqueItem = null;
 		}
 	}
 	
@@ -8605,6 +8178,457 @@ namespace AGVCenterLib.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UniqueItem")]
+	public partial class UniqueItem : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Nr;
+		
+		private System.Nullable<int> _BoxTypeId;
+		
+		private string _PartNr;
+		
+		private string _KNr;
+		
+		private string _KNrWithYear;
+		
+		private string _CheckCode;
+		
+		private string _KskNr;
+		
+		private string _QR;
+		
+		private System.Nullable<int> _State;
+		
+		private System.Nullable<System.DateTime> _CreatedAt;
+		
+		private System.Nullable<System.DateTime> _UpdatedAt;
+		
+		private string _CheckCode2;
+		
+		private EntitySet<TrayItem> _TrayItem;
+		
+		private EntitySet<Storage> _Storage;
+		
+		private EntitySet<DeliveryItem> _DeliveryItem;
+		
+		private EntityRef<BoxType> _BoxType;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNrChanging(string value);
+    partial void OnNrChanged();
+    partial void OnBoxTypeIdChanging(System.Nullable<int> value);
+    partial void OnBoxTypeIdChanged();
+    partial void OnPartNrChanging(string value);
+    partial void OnPartNrChanged();
+    partial void OnKNrChanging(string value);
+    partial void OnKNrChanged();
+    partial void OnKNrWithYearChanging(string value);
+    partial void OnKNrWithYearChanged();
+    partial void OnCheckCodeChanging(string value);
+    partial void OnCheckCodeChanged();
+    partial void OnKskNrChanging(string value);
+    partial void OnKskNrChanged();
+    partial void OnQRChanging(string value);
+    partial void OnQRChanged();
+    partial void OnStateChanging(System.Nullable<int> value);
+    partial void OnStateChanged();
+    partial void OnCreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedAtChanged();
+    partial void OnUpdatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedAtChanged();
+    partial void OnCheckCode2Changing(string value);
+    partial void OnCheckCode2Changed();
+    #endregion
+		
+		public UniqueItem()
+		{
+			this._TrayItem = new EntitySet<TrayItem>(new Action<TrayItem>(this.attach_TrayItem), new Action<TrayItem>(this.detach_TrayItem));
+			this._Storage = new EntitySet<Storage>(new Action<Storage>(this.attach_Storage), new Action<Storage>(this.detach_Storage));
+			this._DeliveryItem = new EntitySet<DeliveryItem>(new Action<DeliveryItem>(this.attach_DeliveryItem), new Action<DeliveryItem>(this.detach_DeliveryItem));
+			this._BoxType = default(EntityRef<BoxType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nr", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Nr
+		{
+			get
+			{
+				return this._Nr;
+			}
+			set
+			{
+				if ((this._Nr != value))
+				{
+					this.OnNrChanging(value);
+					this.SendPropertyChanging();
+					this._Nr = value;
+					this.SendPropertyChanged("Nr");
+					this.OnNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoxTypeId", DbType="Int")]
+		public System.Nullable<int> BoxTypeId
+		{
+			get
+			{
+				return this._BoxTypeId;
+			}
+			set
+			{
+				if ((this._BoxTypeId != value))
+				{
+					if (this._BoxType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBoxTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._BoxTypeId = value;
+					this.SendPropertyChanged("BoxTypeId");
+					this.OnBoxTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartNr", DbType="VarChar(50)")]
+		public string PartNr
+		{
+			get
+			{
+				return this._PartNr;
+			}
+			set
+			{
+				if ((this._PartNr != value))
+				{
+					this.OnPartNrChanging(value);
+					this.SendPropertyChanging();
+					this._PartNr = value;
+					this.SendPropertyChanged("PartNr");
+					this.OnPartNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KNr", DbType="VarChar(50)")]
+		public string KNr
+		{
+			get
+			{
+				return this._KNr;
+			}
+			set
+			{
+				if ((this._KNr != value))
+				{
+					this.OnKNrChanging(value);
+					this.SendPropertyChanging();
+					this._KNr = value;
+					this.SendPropertyChanged("KNr");
+					this.OnKNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KNrWithYear", DbType="VarChar(50)")]
+		public string KNrWithYear
+		{
+			get
+			{
+				return this._KNrWithYear;
+			}
+			set
+			{
+				if ((this._KNrWithYear != value))
+				{
+					this.OnKNrWithYearChanging(value);
+					this.SendPropertyChanging();
+					this._KNrWithYear = value;
+					this.SendPropertyChanged("KNrWithYear");
+					this.OnKNrWithYearChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckCode", DbType="VarChar(50)")]
+		public string CheckCode
+		{
+			get
+			{
+				return this._CheckCode;
+			}
+			set
+			{
+				if ((this._CheckCode != value))
+				{
+					this.OnCheckCodeChanging(value);
+					this.SendPropertyChanging();
+					this._CheckCode = value;
+					this.SendPropertyChanged("CheckCode");
+					this.OnCheckCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KskNr", DbType="VarChar(50)")]
+		public string KskNr
+		{
+			get
+			{
+				return this._KskNr;
+			}
+			set
+			{
+				if ((this._KskNr != value))
+				{
+					this.OnKskNrChanging(value);
+					this.SendPropertyChanging();
+					this._KskNr = value;
+					this.SendPropertyChanged("KskNr");
+					this.OnKskNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_QR", DbType="VarChar(50)")]
+		public string QR
+		{
+			get
+			{
+				return this._QR;
+			}
+			set
+			{
+				if ((this._QR != value))
+				{
+					this.OnQRChanging(value);
+					this.SendPropertyChanging();
+					this._QR = value;
+					this.SendPropertyChanged("QR");
+					this.OnQRChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="Int")]
+		public System.Nullable<int> State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this.OnStateChanging(value);
+					this.SendPropertyChanging();
+					this._State = value;
+					this.SendPropertyChanged("State");
+					this.OnStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedAt
+		{
+			get
+			{
+				return this._UpdatedAt;
+			}
+			set
+			{
+				if ((this._UpdatedAt != value))
+				{
+					this.OnUpdatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedAt = value;
+					this.SendPropertyChanged("UpdatedAt");
+					this.OnUpdatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CheckCode2", DbType="VarChar(100)")]
+		public string CheckCode2
+		{
+			get
+			{
+				return this._CheckCode2;
+			}
+			set
+			{
+				if ((this._CheckCode2 != value))
+				{
+					this.OnCheckCode2Changing(value);
+					this.SendPropertyChanging();
+					this._CheckCode2 = value;
+					this.SendPropertyChanged("CheckCode2");
+					this.OnCheckCode2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_TrayItem", Storage="_TrayItem", ThisKey="Nr", OtherKey="UniqItemNr")]
+		public EntitySet<TrayItem> TrayItem
+		{
+			get
+			{
+				return this._TrayItem;
+			}
+			set
+			{
+				this._TrayItem.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_Storage", Storage="_Storage", ThisKey="Nr", OtherKey="UniqItemNr")]
+		public EntitySet<Storage> Storage
+		{
+			get
+			{
+				return this._Storage;
+			}
+			set
+			{
+				this._Storage.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="UniqueItem_DeliveryItem", Storage="_DeliveryItem", ThisKey="Nr", OtherKey="UniqItemNr")]
+		public EntitySet<DeliveryItem> DeliveryItem
+		{
+			get
+			{
+				return this._DeliveryItem;
+			}
+			set
+			{
+				this._DeliveryItem.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BoxType_UniqueItem", Storage="_BoxType", ThisKey="BoxTypeId", OtherKey="Id", IsForeignKey=true)]
+		public BoxType BoxType
+		{
+			get
+			{
+				return this._BoxType.Entity;
+			}
+			set
+			{
+				BoxType previousValue = this._BoxType.Entity;
+				if (((previousValue != value) 
+							|| (this._BoxType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BoxType.Entity = null;
+						previousValue.UniqueItem.Remove(this);
+					}
+					this._BoxType.Entity = value;
+					if ((value != null))
+					{
+						value.UniqueItem.Add(this);
+						this._BoxTypeId = value.Id;
+					}
+					else
+					{
+						this._BoxTypeId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("BoxType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_TrayItem(TrayItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.UniqueItem = this;
+		}
+		
+		private void detach_TrayItem(TrayItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.UniqueItem = null;
+		}
+		
+		private void attach_Storage(Storage entity)
+		{
+			this.SendPropertyChanging();
+			entity.UniqueItem = this;
+		}
+		
+		private void detach_Storage(Storage entity)
+		{
+			this.SendPropertyChanging();
+			entity.UniqueItem = null;
+		}
+		
+		private void attach_DeliveryItem(DeliveryItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.UniqueItem = this;
+		}
+		
+		private void detach_DeliveryItem(DeliveryItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.UniqueItem = null;
 		}
 	}
 }

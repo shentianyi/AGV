@@ -43,24 +43,6 @@ namespace AgvClientWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("^[0-9]{7}$")]
-        public string KnrReg {
-            get {
-                return ((string)(this["KnrReg"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("^[0-9]{9}$")]
-        public string KnrWithYearReg {
-            get {
-                return ((string)(this["KnrWithYearReg"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("^[0-9]{10}$")]
         public string QrReg {
             get {
@@ -92,6 +74,42 @@ namespace AgvClientWPF.Properties {
         public string LayoutReg {
             get {
                 return ((string)(this["LayoutReg"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("^[0-9A-Z]{7}$")]
+        public string KnrReg {
+            get {
+                return ((string)(this["KnrReg"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("^[0-9A-Z]{9}$")]
+        public string KnrWithYearReg {
+            get {
+                return ((string)(this["KnrWithYearReg"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("^[A-Za-z0-9]{12}$")]
+        public string CheckCode2Reg {
+            get {
+                return ((string)(this["CheckCode2Reg"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4{0}")]
+        public string CheckCode2KskFormat {
+            get {
+                return ((string)(this["CheckCode2KskFormat"]));
             }
         }
     }

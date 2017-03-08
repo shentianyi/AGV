@@ -26,6 +26,10 @@ namespace AGVCenterLib.Model.ViewModel
         [DataMember]
         public string CheckCode { get; set; }
 
+
+        [DataMember]
+        public string CheckCode2 { get; set; }
+
         [DataMember]
         public string KskNr { get; set; }
 
