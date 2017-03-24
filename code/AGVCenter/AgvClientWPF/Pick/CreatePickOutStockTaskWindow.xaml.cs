@@ -58,6 +58,7 @@ namespace AgvClientWPF.Pick
 
         private void createOutStockTaskBtn_Click(object sender, RoutedEventArgs e)
         {
+           // createOutStockTaskBtn.IsEnabled = false;
             try
             {
                 ResultMessage message = new PickServiceClient().CreateOutStockTaskByNr(this.pickListNrTB.Text);
@@ -68,11 +69,13 @@ namespace AgvClientWPF.Pick
                 else
                 {
                     MessageBox.Show(message.Content);
+                  //  createOutStockTaskBtn.IsEnabled = true;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                createOutStockTaskBtn.IsEnabled = true;
             }
         }
     }

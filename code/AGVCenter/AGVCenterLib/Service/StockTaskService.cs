@@ -261,6 +261,12 @@ namespace AGVCenterLib.Service
                     message.Content = string.Format("择货单{0}不存在", pickListNr);
                     return message;
                 }
+                if (pickList.State == (int)PickListState.PickTaskCreated)
+                {
+
+                    message.Content = string.Format("择货单{0}已创建出库任务，不可以重复创建", pickListNr);
+                    return message;
+                }
                 
                 // 按照箱子类型排序
                 List<PickListStorageView> deliveryStorages =
