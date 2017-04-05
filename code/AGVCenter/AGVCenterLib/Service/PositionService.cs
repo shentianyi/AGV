@@ -118,6 +118,27 @@ namespace AGVCenterLib.Service
         {
             return new PositionRepository(this.Context).FindByNr(positionNr);
         }
+
+
+        public void SetPriority(string[] positionNr, int? Num, bool? Desc)
+        {
+            if (positionNr.Length > 0)
+            {
+                foreach (string s in positionNr)
+                {
+                    if (Num <= 0 || Num == null)
+                    { Num = null; Desc = null; }
+                    Position p = new PositionRepository(this.Context).FindByNr(s);
+                    p.InStorePriority = Num;
+                    if (Desc != null)
+                    {
+                        Num = (Desc == true) ? Num - 1 : Num + 1;
+                    }
+
+                }
+                this.Context.SaveAll();
+            }
+        }
     }
 
 

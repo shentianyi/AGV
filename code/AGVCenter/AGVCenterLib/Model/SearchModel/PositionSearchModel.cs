@@ -15,5 +15,7 @@ namespace AGVCenterLib.Model.SearchModel
         public string NrAct { get; set; }
         [DataMember]
         public bool? IsLocked { get; set; }
+        [DataMember]
+        public int? InStorePriority { get; set; }
     }
 }
