@@ -29,17 +29,17 @@
             <ul class="nav navbar-nav">
                 @* 命名规则： nav- Controller 小写  *@
 
-                <li class="nav-home">@Html.ActionLink("Home", "Index", "Home")</li> 
-                <li class="nav-undone-stock">@Html.ActionLink("Position", "Index", "Position")</li>
-                <li class="nav-undone-stock">@Html.ActionLink("UniqueItem", "Index", "UniqueItem")</li>
-                <li class="nav-undone-stock">@Html.ActionLink("Storage", "Index", "Storage")</li>
-                <li class="nav-undone-stock">@Html.ActionLink("StockMovement", "Index", "StockMovement")</li>
-                <li class="nav-undone-stock">@Html.ActionLink("Delivery", "Index", "Delivery")</li>
-                <li class="nav-undone-stock">@Html.ActionLink("DeliveryItem", "Index", "DeliveryItem")</li>
-                <li class="nav-undone-stock">@Html.ActionLink("PickList", "Index", "PickList")</li>
-                <li class="nav-undone-stock">@Html.ActionLink("PickListItem", "Index", "PickListItem")</li>
-                <li class="nav-undone-stock">@Html.ActionLink("StockTask", "Index", "StockTask")</li>
-                <li class="nav-undone-stock">@Html.ActionLink("StockTaskLog", "Index", "StockTaskLog")</li>
+                <li class="nav-home">@Html.ActionLink("首页", "Index", "Home")</li> 
+                <li class="nav-undone-stock">@Html.ActionLink("库位", "Index", "Position")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("成品线束", "Index", "UniqueItem")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("库存", "Index", "Storage")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("库存记录", "Index", "StockMovement")</li>
+                @*<li class="nav-undone-stock">@Html.ActionLink("Delivery", "Index", "Delivery")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("DeliveryItem", "Index", "DeliveryItem")</li>*@
+                <li class="nav-undone-stock">@Html.ActionLink("取货单", "Index", "PickList")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("取货单详细", "Index", "PickListItem")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("控制任务", "Index", "StockTask")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("控制任务日志", "Index", "StockTaskLog")</li>
                  </ul>
 
             @*@Html.Partial("_LoginPartial")*@
