@@ -97,19 +97,19 @@ namespace AgvClientWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("^[A-Za-z0-9]{12}$")]
-        public string CheckCode2Reg {
+        [global::System.Configuration.DefaultSettingValueAttribute("4{0}")]
+        public string CheckCode2KskFormat {
             get {
-                return ((string)(this["CheckCode2Reg"]));
+                return ((string)(this["CheckCode2KskFormat"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4{0}")]
-        public string CheckCode2KskFormat {
+        [global::System.Configuration.DefaultSettingValueAttribute("^[A-Za-z0-9]{11}$")]
+        public string CheckCode2Reg {
             get {
-                return ((string)(this["CheckCode2KskFormat"]));
+                return ((string)(this["CheckCode2Reg"]));
             }
         }
     }

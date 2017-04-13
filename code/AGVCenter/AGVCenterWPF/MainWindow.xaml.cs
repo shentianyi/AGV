@@ -128,7 +128,7 @@ namespace AGVCenterWPF
             // 自动连接OPC
             if (BaseConfig.AutoConnectOPC)
             {
-                this.ConnectOPC();
+              //  this.ConnectOPC();
             }
 
             /// 初始化定时器，用以分发任务
@@ -151,6 +151,8 @@ namespace AGVCenterWPF
                 SettingTabItem.Visibility = Visibility.Collapsed;
             }
 
+            // 启动RM通信
+            this.OpenRabbitMQConnect();
         }
 
 
@@ -1065,6 +1067,7 @@ namespace AGVCenterWPF
             {
                 this.StopMonitorTimers();
             }
+            this.ShutDownRabbitMQConnect();
             this.DisconnectOPCServer();
         }
 
@@ -1198,6 +1201,7 @@ namespace AGVCenterWPF
             if(MessageBox.Show("PMS OPC Connnector在运行中，确认关闭？","关闭确认",MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 ShutDownComponents();
+               
             }
             else
             {
@@ -1557,8 +1561,8 @@ namespace AGVCenterWPF
             {
                 if ((BaseConfig.RoadMachine2Enabled
                     && (!OPCDataResetData.Xdj2InPaltformIsBuff)
-                    && (ModeConfig.RoadMachine2TaskMode != RoadMachineTaskModel.OnlyOut)
-                    && (ModeConfig.RoadMachine2TaskMode != RoadMachineTaskModel.AutoMoveOnly))
+                    && (ModeConfig.RoadMachine2TaskMode != RoadMachineTaskMode.OnlyOut)
+                    && (ModeConfig.RoadMachine2TaskMode != RoadMachineTaskMode.AutoMoveOnly))
                     && this.NotHasRoadMachineBuffingTask(roadMachineIndex))
                 {
                     can = true;
@@ -1568,8 +1572,8 @@ namespace AGVCenterWPF
             {
                 if ((BaseConfig.RoadMachine1Enabled
                       && (!OPCDataResetData.Xdj1InPaltformIsBuff)
-                      && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskModel.OnlyOut)
-                    && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskModel.AutoMoveOnly))
+                      && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskMode.OnlyOut)
+                    && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskMode.AutoMoveOnly))
                       && this.NotHasRoadMachineBuffingTask(roadMachineIndex))
                 { 
                     can = true;
@@ -1582,5 +1586,6 @@ namespace AGVCenterWPF
         {
             new OperatePanelWindow(this).Show();
         }
+
     }
 }

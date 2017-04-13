@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGVCenterWPF", "AGVCenterWPF\AGVCenterWPF.csproj", "{1CA7279E-B19E-4A38-9F1D-71F42303DABE}"
 EndProject
@@ -32,6 +32,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgvWarehouseWeb", "AgvWarehouseWeb\AgvWarehouseWeb.csproj", "{E088FAA8-89FE-4765-AC24-92A4B3C088A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brilliantech.ReportGenConnector", "..\..\Brilliantech.ReportGenConnector\Brilliantech.ReportGenConnector.csproj", "{DE39BCC6-CCDA-459D-B0F1-301BD1C009B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConSender", "TestConSender\TestConSender.csproj", "{C416C8B0-4450-4295-AAAB-7C5E4FF566F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConReceiver", "TestConReceiver\TestConReceiver.csproj", "{8478AA1E-8EEF-42A9-9EF5-8EA609E82C66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +83,14 @@ Global
 		{DE39BCC6-CCDA-459D-B0F1-301BD1C009B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE39BCC6-CCDA-459D-B0F1-301BD1C009B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE39BCC6-CCDA-459D-B0F1-301BD1C009B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C416C8B0-4450-4295-AAAB-7C5E4FF566F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C416C8B0-4450-4295-AAAB-7C5E4FF566F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C416C8B0-4450-4295-AAAB-7C5E4FF566F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C416C8B0-4450-4295-AAAB-7C5E4FF566F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8478AA1E-8EEF-42A9-9EF5-8EA609E82C66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8478AA1E-8EEF-42A9-9EF5-8EA609E82C66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8478AA1E-8EEF-42A9-9EF5-8EA609E82C66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8478AA1E-8EEF-42A9-9EF5-8EA609E82C66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +99,7 @@ Global
 		{F7FBCE22-221B-4654-B102-9A43FBFF1A64} = {F5EE7488-E351-4888-90BE-88357D41B845}
 		{8D149F77-D296-485E-95A8-FB602EA5D98C} = {1B6EE808-658F-4893-B60A-5A71BBE0357D}
 		{8737F142-F4EC-4E23-8CAB-F35DFECBDF9C} = {F5EE7488-E351-4888-90BE-88357D41B845}
+		{C416C8B0-4450-4295-AAAB-7C5E4FF566F5} = {F5EE7488-E351-4888-90BE-88357D41B845}
+		{8478AA1E-8EEF-42A9-9EF5-8EA609E82C66} = {F5EE7488-E351-4888-90BE-88357D41B845}
 	EndGlobalSection
 EndGlobal

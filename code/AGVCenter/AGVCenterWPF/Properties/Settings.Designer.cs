@@ -43,8 +43,8 @@ namespace AGVCenterWPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DELL-PC\\SQLEXPRESS;Initial Catalog=AgvWarehouseDb;Persist Security Info=Tru" +
-            "e;User ID=sa;Password=sa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.0.99;Initial Catalog=AgvWarehouseDb;Persist Security Info=Tru" +
+            "e;User ID=sa;Password=123456@")]
         public string dbString {
             get {
                 return ((string)(this["dbString"]));
@@ -57,6 +57,18 @@ namespace AGVCenterWPF.Properties {
         public string agvMsgQueue {
             get {
                 return ((string)(this["agvMsgQueue"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10:30~11:00;12:00~13:01")]
+        public string agvAutoMoveCorn {
+            get {
+                return ((string)(this["agvAutoMoveCorn"]));
+            }
+            set {
+                this["agvAutoMoveCorn"] = value;
             }
         }
     }

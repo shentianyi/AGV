@@ -116,7 +116,7 @@ namespace AGVCenterWPF
                 if (roadMachineIndex == 1)
                 {
                     #region 巷道机1 运行模式
-                    if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.OutHigherThanIn)
+                    if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskMode.OutHigherThanIn)
                     {
                         if (RoadMachine1OutTaskQueue.Count > 0)
                         {
@@ -132,7 +132,7 @@ namespace AGVCenterWPF
                             RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1MoveTaskQueue.Dequeue());
                         }
                     }
-                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.InHigherThanOut)
+                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskMode.InHigherThanOut)
                     {
                         if (RoadMachine1InTaskQueue.Count > 0)
                         {
@@ -147,21 +147,21 @@ namespace AGVCenterWPF
                             RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1MoveTaskQueue.Dequeue());
                         }
                     }
-                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.OnlyOut)
+                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskMode.OnlyOut)
                     {
                         if (RoadMachine1OutTaskQueue.Count > 0)
                         {
                             RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1OutTaskQueue.Dequeue());
                         }
                     }
-                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.OnlyIn)
+                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskMode.OnlyIn)
                     {
                         if (RoadMachine1InTaskQueue.Count > 0)
                         {
                             RoadMachine1CenterTaskQueue.Enqueue(RoadMachine1InTaskQueue.Dequeue());
                         }
                     }
-                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskModel.AutoMoveOnly)
+                    else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskMode.AutoMoveOnly)
                     {
                         if (RoadMachine1MoveTaskQueue.Count == 0 && RoadMachine1CenterTaskQueue.Count==0)
                         {
@@ -188,7 +188,7 @@ namespace AGVCenterWPF
                 else if (roadMachineIndex == 2)
                 {
                     #region 巷道机2模式
-                    if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.OutHigherThanIn)
+                    if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskMode.OutHigherThanIn)
                     {
                         if (RoadMachine2OutTaskQueue.Count > 0)
                         {
@@ -203,7 +203,7 @@ namespace AGVCenterWPF
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2MoveTaskQueue.Dequeue());
                         }
                     }
-                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.InHigherThanOut)
+                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskMode.InHigherThanOut)
                     {
                         if (RoadMachine2InTaskQueue.Count > 0)
                         {
@@ -218,21 +218,21 @@ namespace AGVCenterWPF
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2MoveTaskQueue.Dequeue());
                         }
                     }
-                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.OnlyOut)
+                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskMode.OnlyOut)
                     {
                         if (RoadMachine2OutTaskQueue.Count > 0)
                         {
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2OutTaskQueue.Dequeue());
                         }
                     }
-                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.OnlyIn)
+                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskMode.OnlyIn)
                     {
                         if (RoadMachine2InTaskQueue.Count > 0)
                         {
                             RoadMachine2CenterTaskQueue.Enqueue(RoadMachine2InTaskQueue.Dequeue());
                         }
                     }
-                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskModel.AutoMoveOnly)
+                    else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskMode.AutoMoveOnly)
                     {
                         if (RoadMachine2MoveTaskQueue.Count == 0 && RoadMachine2CenterTaskQueue.Count==0)
                         {

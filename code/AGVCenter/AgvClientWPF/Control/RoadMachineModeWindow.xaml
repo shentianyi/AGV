@@ -1,0 +1,211 @@
+﻿<Window x:Class="AgvClientWPF.Control.RoadMachineModeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AgvClientWPF.Control"
+        mc:Ignorable="d"
+        Title="RoadMachineModeWindow" Height="500" Width="587" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="#FF4AB1F5" Margin="0,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="4"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" Margin="5,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="4*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <Label Content="巷道机1" FontSize="20" FontWeight="Bold"></Label>
+                </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="outHighBtn1" Content="先出" Tag="1-100" Click="changeWorkModeBtn_Click"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"
+                  Width="90" Foreground="White" FontSize="20"
+                Height="60"   Grid.Column="0" Grid.Row="0">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF0F6408" Offset="0"/>
+                                <GradientStop Color="#FF42B802" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.295"/>
+                        </Button.Effect>
+                    </Button>
+
+                    <Button x:Name="inHighBtn1" Content="先入"  Tag="1-200" Click="changeWorkModeBtn_Click"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"
+                  Width="90" Foreground="White" FontSize="20"
+                Height="60"   Grid.Column="1" Grid.Row="0">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF0F6408" Offset="0"/>
+                                <GradientStop Color="#FF42B802" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.295"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button x:Name="outOnlyBtn1" Content="只出"  Tag="1-300" Click="changeWorkModeBtn_Click"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"
+                  Width="90" Foreground="White" FontSize="20"
+                Height="60"   Grid.Column="2" Grid.Row="0">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF0F6408" Offset="0"/>
+                                <GradientStop Color="#FF42B802" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.295"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button x:Name="inOnlyBtn1" Content="只入"  Tag="1-400" Click="changeWorkModeBtn_Click"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"
+                  Width="90" Foreground="White" FontSize="20"
+                Height="60"   Grid.Column="0" Grid.Row="1">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF0F6408" Offset="0"/>
+                                <GradientStop Color="#FF42B802" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.295"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button x:Name="moveOnlyBtn1" Content="理货"  Tag="1-500" Click="changeWorkModeBtn_Click"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"
+                  Width="90" Foreground="White" FontSize="20"
+                Height="60"   Grid.Column="1" Grid.Row="1">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF0F6408" Offset="0"/>
+                                <GradientStop Color="#FF42B802" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.295"/>
+                        </Button.Effect>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" Background="Beige">
+                
+            </Grid>
+            <Grid Grid.Row="2"  Margin="5,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="4*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <Label Content="巷道机2" FontSize="20" FontWeight="Bold"></Label>
+                </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="outHighBtn2" Content="先出"  Tag="2-100" Click="changeWorkModeBtn_Click"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"
+                  Width="90" Foreground="White" FontSize="20"
+                Height="60"   Grid.Column="0" Grid.Row="0">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF0F6408" Offset="0"/>
+                                <GradientStop Color="#FF42B802" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.295"/>
+                        </Button.Effect>
+                    </Button>
+
+                    <Button x:Name="inHighBtn2" Content="先入"   Tag="2-200" Click="changeWorkModeBtn_Click"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"
+                  Width="90" Foreground="White" FontSize="20"
+                Height="60"   Grid.Column="1" Grid.Row="0">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF0F6408" Offset="0"/>
+                                <GradientStop Color="#FF42B802" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.295"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button x:Name="outOnlyBtn2" Content="只出"   Tag="2-300" Click="changeWorkModeBtn_Click"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"
+                  Width="90" Foreground="White" FontSize="20"
+                Height="60"   Grid.Column="2" Grid.Row="0">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF0F6408" Offset="0"/>
+                                <GradientStop Color="#FF42B802" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.295"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button x:Name="inOnlyBtn2" Content="只入"   Tag="2-400" Click="changeWorkModeBtn_Click"
+                HorizontalAlignment="Left"  VerticalAlignment="Top"
+                  Width="90" Foreground="White" FontSize="20"
+                Height="60"   Grid.Column="0" Grid.Row="1">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF0F6408" Offset="0"/>
+                                <GradientStop Color="#FF42B802" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.295"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button x:Name="moveOnlyBtn2" Content="理货"   Tag="2-500" Click="changeWorkModeBtn_Click" 
+                HorizontalAlignment="Left"  VerticalAlignment="Top"
+                  Width="90" Foreground="White" FontSize="20"
+                Height="60"   Grid.Column="1" Grid.Row="1">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF0F6408" Offset="0"/>
+                                <GradientStop Color="#FF42B802" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.295"/>
+                        </Button.Effect>
+                    </Button>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AGVCenterLib.Enum
 {
-    public enum RoadMachineTaskModel
+    public enum RoadMachineTaskMode
     {
         /// <summary>
         /// 出库优先，默认

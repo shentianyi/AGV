@@ -13,6 +13,7 @@
         <Button x:Name="autoComTest" Content="COM测试" HorizontalAlignment="Left" Margin="51,118,0,0" VerticalAlignment="Top" Width="102" Height="38" Click="autoComTest_Click"/>
         <Button x:Name="createOutTaskBtn" Content="创建出库任务" HorizontalAlignment="Left" Margin="187,113,0,0" VerticalAlignment="Top" Width="82" Height="43" Click="createOutTaskBtn_Click"/>
         <Button x:Name="updatePositionPriority" Content="初始化库位优先级" HorizontalAlignment="Left" Margin="303,111,0,0" VerticalAlignment="Top" Width="122" Height="45" Click="updatePositionPriority_Click"/>
+        <Button x:Name="button" Content="RabbitMQ" HorizontalAlignment="Left" Margin="51,185,0,0" VerticalAlignment="Top" Width="102" Height="41"/>
 
     </Grid>
 </Window>

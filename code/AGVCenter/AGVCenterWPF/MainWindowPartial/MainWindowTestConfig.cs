@@ -8,6 +8,7 @@ using AGVCenterLib.Enum;
 using AGVCenterWPF.Config;
 using Brilliantech.Framwork.Models;
 using Brilliantech.Framwork.Utils.EnumUtil;
+using System.Windows.Input;
 
 namespace AGVCenterWPF
 {
@@ -22,6 +23,16 @@ namespace AGVCenterWPF
             this.LoadRMWorkModeSetting();
         }
 
+        private void SettingTabItem_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+            this.LoadBasicConfig();
+            this.LoadRMWorkModeSetting();
+        }
+        private void SettingTabItem_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+        } 
         private void SaveBarcodeRegBtn_Click(object sender, RoutedEventArgs e)
         {
             BaseConfig.BarcodeReg = this.barcodeRegex.Text; 
@@ -34,7 +45,7 @@ namespace AGVCenterWPF
         private void LoadRMWorkModeSetting()
         {
             /// load roadmahine setting
-            List<EnumItem> modes = EnumUtil.GetList(typeof(RoadMachineTaskModel));
+            List<EnumItem> modes = EnumUtil.GetList(typeof(RoadMachineTaskMode));
 
             this.roadMachine1ModeCB.ItemsSource = modes;
             this.roadMachine2ModeCB.ItemsSource = modes;
@@ -94,10 +105,16 @@ namespace AGVCenterWPF
             ComboBox cb = sender as ComboBox;
             if(cb.Name== "roadMachine1ModeCB")
             {
-                ModeConfig.RoadMachine1TaskMode =(RoadMachineTaskModel) int.Parse( roadMachine1ModeCB.SelectedValue.ToString());
+                if (roadMachine1ModeCB.SelectedValue != null)
+                {
+                    ModeConfig.RoadMachine1TaskMode = (RoadMachineTaskMode)int.Parse(roadMachine1ModeCB.SelectedValue.ToString());
+                }
             }else if(cb.Name== "roadMachine2ModeCB")
             {
-                ModeConfig.RoadMachine2TaskMode = (RoadMachineTaskModel)int.Parse(roadMachine2ModeCB.SelectedValue.ToString());
+                if (roadMachine2ModeCB.SelectedValue != null)
+                {
+                    ModeConfig.RoadMachine2TaskMode = (RoadMachineTaskMode)int.Parse(roadMachine2ModeCB.SelectedValue.ToString());
+                }
             }
         }
         private void SettingOPCCB_Checked(object sender, RoutedEventArgs e)

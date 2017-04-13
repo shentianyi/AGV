@@ -10,6 +10,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="BoxTypeId" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="CheckCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckCode2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="KNr" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="KNrWithYear" nillable="true" type="xs:string" />
@@ -73,30 +74,41 @@
   </xs:complexType>
   <xs:element name="ArrayOfStockTaskModel" nillable="true" type="tns:ArrayOfStockTaskModel" />
   <xs:complexType name="StockTaskModel">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="AgvPassFlag" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="BarCode" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="BoxType" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DeliveryBatchId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DeliveryItemNum" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="PositionColumn" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="PositionFloor" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="PositionNr" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PositionRow" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="RestPositionFlag" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="RoadMachineIndex" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="StateStr" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TrayBatchId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TrayNum" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="TrayReverseNo" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
-    </xs:sequence>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseViewModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AgvPassFlag" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="BarCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BoxType" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="BoxTypeStr" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="DeliveryBatchId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DeliveryItemNum" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Id" type="xs:int" />
+          <xs:element minOccurs="0" name="PositionColumn" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="PositionFloor" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="PositionNr" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PositionRow" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="RestPositionFlag" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="RoadMachineIndex" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="State" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="StateStr" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TrayBatchId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TrayNum" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="TrayReverseNo" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Type" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
   <xs:element name="StockTaskModel" nillable="true" type="tns:StockTaskModel" />
+  <xs:complexType name="BaseViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsSelected" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BaseViewModel" nillable="true" type="tns:BaseViewModel" />
   <xs:complexType name="ArrayOfDeliveryModel">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="DeliveryModel" nillable="true" type="tns:DeliveryModel" />

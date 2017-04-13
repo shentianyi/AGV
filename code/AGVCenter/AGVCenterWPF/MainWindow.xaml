@@ -317,7 +317,7 @@
                     <!--<Button x:Name="LoadOutStockTaskBtn" Content="加载出库" HorizontalAlignment="Left" Margin="232,42,0,0" VerticalAlignment="Top" Width="55" Height="48" Click="LoadOutStockTaskBtn_Click"/>-->
                 </Grid>
             </TabItem>
-            <TabItem Header="基本设置" x:Name="SettingTabItem" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="61" Loaded="SettingTabItem_Loaded">
+            <TabItem Header="基本设置" x:Name="SettingTabItem" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="61" Loaded="SettingTabItem_Loaded" GotFocus="SettingTabItem_GotFocus">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>

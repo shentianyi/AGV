@@ -10,6 +10,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="BoxTypeId" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="CheckCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CheckCode2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CreatedAt" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="KNr" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="KNrWithYear" nillable="true" type="xs:string" />

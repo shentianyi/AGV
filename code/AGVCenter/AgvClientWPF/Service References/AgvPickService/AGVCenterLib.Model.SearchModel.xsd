@@ -1,10 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.SearchModel" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AGVCenterLib.Model.SearchModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:complexType name="PickListSearchModel">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Nr" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NrAct" nillable="true" type="xs:string" />
-    </xs:sequence>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SearchModelBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Nr" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NrAct" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
   <xs:element name="PickListSearchModel" nillable="true" type="tns:PickListSearchModel" />
+  <xs:complexType name="SearchModelBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedAtEnd" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CreatedAtStart" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SearchModelBase" nillable="true" type="tns:SearchModelBase" />
 </xs:schema>

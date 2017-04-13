@@ -13,7 +13,7 @@
 
 
     <Canvas>
-        <Image Name="Indicator" Canvas.Left="38" Height="99.986"  Width="99.986" Canvas.Top="57" />
+        <Image Name="Indicator" Canvas.Left="38" Height="99.986"  Width="99.986" Canvas.Top="57" Source="pack://siteoforigin:,,,/Sources/Loading.gif" />
         <ScrollViewer Canvas.Left="156" Canvas.Top="29" Height="128"  Width="338">
             <TextBlock TextAlignment="Left"  VerticalAlignment="Center" Text="message" FontSize="20" Name="TextBox_Message" TextWrapping="Wrap"  Canvas.Left="167" Canvas.Top="12"></TextBlock>
         </ScrollViewer>

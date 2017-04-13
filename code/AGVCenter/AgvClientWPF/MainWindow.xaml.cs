@@ -17,6 +17,7 @@ using AgvClientWPF.Delivery;
 using AGVCenterLib.Model;
 using AgvClientWPF.Storage;
 using AgvClientWPF.Pick;
+using AgvClientWPF.Control;
 
 namespace AgvClientWPF
 {
@@ -99,6 +100,11 @@ namespace AgvClientWPF
             //else{
             //    this.WindowStyle = WindowStyle.SingleBorderWindow;
             //}
+        }
+
+        private void roadMachineModeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new RoadMachineModeWindow().Show();
         }
     }
 }

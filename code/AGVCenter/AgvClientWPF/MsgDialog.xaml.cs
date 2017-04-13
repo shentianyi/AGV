@@ -25,6 +25,7 @@ namespace AgvClientWPF
         private static string successImage = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sources\\ok.png");
         private static string errorImage = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sources\\Error.png");
 
+        private static string loadingImage = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sources\\Loading.gif");
 
         private bool focusIdleIndicator = false;
         private MsgLevel currentLevel;
@@ -48,9 +49,12 @@ namespace AgvClientWPF
                 this.autoCloseTimer = new System.Timers.Timer();
                 this.autoCloseTimer.Interval = autoCloseTime * 1000;
                 this.autoCloseTimer.Elapsed += AutoCloseTimer_Elapsed;
-
+                this.Button_no.Visibility=Visibility.Hidden;
+                this.Button_yes.Visibility = Visibility.Hidden;
                 autoCloseTimer.Enabled = true;
                 autoCloseTimer.Start();
+
+              
             }
         }
 
@@ -108,6 +112,9 @@ namespace AgvClientWPF
                         break;
                     case MsgLevel.Warning:
                         imagePath = warningImage;
+                        break;
+                    case MsgLevel.Loading:
+                        imagePath = loadingImage;
                         break;
                     default:
                         imagePath = infoImage;

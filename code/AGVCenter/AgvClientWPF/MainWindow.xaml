@@ -26,7 +26,7 @@
                 <DropShadowEffect Opacity="0.295"/>
             </Button.Effect>
         </Button>
-        <Button x:Name="createDevlieryBtn" Content="创建运单"
+        <!--<Button x:Name="createDevlieryBtn" Content="创建运单"
                 HorizontalAlignment="Left" Margin="155.538,120,0,0" 
                 VerticalAlignment="Top"   Width="100" Foreground="White" FontSize="20"
                 Height="60"  Click="createDevlieryBtn_Click" Grid.Column="1">
@@ -40,8 +40,8 @@
 
                 <DropShadowEffect Opacity="0.295"/>
             </Button.Effect>
-        </Button>
-        <Button x:Name="createTrayBtn" Content="创建托盘" Margin="275.538,120,0,0" 
+        </Button>-->
+        <!--<Button x:Name="createTrayBtn" Content="创建托盘" Margin="275.538,120,0,0" 
                 HorizontalAlignment="Left"  VerticalAlignment="Top"   Width="100" Foreground="White" FontSize="20"
                 Height="60"  Click="createTrayBtn_Click" Grid.Column="1">
             <Button.Background>
@@ -54,7 +54,7 @@
 
                 <DropShadowEffect Opacity="0.295"/>
             </Button.Effect>
-        </Button>
+        </Button>-->
         <Button x:Name="createDeliveryOutStockTaskBtn" Content="创建出库任务" Visibility="Collapsed"
                 HorizontalAlignment="Left" Margin="275.538,120,0,0"  VerticalAlignment="Top"
                   Width="140" Foreground="White" FontSize="20"
@@ -70,7 +70,7 @@
                 <DropShadowEffect Opacity="0.295"/>
             </Button.Effect>
         </Button>
-        <Button x:Name="sendDeliveryBtn" Content="发送运单" 
+        <!--<Button x:Name="sendDeliveryBtn" Content="发送运单" 
                 HorizontalAlignment="Left"  Margin="405.538,120,0,0" 
                 VerticalAlignment="Top"   Width="100" Foreground="White" FontSize="20"
                 Height="60"  Click="sendDeliveryBtn_Click" Grid.Column="1">
@@ -84,7 +84,7 @@
 
                 <DropShadowEffect Opacity="0.295"/>
             </Button.Effect>
-        </Button>
+        </Button>-->
         <Button x:Name="deliveryTaskMonitorBtn" Content="运单出库监控"  Visibility="Collapsed"
                 HorizontalAlignment="Left" Margin="435.538,120,0,0"  VerticalAlignment="Top"
                   Width="130" Foreground="White" FontSize="20"
@@ -100,7 +100,7 @@
                 <DropShadowEffect Opacity="0.295"/>
             </Button.Effect>
         </Button>
-        <Button x:Name="deliveryListBtn" Content="运单列表" 
+        <!--<Button x:Name="deliveryListBtn" Content="运单列表" 
                 HorizontalAlignment="Left" Margin="525.538,120,0,0"  VerticalAlignment="Top"
                   Width="100" Foreground="White" FontSize="20"
                 Height="60"  Click="deliveryListBtn_Click" Grid.Column="1">
@@ -114,11 +114,11 @@
 
                 <DropShadowEffect Opacity="0.295"/>
             </Button.Effect>
-        </Button>
+        </Button>-->
 
 
         <Button x:Name="createPickListBtn" Content="创建择货单"
-                HorizontalAlignment="Left" Margin="155.538,220,0,0" 
+                HorizontalAlignment="Left" Margin="155.538,120,0,0" 
                 VerticalAlignment="Top"   Width="110" Foreground="White" FontSize="20"
                 Height="60"  Click="createPickListBtn_Click" Grid.Column="1">
             <Button.Background>
@@ -133,7 +133,7 @@
             </Button.Effect>
         </Button>
         <Button x:Name="createPickListTaskBtn" Content="择货单出库"
-                HorizontalAlignment="Left" Margin="280.538,220,0,0" 
+                HorizontalAlignment="Left" Margin="280.538,120,0,0" 
                 VerticalAlignment="Top"   Width="110" Foreground="White" FontSize="20"
                 Height="60"  Click="createPickListTaskBtn_Click" Grid.Column="1">
             <Button.Background>
@@ -149,7 +149,7 @@
         </Button>
 
         <Button x:Name="pickListTaskMonitorBtn" Content="择货单监控"
-                HorizontalAlignment="Left" Margin="409.538,220,0,0" 
+                HorizontalAlignment="Left" Margin="409.538,120,0,0" 
                 VerticalAlignment="Top"   Width="110" Foreground="White" FontSize="20"
                 Height="60"  Click="pickListTaskMonitorBtn_Click" Grid.Column="1">
             <Button.Background>
@@ -166,7 +166,7 @@
 
 
         <Button x:Name="pickListBtn" Content="择货单列表"
-                HorizontalAlignment="Left" Margin="529.538,220,0,0" 
+                HorizontalAlignment="Left" Margin="529.538,120,0,0" 
                 VerticalAlignment="Top"   Width="110" Foreground="White" FontSize="20"
                 Height="60"  Click="pickListBtn_Click" Grid.Column="1">
             <Button.Background>
@@ -182,13 +182,29 @@
         </Button>
 
         <Button x:Name="storageListBtn" Content="库存列表" 
-                HorizontalAlignment="Left" Margin="20.538,285,0,0"  VerticalAlignment="Top"
+                HorizontalAlignment="Left" Margin="20.538,120,0,0"  VerticalAlignment="Top"
                   Width="100" Foreground="White" FontSize="20"
                 Height="60"  Click="storageListBtn_Click" Grid.Column="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF0F6408" Offset="0"/>
                     <GradientStop Color="#FF42B802" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.Effect>
+
+                <DropShadowEffect Opacity="0.295"/>
+            </Button.Effect>
+        </Button>
+
+        <Button x:Name="roadMachineModeBtn" Content="巷道机模式" 
+                HorizontalAlignment="Left" Margin="20.538,220,0,0"  VerticalAlignment="Top"
+                  Width="110" Foreground="White" FontSize="20"
+                Height="60"    Grid.Column="1" Click="roadMachineModeBtn_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF245BC9" Offset="0"/>
+                    <GradientStop Color="#FF8F90BB" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
             <Button.Effect>

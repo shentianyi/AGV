@@ -14,5 +14,8 @@
     <Setting Name="agvMsgQueue" Type="System.String" Scope="Application">
       <Value Profile="(Default)">FormatName:Direct=TCP:192.168.0.99\\private$\\agvtaskqueue\agvtaskqueue</Value>
     </Setting>
+    <Setting Name="agvAutoMoveCorn" Type="System.String" Scope="User">
+      <Value Profile="(Default)">10:30~11:00;12:00~13:01</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
