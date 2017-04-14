@@ -46,7 +46,7 @@ namespace TestConSender
 
                 //channel.ExchangeDeclare(exchange: "helloe", type: "fanout");
                 channel.ExchangeDeclare(exchange: "helloe", type: ExchangeType.Fanout);
-
+                
                 while (true)
                 {
                     string message = Console.ReadLine();
@@ -61,6 +61,7 @@ namespace TestConSender
                                          routingKey: "hello",
                                          basicProperties: null,
                                          body: body);
+                   
                     Console.WriteLine(" [x] Sent {0}", message);
                 }
             }

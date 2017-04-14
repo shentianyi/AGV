@@ -34,31 +34,58 @@ namespace AGVCenterWPF.Config
             }
         }
 
-        public static void SetMode(int roadMachineIndex, RoadMachineTaskMode mode)
+        /// <summary>
+        /// 设置模式
+        /// </summary>
+        /// <param name="roadMachineIndex"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public static bool SetMode(int roadMachineIndex, RoadMachineTaskMode mode)
         {
             if (roadMachineIndex == 1)
             {
-                if (mode == RoadMachineTaskMode.AutoMoveOnly)
+                if (mode != RoadMachine1TaskMode)
                 {
-                    if (RoadMachine1TaskMode != RoadMachineTaskMode.AutoMoveOnly)
+                    if (mode == RoadMachineTaskMode.AutoMoveOnly)
                     {
-                        RoadMachine1PrevTaskMode = RoadMachine1TaskMode;
+                        if (RoadMachine1TaskMode != RoadMachineTaskMode.AutoMoveOnly)
+                        {
+                            RoadMachine1PrevTaskMode = RoadMachine1TaskMode;
+                        }
                     }
+                    RoadMachine1TaskMode = mode;
+                    return true;
                 }
-                RoadMachine1TaskMode = mode;
             }
             else
             {
-                if (mode == RoadMachineTaskMode.AutoMoveOnly)
+                if (mode != RoadMachine2TaskMode)
                 {
-                    if (RoadMachine2TaskMode != RoadMachineTaskMode.AutoMoveOnly)
+                    if (mode == RoadMachineTaskMode.AutoMoveOnly)
                     {
-                        RoadMachine2PrevTaskMode = RoadMachine2TaskMode;
+                        if (RoadMachine2TaskMode != RoadMachineTaskMode.AutoMoveOnly)
+                        {
+                            RoadMachine2PrevTaskMode = RoadMachine2TaskMode;
+                        }
                     }
+
+                    RoadMachine2TaskMode = mode;
+                    return true;
                 }
-                RoadMachine2TaskMode = mode;
             }
+            return false;
         }
+
+        /// <summary>
+        /// 恢复之前的模式
+        /// </summary>
+        /// <param name="roadMachineIndex"></param>
+        /// <returns></returns>
+        public static bool RecoverMode(int roadMachineIndex)
+        {
+            return SetMode(roadMachineIndex, roadMachineIndex == 1 ? RoadMachine1PrevTaskMode : RoadMachine2PrevTaskMode);
+        }
+
 
         public static RoadMachineTaskMode RoadMachine1PrevTaskMode
         {

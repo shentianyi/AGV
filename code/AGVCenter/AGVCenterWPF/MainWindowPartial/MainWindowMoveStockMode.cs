@@ -32,21 +32,25 @@ namespace AGVCenterWPF
         /// <param name="roadMachineIndex"></param>
         public void SwitchToMoveMode(int roadMachineIndex)
         {
-            if (roadMachineIndex == 1)
+            if (ModeConfig.SetMode(roadMachineIndex, RoadMachineTaskMode.AutoMoveOnly))
             {
-                if (!this.IsMoveStockMode(1)) { 
-                    ModeConfig.RoadMachine1PrevTaskMode = ModeConfig.RoadMachine1TaskMode;
-                }
-                ModeConfig.RoadMachine1TaskMode = RoadMachineTaskMode.AutoMoveOnly;
+                this.PublishStateInfos();
             }
-            else if (roadMachineIndex == 2)
-            {
-                if (!this.IsMoveStockMode(2))
-                {
-                    ModeConfig.RoadMachine2PrevTaskMode = ModeConfig.RoadMachine2TaskMode;
-                    ModeConfig.RoadMachine2TaskMode = RoadMachineTaskMode.AutoMoveOnly;
-                }
-            }
+            //if (roadMachineIndex == 1)
+            //{
+            //    if (!this.IsMoveStockMode(1)) { 
+            //        ModeConfig.RoadMachine1PrevTaskMode = ModeConfig.RoadMachine1TaskMode;
+            //    }
+            //    ModeConfig.RoadMachine1TaskMode = RoadMachineTaskMode.AutoMoveOnly;
+            //}
+            //else if (roadMachineIndex == 2)
+            //{
+            //    if (!this.IsMoveStockMode(2))
+            //    {
+            //        ModeConfig.RoadMachine2PrevTaskMode = ModeConfig.RoadMachine2TaskMode;
+            //        ModeConfig.RoadMachine2TaskMode = RoadMachineTaskMode.AutoMoveOnly;
+            //    }
+            //}
         }
 
         /// <summary>
@@ -55,15 +59,19 @@ namespace AGVCenterWPF
         /// <param name="roadMachineIndex"></param>
         public void StopMoveMode(int roadMachineIndex)
         {
-            if (this.IsMoveStockMode(roadMachineIndex))
+            //if (this.IsMoveStockMode(roadMachineIndex))
+            //{
+            //    if (roadMachineIndex == 1)
+            //    {
+            //        ModeConfig.RoadMachine1TaskMode = ModeConfig.RoadMachine1PrevTaskMode;
+            //    }else if (roadMachineIndex == 2)
+            //    {
+            //        ModeConfig.RoadMachine2TaskMode = ModeConfig.RoadMachine2PrevTaskMode;
+            //    }
+            //}  
+            if (ModeConfig.RecoverMode(roadMachineIndex))
             {
-                if (roadMachineIndex == 1)
-                {
-                    ModeConfig.RoadMachine1TaskMode = ModeConfig.RoadMachine1PrevTaskMode;
-                }else if (roadMachineIndex == 2)
-                {
-                    ModeConfig.RoadMachine2TaskMode = ModeConfig.RoadMachine2PrevTaskMode;
-                }
+                this.PublishStateInfos();
             }
         }
         #endregion
@@ -80,6 +88,7 @@ namespace AGVCenterWPF
         EventingBasicConsumer rmOperateConsumer;
 
         IModel operateChannel;
+        IModel stateInfoChannel;
         /// <summary>
         /// 开启RM连接
         /// </summary>
@@ -90,13 +99,16 @@ namespace AGVCenterWPF
                 rmFactory = new ConnectionFactory() { HostName = rm_host, Port = rm_port };
                 rmFactory.UserName = rm_username;
                 rmFactory.Password = rm_pwd;
+
+                rmFactory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
+
                 rmConnection = rmFactory.CreateConnection();
 
                 // 控制设置
                 #region 控制设置
-                  operateChannel = rmConnection.CreateModel();
+                operateChannel = rmConnection.CreateModel();
                 operateChannel.QueueDeclare(queue: "agv_center_operate_queue",
-                    durable: false,
+                                     durable: false,
                                      exclusive: false,
                                      autoDelete: false,
                                      arguments: null);
@@ -108,7 +120,16 @@ namespace AGVCenterWPF
                                      noAck: true,
                                      consumer: rmOperateConsumer);
                 #endregion
-            }catch(Exception ex)
+
+                // 状态发布
+                #region
+                stateInfoChannel = rmConnection.CreateModel();
+                stateInfoChannel.ExchangeDeclare( exchange:"agv_center_state_info_exchange",type: ExchangeType.Fanout);
+                #endregion
+                // 发送状态消息
+                this.PublishStateInfos();
+            }
+            catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
             }
@@ -125,6 +146,10 @@ namespace AGVCenterWPF
                 {
                     operateChannel.Close();
                 }
+                if (stateInfoChannel != null)
+                {
+                    stateInfoChannel.Close();
+                }
                 if (rmConnection != null)
                 {
                     rmConnection.Close();
@@ -136,6 +161,11 @@ namespace AGVCenterWPF
             }
         }
 
+        /// <summary>
+        /// 接收到消息处理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RmOperateConsumer_Received(object sender, BasicDeliverEventArgs e)
         {
             try
@@ -143,15 +173,33 @@ namespace AGVCenterWPF
                 var message = Encoding.UTF8.GetString(e.Body);
                 var cmd = JsonUtil.parse<AgvCenterCmd>(message);
                 LogUtil.Logger.InfoFormat("【接收到设置命令】{0}---{1}", cmd.RoadMachindeIndex, cmd.CmdType);
+                LogUtil.Logger.InfoFormat("【接收到设置命令信息】 ", message);
 
                 if (cmd.CmdType < 600)
                 {
                     // 设置工作模式
-                    ModeConfig.SetMode(cmd.RoadMachindeIndex, (RoadMachineTaskMode)cmd.CmdType);
+
+                    if (ModeConfig.SetMode(cmd.RoadMachindeIndex, (RoadMachineTaskMode)cmd.CmdType))
+                    {
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            this.LoadRMWorkModeSetting();
+                        });
+                        // 发布状态消息
+                        PublishStateInfos();
+                    }
                 }
                 else
                 {
                     // 其它任务
+                    switch (cmd.CmdType)
+                    {
+                        case 700:
+                            PublishStateInfos();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             catch (Exception ex)
@@ -159,6 +207,37 @@ namespace AGVCenterWPF
                 LogUtil.Logger.Error(ex.Message, ex);
             }
         }
-        #endregion
-    }
+
+        /// <summary>
+        /// 发布状态消息
+        /// </summary>
+        private void PublishStateInfos()
+        {
+            try
+            {
+                if (stateInfoChannel != null)
+                {
+                    LogUtil.Logger.Info("【发送状态消息】");
+
+                    AgvCenterStateInfoCmd infoCmd = new AgvCenterStateInfoCmd()
+                    {
+                        RoadMachine1Mode = (int)ModeConfig.RoadMachine1TaskMode,
+                        RoadMachine2Mode = (int)ModeConfig.RoadMachine2TaskMode
+                    };
+
+                    string message = JsonUtil.stringify(infoCmd);
+
+                    stateInfoChannel.BasicPublish(exchange: "agv_center_state_info_exchange",
+                                         routingKey: "agv_center_state_info_exchange",
+                                         basicProperties: null,
+                                         body: Encoding.UTF8.GetBytes(message));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+            }
+        }
+    #endregion
+}
 }

@@ -9,14 +9,14 @@ namespace AGVCenterLib.Model.Command
     {
         /// <summary>
         /// 命令类型：100- 改为 出库优先模式；
-        ///           200 - 改为 入库优先模式；
+        ///           200- 改为 入库优先模式；
         ///           300- 改为只出库；
         ///           400- 改为 只入库
-        ///           500 -改为 调库模式
-        ///           600-重新加载定时任务
+        ///           500- 改为 调库模式
+        ///           600- 重新加载定时任务
+        ///           700- 新的client连接
         /// </summary>
         public int CmdType { get; set; }
         public int RoadMachindeIndex { get; set; }
-
     }
 }

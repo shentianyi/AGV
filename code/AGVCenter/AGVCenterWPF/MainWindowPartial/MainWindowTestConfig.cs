@@ -26,8 +26,8 @@ namespace AGVCenterWPF
         private void SettingTabItem_GotFocus(object sender, RoutedEventArgs e)
         {
 
-            this.LoadBasicConfig();
-            this.LoadRMWorkModeSetting();
+            //this.LoadBasicConfig();
+            //this.LoadRMWorkModeSetting();
         }
         private void SettingTabItem_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -44,6 +44,8 @@ namespace AGVCenterWPF
         /// </summary>
         private void LoadRMWorkModeSetting()
         {
+            this.roadMachine1ModeCB.SelectionChanged -= roadMachine1ModeCB_SelectionChanged;
+            this.roadMachine2ModeCB.SelectionChanged -= roadMachine1ModeCB_SelectionChanged;
             /// load roadmahine setting
             List<EnumItem> modes = EnumUtil.GetList(typeof(RoadMachineTaskMode));
 
@@ -52,7 +54,6 @@ namespace AGVCenterWPF
 
             this.roadMachine1ModeCB.Items.Refresh();
             this.roadMachine2ModeCB.Items.Refresh();
-
             for (var i = 0; i < this.roadMachine1ModeCB.Items.Count; i++)
             {
                 if (this.roadMachine1ModeCB.Items.OfType<EnumItem>().ToList()[i].Value.Equals(((int)ModeConfig.RoadMachine1TaskMode).ToString()))
@@ -71,7 +72,13 @@ namespace AGVCenterWPF
                     break;
                 }
             }
+
+
+            this.roadMachine1ModeCB.SelectionChanged +=roadMachine1ModeCB_SelectionChanged;
+            this.roadMachine2ModeCB.SelectionChanged +=roadMachine1ModeCB_SelectionChanged;
         }
+
+      
 
         /// <summary>
         /// 加载基本设置
@@ -107,16 +114,24 @@ namespace AGVCenterWPF
             {
                 if (roadMachine1ModeCB.SelectedValue != null)
                 {
-                    ModeConfig.RoadMachine1TaskMode = (RoadMachineTaskMode)int.Parse(roadMachine1ModeCB.SelectedValue.ToString());
+                    // ModeConfig.RoadMachine1TaskMode = (RoadMachineTaskMode)int.Parse(roadMachine1ModeCB.SelectedValue.ToString());
+                    if (ModeConfig.SetMode(1, (RoadMachineTaskMode)int.Parse(roadMachine1ModeCB.SelectedValue.ToString())))
+                    {
+                        this.PublishStateInfos();
+                    }
                 }
             }else if(cb.Name== "roadMachine2ModeCB")
             {
                 if (roadMachine2ModeCB.SelectedValue != null)
                 {
-                    ModeConfig.RoadMachine2TaskMode = (RoadMachineTaskMode)int.Parse(roadMachine2ModeCB.SelectedValue.ToString());
+                    if (ModeConfig.SetMode(2, (RoadMachineTaskMode)int.Parse(roadMachine2ModeCB.SelectedValue.ToString())))
+                    {
+                        this.PublishStateInfos();
+                    }
                 }
             }
         }
+
         private void SettingOPCCB_Checked(object sender, RoutedEventArgs e)
         {
             CheckBox cb = sender as CheckBox;

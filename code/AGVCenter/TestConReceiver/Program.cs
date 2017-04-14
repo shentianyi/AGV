@@ -57,10 +57,10 @@ namespace TestConReceiver
               
 
                    var consumer = new EventingBasicConsumer(channel);
-                     
-                    
-                    consumer.Received += Consumer_Received;
 
+                    consumer.Registered += Consumer_Registered;
+                    consumer.Received += Consumer_Received;
+                    consumer.ConsumerCancelled += Consumer_ConsumerCancelled;
                     channel.BasicConsume(queue: queueName,
                                          noAck: true,
                                          consumer: consumer);
@@ -69,6 +69,16 @@ namespace TestConReceiver
                     
                 }
             }
+        }
+
+        private static void Consumer_ConsumerCancelled(object sender, ConsumerEventArgs e)
+        {
+            Console.WriteLine(e.ConsumerTag);
+        }
+
+        private static void Consumer_Registered(object sender, ConsumerEventArgs e)
+        {
+            Console.WriteLine(e.ConsumerTag);
         }
 
         private static void Consumer_Received(object sender, BasicDeliverEventArgs e)

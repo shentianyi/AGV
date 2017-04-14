@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Control"
         mc:Ignorable="d"
-        Title="RoadMachineModeWindow" Height="500" Width="587" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+        Title="RoadMachineModeWindow" Height="500" Width="687" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Background="#FF4AB1F5" Margin="0,0,0,0">
+        <Grid Grid.Column="0" Background="#FF4AB1F5" Margin="0,0,0,0" x:Name="roadMachineControlGrid">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="4"></RowDefinition>
@@ -26,7 +26,7 @@
                 <StackPanel Grid.Row="0">
                     <Label Content="巷道机1" FontSize="20" FontWeight="Bold"></Label>
                 </StackPanel>
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Name="roadMachine1ControlGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
@@ -40,7 +40,7 @@
                     <Button x:Name="outHighBtn1" Content="先出" Tag="1-100" Click="changeWorkModeBtn_Click"
                 HorizontalAlignment="Left"  VerticalAlignment="Top"
                   Width="90" Foreground="White" FontSize="20"
-                Height="60"   Grid.Column="0" Grid.Row="0">
+                Height="60"   Grid.Column="0" Grid.Row="0" BorderThickness="1">
                         <Button.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF0F6408" Offset="0"/>
@@ -121,7 +121,7 @@
                 <StackPanel Grid.Row="0">
                     <Label Content="巷道机2" FontSize="20" FontWeight="Bold"></Label>
                 </StackPanel>
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Name="roadMachine2ControlGrid">
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
