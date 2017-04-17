@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="33f9de0b-ca7d-42a8-9ad8-2e1862b21498" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:9001/AgvService/SystemService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="2bb86fa3-c5f5-4aef-b166-2ff064835aaf" SourceId="1" SourceUrl="http://localhost:9001/AgvService/SystemService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="f4712f6d-f185-4416-9530-9797c2d3cd52" SourceId="1" SourceUrl="http://localhost:9001/AgvService/SystemService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="cf48795f-e479-41f4-bcd8-c401129af496" SourceId="1" SourceUrl="http://localhost:9001/AgvService/SystemService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.ViewModel.xsd" MetadataType="Schema" ID="5217813f-ae0f-40bc-b74f-68e71391c1cc" SourceId="1" SourceUrl="http://localhost:9001/AgvService/SystemService/mex" />
+    <MetadataFile FileName="AGVCenterLib.Model.Message.xsd" MetadataType="Schema" ID="60701876-b62c-45b0-8183-2ed6455ebbf8" SourceId="1" SourceUrl="http://localhost:9001/AgvService/SystemService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

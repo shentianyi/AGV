@@ -104,6 +104,8 @@ namespace AGVCenterWPF
             this.isSelfAreaMoveCB.IsChecked = BaseConfig.IsSelfAreaMove;
 
 
+            this.roadMacine1AutoMoveEnabledCB.IsChecked = BaseConfig.RoadMachine1AutoMoveEnabled;
+            this.roadMacine2AutoMoveEnabledCB.IsChecked = BaseConfig.RoadMachine2AutoMoveEnabled;
 
         }
 
@@ -162,6 +164,12 @@ namespace AGVCenterWPF
                     break;
                 case "isSelfAreaMoveCB":
                     BaseConfig.IsSelfAreaMove = this.isSelfAreaMoveCB.IsChecked.Value;
+                    break;
+                case "roadMacine1AutoMoveEnabledCB":
+                    BaseConfig.RoadMachine1AutoMoveEnabled = this.roadMacine1AutoMoveEnabledCB.IsChecked.Value;
+                    break;
+                case "roadMacine2AutoMoveEnabledCB":
+                    BaseConfig.RoadMachine2AutoMoveEnabled = this.roadMacine2AutoMoveEnabledCB.IsChecked.Value;
                     break;
                 default:
                     break;

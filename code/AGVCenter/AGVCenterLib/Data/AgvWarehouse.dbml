@@ -450,4 +450,13 @@
       <Association Name="BoxType_UniqueItem" Member="BoxType" ThisKey="BoxTypeId" OtherKey="Id" Type="BoxType" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.MoveTaskSchedule" Member="MoveTaskSchedule">
+    <Type Name="MoveTaskSchedule">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CreateUserNr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

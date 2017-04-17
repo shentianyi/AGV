@@ -23,6 +23,10 @@ namespace AGVCenterWPF.Config
         // 是否使用库存入库优先级
         private static bool isUsePositionPriority = false;
         private static bool isSelfAreaMove = false;
+
+        // 自动移库是否开启
+        private static bool roadMachine1AutoMoveEnabled = true;
+        private static bool roadMachine2AutoMoveEnabled = true;
         static BaseConfig()
         {
             try
@@ -43,6 +47,9 @@ namespace AGVCenterWPF.Config
                 isUsePositionPriority = bool.Parse(config.Get("isUsePositionPriority"));
 
                 isSelfAreaMove = bool.Parse(config.Get("isSelfAreaMove"));
+
+                roadMachine1AutoMoveEnabled = bool.Parse(config.Get("roadMachine1AutoMoveEnabled"));
+                roadMachine2AutoMoveEnabled = bool.Parse(config.Get("roadMachine2AutoMoveEnabled"));
             }
             catch (Exception ex)
             {
@@ -216,6 +223,34 @@ namespace AGVCenterWPF.Config
             }
         }
 
+        public static bool RoadMachine1AutoMoveEnabled
+        {
+            get
+            {
+                return roadMachine1AutoMoveEnabled;
+            }
 
+            set
+            {
+                roadMachine1AutoMoveEnabled = value;
+                config.Set("roadMachine1AutoMoveEnabled", value);
+                config.Save();
+            }
+        }
+
+        public static bool RoadMachine2AutoMoveEnabled
+        {
+            get
+            {
+                return roadMachine2AutoMoveEnabled;
+            }
+
+            set
+            {
+                roadMachine2AutoMoveEnabled = value;
+                config.Set("roadMachine2AutoMoveEnabled", value);
+                config.Save();
+            }
+        }
     }
 }

@@ -1,4 +1,8 @@
 ﻿using AGVCenterLib.Model.Command;
+using AGVCenterLib.Model.ViewModel;
+using AGVCenterWPF.Config;
+using AgvClientWPF.AgvStorageService;
+using AgvClientWPF.AgvSystemService;
 using Brilliantech.Framwork.Utils.JsonUtil;
 using Brilliantech.Framwork.Utils.LogUtil;
 using RabbitMQ.Client;
@@ -33,12 +37,15 @@ namespace AgvClientWPF.Control
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            OpenRabbitMQConnect();
+            this.OpenRabbitMQConnect();
+            this.LoadTaskScheduleList();
         }
-        string rm_host = "192.168.2.116";
-        int rm_port = 5672;
-        string rm_username = "agv";
-        string rm_pwd = "agv";
+
+        string rm_host = RabbitMQConfig.Host;
+        int rm_port = RabbitMQConfig.Port;
+        string rm_username = RabbitMQConfig.UserName;
+        string rm_pwd = RabbitMQConfig.Pwd;
+
 
         ConnectionFactory rmFactory;
         IConnection rmConnection;
@@ -246,11 +253,106 @@ namespace AgvClientWPF.Control
             }
         }
 
+
+
+        private void LoadTaskScheduleList()
+        {
+            try
+            {
+                taskScheduleDG.ItemsSource =
+                    new SystemServiceClient().GetListGreaterThan(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ShutDownRabbitMQConnect();
         }
 
+        private void addTaskScheduleBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (startTimeDTP.Value == null || endTimeDTP.Value == null) {
+                    MessageBox.Show("请填写开始时间和结束时间");
+                }
+                else
+                {
+                    new SystemServiceClient().CreateMoveTaskSchdule(new AGVCenterLib.Model.ViewModel.MoveTaskScheduleModel()
+                    {
+                        StartTime = startTimeDTP.Value.Value,
+                        EndTime = endTimeDTP.Value.Value
+                    });
+                  
+                    this.SendReloadTaskScheduleCmd();
 
+                    this.LoadTaskScheduleList();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void deleteTaskScheduleBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (taskScheduleDG.SelectedIndex > -1)
+                {
+                    foreach (var i in taskScheduleDG.SelectedItems.OfType<MoveTaskScheduleModel>())
+                    {
+                        new SystemServiceClient().DeleteMoveTaskSchedule(i.Id);
+                    }
+                    this.SendReloadTaskScheduleCmd();
+
+                    this.LoadTaskScheduleList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void addTasksScheduleBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (startTimeDTP.Value == null || endTimeDTP.Value == null || string.IsNullOrEmpty(daysTB.Text))
+            {
+                MessageBox.Show("请填写开始时间,结束时间和连续天数");
+            }
+            else
+            { int days = 0;
+                if (int.TryParse(daysTB.Text, out days))
+                {
+                    for (int i = 0; i < days; i++)
+                    {
+                        new SystemServiceClient().CreateMoveTaskSchdule(new AGVCenterLib.Model.ViewModel.MoveTaskScheduleModel()
+                        {
+                            StartTime = startTimeDTP.Value.Value.AddDays(i),
+                            EndTime = endTimeDTP.Value.Value.AddDays(i)
+                        });
+                    }
+                    this.LoadTaskScheduleList();
+                }
+            }
+        }
+
+        private void SendReloadTaskScheduleCmd()
+        {
+            try
+            {
+                SendOperateCmd(0, 600);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

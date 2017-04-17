@@ -4,8 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Control"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="RoadMachineModeWindow" Height="500" Width="687" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+        Title="RoadMachineModeWindow" Height="550" Width="687"
+        Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="DataGridCheckboxColumnHeaderStyle1" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="ContentTemplate" Value="{DynamicResource CheckboxDataTemplate1}"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+  
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -206,6 +216,84 @@
                 </Grid>
             </Grid>
 
+        </Grid>
+
+        <Grid Grid.Column="1" Background="#FFB7C0E4">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"></RowDefinition>
+                    <RowDefinition  ></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <Label Content="开始时间："></Label>
+                        <xctk:DateTimePicker Width="275" Name="startTimeDTP"></xctk:DateTimePicker>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <Label Content="结束时间："></Label>
+                            <xctk:DateTimePicker Width="275" Name="endTimeDTP"></xctk:DateTimePicker>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <Label Content="连续天数："></Label>
+                            <TextBox Name="daysTB" Width="275"></TextBox>
+                         </StackPanel>
+                        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="addTaskScheduleBtn" Content="添加" ToolTip="填写开始时间和结束时间进行添加" Width="90" Foreground="White" FontSize="15" Height="40" Click="addTaskScheduleBtn_Click"  >
+                                <Button.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF0F6408" Offset="0"/>
+                                        <GradientStop Color="#FF42B802" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Button.Background>
+                                <Button.Effect>
+                                    <DropShadowEffect Opacity="0.295"/>
+                                </Button.Effect>
+                            </Button>
+                            <Button x:Name="addTasksScheduleBtn" Content="批量添加"  Margin="10,0,0,0"
+                                    ToolTip="填写开始时间,结束时间和连续天数 进行添加" Width="90"
+                                    Foreground="White" FontSize="15" Height="40"
+                                    Click="addTasksScheduleBtn_Click"  >
+                                <Button.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF0F6408" Offset="0"/>
+                                        <GradientStop Color="#FF42B802" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Button.Background>
+                                <Button.Effect>
+                                    <DropShadowEffect Opacity="0.295"/>
+                                </Button.Effect>
+                            </Button>
+
+                            <Button x:Name="deleteTaskScheduleBtn" Margin="10,0,0,0" Content="删除" ToolTip="选中列表项进行删除"  Width="90" Foreground="White" FontSize="15" Height="40" Click="deleteTaskScheduleBtn_Click">
+                                <Button.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF0F6408" Offset="0"/>
+                                        <GradientStop Color="#FF42B802" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Button.Background>
+                                <Button.Effect>
+                                    <DropShadowEffect Opacity="0.295"/>
+                                </Button.Effect>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel> 
+                    <Label Content="任务列表:" FontSize="18" Grid.Row="1"></Label>
+                    <DataGrid x:Name="taskScheduleDG"  Grid.Row="1" IsReadOnly="True"
+                              AutoGenerateColumns="False" CanUserAddRows="false"  VerticalScrollBarVisibility="Auto"
+                     HorizontalAlignment="Stretch"  Margin="2,30,0,0"   MinHeight="330"
+                          MinWidth="282" 
+                  RenderTransformOrigin="0.499,0.316">
+                        <DataGrid.Columns> 
+                            <DataGridTextColumn Header="编号" Binding="{Binding Path=No}"/>
+                            <DataGridTextColumn Header="开始时间" Binding="{Binding Path=StartTimeStr}"/>
+                            <DataGridTextColumn Header="结束时间" Binding="{Binding Path=EndTimeStr}"/>
+                        </DataGrid.Columns>
+                    </DataGrid> 
+            </Grid>
         </Grid>
     </Grid>
 </Window>

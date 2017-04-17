@@ -66,6 +66,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\..\..\ThridPart\Extended WPF Toolkit Binaries\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -137,6 +140,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\AgvStorageService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AgvSystemService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -267,6 +275,7 @@
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryItemStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.DeliveryStorageViewModel.datasource" />
+    <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.MoveTaskScheduleModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.PickListModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.PickListStorageViewModel.datasource" />
     <None Include="Properties\DataSources\AGVCenterLib.Model.ViewModel.StockTaskModel.datasource" />
@@ -343,6 +352,19 @@
     <None Include="Service References\AgvStorageService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\AgvSystemService\AGVCenterLib.Model.Message.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvSystemService\AGVCenterLib.Model.ViewModel.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvSystemService\service.wsdl" />
+    <None Include="Service References\AgvSystemService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AgvSystemService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\AgvTrayService\AGVCenterLib.Model.ViewModel.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -373,6 +395,7 @@
     <WCFMetadataStorage Include="Service References\AgvPickService\" />
     <WCFMetadataStorage Include="Service References\AgvProductService\" />
     <WCFMetadataStorage Include="Service References\AgvStorageService\" />
+    <WCFMetadataStorage Include="Service References\AgvSystemService\" />
     <WCFMetadataStorage Include="Service References\AgvTrayService\" />
   </ItemGroup>
   <ItemGroup>
@@ -479,6 +502,18 @@
   <ItemGroup>
     <None Include="Sources\Loading.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AgvSystemService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AgvSystemService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AgvSystemService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

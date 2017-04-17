@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\RabbitMQConfig.cs" />
     <Compile Include="Data\AgvWarehouse.cs">
       <DependentUpon>AgvWarehouse.dbml</DependentUpon>
     </Compile>
@@ -161,6 +162,7 @@
     <Compile Include="Model\SearchModel\UniqueItemSearchModel.cs" />
     <Compile Include="Model\StockTaskItem.cs" />
     <Compile Include="Model\ViewModel\BaseViewModel.cs" />
+    <Compile Include="Model\ViewModel\MoveTaskScheduleModel.cs" />
     <Compile Include="Model\ViewModel\SelectItem.cs" />
     <Compile Include="Model\ViewModel\StorageUniqueItemViewModel.cs" />
     <Compile Include="Model\ViewModel\PickListItemStorageViewModel.cs" />
@@ -180,6 +182,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\MoveTaskScheduleService.cs" />
     <Compile Include="Service\PickListItemService.cs" />
     <Compile Include="Service\PickListService.cs" />
     <Compile Include="Service\StockTaskLogService.cs" />
@@ -196,6 +199,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Config\rabbitmq.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Data\AgvWarehouse.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>AgvWarehouse.designer.cs</LastGenOutput>

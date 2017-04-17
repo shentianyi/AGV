@@ -33,7 +33,7 @@
         <classShapeMoniker Id="196df0ec-69f7-4f60-86d0-1dd384f9ddf2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.375 : 9.81878275553385); (10.125 : 9.81878275553385)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.375 : 9.81878275553385); (9.66666916666667 : 9.81878275553385 : JumpStart); (9.83333583333333 : 9.81878275553385 : JumpEnd); (10.125 : 9.81878275553385)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/AgvWarehouseDataContext/Tray/Tray_DeliveryTray" />
       <nodes>
         <classShapeMoniker Id="53324174-c640-4a0c-93ff-f26ba5bbf990" />
@@ -159,7 +159,7 @@
         <elementListCompartment Id="7efa7d87-53ef-4f5f-a4cc-10af134b0a74" absoluteBounds="1.8900000000000001, 9.21, 1.9700000000000002, 1.346893310546875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.875 : 8.75); (2.875 : 8.5); (4 : 8.5); (4 : 6.96766398111979); (3.92989735639268 : 6.96766398111979 : JumpStart); (3.76323068972602 : 6.96766398111979 : JumpEnd); (3.375 : 6.96766398111979); (3.375 : 5.3275799905599); (4 : 5.3275799905599)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.875 : 8.75); (2.875 : 8.5); (4 : 8.5); (4 : 6.96766398111979); (3.375 : 6.96766398111979); (3.375 : 5.3275799905599); (4 : 5.3275799905599)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/AgvWarehouseDataContext/WarehouseArea/WarehouseArea_Position" />
       <nodes>
         <classShapeMoniker Id="19f37bf7-9644-4cf0-9967-781473762b6f" />
@@ -209,33 +209,39 @@
         <elementListCompartment Id="35145c5e-edf3-4583-bf6a-4c202c6fd1b6" absoluteBounds="6.015, 7.71, 1.9700000000000002, 2.455657958984375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.8125 : 10.2656579589844); (6.8125 : 11.78125); (9.66666916666667 : 11.78125 : JumpStart); (9.83333583333333 : 11.78125 : JumpEnd); (10.3229166666667 : 11.78125 : JumpStart); (10.4895833333333 : 11.78125 : JumpEnd); (10.75 : 11.78125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.8125 : 10.2656579589844); (6.8125 : 11.78125); (10.3229166666667 : 11.78125 : JumpStart); (10.4895833333333 : 11.78125 : JumpEnd); (10.75 : 11.78125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/AgvWarehouseDataContext/UniqueItem/UniqueItem_TrayItem" />
       <nodes>
         <classShapeMoniker Id="0e089ef0-b5cb-425a-be21-fb1af2ed11c9" />
         <classShapeMoniker Id="870a65d4-c644-4c7e-9309-f12c907b950d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.3125 : 7.25); (6.3125 : 3.22074625651042); (6.23958083333333 : 3.22074625651042 : JumpStart); (6.07291416666667 : 3.22074625651042 : JumpEnd); (3.375 : 3.22074625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.3125 : 7.25); (6.3125 : 3.22074625651042); (3.375 : 3.22074625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/AgvWarehouseDataContext/UniqueItem/UniqueItem_Storage" />
       <nodes>
         <classShapeMoniker Id="0e089ef0-b5cb-425a-be21-fb1af2ed11c9" />
         <classShapeMoniker Id="79d08aa9-4318-4444-853b-d64ba2c85918" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.1875025 : 7.25); (7.1875025 : 5.07844665527344); (9.125 : 5.07844665527344)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.1875025 : 7.25); (7.1875025 : 5.07844665527344); (9.125 : 5.07844665527344)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/AgvWarehouseDataContext/UniqueItem/UniqueItem_DeliveryItem" />
       <nodes>
         <classShapeMoniker Id="0e089ef0-b5cb-425a-be21-fb1af2ed11c9" />
         <classShapeMoniker Id="a19a9be5-3661-48d0-81f1-4fdf9a7c1a71" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 1.03125); (6.1562475 : 1.03125); (6.1562475 : 7.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.75 : 1.03125); (6.1562475 : 1.03125); (6.1562475 : 7.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/AgvWarehouseDataContext/BoxType/BoxType_UniqueItem" />
       <nodes>
         <classShapeMoniker Id="93c99294-d12a-48ae-ba69-ec36b2c9eb65" />
         <classShapeMoniker Id="0e089ef0-b5cb-425a-be21-fb1af2ed11c9" />
       </nodes>
     </associationConnector>
+    <classShape Id="640c7915-c242-46f9-8d51-3535c7346a2e" absoluteBounds="17.25, 1.875, 2, 1.7220992024739581">
+      <DataClassMoniker Name="/AgvWarehouseDataContext/MoveTaskSchedule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="12f2809b-d2f3-49ab-89ef-8e921aa39283" absoluteBounds="17.265, 2.335, 1.9700000000000002, 1.1620992024739583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

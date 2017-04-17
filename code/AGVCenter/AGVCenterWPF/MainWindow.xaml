@@ -365,6 +365,14 @@
                                 Click="SettingOPCCB_Checked"/>
 
 
+                    <CheckBox x:Name="roadMacine1AutoMoveEnabledCB" Grid.Row="1" Grid.Column="2" Content="巷道机1自动理货可用" 
+                              HorizontalAlignment="Left" Margin="1,10,0,0" VerticalAlignment="Top" 
+                               Click="SettingOPCCB_Checked"/>
+                    <CheckBox x:Name="roadMacine2AutoMoveEnabledCB" Grid.Row="1" Grid.Column="3" Content="巷道机2自动理货可用" 
+                              HorizontalAlignment="Left" Margin="1,10,0,0" VerticalAlignment="Top"
+                                Click="SettingOPCCB_Checked"/>
+                    
+
                     <CheckBox x:Name="inStockCreateStorageCB" Grid.Row="2" Grid.Column="0" Content="入库动作生成库存" ToolTip="在空跑巷道机测试且不需要动态库位时，可以不生成库位。\n 如只是给巷道机一个入库动作，无其它操作时。\n一旦生成库存，库位就被占用了，条码状态也变为已入库，此刻可以进行出库。" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
                                 Click="SettingOPCCB_Checked"/>
 

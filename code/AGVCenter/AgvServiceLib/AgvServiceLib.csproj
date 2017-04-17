@@ -55,6 +55,8 @@
     <Compile Include="IProductService.cs" />
     <Compile Include="IStorageService.cs" />
     <Compile Include="IPickService.cs" />
+    <Compile Include="ISystemService.cs" />
+    <Compile Include="SystemService.cs" />
     <Compile Include="StorageService.cs" />
     <Compile Include="PickService.cs" />
     <Compile Include="TrayService.cs" />
@@ -68,6 +70,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App - 复制.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

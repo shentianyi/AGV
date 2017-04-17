@@ -81,6 +81,9 @@ namespace AGVCenterLib.Data
     partial void InsertUniqueItem(UniqueItem instance);
     partial void UpdateUniqueItem(UniqueItem instance);
     partial void DeleteUniqueItem(UniqueItem instance);
+    partial void InsertMoveTaskSchedule(MoveTaskSchedule instance);
+    partial void UpdateMoveTaskSchedule(MoveTaskSchedule instance);
+    partial void DeleteMoveTaskSchedule(MoveTaskSchedule instance);
     #endregion
 		
 		public AgvWarehouseDataContext() : 
@@ -302,6 +305,14 @@ namespace AGVCenterLib.Data
 			get
 			{
 				return this.GetTable<UniqueItem>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MoveTaskSchedule> MoveTaskSchedule
+		{
+			get
+			{
+				return this.GetTable<MoveTaskSchedule>();
 			}
 		}
 	}
@@ -8629,6 +8640,164 @@ namespace AGVCenterLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.UniqueItem = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MoveTaskSchedule")]
+	public partial class MoveTaskSchedule : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private System.DateTime _StartTime;
+		
+		private System.DateTime _EndTime;
+		
+		private System.DateTime _CreatedAt;
+		
+		private string _CreateUserNr;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnStartTimeChanging(System.DateTime value);
+    partial void OnStartTimeChanged();
+    partial void OnEndTimeChanging(System.DateTime value);
+    partial void OnEndTimeChanged();
+    partial void OnCreatedAtChanging(System.DateTime value);
+    partial void OnCreatedAtChanged();
+    partial void OnCreateUserNrChanging(string value);
+    partial void OnCreateUserNrChanged();
+    #endregion
+		
+		public MoveTaskSchedule()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="DateTime NOT NULL")]
+		public System.DateTime StartTime
+		{
+			get
+			{
+				return this._StartTime;
+			}
+			set
+			{
+				if ((this._StartTime != value))
+				{
+					this.OnStartTimeChanging(value);
+					this.SendPropertyChanging();
+					this._StartTime = value;
+					this.SendPropertyChanged("StartTime");
+					this.OnStartTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="DateTime NOT NULL")]
+		public System.DateTime EndTime
+		{
+			get
+			{
+				return this._EndTime;
+			}
+			set
+			{
+				if ((this._EndTime != value))
+				{
+					this.OnEndTimeChanging(value);
+					this.SendPropertyChanging();
+					this._EndTime = value;
+					this.SendPropertyChanged("EndTime");
+					this.OnEndTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime NOT NULL")]
+		public System.DateTime CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateUserNr", DbType="VarChar(50)")]
+		public string CreateUserNr
+		{
+			get
+			{
+				return this._CreateUserNr;
+			}
+			set
+			{
+				if ((this._CreateUserNr != value))
+				{
+					this.OnCreateUserNrChanging(value);
+					this.SendPropertyChanging();
+					this._CreateUserNr = value;
+					this.SendPropertyChanged("CreateUserNr");
+					this.OnCreateUserNrChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

@@ -153,6 +153,9 @@ namespace AGVCenterWPF
 
             // 启动RM通信
             this.OpenRabbitMQConnect();
+
+            // 加载定时任务
+           this.InitAndStartQuartzTaskSchedule();
         }
 
 
@@ -365,8 +368,10 @@ namespace AGVCenterWPF
                     if (roadMachineIndex != 0)
                     {
                         taskItem.RoadMachineIndex = roadMachineIndex;
-                      
-                       
+
+                        // 停止自动移库模式
+                        this.StopMoveMode(roadMachineIndex);
+
                         if (OPCInRobootPickData.SyncWrite(OPCInRobootPickOPCGroup))
                         {
                             InRobootPickQueue.Dequeue();
@@ -495,9 +500,7 @@ namespace AGVCenterWPF
             SetOPCStockTaskTimer.Start();
 
         }
-
-
-
+        
         private string firstBarIgnore = string.Empty;
         private object scanLocker = new object();
         /// <summary>
@@ -1306,7 +1309,7 @@ namespace AGVCenterWPF
                 {
                     int c1 = RoadMachine1OutTaskQueue.ToArray().Where(s => (s as StockTaskItem).StockTaskType == StockTaskType.OUT).Count();
                     int c2 = RoadMachine2OutTaskQueue.ToArray().Where(s => (s as StockTaskItem).StockTaskType == StockTaskType.OUT).Count();
-                    
+
                     if (c1 > 0 || c2 > 0)
                     {
                         // 当存在出库任务时，不加载出库
@@ -1326,6 +1329,18 @@ namespace AGVCenterWPF
 
                         if (stockTasks.Count > 0)
                         {
+                            // 停止自动移库模式
+                            #region 停止自动移库模式
+                            if (stockTasks.Where(s => s.RoadMachineIndex == 1).Count() > 0)
+                            {
+                                this.StopMoveMode(1);
+                            }
+                            if (stockTasks.Where(s => s.RoadMachineIndex == 2).Count() > 0)
+                            {
+                                this.StopMoveMode(2);
+                            }
+                            #endregion
+
                             foreach (var st in stockTasks)
                             {
 
