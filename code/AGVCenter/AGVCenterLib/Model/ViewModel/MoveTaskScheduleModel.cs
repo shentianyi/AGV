@@ -69,7 +69,7 @@ namespace AGVCenterLib.Model.ViewModel
         {
             get
             {
-                return this.startTime.ToString("yyyy-MM-dd HH:mm");
+                return this.startTime.ToString("yyyy-MM-dd HH:mm:ss");
             }
             set
             {
@@ -83,7 +83,7 @@ namespace AGVCenterLib.Model.ViewModel
         {
             get
             {
-                return this.EndTime.ToString("yyyy-MM-dd HH:mm");
+                return this.EndTime.ToString("yyyy-MM-dd HH:mm:ss");
             }
             set
             {
