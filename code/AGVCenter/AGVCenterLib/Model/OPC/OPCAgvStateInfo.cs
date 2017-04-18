@@ -33,9 +33,9 @@ namespace AGVCenterLib.Model.OPC
         public string Route { get; set; }
 
         /// <summary>
-        /// 位置，3
+        /// 位置:卡位号，3
         /// </summary>
-        public string Position { get; set; }
+        public string Point { get; set; }
 
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace AGVCenterLib.Model.OPC
                         this.Route =  ItemValues.GetValue(i).ToString();
                         break;
                     case 3:
-                        this.Position = ItemValues.GetValue(i).ToString();
+                        this.Point = ItemValues.GetValue(i).ToString();
                         break;
                     case 4:
                         this.Voltage = ItemValues.GetValue(i).ToString();

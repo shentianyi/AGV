@@ -39,7 +39,7 @@ namespace AgvMonitorCenterWPF
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.InitOPC();
-            this.ConnectOPC();
+            //  this.ConnectOPC();
             this.OpenRabbitMQConnect();
         }
 
@@ -260,6 +260,9 @@ namespace AgvMonitorCenterWPF
 
         ConnectionFactory rmFactory;
         IConnection rmConnection;
+
+        EventingBasicConsumer rmOperateConsumer;
+        IModel operateChannel;
         IModel stateInfoChannel;
 
         /// <summary>
@@ -276,7 +279,22 @@ namespace AgvMonitorCenterWPF
                 rmFactory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
 
                 rmConnection = rmFactory.CreateConnection();
+                // 控制设置
+                #region 控制设置
+                operateChannel = rmConnection.CreateModel();
+                operateChannel.QueueDeclare(queue: "agv_car_operate_queue",
+                                     durable: false,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
 
+                rmOperateConsumer = new EventingBasicConsumer(operateChannel);
+                rmOperateConsumer.Received += RmOperateConsumer_Received; ;
+
+                operateChannel.BasicConsume(queue: "agv_car_operate_queue",
+                                     noAck: true,
+                                     consumer: rmOperateConsumer);
+                #endregion
 
 
                 // 状态发布
@@ -300,6 +318,10 @@ namespace AgvMonitorCenterWPF
         {
             try
             {
+                if (operateChannel != null)
+                {
+                    operateChannel.Close();
+                }
                 if (stateInfoChannel != null)
                 {
                     stateInfoChannel.Close();
@@ -359,7 +381,13 @@ namespace AgvMonitorCenterWPF
 
                     foreach (var info in infos)
                     {
-                        string message = JsonUtil.stringify(info);
+                        string message = JsonUtil.stringify(new AgvCarInfoMeta() {
+                            Id=info.Id,
+                            State=info.State,
+                            Point=info.Point,
+                            Route=info.Route,
+                            Voltage=info.Voltage
+                        });
 
                         LogUtil.Logger.InfoFormat("【发送状态消息】{0}", message);
                         stateInfoChannel.BasicPublish(exchange: "agv_car_state_info_exchange",
@@ -383,6 +411,7 @@ namespace AgvMonitorCenterWPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (MessageBox.Show("确认关闭？", "确认关闭？", MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.OK)
             this.ShutDownRabbitMQConnect();
             this.DisconnectOPCServer();
         }

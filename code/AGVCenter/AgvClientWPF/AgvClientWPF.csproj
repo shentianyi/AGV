@@ -76,6 +76,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Config\PrinterConfig.cs" />
+    <Compile Include="Control\AgvMonitorWindow.xaml.cs">
+      <DependentUpon>AgvMonitorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\RoadMachineModeWindow.xaml.cs">
       <DependentUpon>RoadMachineModeWindow.xaml</DependentUpon>
     </Compile>
@@ -158,6 +161,10 @@
     <Compile Include="Storage\StorageListWindow.xaml.cs">
       <DependentUpon>StorageListWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Control\AgvMonitorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Control\RoadMachineModeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

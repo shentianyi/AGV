@@ -136,6 +136,7 @@
     <Compile Include="Enum\StockTaskState.cs" />
     <Compile Include="Enum\StockTaskType.cs" />
     <Compile Include="Enum\UniqueItemState.cs" />
+    <Compile Include="Model\Command\AgvCarInfoMeta.cs" />
     <Compile Include="Model\Command\AgvCarInfo.cs" />
     <Compile Include="Model\Command\AgvEmptyBoxConveyerBeltInfo.cs" />
     <Compile Include="Model\Command\AgvCenterCmd.cs" />

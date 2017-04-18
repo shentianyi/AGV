@@ -65,7 +65,15 @@ namespace TestCon
             //var p=  new PingTest();
             //  p.Test();
             //  TestStorageService.TestMoveStock();
-            TestPositionService.TestFindPostinToStock();
+            // TestPositionService.TestFindPostinToStock();
+
+            string A = "aaa";
+            string b;
+            b = A;
+            A = "bbbb";
+            Console.WriteLine(b);
+            Console.WriteLine(A);
+
             Console.Read();
        
         }

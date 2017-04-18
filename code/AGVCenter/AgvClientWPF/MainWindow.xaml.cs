@@ -106,5 +106,10 @@ namespace AgvClientWPF
         {
             new RoadMachineModeWindow().Show();
         }
+
+        private void agvMonitorBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new AgvMonitorWindow().Show();
+        }
     }
 }
