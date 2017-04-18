@@ -103,6 +103,7 @@
     <Compile Include="Delivery\SendDeliveryWindow.xaml.cs">
       <DependentUpon>SendDeliveryWindow.xaml</DependentUpon>
     </Compile>
+    <None Include="HelpDoc\read.md" />
     <Compile Include="Helper\PrintHelper.cs" />
     <Compile Include="Helper\UniqueHelper.cs" />
     <Compile Include="Model\Printer.cs" />

@@ -136,11 +136,14 @@
     <Compile Include="Enum\StockTaskState.cs" />
     <Compile Include="Enum\StockTaskType.cs" />
     <Compile Include="Enum\UniqueItemState.cs" />
+    <Compile Include="Model\Command\AgvCarInfo.cs" />
+    <Compile Include="Model\Command\AgvEmptyBoxConveyerBeltInfo.cs" />
     <Compile Include="Model\Command\AgvCenterCmd.cs" />
     <Compile Include="Model\Command\AgvCenterStateInfoCmd.cs" />
     <Compile Include="Model\Message\ResultMessage.cs" />
     <Compile Include="Model\MoveStockModel.cs" />
     <Compile Include="Model\OPC\OPCDataReset.cs" />
+    <Compile Include="Model\OPC\OPCAgvStateInfo.cs" />
     <Compile Include="Model\OPC\OPCOutRobootPick.cs" />
     <Compile Include="Model\OPC\OPCInRobootPick.cs" />
     <Compile Include="Model\OPC\OPCAgvInStockPass.cs" />

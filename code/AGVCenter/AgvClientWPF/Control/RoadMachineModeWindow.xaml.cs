@@ -1,6 +1,6 @@
-﻿using AGVCenterLib.Model.Command;
+﻿using AGVCenterLib.Config;
+using AGVCenterLib.Model.Command;
 using AGVCenterLib.Model.ViewModel;
-using AGVCenterWPF.Config;
 using AgvClientWPF.AgvStorageService;
 using AgvClientWPF.AgvSystemService;
 using Brilliantech.Framwork.Utils.JsonUtil;

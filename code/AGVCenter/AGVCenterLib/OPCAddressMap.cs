@@ -7,7 +7,7 @@ namespace AGVCenterLib
 {
     public class OPCAddressMap
     {
-    
+
         /// <summary>
         /// OPC 变量名与地址的对应
         /// </summary>
@@ -31,7 +31,7 @@ namespace AGVCenterLib
                 new Dictionary<string, string>()
                 {
                     { "stock_pass_agv_rw_flag","S7:[S7 connection_1]DB308,B258.stock_pass_agv_rw_flag"},
-                    { "stock_pass_agv_flag","S7:[S7 connection_1]DB308,B259.stock_pass_agv_flag"},
+                    { "stock_pass_agv_flag","S7:[S7 connection_1]DB308,B259.stock_pass_agv_flag"}
                 }
             },
             #endregion
@@ -42,7 +42,7 @@ namespace AGVCenterLib
                  new Dictionary<string, string>()
                 {
                     { "inrobot_pick_rw_flag","S7:[S7 connection_1]DB308,B260.inrobot_pick_rw_flag"},
-                    { "inrobot_pick_box_type","S7:[S7 connection_1]DB308,B261.inrobot_pick_box_type"},
+                    { "inrobot_pick_box_type","S7:[S7 connection_1]DB308,B261.inrobot_pick_box_type"}
                 }
             },
             #endregion
@@ -88,7 +88,7 @@ namespace AGVCenterLib
                     { "stock_xdj2_position2","S7:[S7 connection_1]DB308,B538.int.stock_xdj2_position2"},
                     { "stock_xdj2_position3","S7:[S7 connection_1]DB308,B540.int.stock_xdj2_position3"},
 
-                  
+
 
                     { "stock_xdj2_box_type","S7:[S7 connection_1]DB308,B542.stock_xdj2_box_type"},
                     { "stock_xdj2_reset_position_flag","S7:[S7 connection_1]DB308,B543.stock_xdj2_reset_position_flag"},
@@ -158,7 +158,7 @@ namespace AGVCenterLib
                 {
                     { "outrobot_pick_rw_flag","S7:[S7 connection_1]DB308,B1878.outrobot_pick_rw_flag"},
                     { "outrobot_pick_box_type","S7:[S7 connection_1]DB308,B1879.outrobot_pick_box_type"},
-                    { "outrobot_pick_trayno","S7:[S7 connection_1]DB308,B1880.int.outrobot_pick_trayno"},
+                    { "outrobot_pick_trayno","S7:[S7 connection_1]DB308,B1880.int.outrobot_pick_trayno"}
                 }
             },
             #endregion
@@ -197,8 +197,74 @@ namespace AGVCenterLib
                      { "xdj2_current_column","S7:[S7 connection_1]DB118,W10.xdj2_current_column"},
                      { "xdj2_pickup_or_out_state","S7:[S7 connection_1]DB118,W12.xdj2_pickup_or_out_state"}
                  }
+            },
+            #endregion
+
+
+            #region AGV 小车值状态
+            {
+                "AGV1StateInfo",
+                 new Dictionary<string, string>()
+                {
+                    { "agv1_state","S7:[S7 connection_1]DB309,B0,AGV_1_stu"},
+                    { "agv1_route","S7:[S7 connection_1]DB309,B1,AGV_1_step"},
+                    { "agv1_point","S7:[S7 connection_1]DB309,W6,AGV_1_point"},
+                    { "agv1_voltage","S7:[S7 connection_1]DB307,W1,AGV_1_V"}
+                }
+            },
+            {
+                "AGV2StateInfo",
+                 new Dictionary<string, string>()
+                {
+                     { "agv2_state","S7:[S7 connection_1]DB309,B8,AGV_2_stu"},
+                    { "agv2_route","S7:[S7 connection_1]DB309,B9,AGV_2_step"},
+                    { "agv2_point","S7:[S7 connection_1]DB309,W14,AGV_2_point"},
+                    { "agv2_voltage","S7:[S7 connection_1]DB307,W3,AGV_2_V"}
+                }
+            },
+            {
+                "AGV3StateInfo",
+                 new Dictionary<string, string>()
+                {
+                     { "agv3_state","S7:[S7 connection_1]DB309,B16,AGV_3_stu"},
+                    { "agv3_route","S7:[S7 connection_1]DB309,B17,AGV_3_step"},
+                    { "agv3_point","S7:[S7 connection_1]DB309,W22,AGV_3_point"},
+                    { "agv3_voltage","S7:[S7 connection_1]DB307,W5,AGV_3_V"}
+                 }
+            },            {
+                "AGV4StateInfo",
+                 new Dictionary<string, string>()
+                {
+                        { "agv4_state","S7:[S7 connection_1]DB309,B24,AGV_4_stu"},
+                    { "agv4_route","S7:[S7 connection_1]DB309,B25,AGV_4_step"},
+                    { "agv4_point","S7:[S7 connection_1]DB309,W30,AGV_4_point"},
+                    { "agv4_voltage","S7:[S7 connection_1]DB307,W7,AGV_4_V"}
+                 }
+            },
+            {
+                "AGV5StateInfo",
+                 new Dictionary<string, string>()
+                {
+                        { "agv5_state","S7:[S7 connection_1]DB309,B32,AGV_5_stu"},
+                    { "agv5_route","S7:[S7 connection_1]DB309,B33,AGV_5_step"},
+                    { "agv5_point","S7:[S7 connection_1]DB309,W38,AGV_5_point"},
+                    { "agv5_voltage","S7:[S7 connection_1]DB307,W9,AGV_5_V"}
+
+                }
+            },
+            {
+                "AGV6StateInfo",
+                 new Dictionary<string, string>()
+                {
+                       { "agv6_state","S7:[S7 connection_1]DB309,B40,AGV_6_stu"},
+                    { "agv6_route","S7:[S7 connection_1]DB309,B41,AGV_6_step"},
+                    { "agv6_point","S7:[S7 connection_1]DB309,W46,AGV_6_point"},
+                    { "agv6_voltage","S7:[S7 connection_1]DB307,W11,AGV_6_V"}
+                 }
             }
             #endregion
+
+
         };
     }
 }

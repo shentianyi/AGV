@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConSender", "TestConSen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConReceiver", "TestConReceiver\TestConReceiver.csproj", "{8478AA1E-8EEF-42A9-9EF5-8EA609E82C66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgvMonitorCenterWPF", "AgvMonitorCenterWPF\AgvMonitorCenterWPF.csproj", "{B0258CAA-0454-488E-80BF-5F8910EC714C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{8478AA1E-8EEF-42A9-9EF5-8EA609E82C66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8478AA1E-8EEF-42A9-9EF5-8EA609E82C66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8478AA1E-8EEF-42A9-9EF5-8EA609E82C66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0258CAA-0454-488E-80BF-5F8910EC714C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0258CAA-0454-488E-80BF-5F8910EC714C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0258CAA-0454-488E-80BF-5F8910EC714C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0258CAA-0454-488E-80BF-5F8910EC714C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

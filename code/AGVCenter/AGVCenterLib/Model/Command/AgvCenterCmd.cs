@@ -14,7 +14,8 @@ namespace AGVCenterLib.Model.Command
         ///           400- 改为 只入库
         ///           500- 改为 调库模式
         ///           600- 重新加载定时任务
-        ///           700- 新的client连接
+        ///           700- 新的调库 client连接
+        ///           701- 新的设备状态监控 client连接
         /// </summary>
         public int CmdType { get; set; }
         public int RoadMachindeIndex { get; set; }

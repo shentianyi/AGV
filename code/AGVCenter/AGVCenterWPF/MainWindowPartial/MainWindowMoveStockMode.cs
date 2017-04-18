@@ -1,4 +1,5 @@
-﻿using AGVCenterLib.Enum;
+﻿using AGVCenterLib.Config;
+using AGVCenterLib.Enum;
 using AGVCenterLib.Model.Command;
 using AGVCenterLib.Service;
 using AGVCenterWPF.Config;

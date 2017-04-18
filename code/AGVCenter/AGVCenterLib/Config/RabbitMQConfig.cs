@@ -5,7 +5,7 @@ using System.Text;
 using Brilliantech.Framwork.Utils.ConfigUtil;
 using Brilliantech.Framwork.Utils.LogUtil;
 
-namespace AGVCenterWPF.Config
+namespace AGVCenterLib.Config
 {
     public class RabbitMQConfig
     {
