@@ -12,8 +12,8 @@ namespace AGVCenterLib.Data
         public static List<UniqueItemState>
             CanInStockStates = new List<UniqueItemState>()
             {
-                UniqueItemState.Created,
-                UniqueItemState.OutStocked
+                UniqueItemState.Created
+             //   UniqueItemState.OutStocked
             };
 
         public static List<UniqueItemState>

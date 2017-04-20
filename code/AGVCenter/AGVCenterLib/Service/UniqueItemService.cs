@@ -82,8 +82,7 @@ namespace AGVCenterLib.Service
             UniqueItem item = itemRep.FindByNr(nr);
             if (item == null)
                 return false;
-            return true;
-           // return item.IsCanInStockState;
+           return item.IsCanInStockState;
         }
 
 
