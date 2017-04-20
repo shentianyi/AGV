@@ -92,7 +92,14 @@ namespace AGVCenterLib.Service
             return rep.FindByNr(nr);
         }
 
+        public void UpdateUniqItemState(string nr, UniqueItemState state)
+        {
+            var context = this.Context.Context as AgvWarehouseDataContext;
+            var item = context.UniqueItem.FirstOrDefault(s => s.Nr == nr);
+            item.State = (int)state;
+            context.SubmitChanges();
 
+        }
 
         //public UniqueItem FindByCheckCode(string checkCode)
         //{

@@ -19,8 +19,12 @@ namespace AGVCenterLib.Enum
 
         [Description("已出库返工")]
         OutStockRework = 400,
-        
+
         [Description("已发运")]
-        Sent = 600
+        Sent = 600,
+
+        [Description("误出库")]
+        MisOutStocked = 900
+
     }
 }

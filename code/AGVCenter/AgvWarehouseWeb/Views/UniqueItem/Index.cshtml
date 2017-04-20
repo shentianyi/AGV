@@ -106,7 +106,9 @@
             <th>
                 下线时间
             </th>
-
+        <th>
+            
+        </th>
         </tr>
 
 @if (Model != null)
@@ -151,6 +153,9 @@
                 @Html.DisplayFor(modelItem => item.CreatedAt)
             </td>
 
+            <td>
+                @Html.ActionLink("设置误出库", "MisOutStocked", new { id = item.Nr }) |
+            </td>
             @*<td>
                     @Html.DisplayFor(modelItem => item.IsCanInStockState)
                 </td>

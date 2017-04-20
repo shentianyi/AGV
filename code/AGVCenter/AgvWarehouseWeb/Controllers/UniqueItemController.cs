@@ -9,6 +9,7 @@ using AGVCenterLib.Service;
 using AgvWarehouseWeb.Helpers;
 using AgvWarehouseWeb.Properties;
 using MvcPaging;
+using AGVCenterLib.Enum;
 
 namespace AgvWarehouseWeb.Controllers
 {
@@ -38,7 +39,7 @@ namespace AgvWarehouseWeb.Controllers
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
             UniqueItemService ps = new UniqueItemService(Settings.Default.db);
-           
+
             IPagedList<UniqueItem> items =
                 ps.Search(q)
                 .ToPagedList(pageIndex, Settings.Default.pageSize);
@@ -117,6 +118,41 @@ namespace AgvWarehouseWeb.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult MisOutStocked(string id)
+        {
+            var item = new UniqueItemService(Settings.Default.db).FindByNr(id);
+            return View(item);
+        }
+
+
+        [HttpPost]
+        public ActionResult MisOutStocked(string id, FormCollection collection)
+        {
+            UniqueItem item = null;//new UniqueItemService(Settings.Default.db).FindByNr(id);
+            var msg = "";
+            try
+            {
+                new UniqueItemService(Settings.Default.db).UpdateUniqItemState(id, UniqueItemState.MisOutStocked);
+                item =  new UniqueItemService(Settings.Default.db).FindByNr(id);
+                msg = "【设置成功】，此成品可重新入库操作！";
+            }
+            catch (Exception ex)
+            {
+                msg = "【设置失败】" + ex.Message;
+            }
+            ViewBag.message = msg;
+            if (item != null)
+            {
+                return View(item);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+
             }
         }
     }

@@ -352,6 +352,7 @@
     <Content Include="Views\Storage\ImportOutStock.cshtml" />
     <Content Include="Views\Shared\_HandlingMsgDialog.cshtml" />
     <Content Include="Views\Position\ImportPriority.cshtml" />
+    <Content Include="Views\UniqueItem\MisOutStocked.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
