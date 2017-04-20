@@ -54,7 +54,7 @@ namespace AGVCenterLib.Model.Command
         }
 
 
-        public AgvCarInfo(int scanStopSecondsToWarn):base()
+        public AgvCarInfo(int scanStopSecondsToWarn):this()
         {
             this.maxScanStopSecondsToWarn = scanStopSecondsToWarn;
         }
@@ -89,10 +89,12 @@ namespace AGVCenterLib.Model.Command
                 if (this.state != this.stateWas)
                 {
                     this.inStockScanStopSeconds = 0;
+                    this.IsInStockScanStopOverTime = false;
                 }
                 if (state != "2")
                 {
                     this.inStockScanStopSeconds = 0;
+                    this.IsInStockScanStopOverTime = false;
                 }
                 OnPropertyChanged(new PropertyChangedEventArgs("State"));
                 OnPropertyChanged(new PropertyChangedEventArgs("StateStr"));
@@ -130,6 +132,10 @@ namespace AGVCenterLib.Model.Command
                     this.inStockScanStopSeconds = 0;
                 }
                 this.IsInStockScanStop = this.point == "21";
+                if (this.IsInStockScanStop == false)
+                {
+                    this.IsInStockScanStopOverTime = false;
+                }
                 OnPropertyChanged(new PropertyChangedEventArgs("Point"));
                 OnPropertyChanged(new PropertyChangedEventArgs("PointStr"));
             }
@@ -198,7 +204,7 @@ namespace AGVCenterLib.Model.Command
         public event AgvStopInStockEventHandler AgvStopInStockEvent;
         #endregion
         System.Timers.Timer inStockScanStopTimer;
-        private int maxScanStopSecondsToWarn = 10;
+        private int maxScanStopSecondsToWarn = 20;
         public int MaxScanStopSecondsToWarn
         {
             get
@@ -240,6 +246,29 @@ namespace AGVCenterLib.Model.Command
             }
         }
         int inStockScanStopSeconds = 0;
+        private bool isInStockScanStopOverTime = false;
+        public bool IsInStockScanStopOverTime {
+            get
+            {
+                return this.isInStockScanStopOverTime;
+            }
+            set
+            {
+                this.isInStockScanStopOverTime = value;
+
+                OnPropertyChanged(new PropertyChangedEventArgs("IsInStockScanStopOverTime"));
+                OnPropertyChanged(new PropertyChangedEventArgs("IsInStockScanStopOverTimeStr"));
+            }
+        }
+
+        public string IsInStockScanStopOverTimeStr
+        {
+            get
+            {
+                return this.IsInStockScanStopOverTime ? "是" : "否";
+            }
+        }
+
         private void ScanStopTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             try
@@ -254,9 +283,21 @@ namespace AGVCenterLib.Model.Command
                         LogUtil.Logger.InfoFormat("{0}小车停止超过{1}秒", this.id, this.maxScanStopSecondsToWarn);
                         if (this.isInStockScanStop)
                         {
+                            if (!this.isInStockScanStopOverTime)
+                            {
+                                this.AgvStopInStockEvent(this);
+                            }
+                            this.IsInStockScanStopOverTime = true;
                             LogUtil.Logger.InfoFormat("【触发{0}号AGV入库停止时间过长事件】", this.id);
-                            this.AgvStopInStockEvent(this);
+                            
+                        }else
+                        {
+                            this.IsInStockScanStopOverTime = false;
                         }
+                    }
+                    else
+                    {
+                        this.IsInStockScanStopOverTime = false;
                     }
                 }
             }
@@ -312,7 +353,7 @@ namespace AGVCenterLib.Model.Command
         {
             get
             {
-                return this.isNeddCharge && this.isInStockScanStop;
+                return this.isNeddCharge || this.isInStockScanStopOverTime;
             }
         }
     }

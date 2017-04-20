@@ -1576,23 +1576,40 @@ namespace AGVCenterWPF
             {
                 if ((BaseConfig.RoadMachine2Enabled
                     && (!OPCDataResetData.Xdj2InPaltformIsBuff)
-                    && (ModeConfig.RoadMachine2TaskMode != RoadMachineTaskMode.OnlyOut)
-                    && (ModeConfig.RoadMachine2TaskMode != RoadMachineTaskMode.AutoMoveOnly))
+                    && (ModeConfig.RoadMachine2TaskMode != RoadMachineTaskMode.OnlyOut))
                     && this.NotHasRoadMachineBuffingTask(roadMachineIndex))
                 {
-                    can = true;
+                    PositionService ps = new PositionService(OPCConfig.DbString);
+                    bool hasAvaliablePosition = ps.FindInStockPosition(2, this.GetDispatchedPositions(2)) != null;
+                    if (hasAvaliablePosition)
+                    {
+                        can = true;
+                    }
                 }
             }
             else if (roadMachineIndex == 1)
             {
                 if ((BaseConfig.RoadMachine1Enabled
-                      && (!OPCDataResetData.Xdj1InPaltformIsBuff)
-                      && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskMode.OnlyOut)
-                    && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskMode.AutoMoveOnly))
-                      && this.NotHasRoadMachineBuffingTask(roadMachineIndex))
-                { 
-                    can = true;
+                        && (!OPCDataResetData.Xdj1InPaltformIsBuff)
+                        && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskMode.OnlyOut))
+                        && this.NotHasRoadMachineBuffingTask(roadMachineIndex))
+                {
+
+                    PositionService ps = new PositionService(OPCConfig.DbString);
+                    bool hasAvaliablePosition = ps.FindInStockPosition(1,this.GetDispatchedPositions(1))!=null;
+                    if (hasAvaliablePosition)
+                    {
+                        can = true;
+                    }
                 }
+                //if ((BaseConfig.RoadMachine1Enabled
+                //      && (!OPCDataResetData.Xdj1InPaltformIsBuff)
+                //      && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskMode.OnlyOut)
+                //    && (ModeConfig.RoadMachine1TaskMode != RoadMachineTaskMode.AutoMoveOnly))
+                //      && this.NotHasRoadMachineBuffingTask(roadMachineIndex))
+                //{ 
+                //    can = true;
+                //}
             }
             return can;
         }

@@ -28,7 +28,7 @@ namespace AGVCenterLib.Service
             bool r1 = this.FindInStockPosition(1, dispatchedPositions) != null;
             bool r2 = this.FindInStockPosition(2, dispatchedPositions) != null;
 
-            return r1 && r2;
+            return r1 || r2;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace AGVCenterLib.Service
             {
                 dispatchedPositions = new List<string>();
             }
-            IPositionRepository posiRep = new PositionRepository(this.Context);
+            PositionRepository posiRep = new PositionRepository(this.Context);
             return posiRep.FindAvaliableByRoadMachineAndSort(roadMachineIndex, 
                 dispatchedPositions, 
                 lockPosition, 

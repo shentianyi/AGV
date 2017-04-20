@@ -18,7 +18,8 @@
                 <TextBox x:Name="OPCNodeNameTB" HorizontalAlignment="Left" TextWrapping="Wrap" Text=""
                          VerticalAlignment="Top" Width="138"/>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">         
-                    <Button x:Name="ConnectOPCServerBtn" Content="连接服务" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="78" Click="ConnectOPCServerBtn_Click" Height="40"/>
+                    <Button x:Name="ConnectOPCServerBtn" Content="连接服务"
+                            HorizontalAlignment="Left"  VerticalAlignment="Top" Width="78" Click="ConnectOPCServerBtn_Click" Height="40"/>
 
                 <Button x:Name="DisConnectOPCServerBtn" Content="端开服务" 
                         HorizontalAlignment="Left" Margin="20,0,0,0"

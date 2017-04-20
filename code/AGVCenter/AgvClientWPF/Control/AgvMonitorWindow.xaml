@@ -21,11 +21,11 @@
                 </DataTrigger>
 
 
-                <DataTrigger Binding="{Binding IsInStockScanStop}" Value="Flase">
+                <DataTrigger Binding="{Binding IsInStockScanStopOverTime}" Value="Flase">
                     <Setter Property="Background" Value="#FFE7F9D2"/>
                 </DataTrigger>
 
-                <DataTrigger Binding="{Binding IsInStockScanStop}" Value="True">
+                <DataTrigger Binding="{Binding IsInStockScanStopOverTime}" Value="True">
                     <Setter Property="Background" Value="#FFCD5858"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -37,7 +37,7 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
             <StackPanel.Background>
                 <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
                     <GradientStop Color="#FF355FF5" Offset="1"/>
@@ -45,6 +45,10 @@
                 </LinearGradientBrush>
             </StackPanel.Background>
             <Label Content="AGV小车状态监控" FontSize="20" Foreground="White" FontWeight="Bold" Margin="10,10,0,0"/>
+            <!--<Button x:Name="button" Content="重置" Width="75" Click="button_Click"/>
+            <Button x:Name="button1" Content="停止" Width="75" Click="button1_Click"/>
+            <Button x:Name="button2" Content="充电" Width="75" Click="button2_Click"/>-->
+
         </StackPanel>
         <Grid Grid.Row="1">
             <DataGrid x:Name="avgStateInfoDG"  Grid.Row="1" IsReadOnly="True"
@@ -52,15 +56,15 @@
                       VerticalScrollBarVisibility="Auto"
                      HorizontalAlignment="Stretch"  Margin="2,0,0,0"  
                       MinHeight="330"
-                          MinWidth="282" 
+                          MinWidth="282" FontSize="20" Background="AliceBlue"
                   RenderTransformOrigin="0.499,0.316">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="小车编号" Binding="{Binding Path=Id}"/>
-                    <DataGridTextColumn Header="状态" Binding="{Binding Path=StateStr}"/>
-                    <DataGridTextColumn Header="位置" Binding="{Binding Path=PositionStr}"/>
-                    <DataGridTextColumn Header="路线" Binding="{Binding Path=RouteStr}"/>
-                    <DataGridTextColumn Header="是否扫描处停止" Binding="{Binding Path=IsInStockScanStopStr}"/>
-                    <DataGridTextColumn Header="是否在充电区" Binding="{Binding Path=IsNeedChargeStr}"/>
+                    <DataGridTextColumn Header="小车编号" Binding="{Binding Path=Id}"   FontSize="15"/>
+                    <DataGridTextColumn Header="状态" Binding="{Binding Path=StateStr}"  FontSize="15"/>
+                    <DataGridTextColumn Header="位置" Binding="{Binding Path=PointStr}"  FontSize="15"/>
+                    <DataGridTextColumn Header="路线" Binding="{Binding Path=RouteStr}"  FontSize="15"/>
+                    <DataGridTextColumn Header="是否扫描超时" Binding="{Binding Path=IsInStockScanStopOverTimeStr}"  FontSize="15"/>
+                    <DataGridTextColumn Header="是否在充电区" Binding="{Binding Path=IsNeedChargeStr}"  FontSize="15"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

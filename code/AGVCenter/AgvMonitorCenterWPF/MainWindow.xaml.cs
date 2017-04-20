@@ -39,7 +39,7 @@ namespace AgvMonitorCenterWPF
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.InitOPC();
-            //  this.ConnectOPC();
+             this.ConnectOPC();
             this.OpenRabbitMQConnect();
         }
 
@@ -95,12 +95,15 @@ namespace AgvMonitorCenterWPF
                     /// 初始化OPC组
                     if (InitOPCGroup())
                     {
+                     //   ConnectOPCServerBtn.Content = "已连接OPC服务器";
                         ConnectOPCServerBtn.IsEnabled = false;
                     }
                 }
             }
             catch (Exception ex)
             {
+              //  ConnectOPCServerBtn.Content = "连接服务";
+
                 ConnectedOPCServer = null;
                 ConnectOPCServerBtn.IsEnabled = true;
                 LogUtil.Logger.Error(ex.Message, ex);
@@ -150,10 +153,12 @@ namespace AgvMonitorCenterWPF
                     }
 
                     // 添加item
-                    opcAgvInfos[i].AddItemToGroup(opcAgvInfoGroup);
+                    opcAgvInfos[i-1].AddItemToGroup(opcAgvInfoGroup);
 
                     opcAgvInfoGrops.Add(opcAgvInfoGroup);
+                 
                 }
+                return true;
             }
             catch (Exception ex)
             {
@@ -237,6 +242,7 @@ namespace AgvMonitorCenterWPF
             {
                 ConnectedOPCServer = null;
                 ConnectOPCServerBtn.IsEnabled = true;
+               // ConnectOPCServerBtn.Content = "连接服务";
                 LogUtil.Logger.Error(ex.Message, ex);
                 MessageBox.Show(ex.Message);
             }
@@ -244,6 +250,7 @@ namespace AgvMonitorCenterWPF
             {
                 ConnectedOPCServer = null;
                 ConnectOPCServerBtn.IsEnabled = true;
+              //  ConnectOPCServerBtn.Content = "连接服务";
             }
         }
         #endregion
@@ -411,9 +418,11 @@ namespace AgvMonitorCenterWPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("确认关闭？", "确认关闭？", MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.OK)
-            this.ShutDownRabbitMQConnect();
-            this.DisconnectOPCServer();
+            if (MessageBox.Show("确认关闭？", "确认关闭？", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                this.ShutDownRabbitMQConnect();
+                this.DisconnectOPCServer();
+            }
         }
     }
 }

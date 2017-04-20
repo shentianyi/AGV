@@ -129,16 +129,25 @@ namespace AgvClientWPF.Control
                     var info = this.agvCarInfos.FirstOrDefault(s => s.Id == infoMeta.Id);
                     if (info != null)
                     {
-                        info.State = infoMeta.State;
-                        info.Point = infoMeta.Point;
+                        info.State = infoMeta.State;//"2";//
+                        info.Point = infoMeta.Point;//"21" ;//
                         info.Route = infoMeta.Route;
                         info.Voltage = infoMeta.Voltage;
                     }
                     else
                     {
-                        info = new AgvCarInfo()
+                        //info = new AgvCarInfo(5)
+                        //{
+                        //    Id = infoMeta.Id,
+                        //    State = "2",// infoMeta.State,
+                        //    Point = "21",// infoMeta.Point,
+                        //    Route = infoMeta.Route,
+                        //    Voltage = infoMeta.Voltage
+                        //};
+
+                        info = new AgvCarInfo(5)
                         {
-                            Id =infoMeta.Id,
+                            Id = infoMeta.Id,
                             State = infoMeta.State,
                             Point = infoMeta.Point,
                             Route = infoMeta.Route,
@@ -146,14 +155,11 @@ namespace AgvClientWPF.Control
                         };
                         info.AgvStopInStockEvent += Info_AgvStopInStockEvent;
                         info.AgvNeedChargeEvent += Info_AgvNeedChargeEvent;
-                       
+
                         this.agvCarInfos.Add(info);
                     }
-                    // 停止播放声音
-                    if (this.agvCarInfos.Count(s => s.IsAlarm == false) == 0)
-                    {
-                        this.player.Stop(); isAlarmPlaying = false;
-                    }
+
+                    this.StopAlarm();
                 }
                 catch (Exception ex)
                 {
@@ -162,7 +168,14 @@ namespace AgvClientWPF.Control
                 }
             });
         }
-
+        // 停止播放声音
+        private void StopAlarm()
+        {
+            if (this.agvCarInfos.Count(s => s.IsAlarm == true) == 0)
+            {
+                this.player.Stop(); isAlarmPlaying = false;
+            }
+        }
         private void Info_AgvNeedChargeEvent(AgvCarInfo agvCarInfo)
         {
             LogUtil.Logger.InfoFormat("{0}号小车触发需要充电事件", agvCarInfo.Id);
@@ -171,7 +184,7 @@ namespace AgvClientWPF.Control
 
         private void Info_AgvStopInStockEvent(AgvCarInfo agvCarInfo)
         {
-            LogUtil.Logger.InfoFormat("{0}号小车触发入库等待超时事件",agvCarInfo.Id);
+            LogUtil.Logger.InfoFormat("{0}号小车触发入库等待超时事件", agvCarInfo.Id);
             this.Alarm(AlarmType.InStockStoped);
         }
 
@@ -225,7 +238,7 @@ namespace AgvClientWPF.Control
             }
         }
 
-        
+
         /// <summary>
         /// 发送操作命令，改变工作模式
         /// </summary>
@@ -263,12 +276,37 @@ namespace AgvClientWPF.Control
             this.avgStateInfoDG.ItemsSource = this.agvCarInfos;
         }
 
-       
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ShutDownRabbitMQConnect();
+            try
+            {
+                this.player.Stop();
+            }
+            catch(Exception ex) {
+                LogUtil.Logger.Error(ex.Message, ex);
+            }
         }
 
-       
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var info in agvCarInfos)
+            {
+                info.State = "1";
+                info.Route = "11";
+            }
+            this.StopAlarm();
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            this.agvCarInfos[new Random().Next(0, 5)].State = "2";
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            this.agvCarInfos[new Random().Next(0, 5)].Route = "13";
+        }
     }
 }
