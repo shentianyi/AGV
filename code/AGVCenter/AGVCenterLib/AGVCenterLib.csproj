@@ -145,16 +145,16 @@
     <Compile Include="Model\Command\ConveyerBeltInfoMeta.cs" />
     <Compile Include="Model\Message\ResultMessage.cs" />
     <Compile Include="Model\MoveStockModel.cs" />
-    <Compile Include="Model\SearchModel\OPC\OPCConveyerBeltStateInfo.cs" />
-    <Compile Include="Model\SearchModel\OPC\OPCDataReset.cs" />
-    <Compile Include="Model\SearchModel\OPC\OPCAgvStateInfo.cs" />
-    <Compile Include="Model\SearchModel\OPC\OPCOutRobootPick.cs" />
-    <Compile Include="Model\SearchModel\OPC\OPCInRobootPick.cs" />
-    <Compile Include="Model\SearchModel\OPC\OPCAgvInStockPass.cs" />
-    <Compile Include="Model\SearchModel\OPC\OPCCheckInStockBarcode.cs" />
-    <Compile Include="Model\SearchModel\OPC\OPCDataBase.cs" />
-    <Compile Include="Model\SearchModel\OPC\OPCRoadMachineTaskFeed.cs" />
-    <Compile Include="Model\SearchModel\OPC\OPCSetStockTask.cs" />
+    <Compile Include="Model\OPC\OPCConveyerBeltStateInfo.cs" />
+    <Compile Include="Model\OPC\OPCDataReset.cs" />
+    <Compile Include="Model\OPC\OPCAgvStateInfo.cs" />
+    <Compile Include="Model\OPC\OPCOutRobootPick.cs" />
+    <Compile Include="Model\OPC\OPCInRobootPick.cs" />
+    <Compile Include="Model\OPC\OPCAgvInStockPass.cs" />
+    <Compile Include="Model\OPC\OPCCheckInStockBarcode.cs" />
+    <Compile Include="Model\OPC\OPCDataBase.cs" />
+    <Compile Include="Model\OPC\OPCRoadMachineTaskFeed.cs" />
+    <Compile Include="Model\OPC\OPCSetStockTask.cs" />
     <Compile Include="Model\RemoteTaskActionItem.cs" />
     <Compile Include="Model\SearchModel\PickListItemSearchModel.cs" />
     <Compile Include="Model\SearchModel\DeliveryItemSearchModel.cs" />
@@ -206,6 +206,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Config\rabbitmq - 复制.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Config\rabbitmq.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

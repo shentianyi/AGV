@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Control"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        mc:Ignorable="d"
-        Title="AgvMonitorWindow" Height="550" Width="687"
-        Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+        mc:Ignorable="d" Top="0"
+        Title="AgvMonitorWindow" Height="200" Width="500" 
+        Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
         <Style TargetType="DataGridCell">
@@ -51,6 +51,23 @@
 
         </StackPanel>
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Name="beltAlarmBtn" Content="无空箱" Background="Green" Margin="10,10,10,10">
+               
+            </Button>
+            <Button Grid.Column="1" Name="agvStopAlarmBtn" Content="入库阻塞"  Background="Green" Margin="10,10,10,10">
+                
+            </Button>
+            <Button Grid.Column="2" Name="agvNeedChargeBtn" Content="AGV充电"  Background="Green" Margin="10,10,10,10">
+                
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1" Visibility="Hidden">
             <DataGrid x:Name="avgStateInfoDG"  Grid.Row="1" IsReadOnly="True"
                               AutoGenerateColumns="False" CanUserAddRows="false" 
                       VerticalScrollBarVisibility="Auto"

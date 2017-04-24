@@ -39,14 +39,17 @@ namespace AgvClientWPF.Control
         }
 
         List<AgvCarInfo> agvCarInfos = new List<AgvCarInfo>();
+        ConveyerBeltInfo conveyerBeltInfo = new ConveyerBeltInfo();
+
         SoundPlayer player = new System.Media.SoundPlayer();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.OpenRabbitMQConnect();
-            player.SoundLocation = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sources\\alarm.wav");
+           this.OpenRabbitMQConnect();
+            player.SoundLocation =
+                System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sources\\alarm.wav");
 
-            this.LoadAgvInfo();
+            this.InitAndLoadInfo();
         }
 
         string rm_host = RabbitMQConfig.Host;
@@ -60,6 +63,7 @@ namespace AgvClientWPF.Control
 
         IModel operateChannel;
         IModel stateInfoChannel;
+        IModel conveyerBeltInfoChannel;
         /// <summary>
         /// 开启RM连接
         /// </summary>
@@ -77,7 +81,7 @@ namespace AgvClientWPF.Control
                 // 控制设置
                 #region 控制设置
                 operateChannel = rmConnection.CreateModel();
-                operateChannel.QueueDeclare(queue: "agv_car_operate_queue",
+                operateChannel.QueueDeclare(queue: "monitor_operate_queue",
                     durable: false,
                                      exclusive: false,
                                      autoDelete: false,
@@ -87,14 +91,14 @@ namespace AgvClientWPF.Control
                 // 状态发布 订阅
                 #region
                 stateInfoChannel = rmConnection.CreateModel();
-                stateInfoChannel.ExchangeDeclare(exchange: "agv_car_state_info_exchange", type: ExchangeType.Fanout);
+                stateInfoChannel.ExchangeDeclare(exchange: "agv_car_monitor_exchange", type: ExchangeType.Fanout);
 
                 QueueDeclareOk queueOK = stateInfoChannel.QueueDeclare();
                 string queueName = queueOK.QueueName;
 
-                LogUtil.Logger.Info("queue name:" + queueName);
+                LogUtil.Logger.Info("agv info queue name:" + queueName);
 
-                stateInfoChannel.QueueBind(queueName, "agv_car_state_info_exchange", "agv_car_state_info_exchange");
+                stateInfoChannel.QueueBind(queueName, "agv_car_monitor_exchange", "agv_car_monitor_exchange");
 
                 var rmStateInfoConsumer = new EventingBasicConsumer(stateInfoChannel);
 
@@ -103,6 +107,25 @@ namespace AgvClientWPF.Control
                 stateInfoChannel.BasicConsume(queue: queueName,
                                      noAck: true,
                                      consumer: rmStateInfoConsumer);
+
+
+
+                conveyerBeltInfoChannel = rmConnection.CreateModel();
+                conveyerBeltInfoChannel.ExchangeDeclare(exchange: "conveyer_belt_monitor_exchange", type: ExchangeType.Fanout);
+                QueueDeclareOk queue1OK = conveyerBeltInfoChannel.QueueDeclare();
+                string queue1Name = queue1OK.QueueName;
+                LogUtil.Logger.Info("converybelt info queue name:" + queue1Name);
+
+
+                conveyerBeltInfoChannel.QueueBind(queueName, "conveyer_belt_monitor_exchange", "conveyer_belt_monitor_exchange");
+
+                var rmBeltStateInfoConsumer = new EventingBasicConsumer(conveyerBeltInfoChannel);
+
+                rmBeltStateInfoConsumer.Received += RmBeltStateInfoConsumer_Received; ; ;
+
+                conveyerBeltInfoChannel.BasicConsume(queue: queue1Name,
+                                     noAck: true,
+                                     consumer: rmBeltStateInfoConsumer);
                 #endregion
 
                 /// 发送新的客户端上线通知
@@ -113,6 +136,40 @@ namespace AgvClientWPF.Control
                 MessageBox.Show(ex.Message);
                 LogUtil.Logger.Error(ex.Message, ex);
             }
+        }
+
+        private void RmBeltStateInfoConsumer_Received(object sender, BasicDeliverEventArgs e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    var message = Encoding.UTF8.GetString(e.Body);
+
+                    LogUtil.Logger.InfoFormat("【接收到状态信息】{0} ", message);
+                    var infoMeta = JsonUtil.parse<ConveyerBeltInfoMeta>(message);
+
+                    conveyerBeltInfo.BigBoxBeltEmptyState = infoMeta.BigBoxBeltEmptyState;
+                    conveyerBeltInfo.SmallBoxBeltEmptyState = infoMeta.SmallBoxBeltEmptyState;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    LogUtil.Logger.Error(ex.Message, ex);
+                }
+            });
+        }
+
+        private void ConveyerBeltInfo_BigBoxBeltStateChangedEvent(ConveyerBeltInfo conveyerBeltInfo)
+        {
+            this.Alarm();
+          //  throw new NotImplementedException();
+        }
+
+        private void ConveyerBeltInfo_SmallBoxBeltStateChangedEvent(ConveyerBeltInfo conveyerBeltInfo)
+        {
+            this.Alarm();
+            // throw new NotImplementedException();
         }
 
         private bool isAlarmPlaying = false;
@@ -136,23 +193,23 @@ namespace AgvClientWPF.Control
                     }
                     else
                     {
-                        //info = new AgvCarInfo(5)
-                        //{
-                        //    Id = infoMeta.Id,
-                        //    State = "2",// infoMeta.State,
-                        //    Point = "21",// infoMeta.Point,
-                        //    Route = infoMeta.Route,
-                        //    Voltage = infoMeta.Voltage
-                        //};
-
                         info = new AgvCarInfo(5)
                         {
                             Id = infoMeta.Id,
-                            State = infoMeta.State,
-                            Point = infoMeta.Point,
+                            State = "2",// infoMeta.State,
+                            Point = "21",// infoMeta.Point,
                             Route = infoMeta.Route,
                             Voltage = infoMeta.Voltage
                         };
+
+                        //info = new AgvCarInfo(5)
+                        //{
+                        //    Id = infoMeta.Id,
+                        //    State = infoMeta.State,
+                        //    Point = infoMeta.Point,
+                        //    Route = infoMeta.Route,
+                        //    Voltage = infoMeta.Voltage
+                        //};
                         info.AgvStopInStockEvent += Info_AgvStopInStockEvent;
                         info.AgvNeedChargeEvent += Info_AgvNeedChargeEvent;
 
@@ -171,35 +228,44 @@ namespace AgvClientWPF.Control
         // 停止播放声音
         private void StopAlarm()
         {
-            if (this.agvCarInfos.Count(s => s.IsAlarm == true) == 0)
-            {
-                this.player.Stop(); isAlarmPlaying = false;
-            }
+            this.player.Stop();
+            isAlarmPlaying = false;
         }
         private void Info_AgvNeedChargeEvent(AgvCarInfo agvCarInfo)
         {
             LogUtil.Logger.InfoFormat("{0}号小车触发需要充电事件", agvCarInfo.Id);
-            this.Alarm(AlarmType.NeedCharge);
+            this.Alarm();
         }
 
         private void Info_AgvStopInStockEvent(AgvCarInfo agvCarInfo)
         {
             LogUtil.Logger.InfoFormat("{0}号小车触发入库等待超时事件", agvCarInfo.Id);
-            this.Alarm(AlarmType.InStockStoped);
+            this.Alarm();
         }
 
 
-        private void Alarm(AlarmType alarmType)
+        private void Alarm(AlarmType? alarmType=null)
         {
             this.Dispatcher.Invoke(() =>
             {
                 try
                 {
-                    if (isAlarmPlaying == false)
+                    if (this.HasAlarm())
                     {
-                        player.LoadAsync();
-                        player.PlayLooping();
-                        isAlarmPlaying = true;
+                        if (isAlarmPlaying == false)
+                        {
+                            player.LoadAsync();
+                            player.PlayLooping();
+                            isAlarmPlaying = true;
+                        }
+                    }
+                    else
+                    {
+                        if (this.isAlarmPlaying == true)
+                        {
+                            this.StopAlarm();
+                            this.isAlarmPlaying = false;
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -210,6 +276,43 @@ namespace AgvClientWPF.Control
             });
         }
 
+        private bool HasAlarm()
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                if (this.conveyerBeltInfo.IsBigBoxBeltEmpty 
+                || this.conveyerBeltInfo.IsSmallBoxBeltEmpty)
+                {
+                    this.beltAlarmBtn.Background = Brushes.Red;
+                }
+                else
+                {
+                    this.beltAlarmBtn.Background = Brushes.Green;
+                }
+
+                if (this.agvCarInfos.Count(s => s.IsInStockScanStopOverTime) > 0)
+                {
+                    this.agvStopAlarmBtn.Background = Brushes.Red;
+                }
+                else
+                {
+                    this.agvStopAlarmBtn.Background = Brushes.Green;
+                }
+
+                if (this.agvCarInfos.Count(s => s.IsNeedCharge) > 0)
+                {
+                    this.agvNeedChargeBtn.Background = Brushes.Red;
+                }
+                else
+                {
+                    this.agvNeedChargeBtn.Background = Brushes.Green;
+                }
+            });
+            return
+                this.conveyerBeltInfo.IsBigBoxBeltEmpty ||
+                this.conveyerBeltInfo.IsSmallBoxBeltEmpty ||
+                (this.agvCarInfos.Count(s => s.IsInStockScanStopOverTime || s.IsNeedCharge) > 0);
+        }
 
         /// <summary>
         /// 关闭RM连接
@@ -258,8 +361,9 @@ namespace AgvClientWPF.Control
                 string message = JsonUtil.stringify(cmd);
                 if (operateChannel != null)
                 {
-                    operateChannel.BasicPublish(exchange: "",
-                        routingKey: "agv_car_operate_queue",
+                    operateChannel.BasicPublish(
+                        exchange: "",
+                        routingKey: "monitor_operate_queue",
                         basicProperties: null,
                         body: Encoding.UTF8.GetBytes(message));
                 }
@@ -271,11 +375,14 @@ namespace AgvClientWPF.Control
             }
         }
 
-        private void LoadAgvInfo()
+        private void InitAndLoadInfo()
         {
             this.avgStateInfoDG.ItemsSource = this.agvCarInfos;
+            this.conveyerBeltInfo.SmallBoxBeltStateChangedEvent += ConveyerBeltInfo_SmallBoxBeltStateChangedEvent;
+            this.conveyerBeltInfo.BigBoxBeltStateChangedEvent += ConveyerBeltInfo_BigBoxBeltStateChangedEvent;
         }
 
+      
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -296,7 +403,6 @@ namespace AgvClientWPF.Control
                 info.State = "1";
                 info.Route = "11";
             }
-            this.StopAlarm();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)

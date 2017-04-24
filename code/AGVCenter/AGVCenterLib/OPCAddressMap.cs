@@ -256,7 +256,7 @@ namespace AGVCenterLib
                 "AGV6StateInfo",
                  new Dictionary<string, string>()
                 {
-                       { "agv6_state","S7:[S7 connection_1]DB309,B40,AGV_6_stu"},
+                    { "agv6_state","S7:[S7 connection_1]DB309,B40,AGV_6_stu"},
                     { "agv6_route","S7:[S7 connection_1]DB309,B41,AGV_6_step"},
                     { "agv6_point","S7:[S7 connection_1]DB309,W46,AGV_6_point"},
                     { "agv6_voltage","S7:[S7 connection_1]DB307,W11,AGV_6_V"}
@@ -268,9 +268,11 @@ namespace AGVCenterLib
             {
                 "OPCConveyerBeltStateInfo",
                 new Dictionary<string, string>() {
+                    { "big_box_conveyer_belt_state_info","S7:[S7 connection_1]MINT47"},
+                    { "small_box_conveyer_belt_state_info","S7:[S7 connection_1]MINT49"}
                 }
             }
-#endregion
+            #endregion
         };
     }
 }

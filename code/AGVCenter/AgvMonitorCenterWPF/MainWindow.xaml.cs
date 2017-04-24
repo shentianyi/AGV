@@ -39,7 +39,7 @@ namespace AgvMonitorCenterWPF
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.InitOPC();
-             this.ConnectOPC();
+            // this.ConnectOPC();
             this.OpenRabbitMQConnect();
         }
 
@@ -160,7 +160,6 @@ namespace AgvMonitorCenterWPF
                     opcAgvInfos[i-1].AddItemToGroup(opcAgvInfoGroup);
 
                     opcAgvInfoGrops.Add(opcAgvInfoGroup);
-                 
                 }
 
                 opcConveyerBeltStateInfoGroup = ConnectedOPCServer.OPCGroups.Add("OPCConveyerBeltStateInfoGroup");
@@ -406,9 +405,12 @@ namespace AgvMonitorCenterWPF
             {
                 var message = Encoding.UTF8.GetString(e.Body);
                 var cmd = JsonUtil.parse<AgvCenterCmd>(message);
-                LogUtil.Logger.InfoFormat("【接收到设置命令】{0}---{1}", cmd.RoadMachindeIndex, cmd.CmdType);
-                LogUtil.Logger.InfoFormat("【接收到设置命令信息】 ", message);
 
+                LogUtil.Logger.InfoFormat("【接收到设置命令】{0}---{1}", 
+                    cmd.RoadMachindeIndex, 
+                    cmd.CmdType);
+
+                LogUtil.Logger.InfoFormat("【接收到设置命令信息】{0}", message);
                 // 其它任务
                 switch (cmd.CmdType)
                 {

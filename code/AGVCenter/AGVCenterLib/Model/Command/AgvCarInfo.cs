@@ -96,6 +96,10 @@ namespace AGVCenterLib.Model.Command
                     this.inStockScanStopSeconds = 0;
                     this.IsInStockScanStopOverTime = false;
                 }
+                if (this.AgvStopInStockEvent != null)
+                {
+                    this.AgvStopInStockEvent(this);
+                }
                 OnPropertyChanged(new PropertyChangedEventArgs("State"));
                 OnPropertyChanged(new PropertyChangedEventArgs("StateStr"));
             }
@@ -135,6 +139,11 @@ namespace AGVCenterLib.Model.Command
                 if (this.IsInStockScanStop == false)
                 {
                     this.IsInStockScanStopOverTime = false;
+                }
+
+                if (this.AgvStopInStockEvent != null)
+                {
+                    this.AgvStopInStockEvent(this);
                 }
                 OnPropertyChanged(new PropertyChangedEventArgs("Point"));
                 OnPropertyChanged(new PropertyChangedEventArgs("PointStr"));
@@ -283,11 +292,10 @@ namespace AGVCenterLib.Model.Command
                         LogUtil.Logger.InfoFormat("{0}小车停止超过{1}秒", this.id, this.maxScanStopSecondsToWarn);
                         if (this.isInStockScanStop)
                         {
-                            if (!this.isInStockScanStopOverTime)
-                            {
-                                this.AgvStopInStockEvent(this);
-                            }
                             this.IsInStockScanStopOverTime = true;
+                            
+                                this.AgvStopInStockEvent(this);
+                             
                             LogUtil.Logger.InfoFormat("【触发{0}号AGV入库停止时间过长事件】", this.id);
                             
                         }else

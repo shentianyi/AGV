@@ -54,8 +54,8 @@ namespace AGVCenterLib.Model.Command
             }
         }
 
-        public int smallBoxBeltEmptyStateWas;
-        public int smallBoxBeltEmptyState;
+        private int smallBoxBeltEmptyStateWas;
+        private int smallBoxBeltEmptyState;
         public int SmallBoxBeltEmptyState
         {
             get
