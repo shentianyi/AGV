@@ -307,14 +307,29 @@ namespace AGVCenterWPF
                     // OPCInRobootPickData.BoxType = taskItem.BoxType;
                     int roadMachineIndex = 0;
 
-                   
+
 
                     #region V2
                     if (RoadMachine1InTaskQueue.Count == 0 && RoadMachine2InTaskQueue.Count == 0)
                     {
                         if (prevRoadMahineIndex == 1)
                         {
-                            if (this.CanRoadMachineInStock(2))
+                            if (this.CanRoadMachineInStock(1) && this.CanRoadMachineInStock(2))
+                            {
+                                // 比较库存量
+                                StorageService ss = new StorageService(OPCConfig.DbString);
+                                int r1 = ss.CountStorage(1, (int)taskItem.BoxType);
+                                int r2 = ss.CountStorage(2, (int)taskItem.BoxType);
+                                if (r1 > r2)
+                                {
+                                    roadMachineIndex = 2;
+                                }
+                                else
+                                {
+                                    roadMachineIndex = 1;
+                                }
+                            }
+                            else if (this.CanRoadMachineInStock(2))
                             {
                                 roadMachineIndex = 2;
                             }
@@ -325,7 +340,22 @@ namespace AGVCenterWPF
                         }
                         else
                         {
-                            if (this.CanRoadMachineInStock(1))
+                            if (this.CanRoadMachineInStock(1) && this.CanRoadMachineInStock(2))
+                            {
+                                // 比较库存量
+                                StorageService ss = new StorageService(OPCConfig.DbString);
+                                int r1 = ss.CountStorage(1, (int)taskItem.BoxType);
+                                int r2 = ss.CountStorage(2, (int)taskItem.BoxType);
+                                if (r1 > r2)
+                                {
+                                    roadMachineIndex = 2;
+                                }
+                                else
+                                {
+                                    roadMachineIndex = 1;
+                                }
+                            }
+                            else if (this.CanRoadMachineInStock(1))
                             {
                                 roadMachineIndex = 1;
                             }
