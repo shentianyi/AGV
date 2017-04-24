@@ -261,10 +261,16 @@ namespace AGVCenterLib
                     { "agv6_point","S7:[S7 connection_1]DB309,W46,AGV_6_point"},
                     { "agv6_voltage","S7:[S7 connection_1]DB307,W11,AGV_6_V"}
                  }
-            }
+            },
             #endregion
 
-
+            #region 
+            {
+                "OPCConveyerBeltStateInfo",
+                new Dictionary<string, string>() {
+                }
+            }
+#endregion
         };
     }
 }

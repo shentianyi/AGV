@@ -44,11 +44,14 @@ namespace AgvMonitorCenterWPF
         }
 
         #region OPC 组件
-
+        
         #region OPC变量
         OPCServer ConnectedOPCServer;
         List<OPCAgvStateInfo> opcAgvInfos;
         List<OPCGroup> opcAgvInfoGrops;
+
+        OPCConveyerBeltStateInfo opcConveyerBeltStateInfo;
+        OPCGroup opcConveyerBeltStateInfoGroup;
         #endregion
 
         private void ConnectOPCServerBtn_Click(object sender, RoutedEventArgs e)
@@ -75,6 +78,7 @@ namespace AgvMonitorCenterWPF
             {
                 this.opcAgvInfos.Add(new OPCAgvStateInfo(string.Format("AGV{0}StateInfo", i), i));
             }
+            this.opcConveyerBeltStateInfo = new OPCConveyerBeltStateInfo();
         }
         /// <summary>
         /// 连接OPC
@@ -158,6 +162,18 @@ namespace AgvMonitorCenterWPF
                     opcAgvInfoGrops.Add(opcAgvInfoGroup);
                  
                 }
+
+                opcConveyerBeltStateInfoGroup = ConnectedOPCServer.OPCGroups.Add("OPCConveyerBeltStateInfoGroup");
+
+
+                opcConveyerBeltStateInfoGroup.UpdateRate = 100;
+                opcConveyerBeltStateInfoGroup.DeadBand = 0;
+                opcConveyerBeltStateInfoGroup.IsSubscribed = true;
+                opcConveyerBeltStateInfoGroup.IsActive = true;
+                opcConveyerBeltStateInfoGroup.DataChange += OpcConveyerBeltStateInfoGroup_DataChange;
+                opcConveyerBeltStateInfo.AddItemToGroup(opcConveyerBeltStateInfoGroup);
+
+
                 return true;
             }
             catch (Exception ex)
@@ -168,32 +184,52 @@ namespace AgvMonitorCenterWPF
             return false;
         }
 
+        private void OpcConveyerBeltStateInfoGroup_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        {
+            try
+            {
+                for (var i = 1; i <= NumItems; i++)
+                {
+                    LogUtil.Logger.InfoFormat("【大小箱传送带状态数据改变】{0}",
+                        ItemValues.GetValue(i));
+                }
+
+                this.opcConveyerBeltStateInfo.SetValue(NumItems, ClientHandles, ItemValues);
+                // 发布消息
+                this.PublishConveyerStateInfos();
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+            }
+        }
+
         private void OpcAgvInfoGroup1_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            this.SetOPCDataValue(1, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
+            this.SetAgvOPCDataValue(1, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
         }
         private void OpcAgvInfoGroup2_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            this.SetOPCDataValue(2, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
+            this.SetAgvOPCDataValue(2, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
         }
         private void OpcAgvInfoGroup3_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            this.SetOPCDataValue(3, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
+            this.SetAgvOPCDataValue(3, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
         }
         private void OpcAgvInfoGroup4_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            this.SetOPCDataValue(4, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
+            this.SetAgvOPCDataValue(4, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
         }
         private void OpcAgvInfoGroup5_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            this.SetOPCDataValue(5, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
+            this.SetAgvOPCDataValue(5, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
         }
         private void OpcAgvInfoGroup6_DataChange(int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
-            this.SetOPCDataValue(6, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
+            this.SetAgvOPCDataValue(6, TransactionID, NumItems, ref ClientHandles, ref ItemValues, ref Qualities, ref TimeStamps);
         }
 
-        private void SetOPCDataValue(int agvId, int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
+        private void SetAgvOPCDataValue(int agvId, int TransactionID, int NumItems, ref Array ClientHandles, ref Array ItemValues, ref Array Qualities, ref Array TimeStamps)
         {
             try
             {
@@ -209,6 +245,7 @@ namespace AgvMonitorCenterWPF
                     info.SetValue(NumItems, ClientHandles, ItemValues);
                     // 发布消息
                     this.PublishAgvStateInfos(agvId);
+                   // this.PublishConveyerStateInfos();
                 }
             }
             catch (Exception ex)
@@ -270,7 +307,9 @@ namespace AgvMonitorCenterWPF
 
         EventingBasicConsumer rmOperateConsumer;
         IModel operateChannel;
-        IModel stateInfoChannel;
+        IModel agvStateInfoMonitorChannel;
+
+        IModel conveyerBeltMonitorChannel;
 
         /// <summary>
         /// 开启RM连接
@@ -289,7 +328,7 @@ namespace AgvMonitorCenterWPF
                 // 控制设置
                 #region 控制设置
                 operateChannel = rmConnection.CreateModel();
-                operateChannel.QueueDeclare(queue: "agv_car_operate_queue",
+                operateChannel.QueueDeclare(queue: "monitor_operate_queue",
                                      durable: false,
                                      exclusive: false,
                                      autoDelete: false,
@@ -298,19 +337,26 @@ namespace AgvMonitorCenterWPF
                 rmOperateConsumer = new EventingBasicConsumer(operateChannel);
                 rmOperateConsumer.Received += RmOperateConsumer_Received; ;
 
-                operateChannel.BasicConsume(queue: "agv_car_operate_queue",
+                operateChannel.BasicConsume(queue: "monitor_operate_queue",
                                      noAck: true,
                                      consumer: rmOperateConsumer);
+
+
                 #endregion
 
 
                 // 状态发布
                 #region
-                stateInfoChannel = rmConnection.CreateModel();
-                stateInfoChannel.ExchangeDeclare(exchange: "agv_car_state_info_exchange", type: ExchangeType.Fanout);
+                agvStateInfoMonitorChannel = rmConnection.CreateModel();
+                agvStateInfoMonitorChannel.ExchangeDeclare(exchange: "agv_car_monitor_exchange", type: ExchangeType.Fanout);
+
+                conveyerBeltMonitorChannel = rmConnection.CreateModel();
+                conveyerBeltMonitorChannel.ExchangeDeclare(exchange: "conveyer_belt_monitor_exchange",type: ExchangeType.Fanout);
                 #endregion
+
                 // 发送状态消息
                 this.PublishAgvStateInfos();
+                this.PublishConveyerStateInfos();
             }
             catch (Exception ex)
             {
@@ -329,9 +375,14 @@ namespace AgvMonitorCenterWPF
                 {
                     operateChannel.Close();
                 }
-                if (stateInfoChannel != null)
+                
+                if (agvStateInfoMonitorChannel != null)
                 {
-                    stateInfoChannel.Close();
+                    agvStateInfoMonitorChannel.Close();
+                }
+                if (conveyerBeltMonitorChannel != null)
+                {
+                    conveyerBeltMonitorChannel.Close();
                 }
                 if (rmConnection != null)
                 {
@@ -364,6 +415,7 @@ namespace AgvMonitorCenterWPF
                     // 新的监控客户端连入
                     case 701:
                         PublishAgvStateInfos();
+                        PublishConveyerStateInfos();
                         break;
                     default:
                         break;
@@ -376,13 +428,13 @@ namespace AgvMonitorCenterWPF
         }
 
         /// <summary>
-        /// 发布状态消息
+        /// 发布AGV状态消息
         /// </summary>
         private void PublishAgvStateInfos(int? agvId = null)
         {
             try
             {
-                if (stateInfoChannel != null)
+                if (agvStateInfoMonitorChannel != null)
                 {
                     var infos = agvId.HasValue ? GetAgvStateInfosById(agvId.Value) : opcAgvInfos;
 
@@ -396,9 +448,9 @@ namespace AgvMonitorCenterWPF
                             Voltage=info.Voltage
                         });
 
-                        LogUtil.Logger.InfoFormat("【发送状态消息】{0}", message);
-                        stateInfoChannel.BasicPublish(exchange: "agv_car_state_info_exchange",
-                                             routingKey: "agv_car_state_info_exchange",
+                        LogUtil.Logger.InfoFormat("【发送AGV状态消息】{0}", message);
+                        agvStateInfoMonitorChannel.BasicPublish(exchange: "agv_car_monitor_exchange",
+                                             routingKey: "agv_car_monitor_exchange",
                                              basicProperties: null,
                                              body: Encoding.UTF8.GetBytes(message));
                     }
@@ -411,6 +463,34 @@ namespace AgvMonitorCenterWPF
         }
 
 
+
+        /// <summary>
+        /// 发布传送带状态消息
+        /// </summary>
+        private void PublishConveyerStateInfos()
+        {
+            try
+            {
+                if (this.conveyerBeltMonitorChannel != null)
+                {
+                    string message = JsonUtil.stringify(new ConveyerBeltInfoMeta()
+                    {
+                        BigBoxBeltEmptyState = opcConveyerBeltStateInfo.BigBoxBeltEmptyState,
+                        SmallBoxBeltEmptyState = opcConveyerBeltStateInfo.SmallBoxBeltEmptyState
+                    });
+
+                    LogUtil.Logger.InfoFormat("【发送传送带状态消息】{0}", message);
+                    this.conveyerBeltMonitorChannel.BasicPublish(exchange: "conveyer_belt_monitor_exchange",
+                                         routingKey: "conveyer_belt_monitor_exchange",
+                                         basicProperties: null,
+                                         body: Encoding.UTF8.GetBytes(message));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+            }
+        }
         #endregion
 
         #region 消息队列数据处理组件
