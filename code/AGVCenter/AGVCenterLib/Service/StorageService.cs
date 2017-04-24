@@ -350,5 +350,16 @@ namespace AGVCenterLib.Service
         {
             return new StorageRepository(this.Context).FindByUniqNr(uniqItemNr);
         }
+
+        /// <summary>
+        /// 计算库存数量
+        /// </summary>
+        /// <param name="roadMachineIndex"></param>
+        /// <param name="boxType"></param>
+        /// <returns></returns>
+        public int CountStorage(int roadMachineIndex,int boxType)
+        {
+            return (this.Context.Context as AgvWarehouseDataContext).StorageUniqueItemView.Count(s => s.UniqueItemBoxTypeId == boxType && s.PositionRoadMachineIndex == roadMachineIndex);
+        }
     }
 }

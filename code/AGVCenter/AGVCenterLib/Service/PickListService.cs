@@ -88,7 +88,8 @@ namespace AGVCenterLib.Service
                             PickListNr = pickListNr,
                             UniqItemNr = uniqNr,
                             CreatedAt = DateTime.Now,
-                            UpdatedAt = DateTime.Now
+                            UpdatedAt = DateTime.Now,
+                            PositionNr=message.Content
                         });
                     }
                     else

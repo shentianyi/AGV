@@ -49,6 +49,7 @@ namespace AGVCenterLib.Service
                 message.Content = "库存不存在不可添加";
                 return message;
             }
+            message.Content = storage.PositionNr;
             message.MessageType = MessageType.OK;
             message.Success = true;
             
