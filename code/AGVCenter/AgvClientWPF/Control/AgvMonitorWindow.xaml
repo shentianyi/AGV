@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AgvClientWPF.Control"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d" 
-        Title="AGV小车状态监控" Height="100" Width="300" 
+        Title="设备状态监控" Height="100" Width="300" 
         Loaded="Window_Loaded" Closing="Window_Closing" Left="-1" Top="0"
         WindowStartupLocation="Manual" ResizeMode="NoResize" Topmost="True">
 
@@ -45,7 +45,7 @@
                     <GradientStop Color="#FF849DF5" Offset="1"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-            <Label Content="AGV小车状态监控" FontSize="10" Foreground="White" FontWeight="Bold" Margin="0,0,0,0"/>
+            <Label Content="设备状态监控" FontSize="10" Foreground="White" FontWeight="Bold" Margin="0,0,0,0"/>
             <!--<Button x:Name="button" Content="重置" Width="75" Click="button_Click"/>
             <Button x:Name="button1" Content="停止" Width="75" Click="button1_Click"/>
             <Button x:Name="button2" Content="充电" Width="75" Click="button2_Click"/>-->
