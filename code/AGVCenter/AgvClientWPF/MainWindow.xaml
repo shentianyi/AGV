@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF"
         mc:Ignorable="d" MouseDoubleClick="Window_MouseDoubleClick"
-        Title="MainWindow" Height="400" Width="700" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="400" Width="700" WindowStartupLocation="CenterScreen" Closing="Window_Closing" Loaded="Window_Loaded"
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"/>

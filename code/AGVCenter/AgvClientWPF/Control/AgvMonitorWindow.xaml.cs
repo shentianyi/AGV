@@ -45,11 +45,22 @@ namespace AgvClientWPF.Control
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                double dWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+                this.Left = dWidth-this.Width;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
            this.OpenRabbitMQConnect();
             player.SoundLocation =
                 System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sources\\alarm.wav");
 
             this.InitAndLoadInfo();
+            
         }
 
         string rm_host = RabbitMQConfig.Host;
@@ -193,23 +204,23 @@ namespace AgvClientWPF.Control
                     }
                     else
                     {
-                        info = new AgvCarInfo(5)
-                        {
-                            Id = infoMeta.Id,
-                            State = "2",// infoMeta.State,
-                            Point = "21",// infoMeta.Point,
-                            Route = infoMeta.Route,
-                            Voltage = infoMeta.Voltage
-                        };
-
                         //info = new AgvCarInfo(5)
                         //{
                         //    Id = infoMeta.Id,
-                        //    State = infoMeta.State,
-                        //    Point = infoMeta.Point,
+                        //    State = "2",// infoMeta.State,
+                        //    Point = "21",// infoMeta.Point,
                         //    Route = infoMeta.Route,
                         //    Voltage = infoMeta.Voltage
                         //};
+
+                        info = new AgvCarInfo(5)
+                        {
+                            Id = infoMeta.Id,
+                            State = infoMeta.State,
+                            Point = infoMeta.Point,
+                            Route = infoMeta.Route,
+                            Voltage = infoMeta.Voltage
+                        };
                         info.AgvStopInStockEvent += Info_AgvStopInStockEvent;
                         info.AgvNeedChargeEvent += Info_AgvNeedChargeEvent;
 
@@ -287,7 +298,7 @@ namespace AgvClientWPF.Control
                 }
                 else
                 {
-                    this.beltAlarmBtn.Background = Brushes.Green;
+                    this.beltAlarmBtn.Background = Brushes.LightGreen;
                 }
 
                 if (this.agvCarInfos.Count(s => s.IsInStockScanStopOverTime) > 0)
@@ -296,7 +307,7 @@ namespace AgvClientWPF.Control
                 }
                 else
                 {
-                    this.agvStopAlarmBtn.Background = Brushes.Green;
+                    this.agvStopAlarmBtn.Background = Brushes.LightGreen;
                 }
 
                 if (this.agvCarInfos.Count(s => s.IsNeedCharge) > 0)
@@ -305,7 +316,7 @@ namespace AgvClientWPF.Control
                 }
                 else
                 {
-                    this.agvNeedChargeBtn.Background = Brushes.Green;
+                    this.agvNeedChargeBtn.Background = Brushes.LightGreen;
                 }
             });
             return
@@ -324,6 +335,10 @@ namespace AgvClientWPF.Control
                 if (operateChannel != null)
                 {
                     operateChannel.Close();
+                }
+                if (conveyerBeltInfoChannel != null)
+                {
+                    conveyerBeltInfoChannel.Close();
                 }
                 if (stateInfoChannel != null)
                 {

@@ -39,7 +39,7 @@ namespace AgvMonitorCenterWPF
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.InitOPC();
-            // this.ConnectOPC();
+            this.ConnectOPC();
             this.OpenRabbitMQConnect();
         }
 
@@ -487,7 +487,7 @@ namespace AgvMonitorCenterWPF
                                          basicProperties: null,
                                          body: Encoding.UTF8.GetBytes(message));
                 }
-            }
+            }   
             catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);
@@ -500,10 +500,17 @@ namespace AgvMonitorCenterWPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("确认关闭？", "确认关闭？", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if (MessageBox.Show("确认关闭？", "确认关闭？", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 this.ShutDownRabbitMQConnect();
                 this.DisconnectOPCServer();
+                Application.Current.Shutdown();
+                //    Environment.Exit(0);
+            }
+            else
+            {
+
+                e.Cancel = true;
             }
         }
     }

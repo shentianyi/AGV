@@ -1231,15 +1231,18 @@ namespace AGVCenterWPF
         /// <param name="e"></param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(MessageBox.Show("PMS OPC Connnector在运行中，确认关闭？","关闭确认",MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            if(MessageBox.Show("PWS OPC Connnector在运行中，确认关闭？","关闭确认",MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 ShutDownComponents();
-               
+
+                Application.Current.Shutdown();
             }
             else
             {
                 e.Cancel = true;
             }
+
+
         }
 
 

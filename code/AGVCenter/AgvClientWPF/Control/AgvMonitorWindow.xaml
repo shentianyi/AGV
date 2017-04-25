@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AgvClientWPF.Control"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        mc:Ignorable="d" Top="0"
-        Title="AgvMonitorWindow" Height="200" Width="500" 
-        Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        mc:Ignorable="d" 
+        Title="AGV小车状态监控" Height="100" Width="300" 
+        Loaded="Window_Loaded" Closing="Window_Closing" Left="-1" Top="0"
+        WindowStartupLocation="Manual" ResizeMode="NoResize" Topmost="True">
 
     <Window.Resources>
         <Style TargetType="DataGridCell">
@@ -34,7 +35,7 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
@@ -44,7 +45,7 @@
                     <GradientStop Color="#FF849DF5" Offset="1"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-            <Label Content="AGV小车状态监控" FontSize="20" Foreground="White" FontWeight="Bold" Margin="10,10,0,0"/>
+            <Label Content="AGV小车状态监控" FontSize="10" Foreground="White" FontWeight="Bold" Margin="0,0,0,0"/>
             <!--<Button x:Name="button" Content="重置" Width="75" Click="button_Click"/>
             <Button x:Name="button1" Content="停止" Width="75" Click="button1_Click"/>
             <Button x:Name="button2" Content="充电" Width="75" Click="button2_Click"/>-->
@@ -57,13 +58,13 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Name="beltAlarmBtn" Content="无空箱" Background="Green" Margin="10,10,10,10">
-               
+            <Button Grid.Column="0" Name="beltAlarmBtn" Content="无空箱" Background="LightGreen" Margin="10,10,10,10">
+                 
             </Button>
-            <Button Grid.Column="1" Name="agvStopAlarmBtn" Content="入库阻塞"  Background="Green" Margin="10,10,10,10">
+            <Button Grid.Column="1" Name="agvStopAlarmBtn" Content="入库阻塞"  Background="LightGreen" Margin="10,10,10,10">
                 
             </Button>
-            <Button Grid.Column="2" Name="agvNeedChargeBtn" Content="AGV充电"  Background="Green" Margin="10,10,10,10">
+            <Button Grid.Column="2" Name="agvNeedChargeBtn" Content="AGV充电"  Background="LightGreen" Margin="10,10,10,10">
                 
             </Button>
         </Grid>

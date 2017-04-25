@@ -111,5 +111,15 @@ namespace AgvClientWPF
         {
             new AgvMonitorWindow().Show();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            new AgvMonitorWindow().Show();
+        }
     }
 }
