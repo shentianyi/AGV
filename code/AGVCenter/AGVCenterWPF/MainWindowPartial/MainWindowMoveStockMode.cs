@@ -110,7 +110,7 @@ namespace AGVCenterWPF
                 rmFactory.NetworkRecoveryInterval = TimeSpan.FromSeconds(10);
 
                 rmConnection = rmFactory.CreateConnection();
-
+               
                 // 控制设置
                 #region 控制设置
                 operateChannel = rmConnection.CreateModel();

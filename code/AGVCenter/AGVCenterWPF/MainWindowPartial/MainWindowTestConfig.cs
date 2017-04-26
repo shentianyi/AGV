@@ -65,7 +65,7 @@ namespace AGVCenterWPF
 
             for (var i = 0; i < this.roadMachine2ModeCB.Items.Count; i++)
             {
-             
+
                 if (this.roadMachine2ModeCB.Items.OfType<EnumItem>().ToList()[i].Value.Equals(((int)ModeConfig.RoadMachine2TaskMode).ToString()))
                 {
                     this.roadMachine2ModeCB.SelectedIndex = i;
@@ -73,9 +73,17 @@ namespace AGVCenterWPF
                 }
             }
 
+            if (roadMachine1ModeCB.SelectedValue != null && roadMachine2ModeCB.SelectedValue!=null) 
+            {
+                var mode = (RoadMachineTaskMode)int.Parse(roadMachine1ModeCB.SelectedValue.ToString());
+                roadMacine1EnabledCB.IsChecked = BaseConfig.RoadMachine1Enabled = (mode != RoadMachineTaskMode.Stop);
 
-            this.roadMachine1ModeCB.SelectionChanged +=roadMachine1ModeCB_SelectionChanged;
-            this.roadMachine2ModeCB.SelectionChanged +=roadMachine1ModeCB_SelectionChanged;
+
+                var mode2 = (RoadMachineTaskMode)int.Parse(roadMachine2ModeCB.SelectedValue.ToString());
+                roadMacine2EnabledCB.IsChecked = BaseConfig.RoadMachine2Enabled = (mode2 != RoadMachineTaskMode.Stop);
+            }
+            this.roadMachine1ModeCB.SelectionChanged += roadMachine1ModeCB_SelectionChanged;
+            this.roadMachine2ModeCB.SelectionChanged += roadMachine1ModeCB_SelectionChanged;
         }
 
       
@@ -112,6 +120,7 @@ namespace AGVCenterWPF
         private void roadMachine1ModeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cb = sender as ComboBox;
+
             if(cb.Name== "roadMachine1ModeCB")
             {
                 if (roadMachine1ModeCB.SelectedValue != null)
@@ -121,8 +130,11 @@ namespace AGVCenterWPF
                     {
                         this.PublishStateInfos();
                     }
+                    var mode = (RoadMachineTaskMode)int.Parse(roadMachine1ModeCB.SelectedValue.ToString());
+                    roadMacine1EnabledCB.IsChecked = BaseConfig.RoadMachine1Enabled = (mode != RoadMachineTaskMode.Stop);
                 }
-            }else if(cb.Name== "roadMachine2ModeCB")
+            }
+            else if(cb.Name== "roadMachine2ModeCB")
             {
                 if (roadMachine2ModeCB.SelectedValue != null)
                 {
@@ -130,6 +142,8 @@ namespace AGVCenterWPF
                     {
                         this.PublishStateInfos();
                     }
+                    var mode = (RoadMachineTaskMode)int.Parse(roadMachine2ModeCB.SelectedValue.ToString());
+                    roadMacine2EnabledCB.IsChecked = BaseConfig.RoadMachine2Enabled = (mode != RoadMachineTaskMode.Stop);
                 }
             }
         }
@@ -145,10 +159,30 @@ namespace AGVCenterWPF
                     BaseConfig.AutoLoadDbTaskOnStart = this.autoLoadDbTaskOnStartCB.IsChecked.Value;
                     break;
                 case "roadMacine1EnabledCB":
-                    BaseConfig.RoadMachine1Enabled = this.roadMacine1EnabledCB.IsChecked.Value;
+                    //BaseConfig.RoadMachine1Enabled = this.roadMacine1EnabledCB.IsChecked.Value;
+                    if (this.roadMacine1EnabledCB.IsChecked == false)
+                    {
+                        ModeConfig.SetMode(1, RoadMachineTaskMode.Stop);
+                    }
+                    else
+                    {
+                        ModeConfig.RecoverMode(1);
+                    }
+                    this.LoadRMWorkModeSetting();
+                    this.PublishStateInfos();
                     break;
                 case "roadMacine2EnabledCB":
-                    BaseConfig.RoadMachine2Enabled = this.roadMacine2EnabledCB.IsChecked.Value;
+                   //  BaseConfig.RoadMachine2Enabled = this.roadMacine2EnabledCB.IsChecked.Value;
+                    if (this.roadMacine2EnabledCB.IsChecked == false)
+                    {
+                        ModeConfig.SetMode(2, RoadMachineTaskMode.Stop);
+                    }
+                    else
+                    {
+                        ModeConfig.RecoverMode(2);
+                    }
+                    this.LoadRMWorkModeSetting();
+                    this.PublishStateInfos();
                     break;
                 case "inStockCreateStorageCB":
                     TestConfig.InStockCreateStorage = this.inStockCreateStorageCB.IsChecked.Value;

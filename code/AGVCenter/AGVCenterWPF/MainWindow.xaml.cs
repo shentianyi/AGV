@@ -128,7 +128,7 @@ namespace AGVCenterWPF
             // 自动连接OPC
             if (BaseConfig.AutoConnectOPC)
             {
-                this.ConnectOPC();
+                // this.ConnectOPC();
             }
 
             /// 初始化定时器，用以分发任务
@@ -155,7 +155,7 @@ namespace AGVCenterWPF
             this.OpenRabbitMQConnect();
 
             // 加载定时任务
-           this.InitAndStartQuartzTaskSchedule();
+            this.InitAndStartQuartzTaskSchedule();
         }
 
 
@@ -1102,6 +1102,7 @@ namespace AGVCenterWPF
             }
             this.ShutDownRabbitMQConnect();
             this.DisconnectOPCServer();
+            this.ShutDownQuartzTaskSchedule();
         }
 
         /// <summary>
