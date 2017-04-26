@@ -855,7 +855,7 @@ namespace AGVCenterWPF
                     if (item != null)
                     { 
                         // 是否可以入库
-                        if (uniqItemService.CanUniqInStock(barcode))
+                        if (this.CanBarCodeInstock(barcode) && uniqItemService.CanUniqInStock(barcode))
                         {
                             // 查询可用库位！
                             PositionService ps = new PositionService(OPCConfig.DbString);
@@ -1269,6 +1269,39 @@ namespace AGVCenterWPF
             }
         }
 
+
+
+        private bool CanBarCodeInstock(string barcode)
+        {
+            try
+            {
+                var queues = new List<Queue>()
+            {
+                AgvInStockPassQueue,
+                InRobootPickQueue,
+                RoadMachine1InTaskQueue,
+                RoadMachine1CenterTaskQueue,
+                RoadMachine2InTaskQueue,
+                RoadMachine2CenterTaskQueue
+            };
+
+                foreach (var q in queues)
+                {
+                    if (q.ToArray().FirstOrDefault(s => (s as StockTaskItem).Barcode == barcode) != null)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error(ex.Message, ex);
+            }
+            return false;
+        }
+
         /// <summary>
         /// 获取已分配的入库库位
         /// </summary>
@@ -1305,9 +1338,6 @@ namespace AGVCenterWPF
             }
             return dispatchedPositions;
         }
-
-
-
 
 
         #region 从数据库加载出库任务
