@@ -92,7 +92,7 @@ namespace AgvWarehouseWeb.Controllers
                 }
                 //sw.WriteLine(max);
             }
-            var filename = "Storage_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".csv";
+            var filename = "库存_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".csv";
             var contenttype = "text/csv";
             Response.Clear();
             Response.ContentEncoding = Encoding.UTF8;

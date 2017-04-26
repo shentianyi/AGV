@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AGVCenterLib.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,6 +15,10 @@ namespace AGVCenterLib.Model.SearchModel
         [DataMember]
         public string PositionNr { get; set; }
 
-
+        [DataMember]
+        public StockMovementType? StockMovementType
+        {
+            get;set;
+        }
     }
 }

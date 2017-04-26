@@ -39,6 +39,10 @@ namespace AGVCenterLib.Data.Repository.Implement
                 || s.AimedPosition.Contains(searchModel.PositionNr));
             }
 
+            if (searchModel.StockMovementType.HasValue)
+            {
+                q = q.Where(s => s.Type == (int)searchModel.StockMovementType.Value);
+            }
 
             if (searchModel.CreatedAtStart.HasValue)
             {

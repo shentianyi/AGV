@@ -18,5 +18,12 @@ namespace AGVCenterLib.Data
                 return EnumUtil.GetDescription((StockMovementType)this.Type);
             }
         }
+
+        public string CreatedAtStr
+        {
+            get {
+                return this.CreatedAt.HasValue ? this.CreatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss") : string.Empty;
+            }
+        }
     }
 }
