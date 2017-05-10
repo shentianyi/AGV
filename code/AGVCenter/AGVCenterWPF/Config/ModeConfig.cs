@@ -63,7 +63,7 @@ namespace AGVCenterWPF.Config
                 {
                     //if (mode == RoadMachineTaskMode.AutoMoveOnly)
                     //{
-                        if (RoadMachine2TaskMode != RoadMachineTaskMode.AutoMoveOnly && roadMachine1TaskMode != RoadMachineTaskMode.Stop)
+                        if (RoadMachine2TaskMode != RoadMachineTaskMode.AutoMoveOnly && roadMachine2TaskMode != RoadMachineTaskMode.Stop)
                         {
                             RoadMachine2PrevTaskMode = RoadMachine2TaskMode;
                         }
@@ -83,6 +83,23 @@ namespace AGVCenterWPF.Config
         /// <returns></returns>
         public static bool RecoverMode(int roadMachineIndex)
         {
+
+            if (roadMachineIndex == 1)
+            {
+                if (RoadMachine1TaskMode != RoadMachineTaskMode.AutoMoveOnly)
+                {
+                    return true;
+                }
+            }
+
+            if (roadMachineIndex == 2)
+            {
+                if (RoadMachine2TaskMode != RoadMachineTaskMode.AutoMoveOnly)
+                {
+                    return true;
+                }
+            }
+
             return SetMode(roadMachineIndex, roadMachineIndex == 1 ? RoadMachine1PrevTaskMode : RoadMachine2PrevTaskMode);
         }
 

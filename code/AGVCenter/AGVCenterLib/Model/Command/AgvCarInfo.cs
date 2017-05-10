@@ -56,7 +56,8 @@ namespace AGVCenterLib.Model.Command
 
         public AgvCarInfo(int scanStopSecondsToWarn):this()
         {
-            this.maxScanStopSecondsToWarn = scanStopSecondsToWarn;
+            this.maxScanStopSecondsToWarn = 20; 
+           // this.maxScanStopSecondsToWarn = scanStopSecondsToWarn;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -91,7 +92,7 @@ namespace AGVCenterLib.Model.Command
                     this.inStockScanStopSeconds = 0;
                     this.IsInStockScanStopOverTime = false;
                 }
-                if (state != "2")
+                if (!this.IsStop)
                 {
                     this.inStockScanStopSeconds = 0;
                     this.IsInStockScanStopOverTime = false;
@@ -251,7 +252,7 @@ namespace AGVCenterLib.Model.Command
         public bool IsStop {
             get
             {
-                return this.state == "2";
+                return this.state == "2" || this.state=="4";
             }
         }
         int inStockScanStopSeconds = 0;
