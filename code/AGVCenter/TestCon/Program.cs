@@ -15,6 +15,11 @@ namespace TestCon
         public byte B { get; set; }
         static void Main(string[] args)
         {
+
+            TestGetMoveService.Test();
+
+            Console.Read();
+
             //int i = 1327671;
 
             ////new Program().C();
@@ -67,12 +72,12 @@ namespace TestCon
             //  TestStorageService.TestMoveStock();
             // TestPositionService.TestFindPostinToStock();
 
-            string A = "aaa";
-            string b;
-            b = A;
-            A = "bbbb";
-            Console.WriteLine(b);
-            Console.WriteLine(A);
+            //string A = "aaa";
+            //string b;
+            //b = A;
+            //A = "bbbb";
+            //Console.WriteLine(b);
+            //Console.WriteLine(A);
 
             Console.Read();
        

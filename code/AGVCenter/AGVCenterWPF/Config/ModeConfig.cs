@@ -44,8 +44,8 @@ namespace AGVCenterWPF.Config
         {
             if (roadMachineIndex == 1)
             {
-                if (mode != RoadMachine1TaskMode)
-                {
+                //if (mode != RoadMachine1TaskMode)
+                //{
                     //if (mode == RoadMachineTaskMode.AutoMoveOnly)
                     //{
                         if (RoadMachine1TaskMode != RoadMachineTaskMode.AutoMoveOnly && roadMachine1TaskMode!=RoadMachineTaskMode.Stop)
@@ -55,12 +55,12 @@ namespace AGVCenterWPF.Config
                     //}
                     RoadMachine1TaskMode = mode;
                     return true;
-                }
+               // }
             }
             else
             {
-                if (mode != RoadMachine2TaskMode)
-                {
+                //if (mode != RoadMachine2TaskMode)
+                //{
                     //if (mode == RoadMachineTaskMode.AutoMoveOnly)
                     //{
                         if (RoadMachine2TaskMode != RoadMachineTaskMode.AutoMoveOnly && roadMachine2TaskMode != RoadMachineTaskMode.Stop)
@@ -71,7 +71,7 @@ namespace AGVCenterWPF.Config
 
                     RoadMachine2TaskMode = mode;
                     return true;
-                }
+             //   }
             }
             return false;
         }

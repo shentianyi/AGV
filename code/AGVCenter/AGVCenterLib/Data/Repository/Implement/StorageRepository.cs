@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AGVCenterLib.Data.Repository.Interface;
 using AGVCenterLib.Model;
 using AGVCenterLib.Model.SearchModel;
+using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace AGVCenterLib.Data.Repository.Implement
 {
@@ -236,6 +237,30 @@ namespace AGVCenterLib.Data.Repository.Implement
 
             var storage = this.FindFirstStorageByWarehouseAreaNrs(fromAreaNrs,roadmachineIndex);
             var toPosition = positionRepo.FindCanInStockByRoadMachineAndSortPrority(roadmachineIndex, toAreaNrs);
+
+            LogUtil.Logger.InfoFormat("----------------[巷道机{0} 查询移库任务]：",roadmachineIndex);
+            
+            LogUtil.Logger.InfoFormat("----------------[巷道机{0} 查询移库任务]：库存", roadmachineIndex);
+            if (storage != null)
+            {
+                LogUtil.Logger.InfoFormat("----------------[巷道机{0} 查询移库任务]：库存{1}======={2}", roadmachineIndex,storage.UniqItemNr, storage.PositionNr);
+            }
+            else
+            {
+
+                LogUtil.Logger.InfoFormat("----------------[巷道机{0} 查询移库任务]：没有移动库存", roadmachineIndex);
+            }
+
+            if (toPosition != null)
+            {
+                LogUtil.Logger.InfoFormat("----------------[巷道机{0} 查询移库任务]：库位{1}", roadmachineIndex, toPosition.Nr);
+            }
+            else
+            {
+
+                LogUtil.Logger.InfoFormat("----------------[巷道机{0} 查询移库任务]：没有目标库位", roadmachineIndex);
+            }
+
 
             if (storage != null && toPosition != null
                 && storage.PositionNr != toPosition.Nr

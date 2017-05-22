@@ -163,17 +163,25 @@ namespace AGVCenterWPF
                     }
                     else if (ModeConfig.RoadMachine1TaskMode == RoadMachineTaskMode.AutoMoveOnly)
                     {
+                        LogUtil.Logger.InfoFormat("-----------------------[巷道机1 判断移库任务]：是否有移库任务：{0}--{1}", RoadMachine1MoveTaskQueue.Count, RoadMachine1CenterTaskQueue.Count);
                         if (RoadMachine1MoveTaskQueue.Count == 0 && RoadMachine1CenterTaskQueue.Count==0)
                         {
+                            LogUtil.Logger.Info("-----------------------巷道机1 准备生成移库任务。。。。");
                             // 生成自动移库任务，如到MOVE的任务列表
                             StockTask st = new StockTaskService(OPCConfig.DbString)
                                 .CreateAutoMoveStockTask(roadMachineIndex, BaseConfig.IsSelfAreaMove);
                             if (st != null)
                             {
+                                LogUtil.Logger.Info("-----------------------巷道机1 生成了移库任务！！！！！！");
                                 var taskItem = this.InitTaskItemByStockTask(st, true);
                                 // 加入移库队列
                                 this.EnqueueRoadMachineTask(taskItem);
                                 this.AddOrUpdateItemToTaskDisplay(taskItem);
+
+                            }
+                            else
+                            {
+                                LogUtil.Logger.Info("-----------------------巷道机1 没有生成移库任务。。。。");
 
                             }
                         }
@@ -234,17 +242,29 @@ namespace AGVCenterWPF
                     }
                     else if (ModeConfig.RoadMachine2TaskMode == RoadMachineTaskMode.AutoMoveOnly)
                     {
+                        LogUtil.Logger.InfoFormat("-----------------------[巷道机2 判断移库任务]：是否有移库任务：{0}--{1}",
+                            RoadMachine2MoveTaskQueue.Count, RoadMachine2CenterTaskQueue.Count);
+
                         if (RoadMachine2MoveTaskQueue.Count == 0 && RoadMachine2CenterTaskQueue.Count==0)
                         {
+
+                            LogUtil.Logger.Info("-----------------------巷道机2 开始生成移库任务。。。。");
+
                             // 生成自动移库任务，如到MOVE的任务列表
                             StockTask st = new StockTaskService(OPCConfig.DbString)
                                 .CreateAutoMoveStockTask(roadMachineIndex, BaseConfig.IsSelfAreaMove);
                             if (st != null)
                             {
+                                LogUtil.Logger.Info("-----------------------巷道机2 生成了移库任务！！！！！");
+
                                 var taskItem = this.InitTaskItemByStockTask(st, true);
                                 // 加入移库队列
                                 this.EnqueueRoadMachineTask(taskItem);
                                 this.AddOrUpdateItemToTaskDisplay(taskItem);
+                            }
+                            else
+                            {
+                                LogUtil.Logger.Info("-----------------------巷道机2 没有生成移库任务。。。。");
                             }
                         }
                         // 再出栈

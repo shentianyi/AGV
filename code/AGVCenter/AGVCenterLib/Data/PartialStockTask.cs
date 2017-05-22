@@ -30,7 +30,9 @@ namespace AGVCenterLib.Data
             StockTaskState.RoadMachineInStocking,
             StockTaskState.RoadMachineOutStockInit,
             StockTaskState.RoadMachineWaitOutStock,
-            StockTaskState.RoadMachineOutStocking
+            StockTaskState.RoadMachineOutStocking,
+            StockTaskState.RoadMachineMoveStocking,
+            StockTaskState.RoadMachineMoveStockInit
         };
 
 
