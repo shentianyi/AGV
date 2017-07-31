@@ -102,7 +102,7 @@ namespace AGVCenterWPF
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             uiContext = SynchronizationContext.Current;
-
+            
             #region 加载初始化数据
             if (BaseConfig.IsOPCConnector)
             {
@@ -296,6 +296,8 @@ namespace AGVCenterWPF
 
             if (InRobootPickQueue.Count > 0 && OPCInRobootPickData.CanWrite)
             {
+                LogUtil.Logger.InfoFormat("【判断入库机械手可以写入任务！】{0}",OPCInRobootPickData);
+
                 StockTaskItem taskItem = InRobootPickQueue.Peek() as StockTaskItem;
                 // taskItem.State = StockTaskState.RobootInStocking;
                 if (taskItem.ShouldDequeueStockTask)

@@ -56,6 +56,9 @@
   <PropertyGroup>
     <ApplicationIcon>opc-1.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>AGVCenterWPF.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\ThridPart\Quartz.2.5\4.0\release\Quartz\Common.Logging.dll</HintPath>
@@ -81,6 +84,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -94,10 +98,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Compile Include="Config\ModeConfig.cs" />
     <Compile Include="Config\BaseConfig.cs" />
     <Compile Include="Config\TestConfig.cs" />
@@ -112,6 +116,7 @@
     <Compile Include="OPCConfig.cs" />
     <Compile Include="MainWindowPartial\MainWindowRestTask.cs" />
     <Compile Include="MainWindowPartial\MainWindowTestConfig.cs" />
+    <Compile Include="SingleInstance.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
