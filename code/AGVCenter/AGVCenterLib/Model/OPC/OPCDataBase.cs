@@ -145,6 +145,11 @@ namespace AGVCenterLib.Model.OPC
         {
             return false;
         }
+
+        public virtual bool SyncWrite(OPCGroup group, bool setReadableFlagFirst, bool resetReadableFlag = true)
+        {
+            return false;
+        }
         #endregion
 
         #region 设置可读

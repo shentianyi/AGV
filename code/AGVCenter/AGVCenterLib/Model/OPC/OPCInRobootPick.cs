@@ -23,12 +23,22 @@ namespace AGVCenterLib.Model.OPC
 
 
         #region 写入值
+        public override bool SyncWrite(OPCGroup group, bool resetReadableFlag = true)
+        {
+            return this.SyncWrite(group, false, resetReadableFlag);
+        }
         /// <summary>
         /// 写入值
         /// </summary>
         /// <param name="group"></param>
-        public override bool SyncWrite(OPCGroup group, bool resetReadableFlag = true)
+        public override bool SyncWrite(OPCGroup group, bool setReadableFlagFirst, bool resetReadableFlag = true)
         {
+            //
+            if (setReadableFlagFirst)
+            {
+                this.opcRwFlag = READ_ABLE_FLAG;
+            }
+
             /// 写入条码信息
             int[] SyncItemServerHandles = new int[2];
             object[] SyncItemValues = new object[2];

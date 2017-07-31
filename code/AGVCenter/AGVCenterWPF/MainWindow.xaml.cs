@@ -402,7 +402,7 @@ namespace AGVCenterWPF
                         // 停止自动移库模式
                         this.StopMoveMode(roadMachineIndex);
 
-                        if (OPCInRobootPickData.SyncWrite(OPCInRobootPickOPCGroup))
+                        if (OPCInRobootPickData.SyncWrite(OPCInRobootPickOPCGroup,true,true))
                         {
                             InRobootPickQueue.Dequeue();
                             taskItem.State = StockTaskState.RoadMachineStockBuffing;
