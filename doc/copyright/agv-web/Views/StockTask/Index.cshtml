@@ -1,0 +1,218 @@
+﻿@using MvcPaging;
+
+@model IPagedList<AGVCenterLib.Data.StockTask>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row" style="margin:0;">
+    <div class="col-md-12">
+        <form action="/StockTask/Search" method="get">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>KSK 号</span>
+                    <input type="text" name="UniqItemNr" id="UniqItemNr" placeholder="KSK 号" value="@ViewBag.Query.UniqItemNr" />
+                </div>
+            </div>
+
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>库位号</span>
+                    <input type="text" name="PositionNr" id="PositionNr" placeholder="库位号" value="@ViewBag.Query.PositionNr" />
+                    @*<button type="submit" class="marco-btn-success" style="margin-left:0;">
+                        <i class="glyphicon glyphicon-search"></i>
+                        搜索
+                    </button>*@
+                </div>
+            </div>
+
+            <button type="submit" class="marco-btn-success" style="margin-left:0;">
+                <i class="glyphicon glyphicon-search"></i>
+                搜索
+            </button>
+            @Html.Partial("Search/_CreatedAtSearchPartial")
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>&nbsp;</th>
+        <th>
+            巷道机
+        </th>
+        <th>
+            箱型
+        </th>
+        <th>
+            库位号
+        </th>
+        <th>
+            层
+        </th>
+        <th>
+            列
+        </th>
+        <th>
+            排
+        </th>
+        <th>
+            AGV放行标记
+        </th>
+        <th>
+            扫描条码
+        </th>
+        <th>
+            状态
+        </th>
+        <th>
+            类型
+        </th>
+        <th>
+            托序号
+        </th>
+        <th>
+            托箱数
+        </th>
+        <th>
+            取货单箱数
+        </th>
+        <th>
+            取货单编号
+        </th>
+        <th>
+            托编号
+        </th>
+        <th>
+            库位号
+        </th>
+        <th>
+            层
+        </th>
+        <th>
+            列
+        </th>
+        <th>
+            排
+        </th>
+
+        <th>
+            创建时间
+        </th>
+        <th>
+            更新时间
+        </th>
+        <th></th>
+    </tr>
+
+@if (Model != null)
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@(i += 1)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoadMachineIndex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BoxTypeStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionFloor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionRow)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgvPassFlag)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BarCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrayReverseNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrayNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickItemNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickBatchId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrayBatchId)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ToPositionNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToPositionFloor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToPositionColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToPositionRow)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+
+            <td>
+                <a href="/StockTaskLog/Search?StockTaskId=@item.Id" target="_blank">History</a>
+            </td>
+        </tr>
+    }
+}
+</table>
+
+
+<div class="col-sm-12" style="text-align:center;">
+    <div class="clearfix pagination">
+        <div class="pagination-inner">
+            @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("PositionNr", ViewBag.Query.PositionNr))
+                        .Options(o => o.AddRouteValue("UniqItemNr", ViewBag.Query.UniqItemNr))
+                           .Options(o => o.AddRouteValue("CreatedAtStart", ViewBag.Query.CreatedAtStart))
+                             .Options(o => o.AddRouteValue("CreatedAtEnd", ViewBag.Query.CreatedAtEnd));
+                    @html
+                }
+                else
+                {
+                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                }
+                <br />
+                    <span>总数： @Model.TotalItemCount</span>
+                    <br />
+            }
+        </div>
+    </div>
+</div>

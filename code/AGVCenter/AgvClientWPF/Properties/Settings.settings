@@ -32,5 +32,8 @@
     <Setting Name="CheckCode2Reg" Type="System.String" Scope="Application">
       <Value Profile="(Default)">^[A-Za-z0-9]{11}$</Value>
     </Setting>
+    <Setting Name="appname" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CZ PWS Client</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

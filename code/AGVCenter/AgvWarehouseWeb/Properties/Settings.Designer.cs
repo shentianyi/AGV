@@ -12,7 +12,7 @@ namespace AgvWarehouseWeb.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -34,11 +34,20 @@ namespace AgvWarehouseWeb.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.0.99;Initial Catalog=AgvWarehouseDb;Persist Security Info=Tru" +
-            "e;User ID=sa;Password=123456@")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=42.121.111.38;Initial Catalog=AgvWarehouseDb;Persist Security Info=Tr" +
+            "ue;User ID=sa;Password=123456@")]
         public string db {
             get {
                 return ((string)(this["db"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#appname# IF TECH Automated Warehouse Online Manage System")]
+        public string appname {
+            get {
+                return ((string)(this["appname"]));
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgvWarehouseWeb.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,7 @@ namespace AgvWarehouseWeb.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Message= Settings.Default.appname;
             return View();
         }
 

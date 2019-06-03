@@ -1,0 +1,201 @@
+﻿@using MvcPaging;
+
+@model IPagedList<AGVCenterLib.Data.UniqueItem>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+ 
+<div class="row" style="margin:0;">
+    <div class="col-md-16">
+        <form action="/UniqueItem/Search" method="get">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-16">
+                <div class="marco-igroup-primary">
+                    <span>配置号</span>
+                    <input type="text" name="PartNrAct" id="PartNrAct" placeholder="配置号" value="@ViewBag.Query.PartNrAct" />
+                </div>
+            </div> <div class="col-lg-3 col-md-3 col-sm-3 col-xs-16">
+                <div class="marco-igroup-primary">
+                    <span>KSK 号</span>
+                    <input type="text" name="Nr" id="Nr" placeholder="KSK 号" value="@ViewBag.Query.Nr" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-16">
+                <div class="marco-igroup-primary">
+                    <span>大众KNr</span>
+                    <input type="text" name="KNr" id="KNr" placeholder="大众KNr" value="@ViewBag.Query.KNr" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-16">
+                <div class="marco-igroup-primary">
+                    <span>箱型</span>
+                    <select name="BoxTypeId" id="BoxTypeId">
+                        @if (ViewBag.Query.BoxTypeId == null)
+                        {
+                            <option selected></option>
+                            <option value="1">大箱</option>
+                            <option value="2">小箱</option>
+                        }
+                        else if (ViewBag.Query.BoxTypeId == 1)
+                        {
+                            <option></option>
+                            <option selected value="1">大箱</option>
+                            <option value="2">小箱</option>
+                        }
+                        else
+                        {
+                            <option></option>
+                            <option value="1">大箱</option>
+                            <option selected value="2">小箱</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-16">
+                <div class="marco-igroup-primary">
+                    @Html.Partial("Search/_CreatedAtSearchPartial")
+                    </div>
+                </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-16">
+                        <button type="submit" class="marco-btn-success" style="margin-left:10px;">
+                            <i class="glyphicon glyphicon-search"></i>
+                            搜索
+                        </button>
+                    </div>
+        </form>
+
+    </div>
+</div>
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+    <table class="table">
+        <tr><th>&nbsp;</th>
+            <th>
+                唯一号
+            </th>
+            <th>
+                箱型
+            </th><th>
+    电测(二维码)
+</th>
+            <th>
+                电测(一维码)
+            </th>
+            <th>
+                大众号
+            </th>
+            @*<th>
+                KNrWithYear
+            </th>*@
+            <th>
+                验证码
+            </th>
+            <th>
+                KSK号
+            </th>
+            <th>
+                配置号
+            </th>
+            <th>
+                状态
+            </th>
+            <th>
+                下线时间
+            </th>
+        <th>
+            
+        </th>
+        </tr>
+
+@if (Model != null)
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@(i += 1)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BoxTypeStr)
+            </td><td>
+    @Html.DisplayFor(modelItem => item.QR)
+</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckCode2)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.KNr)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.KNrWithYear)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckCode)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.KskNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+
+            <td>
+                @Html.ActionLink("设置误出库", "MisOutStocked", new { id = item.Nr }) |
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.IsCanInStockState)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Nr }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Nr }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Nr })
+                </td>*@
+        </tr>
+    }
+}
+    </table>
+
+
+
+
+    <div class="col-sm-12" style="text-align:center;">
+        <div class="clearfix pagination">
+            <div class="pagination-inner">
+                @if (Model != null)
+                {
+                    if (ViewBag.Query != null)
+                    {
+                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                            .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
+                             .Options(o => o.AddRouteValue("KNr", ViewBag.Query.KNr))
+                             .Options(o => o.AddRouteValue("PartNrAct", ViewBag.Query.PartNrAct))
+                             .Options(o => o.AddRouteValue("CreatedAtStart", ViewBag.Query.CreatedAtStart))
+                             .Options(o => o.AddRouteValue("CreatedAtEnd", ViewBag.Query.CreatedAtEnd))
+                             .Options(o => o.AddRouteValue("BoxTypeId", ViewBag.Query.BoxTypeId));
+                        @html
+                    }
+                    else
+                    {
+                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                    }
+                    <br />
+                    <span>总数： @Model.TotalItemCount</span>
+                    <br />
+                }
+            </div>
+        </div>
+    </div>

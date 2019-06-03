@@ -1,0 +1,30 @@
+﻿@model AGVCenterLib.Data.UniqueItem
+
+@{
+    ViewBag.Title = "MisOutStocked";
+}
+
+<h4>设置产品为【误出库】状态</h4>
+<h4 style="color:red">@ViewBag.message</h4>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h3 style="color:black">确认将 @Model.Nr,当前状态【@Model.StateStr】， 设置为【误出库】状态？
+          设置后可重新入库！</h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Nr)
+  
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="确 认" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("返回", "Index")
+</div>

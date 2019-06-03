@@ -18,6 +18,7 @@ using AGVCenterLib.Model;
 using AgvClientWPF.Storage;
 using AgvClientWPF.Pick;
 using AgvClientWPF.Control;
+using AgvClientWPF.Properties;
 
 namespace AgvClientWPF
 {
@@ -29,6 +30,7 @@ namespace AgvClientWPF
         public MainWindow()
         {
             InitializeComponent();
+            this.Title = Settings.Default.appname;
         }
 
         private void productOffLineBtn_Click(object sender, RoutedEventArgs e)

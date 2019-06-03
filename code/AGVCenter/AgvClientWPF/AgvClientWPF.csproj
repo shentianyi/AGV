@@ -39,6 +39,12 @@
   <PropertyGroup>
     <ApplicationIcon>client-1.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="log4net">
       <HintPath>..\..\..\ThridPart\log4net.dll</HintPath>
@@ -448,7 +454,9 @@
     <Resource Include="aw-client.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="client-1.ico" />
+    <None Include="client-1.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\AgvTrayService\configuration91.svcinfo" />
@@ -523,6 +531,25 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\client-1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sources\client-1.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sources\client-2.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="client-2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

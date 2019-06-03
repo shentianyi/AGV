@@ -1,0 +1,103 @@
+﻿@using MvcPaging;
+
+@model IPagedList<AGVCenterLib.Data.PickList>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row" style="margin:0;">
+    <div class="col-md-12">
+        <form action="/PickList/Search" method="get">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>取货单号</span>
+                    <input type="text" name="Nr" id="Nr" placeholder="取货单号" value="@ViewBag.Query.Nr" />
+               
+
+                    @*<button type="submit" class="marco-btn-success" style="margin-left:0;">
+                        <i class="glyphicon glyphicon-search"></i>
+                        搜索
+                    </button>*@
+                 </div>
+            </div>
+
+
+            <button type="submit" class="marco-btn-success" style="margin-left:0;">
+                <i class="glyphicon glyphicon-search"></i>
+                搜索
+            </button>
+            @Html.Partial("Search/_CreatedAtSearchPartial")
+
+        </form>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>&nbsp;</th>
+        <th>
+            取货单号
+        </th>
+        <th>
+           状态
+        </th><th>
+     创建时间
+</th>
+<th>
+    更新时间
+</th>
+        @*<th></th>*@
+    </tr>
+@if (Model != null)
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@(i += 1)</td>
+            <td>
+                <a href="/PickListItem/Search?PickListNrAct=@item.Nr">@Html.DisplayFor(modelItem => item.Nr)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Nr }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Nr }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Nr })
+                </td>*@
+        </tr>
+    }
+}
+</table>
+<div class="col-sm-12" style="text-align:center;">
+    <div class="clearfix pagination">
+        <div class="pagination-inner">
+            @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
+                        .Options(o => o.AddRouteValue("CreatedAtStart", ViewBag.Query.CreatedAtStart))
+                             .Options(o => o.AddRouteValue("CreatedAtEnd", ViewBag.Query.CreatedAtEnd));
+                    @html
+                }
+                else
+                {
+                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                }
+                <br />
+                    <span>总数： @Model.TotalItemCount</span>
+                    <br />
+            }
+        </div>
+    </div>
+</div>

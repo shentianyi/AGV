@@ -1,0 +1,31 @@
+﻿.pagination{
+    text-align:center;
+}
+.pagination-inner {
+    border: 1px solid #0088cc;
+    border-radius: 5px;
+    min-width: 70px;
+    height:40px;
+    line-height:38px;
+    text-align: center;
+    font-size:1.2em;
+}
+
+.pagination-inner > span, .pagination-inner > a {
+    border-right: 1px solid #ebf1f5;
+    padding: 9px 15px;
+    width: 20px;
+    margin-left:3px;
+}
+
+.pagination-inner > a:last-child{
+    border:none;
+}
+
+ .pagination-inner > a:hover, .pagination-inner > a:active{
+     outline:none;
+ }
+
+ .current{
+     color:#ff6700;
+ }

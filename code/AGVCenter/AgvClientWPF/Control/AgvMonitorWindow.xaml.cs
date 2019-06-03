@@ -55,7 +55,7 @@ namespace AgvClientWPF.Control
             {
 
             }
-           this.OpenRabbitMQConnect();
+           //this.OpenRabbitMQConnect();
             player.SoundLocation =
                 System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Sources\\alarm.wav");
 
@@ -401,7 +401,7 @@ namespace AgvClientWPF.Control
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ShutDownRabbitMQConnect();
+            //ShutDownRabbitMQConnect();
             try
             {
                 this.player.Stop();

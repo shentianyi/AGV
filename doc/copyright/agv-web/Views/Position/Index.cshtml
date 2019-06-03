@@ -1,0 +1,395 @@
+﻿@using MvcPaging;
+
+@model IPagedList<AGVCenterLib.Data.Position>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row" style="margin:0;">
+    <div class="col-md-12">
+        <form action="/Position/Search" method="get">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>库位号</span>
+                    <input type="text" name="Nr" id="Nr" placeholder="库位号" value="@ViewBag.Query.Nr" />
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>库位号(精确)</span>
+                    <input type="text" name="NrAct" id="NrAct" placeholder="库位号" value="@ViewBag.Query.NrAct" />
+                </div>
+            </div>
+            <div class="marco-igroup-primary">
+                <span>
+                    是否锁定
+                    <select name="IsLocked" id="IsLocked">
+                        @if (ViewBag.Query.IsLocked == null)
+                        {
+                            <option value=""></option>
+                            <option value="True">是</option>
+                            <option value="False">否</option>
+                        }
+                        else if (ViewBag.Query.IsLocked)
+                        {
+                            <option value=""></option>
+                            <option value="True" selected>是</option>
+                            <option value="False">否</option>
+                        }
+                        else
+                        {
+                            <option value=""></option>
+                            <option value="True">是</option>
+                            <option value="False" selected>否</option>
+                        }
+                    </select>
+                </span>
+                <button type="submit" class="marco-btn-success" style="margin-left:0;">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
+            </div>
+        </form>
+        <div class="pull-right">
+            @Html.ActionLink("导出全部优先级", "Export", new
+       {
+           Nr = ViewBag.Query.Nr
+       }, new
+       {
+           @style = "width:110px; margin-top:4px;margin-left:20px;",
+           @class = "btn btn-success",
+           @title = "export searched results",
+           data_toggle = "tooltip",
+           data_placement = "bottom"
+       })
+        </div>
+
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="pull-right">
+            <a href="/Position/ImportPriority">
+                <button type="button" style="margin:10px 0 10px 10px;">
+                    <i class="glyphicon glyphicon-plus-sign"></i>导入优先级csv
+                </button>
+            </a>
+        </div>
+
+    </div>
+    @*<ul role="presentation" class="dropdown nav-basic pull-right" style="list-style:none;margin:10px -8px 0 0;">
+            <button class="dropdown-toggle" data-toggle="dropdown" href="#">
+                分类查看<span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu" style="font-size: 14px;">
+                <li class="nav-position">@Html.ActionLink("A排", "SearchByRow", "Position")</li>
+                <li class="nav-stockTask">@Html.ActionLink("B排", "Index", "StockTask")</li>
+                <li class="nav-stockTaskLog">@Html.ActionLink("C排", "Index", "StockTaskLog")</li>
+                <li class="nav-storage">@Html.ActionLink("D排", "Index", "Storage")</li>
+            </ul>
+        </ul>*@
+    @*<div class="marco-igroup-primary pull-right" style="margin:10px 0 0 10px;">
+        <button type="submit" class="marco-btn-success" style="margin-left:0;">
+            @Html.ActionLink("分排查看", "SearchByRow", "Position")
+        </button>
+    </div>*@
+    <div class="marco-igroup-primary pull-right" style="margin:10px 0 0 10px;">
+        <button type="submit" class="marco-btn-success" style="margin-left:0;" id="LockUnLock">
+            全部锁定/解锁
+        </button>
+    </div>
+    <div class="marco-igroup-primary pull-right" style="margin:10px 0 0 0;">
+        <input type="text" name="priorityTextNr" id="priorityTextNr" style="height:20px;" placeholder="开始序号" />
+        <select name="Priority" id="InStorePrioritySel">
+            <option value="null" class="selected"></option>
+            <option value="false">升序</option>
+            <option value="true">降序</option>
+        </select>
+        <button type="submit" class="marco-btn-success" style="margin-left:0;" id="Priority" name="Priority">
+            设置优先级
+        </button>
+    </div>
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>&nbsp;</th>
+        <th>
+            库位号
+        </th>
+       <th>
+           优先级
+       </th>
+        <th>
+            层
+        </th>
+        <th>
+            列
+        </th>
+        <th>
+            排
+        </th>
+        <th>
+            状态
+        </th><th>
+    KSK号
+</th>
+<th>
+    是否锁定
+</th>
+        <th>
+            巷道机
+        </th>
+        <th>
+                 库位区域
+</th>
+        <th>
+            仓库
+        </th>
+        <th></th>
+    </tr>
+
+@if (Model != null)
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@(i += 1)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InStorePriority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Floor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Column)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Row)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StorageUniqItemNr)
+            </td>
+
+            <td>
+                @*@Html.DisplayFor(modelItem => item.isLocked)*@
+                @if (item.IsLocked)
+                {
+                    <a href="#" class="option-icon-danger" title="点击解锁" onclick="lock('@item.Nr')">
+                        <i class="fa fa-lock"></i>
+                    </a>
+                }
+                else
+                {
+                    <a href="#" class="option-icon-danger" title="点击锁定" onclick="lock('@item.Nr')">
+                        <i class="fa fa-unlock"></i>
+                    </a>
+                }
+
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.RoadMachineIndex)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.WarehouseAreaNr)
+            </th>
+  
+
+            <td>
+                @Html.DisplayFor(modelItem => item.WarehouseNr)
+            </td>
+
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.Nr }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Nr }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Nr })*@
+            </td>
+        </tr>
+    }
+}
+</table>
+
+
+<div class="col-sm-12" style="text-align:center;">
+    <div class="clearfix pagination">
+        <div class="pagination-inner">
+            @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
+                        .Options(o => o.AddRouteValue("NrAct", ViewBag.Query.NrAct))
+                        .Options(o => o.AddRouteValue("IsLocked", ViewBag.Query.IsLocked));
+                    @html
+                }
+                else
+                {
+                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    //拖动鼠标选中多个复选框
+    var flag = false;
+    $("table").on("mousedown", "td", function (e) {
+        flag = true;
+        $(e.target).children("input").prop("checked", true);
+    });
+
+    $("table").on("mouseover", "td", function (e) {
+        if (flag) {
+            $(e.target).children("input").prop("checked", true);
+        } else {
+            return;
+        }
+    });
+
+    $("table").on("mouseup", "td", function () {
+        flag = false;
+    });
+
+    var all = document.getElementById("all");
+    var allCheckBox = document.getElementsByClassName("start");
+    function selectAll() {
+        for (var i = 0; i < allCheckBox.length; i++) {
+            if (all.checked) {
+                allCheckBox[i].checked = true;
+            } else {
+                allCheckBox[i].checked = false;
+            }
+        }
+    }
+    function setSelect() {
+        var count = 0;
+        for (i = 0; i < allCheckBox.length; i++) {
+            if (allCheckBox[i].checked == true) {
+                count++;
+            }
+            if (count == allCheckBox.length) {
+                all.checked = true;
+            } else {
+                all.checked = false;
+            }
+        }
+    }
+    function lock(nr) {
+        if (confirm('确定操作？')) {
+            $.post('/Position/LockUnLockPosition', { positionNr: nr }, function (data) {
+                if (data.Success) {
+                    alert('操作成功！');
+                    window.location.reload();
+                } else {
+                    alert('操作失败：' + data.Content);
+                }
+            }, 'json');
+        }
+    }
+
+    //设置优先级按钮
+    $("#Priority").click(function () {
+        var positionNr = new Array();
+        $('input.start:checked').each(function () {
+            positionNr.push($(this).attr('id'));
+        });
+        var priorityText = $('#priorityTextNr').val();
+        console.log(priorityText);
+
+        var positionVal = $("#InStorePrioritySel").val();
+        console.log(positionVal);
+        if (positionNr.length == 0) {
+            confirm("当前无选中项，请确认！");
+        } else {
+            if (confirm('确定当前选中项的优先级排序？')) {
+                $.ajax({
+                    url: "/Position/SetPriority",
+                    type: "post",
+                    data: {
+                        positionNr: positionNr,
+                        Num: priorityText,
+                        Desc: positionVal
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        window.location.reload();
+                    },
+                    error: function () {
+                        return false;
+                    }
+                });
+            }
+        }
+    })
+    //全部锁定或解锁
+    $("#LockUnLock").click(function () {
+        var PositionNr = new Array();
+        $('input.start:checked').each(function () {
+            PositionNr.push($(this).attr("id"));
+        });
+        console.log(PositionNr);
+        $.ajax({
+            url: "/Position/LockUnLockALL",
+            type: "post",
+            data: {
+                PositionNr: PositionNr
+            },
+            success: function (data) {
+                console.log(data);
+                window.location.reload();
+            },
+            error: function () {
+                return false;
+            }
+        });
+    })
+
+    //通过快捷键shift/shift+ctrl实现多选复选框
+    var selected_begin_index,
+        selected_end_index;
+        $(".selectedTd").on("click", ".start", function (e) {
+            var _selectable = $(this).parent();
+            if (!e.ctrlKey && !e.shiftKey) {  //没有按下Ctrl或Shift键
+                if (!$(this).checked) {
+                    _selectable.children(".start").checked = false;
+                }
+                $(this).checked = true;
+                selected_begin_index = _selectable.children(".start").attr("index");
+                } else if ((!e.ctrlKey && e.shiftKey) || (e.ctrlKey && e.shiftKey)) { //只按下Shift键或Ctrl和Shift键都按下
+                _selectable.children(".start").checked = false;
+                $(this).checked = true;
+
+                if (selected_begin_index != undefined) {
+                    selected_end_index = _selectable.children(".start").attr("index");
+                } else {
+                    selected_begin_index = _selectable.children(".start").attr("index");
+                }
+
+                var indexMax = Math.max(selected_begin_index, selected_end_index);
+                var indexMin = Math.min(selected_begin_index, selected_end_index);
+                for (var i = indexMin; i <= indexMax; i++) {
+                    for (var j = 0; j < $(".selectedTd").length ; j++) {
+                        var myOwn = $(".selectedTd")[j].children[0];
+                        if (myOwn.getAttribute("index") == i) {
+                            myOwn.checked = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        })
+</script>

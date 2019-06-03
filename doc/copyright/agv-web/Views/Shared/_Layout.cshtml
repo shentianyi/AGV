@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - PWS</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jquery-plug-in")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/basic")
+    @Scripts.Render("~/bundles/highcharts")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="z-index:2000;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @*@Html.ActionLink("CuttingMrp", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            <h3 style="color: #eeeeee;margin:10px 20px 10px 10px;">PWS</h3>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                @* 命名规则： nav- Controller 小写  *@
+
+                <li class="nav-home">@Html.ActionLink("首页", "Index", "Home")</li> 
+                <li class="nav-undone-stock">@Html.ActionLink("库位", "Index", "Position")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("成品线束", "Index", "UniqueItem")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("库存", "Index", "Storage")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("库存记录", "Index", "StockMovement")</li>
+                @*<li class="nav-undone-stock">@Html.ActionLink("Delivery", "Index", "Delivery")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("DeliveryItem", "Index", "DeliveryItem")</li>*@
+                <li class="nav-undone-stock">@Html.ActionLink("取货单", "Index", "PickList")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("取货单详细", "Index", "PickListItem")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("控制任务", "Index", "StockTask")</li>
+                <li class="nav-undone-stock">@Html.ActionLink("控制任务日志", "Index", "StockTaskLog")</li>
+                 </ul>
+
+            @*@Html.Partial("_LoginPartial")*@
+        </div>
+    </div>
+    <div class="body-content">
+        @RenderBody()
+    </div>
+
+    <script type="text/javascript">
+        var PathName = window.location.pathname.split('/');
+
+        //判断是哪个Controller 在控制， 相应的添加 选中显示
+        if ($(".nav-" + PathName[1].toLowerCase()).hasClass("nav-choosed")) {
+            
+        }else{
+            $('.navbar-nav li').removeClass("nav-choosed");
+
+            $(".nav-" + PathName[1].toLowerCase()).addClass("nav-choosed");
+        }
+    </script>
+
+</body>
+@Html.Partial("_HandlingMsgDialog")
+</html>

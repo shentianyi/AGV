@@ -1,0 +1,63 @@
+﻿.FilterSearchBtn{
+    width:200px;
+}
+
+.filter-p {
+    -ms-word-break: break-all;
+    word-break: break-all;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.filter-content{
+    border:1px solid black; 
+    border-radius:4px;
+    height:55px;
+    line-height:22px;
+    text-align:left;
+    padding-top:2px;
+}
+
+#basic-addon-filter{
+    line-height:49px;
+}
+
+.space-mark{
+    text-align:center;
+    padding:0 33px;
+}
+
+.filter-content>span{
+    border-left:1px solid black;
+    padding:0 10px 0 20px; 
+    cursor:pointer;
+}
+
+.filter-detail{
+    display:-ms-flexbox;
+}
+
+.filter-detail>span{
+    width:81px;
+    height:38px;
+    text-align:center;
+}
+
+.filter-detail>input[type='text'], .filter-detail>input[type='number'], .filter-detail>input[type='datetime'] ,.filter-detail>select{
+    height:38px;
+    width:170px;
+    box-shadow:none;
+}
+
+.filter-detail>select{
+    width:200px;
+    text-align:center;
+}
+
+.filter-detail>select>option{
+    height:30px;
+    padding-left:20px;
+    padding-top:5px;
+    text-align:left;
+    border-bottom:1px solid #eeeeee;
+}

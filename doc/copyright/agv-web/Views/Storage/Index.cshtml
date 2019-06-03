@@ -1,0 +1,263 @@
+﻿@using MvcPaging;
+
+@model IPagedList<AGVCenterLib.Data.StorageUniqueItemView>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row" style="margin:0;">
+    <div class="col-md-16">
+        <form action="/Storage/Search" method="get">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-16">
+                <div class="marco-igroup-primary">
+                    <span>巷道机</span>
+                    <select name="RoadMachineIndex" id="RoadMachineIndex">
+                        @if (ViewBag.Query.RoadMachineIndex == null)
+                        {
+                            <option selected></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        }
+                        else if (ViewBag.Query.RoadMachineIndex == 1)
+                        {
+                            <option></option>
+                            <option selected value="1">1</option>
+                            <option value="2">2</option>
+                        }
+                        else
+                        {
+                            <option></option>
+                            <option value="1">1</option>
+                            <option selected value="2">2</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-16">
+                <div class="marco-igroup-primary">
+                    <span>箱型</span>
+                    <select name="BoxTypeId" id="BoxTypeId">
+                        @if (ViewBag.Query.BoxTypeId == null)
+                        {
+                            <option selected></option>
+                            <option value="1">大箱</option>
+                            <option value="2">小箱</option>
+                        }
+                        else if (ViewBag.Query.BoxTypeId == 1)
+                        {
+                            <option></option>
+                            <option selected value="1">大箱</option>
+                            <option value="2">小箱</option>
+                        }
+                        else
+                        {
+                            <option></option>
+                            <option value="1">大箱</option>
+                            <option selected value="2">小箱</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-16">
+                <div class="marco-igroup-primary">
+                    <span>配置号</span>
+                    <input type="text" name="PartNrAct" id="PartNrAct placeholder="配置号" value="@ViewBag.Query.PartNrAct" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-16">
+                <div class="marco-igroup-primary">
+                    <span>KSK 号</span>
+                    <input type="text" name="Nr" id="Nr" placeholder="KSK 号" value="@ViewBag.Query.Nr" />
+                </div>
+            </div>
+                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-16">
+                     <div class="marco-igroup-primary">
+                         <span>大众KNr</span>
+                         <input type="text" name="KNr" id="KNr" placeholder="大众KNr" value="@ViewBag.Query.KNr" />
+                     </div>
+            </div>
+            
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-16">
+                <div class="marco-igroup-primary">
+                    <span>库位号</span>
+                    <input type="text" name="PositionNr" id="PositionNr" placeholder="库位号" value="@ViewBag.Query.PositionNr" />
+                    
+                 </div>
+            </div>
+
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-16">
+        <div class="marco-igroup-primary">
+            <span>FIFO</span>
+            <input type="text" name="FIFOStart" id="FIFOStart" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.FIFOStart" />
+            <span style="margin-left: 5px;"> ~ </span>
+            <input type="text" name="FIFOEnd" id="FIFOEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.FIFOEnd" />
+            <button type="submit" class="marco-btn-success" style="margin-left:0;">
+                <i class="glyphicon glyphicon-search"></i>
+                搜索
+            </button>
+        </div>
+    </div>
+
+        </form>
+
+        @*<form>
+            <div>
+                <button type="submit" class="marco-btn-success" style="margin-left:0;">
+    <i class="glyphicon glyphicon-export"></i>
+    导出库存
+</button> 
+            </div>
+        </form>*@
+
+        @*<form>
+            <button type="submit">
+                <a href="/Storage/TestMove" class="btn btn-error">测试</a>
+            </button>
+        </form>*@
+
+
+        <div>
+            @Html.ActionLink("导出库存", "Export", new
+       {
+           RoadMachineIndex=ViewBag.Query.RoadMachineIndex,
+           BoxTypeId=ViewBag.Query.BoxTypeId,
+           PartNrAct = ViewBag.Query.PartNrAct,
+           Nr=ViewBag.Query.Nr,
+           KNr=ViewBag.Query.KNr,
+           FIFOStart=ViewBag.Query.FIFOStart,
+           FIFOEnd=ViewBag.Query.FIFOEnd,
+           PositionNr =ViewBag.Query.PositionNr
+       }, new { @style = "width:150px; margin-top:10px;margin-left:30px;",
+           @class = "btn btn-success",
+           @title = "先搜索，根据搜索条件导出报表",
+           data_toggle = "tooltip",
+           data_placement = "bottom" })
+        @*</div>
+        <div>*@
+           <a href="/Storage/ImportOutStock" class="btn btn-error">导入Csv文件出库</a>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>&nbsp;</th>
+        <th>
+            巷道机
+        </th><th>
+                 库位区域
+</th>
+        <th>
+            库位号
+        </th>
+        <th>
+            零件号
+        </th>
+      
+        <th>
+            KSK号
+        </th>
+        <th>
+    大众号
+</th>
+
+        <th>
+          箱型
+        </th>
+        <th>
+            FIFO
+        </th>
+       
+        @*<th></th>*@
+    </tr>
+
+@if (Model != null)
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@(i += 1)</td>
+            <td>
+    @Html.DisplayFor(modelItem => item.PositionRoadMachineIndex)
+</td><td>
+    @Html.DisplayFor(modelItem => item.PositionWarehouseAreaNr)
+</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionNr)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.PartNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UniqueItemNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UniqueItemKNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BoxTypeStr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FIFO)
+            </td>
+
+
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                </td>*@
+        </tr>
+    }
+}
+</table>
+
+
+
+<div class="col-sm-12" style="text-align:center;">
+    <div class="clearfix pagination">
+        <div class="pagination-inner">
+            @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("PositionNr", ViewBag.Query.PositionNr))
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
+                         .Options(o => o.AddRouteValue("KNr", ViewBag.Query.KNr))
+                         .Options(o => o.AddRouteValue("PartNrAct", ViewBag.Query.PartNrAct))
+                         .Options(o => o.AddRouteValue("BoxTypeId", ViewBag.Query.BoxTypeId))
+                         .Options(o => o.AddRouteValue("RoadMachineIndex", ViewBag.Query.RoadMachineIndex))
+                        .Options(o => o.AddRouteValue("FIFOStart", ViewBag.Query.FIFOStart))
+                         .Options(o => o.AddRouteValue("FIFOEnd", ViewBag.Query.FIFOEnd));
+                    @html
+                }
+                else
+                {
+                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                }
+
+
+                <br />
+                    <span>总数： @Model.TotalItemCount</span>
+                    <br />
+            }
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $('.datetimepicker').datetimepicker({
+        format: 'Y-m-d H:i'
+    });
+
+</script>

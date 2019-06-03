@@ -6,7 +6,10 @@
       <Value Profile="(Default)">30</Value>
     </Setting>
     <Setting Name="db" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=192.168.0.99;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa;Password=123456@</Value>
+      <Value Profile="(Default)">Data Source=42.121.111.38;Initial Catalog=AgvWarehouseDb;Persist Security Info=True;User ID=sa;Password=123456@</Value>
+    </Setting>
+    <Setting Name="appname" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">#appname# IF TECH Automated Warehouse Online Manage System</Value>
     </Setting>
   </Settings>
 </SettingsFile>
