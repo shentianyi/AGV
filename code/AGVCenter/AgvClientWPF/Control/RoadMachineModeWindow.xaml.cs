@@ -37,7 +37,7 @@ namespace AgvClientWPF.Control
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.OpenRabbitMQConnect();
+            //this.OpenRabbitMQConnect();
             this.LoadTaskScheduleList();
         }
 
@@ -270,7 +270,7 @@ namespace AgvClientWPF.Control
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ShutDownRabbitMQConnect();
+            //ShutDownRabbitMQConnect();
         }
 
         private void addTaskScheduleBtn_Click(object sender, RoutedEventArgs e)
